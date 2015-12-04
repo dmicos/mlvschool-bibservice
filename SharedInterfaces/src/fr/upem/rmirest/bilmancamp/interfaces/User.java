@@ -1,5 +1,7 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
+import java.util.List;
+
 public interface User {
 
 	/**
@@ -21,6 +23,13 @@ public interface User {
 	 * @return the current user's library card number.
 	 */
 	public int getCardNumber();
+
+	/**
+	 * Get a list of all borrowed books.
+	 * 
+	 * @return a list of all the books the current user have borrowed.
+	 */
+	public List<Book> getBookHistory();
 
 	/**
 	 * Indicates if the given credentials are valid for the current user.

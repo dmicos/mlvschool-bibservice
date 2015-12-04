@@ -1,5 +1,9 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.util.Collections;
+import java.util.List;
+
+import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
@@ -17,7 +21,7 @@ public class UserImpl implements User {
 	 * 
 	 * Proxy Pattern is used to switch from a real and connected {@link User} to
 	 * a disconnected {@link User} which use a Null Object pattern to avoid
-	 * issues when the client uses a disconnected user like a conencted one.
+	 * issues when the client uses a disconnected user like a connected one.
 	 * 
 	 * @author qcampos
 	 *
@@ -30,12 +34,16 @@ public class UserImpl implements User {
 		private final String password;
 		private final int cardNumber;
 
-		public RealUser(String status, String firstName, String lastName, String password, int cardNumber) {
+		private final List<Book> history;
+
+		public RealUser(String status, String firstName, String lastName, String password, int cardNumber,
+				List<Book> history) {
 			this.status = status;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.password = password;
 			this.cardNumber = cardNumber;
+			this.history = history;
 		}
 
 		@Override
@@ -56,6 +64,11 @@ public class UserImpl implements User {
 		@Override
 		public int getCardNumber() {
 			return cardNumber;
+		}
+
+		@Override
+		public List<Book> getBookHistory() {
+			return Collections.unmodifiableList(history);
 		}
 
 		@Override
@@ -98,6 +111,11 @@ public class UserImpl implements User {
 		}
 
 		@Override
+		public List<Book> getBookHistory() {
+			return Collections.emptyList();
+		}
+
+		@Override
 		public void disconnect() {
 			// Do nothing
 		}
@@ -113,8 +131,9 @@ public class UserImpl implements User {
 	 */
 	private User realUser;
 
-	public UserImpl(String status, String firstName, String lastName, String password, int cardNumber) {
-		realUser = new RealUser(status, firstName, lastName, password, cardNumber);
+	public UserImpl(String status, String firstName, String lastName, String password, int cardNumber,
+			List<Book> history) {
+		realUser = new RealUser(status, firstName, lastName, password, cardNumber, history);
 	}
 
 	// Delegation methods.
@@ -149,6 +168,12 @@ public class UserImpl implements User {
 		// object valid even after being disconnected.
 		realUser = NULL_USER_SINGLETON;
 
+	}
+
+	@Override
+	public List<Book> getBookHistory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
