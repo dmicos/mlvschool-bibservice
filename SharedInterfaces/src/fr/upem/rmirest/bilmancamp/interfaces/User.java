@@ -35,7 +35,7 @@ public interface User {
 	public boolean isLoginValid(String id, String password);
 
 	/**
-	 * Disconnect the used. Standard values are still accessible, but not
+	 * Disconnect the user. Standard values are still accessible, but not
 	 * interactions with the library.
 	 */
 	public void disconnect();
