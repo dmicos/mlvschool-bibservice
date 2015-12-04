@@ -14,47 +14,52 @@ public interface Book {
 	/**
 	 * @return the current book's title.
 	 */
-	String getTitle();
+	public String getTitle();
 
 	/**
 	 * @return a list of the current book's authors.
 	 */
-	List<String> getAuthors();
+	public List<String> getAuthors();
+
+	/**
+	 * @return the current book's summary.
+	 */
+	public String getSummary();
 
 	/**
 	 * @return a list of the categories of the current book.
 	 */
-	List<String> getCategories();
+	public List<String> getCategories();
 
 	/**
 	 * @return the price of the current book.
 	 */
-	double getPrice();
+	public double getPrice();
 
 	/**
 	 * @return the average evaluation of the current book.
 	 */
-	float getRate();
+	public float getRate();
 
 	/**
 	 * @return the number of evaluations of the current book.
 	 */
-	int getRateNumber();
+	public int getRateNumber();
 
 	/**
 	 * @return a list of the current book's tags.
 	 */
-	List<String> getTags();
+	public List<String> getTags();
 
 	/**
 	 * @return the main {@link Image} of the current book.
 	 */
-	Image getMainImage();
+	public Image getMainImage();
 
 	/**
 	 * @return a list of secondary {@link Image}s of the current book.
 	 */
-	List<Image> getSecondaryImages();
+	public List<Image> getSecondaryImages();
 
 	// TODO ajouter les autres getters de je suis fatigué loool.
 	// Tu les trouveras en faisant la classe d'implantation !
