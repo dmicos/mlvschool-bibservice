@@ -32,6 +32,11 @@ public interface Book {
 	public List<String> getCategories();
 
 	/**
+	 * @return how many times the current {@link Book} was borrowed.
+	 */
+	public int getConsultationNumber();
+
+	/**
 	 * @return the price of the current book.
 	 */
 	public double getPrice();
