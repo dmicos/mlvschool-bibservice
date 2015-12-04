@@ -6,36 +6,132 @@ import java.util.List;
  * Warning ! Server security : All Book's methods invoked here must not throw
  * any exceptions.
  *
- */
+ */ 
 public interface Library {
 
-	// Creations methods
 	// TODO Image is a serializable interface.
+	/**
+	 * Add a new {@link Book} to the current {@link Library}.
+	 * 
+	 * @param title
+	 *            the book's title.
+	 * @param authors
+	 *            a list of the book's authors.
+	 * @param summary
+	 *            the abstract of the book.
+	 * @param mainImage 
+	 *            the {@link Image} of the book's presentation.
+	 * @param secondaryImages
+	 * @param categories
+	 *            a list of strings which represents the categories of the book.
+	 * @param price
+	 *            the price of the book.
+	 * @param tags
+	 *            a list of words related to the book.
+	 * @throws IllegalArgumentException
+	 *             if one of the arguments is <code>null</code> or invalid.
+	 */
 	public void addBook(String title, List<String> authors, String summary, Image mainImage,
 			List<Image> secondaryImages, List<String> categories, double price, List<String> tags)
 					throws IllegalArgumentException;
 
+	/**
+	 * Register a new user in the library.
+	 * 
+	 * @param status
+	 *            the status of the user.
+	 * @param firstname
+	 * @param lastname
+	 * @param cardNumber
+	 *            the unique library's card number of the user.
+	 * @param password
+	 *            user's password.
+	 * @return <code>true</code> if the registration was successfull,
+	 *         <code>false</code> TODO (Quand ?)
+	 * @throws IllegalArgumentException
+	 *             if one of the arguments is <code>null</code> or invalid.
+	 */
 	public boolean addUser(String status, String firstname, String lastname, int cardNumber, String password)
 			throws IllegalArgumentException;
 
+	/**
+	 * Connect a user using it's id and it's password.
+	 * 
+	 * @param id
+	 *            the unique id of the user, composed of it's name and it's card
+	 *            number.
+	 * @param password
+	 *            the user's password.
+	 * @return a {@link User} object which allows interactions with the books.
+	 * @throws IllegalArgumentException
+	 *             TODO
+	 */
 	public User connect(String id, String password) throws IllegalArgumentException;
 
-	// Researches
+	/**
+	 * Search a {@link Book} using some keywords, which can be tags, categories,
+	 * author, or part of the title.
+	 * 
+	 * @param keywords
+	 *            the list of keywords used to search.
+	 * @return a list of {@link Book} which corresponds to the keywords.
+	 */
 	public List<Book> searchBooks(String... keywords);
 
-	// Categories
+	/**
+	 * Get the existing categories of books in the library.
+	 * 
+	 * @return the list of categories.
+	 */
 	public List<String> getCategories();
 
+	/**
+	 * TODO ?
+	 * 
+	 * @return
+	 */
 	public int getCategorySize();
 
+	/**
+	 * Get all the {@link Book}s which are of the given category.
+	 * 
+	 * @param category
+	 *            the category of {@link Book}s which are researched.
+	 * @return a list of {@link Book}s of the given category.
+	 */
 	public List<Book> getCategoryBooks(String category);
 
-	// Global book getters
+	/**
+	 * 
+	 * @param number
+	 * @return a list of the <code>number</code> most recently added books.
+	 */
 	public List<Book> getMoreRecentBooks(int number);
 
+	/**
+	 * 
+	 * @param number
+	 * @return a list of the <code>number</code> first books based of book's
+	 *         evaluations. 
+	 */
 	public List<Book> getBestRatedBooks(int number);
 
+	/**
+	 * 
+	 * @param number
+	 * @return a list of the <code>number</code> most borrowed books.
+	 */
 	public List<Book> getMostConsultedBooks(int number);
 
+	/**
+	 * Get the <code>number</code> books the most similar to the given one.
+	 * 
+	 * @param book
+	 *            the comparaison book.
+	 * @param number
+	 *            the wanted number of books.
+	 * @return a list of the <code>number</code> books the most similar to
+	 *         <code>book</code>.
+	 */
 	public List<Book> getMostSimilarsBooks(Book book, int number);
 }
