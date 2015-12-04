@@ -6,7 +6,7 @@ import java.util.List;
  * Warning ! Server security : All Book's methods invoked here must not throw
  * any exceptions.
  *
- */ 
+ */
 public interface Library {
 
 	// TODO Image is a serializable interface.
@@ -19,7 +19,7 @@ public interface Library {
 	 *            a list of the book's authors.
 	 * @param summary
 	 *            the abstract of the book.
-	 * @param mainImage 
+	 * @param mainImage
 	 *            the {@link Image} of the book's presentation.
 	 * @param secondaryImages
 	 * @param categories
@@ -40,18 +40,18 @@ public interface Library {
 	 * 
 	 * @param status
 	 *            the status of the user.
-	 * @param firstname
-	 * @param lastname
+	 * @param firstName
+	 * @param lastName
 	 * @param cardNumber
 	 *            the unique library's card number of the user.
 	 * @param password
 	 *            user's password.
-	 * @return <code>true</code> if the registration was successfull,
-	 *         <code>false</code> TODO (Quand ?)
+	 * @return <code>true</code> if the registration was successful,
+	 *         <code>false</code> otherwise (user already existing).
 	 * @throws IllegalArgumentException
 	 *             if one of the arguments is <code>null</code> or invalid.
 	 */
-	public boolean addUser(String status, String firstname, String lastname, int cardNumber, String password)
+	public boolean addUser(String status, String firstName, String lastName, int cardNumber, String password)
 			throws IllegalArgumentException;
 
 	/**
@@ -112,7 +112,7 @@ public interface Library {
 	 * 
 	 * @param number
 	 * @return a list of the <code>number</code> first books based of book's
-	 *         evaluations. 
+	 *         evaluations.
 	 */
 	public List<Book> getBestRatedBooks(int number);
 
