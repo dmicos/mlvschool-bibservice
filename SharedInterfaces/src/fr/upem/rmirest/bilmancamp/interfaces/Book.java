@@ -12,6 +12,13 @@ public interface Book {
 	// Getters de base du livre.
 
 	/**
+	 * Get the database related id of this Book.
+	 * 
+	 * @return the unique id in the database.
+	 */
+	public int getId();
+
+	/**
 	 * @return the current book's title.
 	 */
 	public String getTitle();
@@ -66,9 +73,19 @@ public interface Book {
 	 */
 	public List<Image> getSecondaryImages();
 
+	/**
+	 * @return a list of all the comments that have been posted about the book.
+	 */
+	public List<BookComment> getComments();
+
 	// TODO ajouter les autres getters de je suis fatigué loool.
 	// Tu les trouveras en faisant la classe d'implantation !
 	// Je checkerai aprÃ¨s mon cours,,,,
+
+	/**
+	 * @return <code>true</code> if the book can be borrowed.
+	 */
+	public boolean isAvailable();
 
 	/**
 	 * Borrows the current book if available. If it is not, add the user in the

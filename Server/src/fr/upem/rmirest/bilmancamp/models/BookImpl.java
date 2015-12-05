@@ -17,7 +17,11 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 public class BookImpl implements Book, Remote {
 
+	// Id counter
+	private static int idCount = 1;
+
 	// Model fields
+	private final int id;
 	private final String title;
 	private final List<String> authors;
 	private final String summary;
@@ -39,6 +43,9 @@ public class BookImpl implements Book, Remote {
 	public BookImpl(String title, List<String> authors, String summary, List<String> categories, double price,
 			List<String> tags, Image mainImage, List<Image> secondaryImages) {
 		super();
+		// Database fields
+		id = idCount;
+		idCount++;
 		// Model fields initialization
 		this.title = Objects.requireNonNull(title);
 		this.authors = Objects.requireNonNull(authors);
@@ -62,6 +69,11 @@ public class BookImpl implements Book, Remote {
 	}
 
 	// Getters
+	
+	@Override
+	public int getId() {
+		return id;
+	}
 
 	@Override
 	public String getTitle() {
@@ -119,6 +131,16 @@ public class BookImpl implements Book, Remote {
 	@Override
 	public int getRateNumber() {
 		return rateNumber;
+	}
+
+	@Override
+	public List<BookComment> getComments() {
+		return Collections.unmodifiableList(comments);
+	}
+
+	@Override
+	public boolean isAvailable() {
+		return borrower == null;
 	}
 
 	@Override
@@ -237,6 +259,5 @@ public class BookImpl implements Book, Remote {
 
 		return true;
 	}
-	
 
 }

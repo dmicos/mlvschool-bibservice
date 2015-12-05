@@ -5,6 +5,13 @@ import java.util.List;
 public interface User {
 
 	/**
+	 * Get the database related id of this User.
+	 * 
+	 * @return the unique id in the database.
+	 */
+	public int getId();
+
+	/**
 	 * @return the status of the current user.
 	 */
 	public String getStatus();

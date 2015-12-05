@@ -29,6 +29,7 @@ public class UserImpl implements User, Remote {
 	 */
 	private class RealUser implements User {
 
+		// Model fields
 		private final String status;
 		private final String firstName;
 		private final String lastName;
@@ -39,12 +40,19 @@ public class UserImpl implements User, Remote {
 
 		public RealUser(String status, String firstName, String lastName, String password, int cardNumber,
 				List<Book> history) {
+
+			// Model fields
 			this.status = status;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.password = password;
 			this.cardNumber = cardNumber;
 			this.history = history;
+		}
+
+		@Override
+		public int getId() {
+			return 0;
 		}
 
 		@Override
@@ -155,6 +163,11 @@ public class UserImpl implements User, Remote {
 	private final static User NULL_USER_SINGLETON = new User() {
 
 		@Override
+		public int getId() {
+			return 0;
+		};
+
+		@Override
 		public String getStatus() {
 			return "None";
 		}
@@ -198,6 +211,11 @@ public class UserImpl implements User, Remote {
 		};
 	};
 
+	// Database fields
+	private static int idCount = 1;
+	private int id;
+
+	// Model fields
 	/**
 	 * The real {@link User} object which will receive all delegation methods.
 	 */
@@ -205,7 +223,17 @@ public class UserImpl implements User, Remote {
 
 	public UserImpl(String status, String firstName, String lastName, String password, int cardNumber,
 			List<Book> history) {
+
+		// Model field
 		realUser = new RealUser(status, firstName, lastName, password, cardNumber, history);
+		// Database fields
+		id = idCount;
+		idCount++;
+	}
+
+	@Override
+	public int getId() {
+		return id;
 	}
 
 	// Delegation methods.
