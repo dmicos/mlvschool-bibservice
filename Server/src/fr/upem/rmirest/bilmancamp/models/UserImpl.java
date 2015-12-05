@@ -74,7 +74,7 @@ public class UserImpl implements User, Remote {
 
 		@Override
 		public boolean isLoginValid(String id, String password) {
-			return id.equals(firstName + lastName + cardNumber) && password.equals(this.password);
+			return id.equals(Library.computeId(this)) && password.equals(this.password);
 		}
 
 		@Override
