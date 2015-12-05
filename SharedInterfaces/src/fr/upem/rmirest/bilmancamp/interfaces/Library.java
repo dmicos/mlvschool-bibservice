@@ -134,4 +134,16 @@ public interface Library {
 	 *         <code>book</code>.
 	 */
 	public List<Book> getMostSimilarsBooks(Book book, int number);
+
+	/**
+	 * Compute the login of the given {@link User}.
+	 * 
+	 * @param user
+	 *            the user which id will be computed.
+	 * @return the login of the given user.
+	 */
+	static String computeId(User user) {
+		return user.getFirstName().substring(0, 1).toLowerCase() + user.getLastName().toLowerCase()
+				+ user.getCardNumber();
+	}
 }

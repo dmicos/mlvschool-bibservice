@@ -27,6 +27,8 @@ public interface User {
 	/**
 	 * Get a list of all borrowed books.
 	 * 
+	 * TODO Maybe move as Library::getBookHistory(User) for database access.
+	 * 
 	 * @return a list of all the books the current user have borrowed.
 	 */
 	public List<Book> getBookHistory();
