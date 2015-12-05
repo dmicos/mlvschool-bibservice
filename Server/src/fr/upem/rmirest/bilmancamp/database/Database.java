@@ -18,12 +18,12 @@ public interface Database {
 	/**
 	 * Add the given {@link User} to the database.
 	 * 
-	 * @param newUser
+	 * @param user
 	 *            the user to add.
 	 * @return <code>true</code> if the user was added correctly,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean addUser(User newUser);
+	public boolean addUser(User user);
 
 	/**
 	 * Get a {@link User} object from the database values, using the given
@@ -45,7 +45,7 @@ public interface Database {
 	 *            an {@link Iterable} of keywords.
 	 * @return a list of books that corresponds to one of the keywords.
 	 */
-	public List<Book> searchBookFromKeywords(String[] keywords);
+	public List<Book> searchBookFromKeywords(String... keywords);
 
 	/**
 	 * Get all the categories of books in the database.
