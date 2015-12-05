@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,10 +11,14 @@ import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
-public class LibraryImpl implements Library {
+public class LibraryImpl implements Library, Remote {
 
 	// Library values
-	private Database database;
+	private final Database database;
+
+	public LibraryImpl(Database database) {
+		this.database = database;
+	}
 
 	@Override
 	public void addBook(String title, List<String> authors, String summary, Image mainImage,

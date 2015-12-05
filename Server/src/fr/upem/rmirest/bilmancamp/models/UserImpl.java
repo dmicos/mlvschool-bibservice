@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.rmi.Remote;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
  * @author qcampos
  *
  */
-public class UserImpl implements User {
+public class UserImpl implements User, Remote {
 
 	/**
 	 * The {@link UserImpl} is in reality a proxy for {@link User}. It will
