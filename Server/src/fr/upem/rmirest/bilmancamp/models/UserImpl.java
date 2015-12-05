@@ -84,7 +84,7 @@ public class UserImpl implements User, Remote {
 
 		@Override
 		public String toString() {
-			return String.format("{} n°{} - {} {}", getStatus(), getCardNumber(), getFirstName(), getLastName());
+			return String.format("%s n°%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
 		}
 
 		@Override

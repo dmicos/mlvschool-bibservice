@@ -184,7 +184,7 @@ public class BookImpl implements Book, Remote {
 
 	@Override
 	public String toString() {
-		return String.format("{} by {}", getTitle(), getAuthors());
+		return String.format("%s by %s", getTitle(), getAuthors());
 	}
 
 	@Override
@@ -237,5 +237,6 @@ public class BookImpl implements Book, Remote {
 
 		return true;
 	}
+	
 
 }
