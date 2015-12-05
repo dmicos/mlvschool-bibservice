@@ -157,12 +157,16 @@ public class BookImpl implements Book, Remote {
 	@Override
 	public void giveBack(User user) {
 		if (borrower.equals(user)) {
-			User newBorrower = subscribers.pop();
-			// TODO find a way to notify the Library that the book was borrowed
-			// by this user. (for borrowing history)
-			// Borrowing history should not be stored into the User object
-			// because of it's Database related nature.
-			borrower = user;
+			// If there is an user waiting for this book.
+			if (!subscribers.isEmpty()) {
+				User newBorrower = subscribers.pop();
+				// TODO find a way to notify the Library that the book was
+				// borrowed
+				// by this user. (for borrowing history)
+				// Borrowing history should not be stored into the User object
+				// because of it's Database related nature.
+				borrower = user;
+			}
 		}
 	}
 
