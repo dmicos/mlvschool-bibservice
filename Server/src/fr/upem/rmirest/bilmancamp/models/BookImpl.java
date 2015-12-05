@@ -182,4 +182,60 @@ public class BookImpl implements Book, Remote {
 		return Arrays.asList(subscribers.toArray()).indexOf(user) + 1;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("{} by {}", getTitle(), getAuthors());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((authors == null) ? 0 : authors.hashCode());
+		result = prime * result + ((categories == null) ? 0 : categories.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((summary == null) ? 0 : summary.hashCode());
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof BookImpl)) {
+			return false;
+		}
+		Book other = (Book) obj;
+
+		if (!this.getTitle().equals(other.getTitle())) {
+			return false;
+		}
+		if (!this.getAuthors().equals(other.getAuthors())) {
+			return false;
+		}
+
+		if (!this.getSummary().equals(other.getSummary())) {
+			return false;
+		}
+		if (!this.getCategories().equals(other.getCategories())) {
+			return false;
+		}
+		if (!this.getTags().equals(other.getTags())) {
+			return false;
+		}
+		if (this.getPrice() != other.getPrice()) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

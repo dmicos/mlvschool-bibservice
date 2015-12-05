@@ -82,6 +82,69 @@ public class UserImpl implements User, Remote {
 			// Do nothing here.
 		}
 
+		@Override
+		public String toString() {
+			return String.format("{} n°{} - {} {}", getStatus(), getCardNumber(), getFirstName(), getLastName());
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + cardNumber;
+			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+			result = prime * result + ((status == null) ? 0 : status.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (!(obj instanceof RealUser)) {
+				return false;
+			}
+			RealUser other = (RealUser) obj;
+			if (!getOuterType().equals(other.getOuterType())) {
+				return false;
+			}
+			if (cardNumber != other.cardNumber) {
+				return false;
+			}
+			if (firstName == null) {
+				if (other.firstName != null) {
+					return false;
+				}
+			} else if (!firstName.equals(other.firstName)) {
+				return false;
+			}
+			if (lastName == null) {
+				if (other.lastName != null) {
+					return false;
+				}
+			} else if (!lastName.equals(other.lastName)) {
+				return false;
+			}
+			if (status == null) {
+				if (other.status != null) {
+					return false;
+				}
+			} else if (!status.equals(other.status)) {
+				return false;
+			}
+			return true;
+		}
+
+		private UserImpl getOuterType() {
+			return UserImpl.this;
+		}
+
 	}
 
 	/**
@@ -125,6 +188,14 @@ public class UserImpl implements User, Remote {
 		public boolean isLoginValid(String id, String password) {
 			return false;
 		}
+
+		public String toString() {
+			return "Disconnected user";
+		}
+
+		public boolean equals(Object obj) {
+			return false;
+		};
 	};
 
 	/**
@@ -175,6 +246,39 @@ public class UserImpl implements User, Remote {
 	public List<Book> getBookHistory() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return realUser.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		// Card number is supposed to be unique.
+		return realUser.getCardNumber();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		UserImpl other = (UserImpl) obj;
+		if (realUser == null) {
+			if (other.realUser != null) {
+				return false;
+			}
+		} else if (!realUser.equals(other.realUser)) {
+			return false;
+		}
+		return true;
 	}
 
 }
