@@ -1,6 +1,8 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
 import java.rmi.Remote;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,11 +15,18 @@ public interface Book extends Remote {
 	// Getters de base du livre.
 
 	/**
-	 * Get the database related id of this Book.
+	 * Get the database related id of the current Book.
 	 * 
 	 * @return the unique id in the database.
 	 */
 	public int getId();
+
+	/**
+	 * Get the creation {@link Date} of the current book.
+	 * 
+	 * @return the date of the book creation.
+	 */
+	public LocalDate getDate();
 
 	/**
 	 * @return the current book's title.

@@ -1,9 +1,11 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.time.LocalDate;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -19,8 +21,10 @@ public class BookImpl implements Book {
 	// Id counter
 	private static int idCount = 1;
 
-	// Model fields
+	// Database fields
 	private final int id;
+	private final LocalDate date;
+	// Model fields
 	private final String title;
 	private final List<String> authors;
 	private final String summary;
@@ -45,6 +49,7 @@ public class BookImpl implements Book {
 		// Database fields
 		id = idCount;
 		idCount++;
+		date = LocalDate.now();
 		// Model fields initialization
 		this.title = Objects.requireNonNull(title);
 		this.authors = Objects.requireNonNull(authors);
@@ -72,6 +77,11 @@ public class BookImpl implements Book {
 	@Override
 	public int getId() {
 		return id;
+	}
+
+	@Override
+	public LocalDate getDate() {
+		return date.plusDays(0);
 	}
 
 	@Override
