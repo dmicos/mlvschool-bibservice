@@ -15,7 +15,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookImpl;
 import fr.upem.rmirest.bilmancamp.models.UserImpl;
 
-public class MapDatabaseTest {
+public class JavaDatabaseTest {
 
 	/**
 	 * Return a {@link Database} of the tested implementation. Allows this junit
@@ -24,7 +24,7 @@ public class MapDatabaseTest {
 	 * @return a Database object of the tested class.
 	 */
 	private static Database implementation() {
-		return new MapDatabase();
+		return new JavaDatabase();
 	}
 
 	private static Image image() {
