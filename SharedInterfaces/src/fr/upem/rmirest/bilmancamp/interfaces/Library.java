@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
+import java.rmi.Remote;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * any exceptions.
  *
  */
-public interface Library {
+public interface Library extends Remote {
 
 	// TODO Image is a serializable interface.
 	/**

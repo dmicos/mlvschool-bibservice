@@ -1,6 +1,5 @@
 package fr.upem.rmirest.bilmancamp.models;
 
-import java.rmi.Remote;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +14,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
-public class BookImpl implements Book, Remote {
+public class BookImpl implements Book {
 
 	// Id counter
 	private static int idCount = 1;
@@ -69,7 +68,7 @@ public class BookImpl implements Book, Remote {
 	}
 
 	// Getters
-	
+
 	@Override
 	public int getId() {
 		return id;

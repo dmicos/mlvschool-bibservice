@@ -1,6 +1,5 @@
 package fr.upem.rmirest.bilmancamp.models;
 
-import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +10,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
-public class LibraryImpl implements Library, Remote {
+public class LibraryImpl implements Library {
 
 	// Library values
 	private final Database database;
