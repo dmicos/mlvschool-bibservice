@@ -156,7 +156,6 @@ public class JavaDatabaseTest {
 		// Get the last added book.
 		List<Book> result = db.getBookRecents(1);
 		// Check if it is only the last one.
-		System.out.println(result);
 		Assert.assertTrue("Last added book is not in the list", result.contains(lastBook));
 		Assert.assertFalse("An older book is in the list", result.contains(book1));
 		Assert.assertFalse("A book never added to the database is in the list", result.contains(book2));
