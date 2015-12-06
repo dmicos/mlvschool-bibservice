@@ -1,0 +1,50 @@
+/* Basic CSS description of my own visual of Java FX. 
+ * Copyright Abwuds 2016.
+ */
+ 
+ 
+ /* Size of the scene */
+ .sceneSize {
+ 	-fx-pref-width: 1200.0;
+ 	-fx-pref-height: 800.0;
+ }
+ 
+ /* COLORS */
+ .blackBackground {
+ 	-fx-background-color: #1f1f1f;
+ }
+ 
+ .orangeText, #connexionTitle {
+ 	-fx-fill: #e37b04;
+ }
+ 
+ .whiteText, #connexionSubTitle {
+ 	-fx-fill: #ffffff;
+ }
+ 
+ .white70Text, #connexionFooter {
+ 	-fx-fill: #ffffffB3;
+ }
+ 
+ /* \COLORS */
+ 
+ /* FONTS */
+.uiRegularFont, #connexionTitle {
+	-fx-font-family: "SF UI Display Regular";
+}
+ 
+.uiLightFont, #connexionFooter {
+	-fx-font-family: "SF UI Display Light";
+}
+
+ #connexionTitle, #connexionSubTitle {
+ 	-fx-font-size: 110.0px;
+ }
+ 
+ #connexionSubTitle {
+ 	-fx-font-size: 30.0px;
+ }
+ 
+ #connexionFooter {
+ 	-fx-font-size: 18px;
+ }

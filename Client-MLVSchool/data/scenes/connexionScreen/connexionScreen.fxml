@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+
+<VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../css/florange.css">
+         <children>
+            <Text id="connexionTitle" layoutX="271.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School">
+            </Text>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="858.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/hand_book_icon.png" />
+               </image>
+            </ImageView>
+            <Text id="connexionSubTitle" layoutX="781.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI.">
+               <font>
+                  <Font name="SF UI Display Regular" size="13.0" />
+               </font></Text>
+         </children>
+         <VBox.margin>
+            <Insets top="70.0" />
+         </VBox.margin>
+      </Pane>
+      <Text id="connexionFooter" strokeType="OUTSIDE" strokeWidth="0.0" text="Copyright 2015 Bilissor Yann, Campos Quentin, Mangue Jefferson." />
+   </children>
+   <styleClass>
+      <String fx:value="sceneSize" />
+      <String fx:value="blackBackground" />
+   </styleClass>
+</VBox>
