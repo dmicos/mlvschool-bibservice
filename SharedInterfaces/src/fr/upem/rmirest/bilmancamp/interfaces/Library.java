@@ -136,14 +136,15 @@ public interface Library {
 	public List<Book> getMostSimilarsBooks(Book book, int number);
 
 	/**
-	 * Compute the login of the given {@link User}.
+	 * Try to borrow the given {@link Book}. If not available, then user will
+	 * notify later once available
 	 * 
+	 * @param book
+	 *            the {@link Book} to borrow
 	 * @param user
-	 *            the user which id will be computed.
-	 * @return the login of the given user.
+	 *            the {@link User} borrowing the {@link Book}
+	 * @return <code>true</code> if available otherwise <code>false</code>
 	 */
-	static String computeId(User user) {
-		return user.getFirstName().substring(0, 1).toLowerCase() + user.getLastName().toLowerCase()
-				+ user.getCardNumber();
-	}
+	public boolean borrow(Book book, User user);
+
 }

@@ -34,7 +34,7 @@ public class LibraryImpl implements Library, Remote {
 			throws IllegalArgumentException {
 
 		User newUser = new UserImpl(status, firstName, lastName, password, cardNumber, new ArrayList<>());
-		return database.addUser(newUser);
+		return database.addUser(newUser, password);
 	}
 
 	@Override
@@ -85,6 +85,17 @@ public class LibraryImpl implements Library, Remote {
 	@Override
 	public List<Book> getMostSimilarsBooks(Book book, int number) {
 		return database.getBookMostSimilar(book, number);
+	}
+
+	@Override
+	public boolean borrow(Book book, User user) {
+
+		if (database.isAvailable(book)) {
+			return database.borrow(book, user);
+		}
+
+		database.addToQueue(user, book);
+		return false;
 	}
 
 }

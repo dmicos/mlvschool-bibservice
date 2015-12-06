@@ -1,3 +1,4 @@
 // categories={"Nature", "History", ...};
 // userStatus={"Teacher", "Student"};
 // serverAddress = "...";
+//persistence = { database:"jdbc:h2:./embedded",login:"pony",password:"merens30" };

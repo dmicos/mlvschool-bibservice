@@ -12,8 +12,10 @@ public interface Database {
 	 * 
 	 * @param book
 	 *            the book to add.
+	 * @return <code> true </code> if operation succeeds otherwise
+	 *         <code> false </code>
 	 */
-	public void addBook(Book book);
+	public boolean addBook(Book book);
 
 	/**
 	 * Add the given {@link User} to the database.
@@ -24,6 +26,15 @@ public interface Database {
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean addUser(User user);
+
+	/**
+	 * Add a new {@link User} with his password
+	 * 
+	 * @param user
+	 * @param password
+	 * @return
+	 */
+	public boolean addUser(User user, String password);
 
 	/**
 	 * Get a {@link User} object from the database values, using the given
@@ -97,5 +108,47 @@ public interface Database {
 	 *         <code>book</code>.
 	 */
 	public List<Book> getBookMostSimilar(Book book, int number);
+
+	/**
+	 * Try to borrow the given {@link Book}. If not available, then user will
+	 * notify later once available
+	 * 
+	 * @param book
+	 *            the {@link Book} to borrow
+	 * @param user
+	 *            the {@link User} borrowing the {@link Book}
+	 * @return <code>true</code> if available otherwise <code>false</code>
+	 */
+	public boolean borrow(Book book, User user);
+
+	/**
+	 * Check if the given {@link Book}is available
+	 * 
+	 * @param book
+	 *            the {@link Book} to check
+	 * @return <code>true</code> if available otherwise <code>false</code>
+	 */
+	public boolean isAvailable(Book book);
+
+	/**
+	 * Get the <code>limit</code> waiters
+	 * 
+	 * @param book
+	 *            the {@link Book} to borrow
+	 * @return a list of {@link User}
+	 */
+	public List<User> getQueue(Book book, int limit);
+
+	/**
+	 * Add given {@link User} to the {@link Book} queue
+	 * 
+	 * @param user
+	 *            The {@link User} who wants to borrow
+	 * @param book
+	 *            The {@link Book} to borrow
+	 *            
+	 *            @return <code>true</code> if succeed otherwise <code>false</code>
+	 */
+	public boolean addToQueue(User user, Book book);
 
 }

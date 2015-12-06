@@ -11,12 +11,13 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 /**
- * This implementation of {@link Database} uses Java objects to keep data instead of a real database. 
+ * This implementation of {@link Database} uses Java objects to keep data
+ * instead of a real database.
  */
 public class JavaDatabase implements Database {
 
@@ -151,7 +152,7 @@ public class JavaDatabase implements Database {
 		private final Map<String, User> users = new HashMap<>();
 
 		public boolean add(User user) {
-			String computedId = Library.computeId(user);
+			String computedId = UserHelper.computeId(user);
 			if (users.containsKey(computedId)) {
 				return false;
 			}
@@ -173,7 +174,7 @@ public class JavaDatabase implements Database {
 	}
 
 	class CategoryTable {
-		
+
 		// TODO Categories loading from a file.
 		private final List<String> categories = new ArrayList<>();
 
@@ -188,8 +189,9 @@ public class JavaDatabase implements Database {
 	private final CategoryTable cTable = new CategoryTable();
 
 	@Override
-	public void addBook(Book book) {
+	public boolean addBook(Book book) {
 		bTable.add(book);
+		return true;
 	}
 
 	@Override
@@ -242,6 +244,35 @@ public class JavaDatabase implements Database {
 	@Override
 	public List<Book> getBookMostSimilar(Book book, int number) {
 		return bTable.getMostSimilar(book, number);
+	}
+
+	@Override
+	public boolean borrow(Book book, User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<User> getQueue(Book book, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addToQueue(User user, Book book) {
+		return false;
+
+	}
+
+	@Override
+	public boolean isAvailable(Book book) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addUser(User user, String password) {
+		return addUser(user);
 	}
 
 }

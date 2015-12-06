@@ -11,4 +11,5 @@ import java.io.Serializable;
  */
 public interface Image extends Serializable {
 
+	public String getPath();
 }

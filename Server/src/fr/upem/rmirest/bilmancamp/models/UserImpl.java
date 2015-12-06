@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.util.Collections;
 import java.util.List;
 
+import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
@@ -82,7 +83,7 @@ public class UserImpl implements User, Remote {
 
 		@Override
 		public boolean isLoginValid(String id, String password) {
-			return id.equals(Library.computeId(this)) && password.equals(this.password);
+			return id.equals(UserHelper.computeId(this)) && password.equals(this.password);
 		}
 
 		@Override
@@ -221,14 +222,23 @@ public class UserImpl implements User, Remote {
 	 */
 	private User realUser;
 
-	public UserImpl(String status, String firstName, String lastName, String password, int cardNumber,
+	public UserImpl(int id, String status, String firstName, String lastName, String password, int cardNumber,
 			List<Book> history) {
 
 		// Model field
 		realUser = new RealUser(status, firstName, lastName, password, cardNumber, history);
 		// Database fields
-		id = idCount;
+		this.id = id;
 		idCount++;
+	}
+
+	public UserImpl(String status, String firstName, String lastName, String password, int cardNumber,
+			List<Book> history) {
+		this(idCount, status, firstName, lastName, password, cardNumber, Collections.emptyList());
+	}
+
+	public UserImpl(int id, String status, String firstName, String lastName, String password, int cardNumber) {
+		this(id, status, firstName, lastName, password, cardNumber, Collections.emptyList());
 	}
 
 	@Override

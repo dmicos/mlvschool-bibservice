@@ -40,11 +40,11 @@ public class BookImpl implements Book, Remote {
 	private final ArrayDeque<User> subscribers;
 	private final Set<User> raters;
 
-	public BookImpl(String title, List<String> authors, String summary, List<String> categories, double price,
+	public BookImpl(int id, String title, List<String> authors, String summary, List<String> categories, double price,
 			List<String> tags, Image mainImage, List<Image> secondaryImages) {
-		super();
+
 		// Database fields
-		id = idCount;
+		this.id = id;
 		idCount++;
 		// Model fields initialization
 		this.title = Objects.requireNonNull(title);
@@ -68,8 +68,20 @@ public class BookImpl implements Book, Remote {
 		raters = new HashSet<>();
 	}
 
+	// Quentin V1 updated by Ybilissor to persist id
+	public BookImpl(String title, List<String> authors, String summary, List<String> categories, double price,
+			List<String> tags, Image mainImage, List<Image> secondaryImages) {
+		this(idCount, title, authors, summary, categories, price, tags, mainImage, Collections.emptyList());
+	}
+
+	public BookImpl(int id, String title, List<String> authors, String summary, List<String> categories, double price,
+			List<String> tags, Image mainImage) {
+		this(id, title, authors, summary, categories, price, tags, mainImage, Collections.emptyList());
+
+	}
+
 	// Getters
-	
+
 	@Override
 	public int getId() {
 		return id;
