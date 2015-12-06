@@ -1,8 +1,9 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
+import java.rmi.Remote;
 import java.util.List;
 
-public interface User {
+public interface User extends Remote {
 
 	/**
 	 * Get the database related id of this User.
