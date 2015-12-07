@@ -1,7 +1,5 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import static org.junit.Assert.fail;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,16 +67,17 @@ public class JavaDatabaseTest {
 				db.addUser(user2, "ilovequadrillage"));
 	}
 
-//	@Test
-//	public void testConnectUser() {
-//		Database db = implementation();
-//		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
-//		db.addUser(user1, "pony");
-//		// Assert.assertSame("Connexion with correct credentials should return
-//		// the user", user1.getId(),
-//		// db.connectUser("jmangue1", "pony").getId());
-//
-//	}
+	// @Test
+	// public void testConnectUser() {
+	// Database db = implementation();
+	// User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1,
+	// new ArrayList<>());
+	// db.addUser(user1, "pony");
+	// // Assert.assertSame("Connexion with correct credentials should return
+	// // the user", user1.getId(),
+	// // db.connectUser("jmangue1", "pony").getId());
+	//
+	// }
 
 	@Test
 	public void testConnectUserWrongUsername() {
@@ -125,7 +124,8 @@ public class JavaDatabaseTest {
 	public void testGetCategories() {
 		Database db = implementation();
 		assert(null != db.getCategories());
-		//fail("DataBase interface doesn't yet allow this kind of test."); // TODO
+		// fail("DataBase interface doesn't yet allow this kind of test."); //
+		// TODO
 
 	}
 

@@ -148,4 +148,16 @@ public interface Library extends Remote {
 	 */
 	public boolean borrow(Book book, User user);
 
+	/**
+	 * Give an evaluation to the given {@link Book} from given {@link User}
+	 * 
+	 * @param book
+	 *            the book to rate
+	 * @param value
+	 *            The rate value
+	 * @return <code>true</code> if operatio succeeds otherwise
+	 *         <code>false</code>
+	 */
+	public boolean rateBook(Book book, User user, int value);
+
 }

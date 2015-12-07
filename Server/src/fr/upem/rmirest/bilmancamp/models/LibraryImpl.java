@@ -97,4 +97,10 @@ public class LibraryImpl implements Library {
 		return false;
 	}
 
+	@Override
+	public boolean rateBook(Book book, User user,int value) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

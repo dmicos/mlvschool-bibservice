@@ -14,7 +14,6 @@ import fr.upem.rmirest.bilmancamp.persistence.BookTable;
 import fr.upem.rmirest.bilmancamp.persistence.CategoryTable;
 import fr.upem.rmirest.bilmancamp.persistence.UserTable;
 
-
 /**
  * 
  * @author ybilissor
@@ -116,14 +115,26 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<Book> getBookRecents(int number) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			return bTable.selectMostRecent(number);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();
 	}
 
 	@Override
 	public List<Book> getBookBestRate(int number) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			return bTable.selectMostRated(number);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -133,14 +144,21 @@ public class EmbeddedDB implements Database {
 			return bTable.selectMostConsulted(number);
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-			throw new IllegalStateException("EmbeddedDB Failed to perform query");
 		}
+
+		return Collections.emptyList();
 	}
 
 	@Override
 	public List<Book> getBookMostSimilar(Book book, int number) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			return bTable.mostSimilar(book, number);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -189,4 +207,14 @@ public class EmbeddedDB implements Database {
 		return false;
 	}
 
+	@Override
+	public boolean rateBook(Book book, User user, int value) {
+		try {
+			return bTable.rate(user, book, value);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return false;
+	}
 }

@@ -266,13 +266,18 @@ public class JavaDatabase implements Database {
 
 	@Override
 	public boolean isAvailable(Book book) {
-		// TODO Auto-generated method stub
-		return false;
+		return book.isAvailable();
 	}
 
 	@Override
 	public boolean addUser(User user, String password) {
 		return addUser(user);
+	}
+
+	@Override
+	public boolean rateBook(Book book, User user, int value) {
+		book.rate(user, value);
+		return false;
 	}
 
 }

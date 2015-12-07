@@ -202,10 +202,12 @@ public class UserImpl implements User {
 			return false;
 		}
 
+		@Override
 		public String toString() {
 			return "Disconnected user";
 		}
 
+		@Override
 		public boolean equals(Object obj) {
 			return false;
 		};

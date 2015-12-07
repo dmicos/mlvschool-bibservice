@@ -5,7 +5,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -72,7 +71,6 @@ public class BookImpl implements Book {
 		raters = new HashSet<>();
 	}
 
-	// Quentin V1 updated by Ybilissor to persist id
 	public BookImpl(String title, List<String> authors, String summary, List<String> categories, double price,
 			List<String> tags, Image mainImage, List<Image> secondaryImages) {
 		this(idCount, title, authors, summary, categories, price, tags, mainImage, Collections.emptyList());

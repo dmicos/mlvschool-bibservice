@@ -146,9 +146,21 @@ public interface Database {
 	 *            The {@link User} who wants to borrow
 	 * @param book
 	 *            The {@link Book} to borrow
-	 *            
-	 *            @return <code>true</code> if succeed otherwise <code>false</code>
+	 * 
+	 * @return <code>true</code> if succeed otherwise <code>false</code>
 	 */
 	public boolean addToQueue(User user, Book book);
+
+	/**
+	 * Give an evaluation to the given {@link Book} from given {@link User}
+	 * 
+	 * @param book
+	 *            the book to rate
+	 * @param value
+	 *            the evaluation
+	 * @return <code>true</code> if operation succeeds otherwise
+	 *         <code>false</code>
+	 */
+	public boolean rateBook(Book book, User user, int value);
 
 }

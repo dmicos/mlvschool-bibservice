@@ -6,13 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,9 +35,10 @@ public class BookTable extends AbstractTableModel<Book> {
 	public boolean insert(Book book) throws SQLException {
 
 		Objects.requireNonNull(book);
-		
+
+		// Prepare SQL Query in order to avoid SQL Injection
 		PreparedStatement ps = getConnection().prepareStatement(
-				"INSERT INTO book(title,description,price,tags,viewCounter,authors,datetime,catName,image,ptags,stock) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+				"INSERT INTO book(title,description,price,tags,viewCounter,authors,datetime,catName,image,ptags,stock) VALUES(?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?)",
 				Statement.RETURN_GENERATED_KEYS);
 
 		// fill the query blank
@@ -44,15 +48,14 @@ public class BookTable extends AbstractTableModel<Book> {
 		ps.setString(4, String.join(",", book.getTags()));
 		ps.setDouble(5, book.getConsultationNumber());
 		ps.setString(6, String.join(",", book.getAuthors()));
-		ps.setDate(7, java.sql.Date.valueOf(LocalDate.now()));
-		ps.setString(8, String.join(",", book.getCategories()));
-		ps.setString(9,
+		ps.setString(7, String.join(",", book.getCategories()));
+		ps.setString(8,
 				String.join(",",
 						Stream.concat(Stream.of(book.getMainImage().getPath()),
 								book.getSecondaryImages().stream().map(img -> img.getPath()))
 						.collect(Collectors.toList())));
-		ps.setString(10, String.join(",", createKeyWords(book)));
-		ps.setInt(11, 1);
+		ps.setString(9, String.join(",", createKeyWords(book)));
+		ps.setInt(10, 1);
 
 		return ps.executeUpdate() > 0;
 	}
@@ -76,6 +79,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		Statement statement = getConnection().createStatement();
 		ResultSet rs = statement.executeQuery("SELECT * FROM book ORDER BY title asc");
 		extractFromResultSet(content, rs);
+		consult(content);
 		return content;
 	}
 
@@ -84,10 +88,76 @@ public class BookTable extends AbstractTableModel<Book> {
 
 		List<Book> content = new ArrayList<>();
 		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book  LIMIT ? OFFSET ? ORDER BY title asc");
+				.prepareStatement("SELECT * FROM book   ORDER BY title asc LIMIT ? OFFSET ?");
 		ps.setInt(1, limit);
 		ps.setInt(1, offset);
 		extractFromResultSet(content, ps.executeQuery());
+		consult(content);
+		return content;
+	}
+
+	/**
+	 * Select most recent book
+	 * 
+	 * @param limit
+	 *            the max result
+	 * @return the list of {@link Book}
+	 * @throws SQLException
+	 */
+	public List<Book> selectMostRecent(int limit) throws SQLException {
+
+		List<Book> content = new ArrayList<>();
+		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM book ORDER BY datetime desc LIMIT ? ");
+		ps.setInt(1, limit);
+		extractFromResultSet(content, ps.executeQuery());
+		consult(content);
+		return content;
+	}
+
+	/**
+	 * Rate a {@link Book} by given {@link User}
+	 * 
+	 * @param user
+	 *            the user who wants to rate
+	 * @param book
+	 *            the book to rate
+	 * @param value
+	 *            the value
+	 * @return
+	 */
+	public boolean rate(User user, Book book, int value) throws SQLException {
+
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(book);
+
+		if (value < 0)
+			return false;
+
+		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO rate(idUser,idBook,value) VALUES(?,?,?)");
+		ps.setInt(1, user.getId());
+		ps.setInt(2, book.getId());
+		ps.setInt(3, value);
+
+		return ps.executeUpdate() > 0;
+
+	}
+
+	/**
+	 * Return the most rated book
+	 * 
+	 * @param limit
+	 *            the page size
+	 * @return a list of the <code>limit</code> most rated
+	 * @throws SQLException
+	 */
+	public List<Book> selectMostRated(int limit) throws SQLException {
+
+		List<Book> content = new ArrayList<>();
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book INNER JOIN  (select idBook ,AVG(VALUE) as rank from rate r  group by idBook) ON idBook = id order by rank desc LIMIT ?");
+		ps.setInt(1, limit);
+		extractFromResultSet(content, ps.executeQuery());
+		consult(content);
 		return content;
 	}
 
@@ -102,7 +172,9 @@ public class BookTable extends AbstractTableModel<Book> {
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.first()) {
-			return Optional.of(extractRow(rs));
+			Optional<Book> op = Optional.of(extractRow(rs));
+			consult(Arrays.asList(op.get()));
+			return op;
 		}
 		return Optional.empty();
 	}
@@ -122,6 +194,7 @@ public class BookTable extends AbstractTableModel<Book> {
 
 		List<Book> content = new ArrayList<>();
 		extractFromResultSet(content, getConnection().createStatement().executeQuery(builder.toString()));
+		consult(content);
 		return content;
 	}
 
@@ -271,6 +344,7 @@ public class BookTable extends AbstractTableModel<Book> {
 				.prepareStatement("SELECT * FROM book ORDER BY viewCounter desc  LIMIT ? ");
 		ps.setInt(1, number);
 		extractFromResultSet(content, ps.executeQuery());
+		consult(content);
 		return content;
 	}
 
@@ -288,6 +362,48 @@ public class BookTable extends AbstractTableModel<Book> {
 		kw.addAll(book.getCategories());
 		kw.addAll(book.getTags());
 		return kw;
+	}
+
+	/**
+	 * 
+	 * @param book
+	 * @param limit
+	 * @return
+	 */
+	public List<Book> mostSimilar(Book book, int limit) throws SQLException {
+
+		Map<Book, Long> occurences = new HashMap<>();
+		Set<String> kw = new HashSet<>();
+		kw.addAll(book.getTags());
+		kw.addAll(book.getCategories());
+		kw.addAll(Arrays.asList(book.getTitle().split(" ")));
+
+		for (String item : kw) {
+
+			search(item).stream().filter(b -> !b.equals(book))
+					.collect(Collectors.groupingBy((Book b) -> b, Collectors.counting())).forEach((k, v) -> {
+						occurences.merge(k, v, (a, b) -> b + v);
+					});
+
+		}
+
+		return occurences.entrySet().stream().sorted((a, b) -> (int) (a.getValue() - b.getValue())).map(E -> E.getKey())
+				.limit(limit).collect(Collectors.toList());
+	}
+
+	/**
+	 * Increase the number of consultations
+	 * 
+	 * @param books
+	 *            the list consulted {@link Book}
+	 */
+	private void consult(List<Book> books) throws SQLException {
+		PreparedStatement ps = getConnection().prepareStatement("UPDATE book Set viewCounter=viewCounter+1 WHERE id=?");
+
+		for (Book b : books) {
+			ps.setInt(1, b.getId());
+			ps.executeUpdate();
+		}
 	}
 
 	/**
