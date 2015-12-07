@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -19,74 +20,74 @@ public interface Book extends Remote {
 	 * 
 	 * @return the unique id in the database.
 	 */
-	public int getId();
+	public int getId() throws RemoteException;
 
 	/**
 	 * Get the creation {@link Date} of the current book.
 	 * 
 	 * @return the date of the book creation.
 	 */
-	public LocalDate getDate();
+	public LocalDate getDate() throws RemoteException;
 
 	/**
 	 * @return the current book's title.
 	 */
-	public String getTitle();
+	public String getTitle() throws RemoteException;
 
 	/**
 	 * @return a list of the current book's authors.
 	 */
-	public List<String> getAuthors();
+	public List<String> getAuthors() throws RemoteException;
 
 	/**
 	 * @return the current book's summary.
 	 */
-	public String getSummary();
+	public String getSummary() throws RemoteException;
 
 	/**
 	 * @return a list of the categories of the current book.
 	 */
-	public List<String> getCategories();
+	public List<String> getCategories() throws RemoteException;
 
 	/**
 	 * @return how many times the current {@link Book} was borrowed.
 	 */
-	public int getConsultationNumber();
+	public int getConsultationNumber() throws RemoteException;
 
 	/**
 	 * @return the price of the current book.
 	 */
-	public double getPrice();
+	public double getPrice() throws RemoteException;
 
 	/**
 	 * @return the average evaluation of the current book.
 	 */
-	public float getRate();
+	public float getRate() throws RemoteException;
 
 	/**
 	 * @return the number of evaluations of the current book.
 	 */
-	public int getRateNumber();
+	public int getRateNumber() throws RemoteException;
 
 	/**
 	 * @return a list of the current book's tags.
 	 */
-	public List<String> getTags();
+	public List<String> getTags() throws RemoteException;
 
 	/**
 	 * @return the main {@link Image} of the current book.
 	 */
-	public Image getMainImage();
+	public Image getMainImage() throws RemoteException;
 
 	/**
 	 * @return a list of secondary {@link Image}s of the current book.
 	 */
-	public List<Image> getSecondaryImages();
+	public List<Image> getSecondaryImages() throws RemoteException;
 
 	/**
 	 * @return a list of all the comments that have been posted about the book.
 	 */
-	public List<BookComment> getComments();
+	public List<BookComment> getComments() throws RemoteException;
 
 	// TODO ajouter les autres getters de je suis fatigué loool.
 	// Tu les trouveras en faisant la classe d'implantation !
@@ -95,31 +96,7 @@ public interface Book extends Remote {
 	/**
 	 * @return <code>true</code> if the book can be borrowed.
 	 */
-	public boolean isAvailable();
-
-	/**
-	 * Borrows the current book if available. If it is not, add the user in the
-	 * reservation queue.
-	 * 
-	 * @param user
-	 *            the {@link User} which want to borrow the current book.
-	 * @return <code>true</code> if the current book was available ;
-	 *         <code>false</code> otherwise and if the user was added to the
-	 *         reservation queue.
-	 */
-	public boolean borrow(User user);
-
-	/**
-	 * Allows the {@link User} to rate the current book.
-	 * 
-	 * @param user
-	 *            the {@link User} who give the mark.
-	 * @param evaluation
-	 *            the evaluation of the user.
-	 * @throws IllegalArgumentException
-	 *             is the evaluation is not in the correct range. [0, 5].
-	 */
-	public void rate(User user, int evaluation) throws IllegalArgumentException;
+	public boolean isAvailable() throws RemoteException;
 
 	/**
 	 * Adds a commentary to the current {@link Book}.
@@ -127,15 +104,7 @@ public interface Book extends Remote {
 	 * @param bookComment
 	 *            the commentary about the current book.
 	 */
-	public void comment(BookComment bookComment);
-
-	/**
-	 * Allow the given {@link User} to give back a book if he borrowed it.
-	 * 
-	 * @param user
-	 *            the {@link User} who give back the current {@link Book}.
-	 */
-	public void giveBack(User user);
+	public void comment(BookComment bookComment) throws RemoteException;
 
 	/**
 	 * Unregister the given {@link User} from the reservation queue of the
@@ -144,7 +113,7 @@ public interface Book extends Remote {
 	 * @param user
 	 *            the {@link User} who unregister the reservation queue.
 	 */
-	public void unregister(User user);
+	public void unregister(User user) throws RemoteException;
 
 	/**
 	 * Allow the given {@link User} to know it's position into the reservation
@@ -156,5 +125,5 @@ public interface Book extends Remote {
 	 * @return the position of the given {@link User} in the current
 	 *         {@link Book}'s reservation queue.
 	 */
-	public int getRankInWaitingQueue(User user);
+	public int getRankInWaitingQueue(User user) throws RemoteException;
 }

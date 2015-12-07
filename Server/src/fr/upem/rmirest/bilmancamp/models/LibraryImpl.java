@@ -1,5 +1,7 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,13 +11,19 @@ import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class LibraryImpl implements Library {
+public class LibraryImpl extends UnicastRemoteObject implements Library {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7781484523332395659L;
 	// Library values
 	private final Database database;
 
-	public LibraryImpl(Database database) {
+	public LibraryImpl(Database database) throws RemoteException {
+		super();
 		this.database = database;
 	}
 
@@ -85,6 +93,8 @@ public class LibraryImpl implements Library {
 	public List<Book> getMostSimilarsBooks(Book book, int number) {
 		return database.getBookMostSimilar(book, number);
 	}
+	
+	/* Actions on the content */
 
 	@Override
 	public boolean borrow(Book book, User user) {
@@ -98,9 +108,16 @@ public class LibraryImpl implements Library {
 	}
 
 	@Override
-	public boolean rateBook(Book book, User user,int value) {
-		// TODO Auto-generated method stub
-		return false;
+	public void giveBack(Book book, User user) throws RemoteException {
+		// TODO : Need to add some methods to the Database interface.
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public boolean rateBook(Book book, User user, int value) {
+		// TODO : This one probably needs some improvement of the Database
+		// interface.
+		throw new NotImplementedException();
 	}
 
 }

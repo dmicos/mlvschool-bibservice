@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class UserImpl implements User {
 		}
 
 		@Override
-		public boolean isLoginValid(String id, String password) {
+		public boolean isLoginValid(String id, String password) throws RemoteException {
 			return id.equals(UserHelper.computeId(this)) && password.equals(this.password);
 		}
 
@@ -211,6 +212,11 @@ public class UserImpl implements User {
 		public boolean equals(Object obj) {
 			return false;
 		};
+
+		@Override
+		public int hashCode() {
+			return 0;
+		}
 	};
 
 	// Database fields
@@ -243,38 +249,38 @@ public class UserImpl implements User {
 	}
 
 	@Override
-	public int getId() {
+	public int getId() throws RemoteException {
 		return id;
 	}
 
 	// Delegation methods.
 	@Override
-	public String getStatus() {
+	public String getStatus() throws RemoteException {
 		return realUser.getStatus();
 	}
 
 	@Override
-	public String getFirstName() {
+	public String getFirstName() throws RemoteException {
 		return realUser.getFirstName();
 	}
 
 	@Override
-	public String getLastName() {
+	public String getLastName() throws RemoteException {
 		return realUser.getLastName();
 	}
 
 	@Override
-	public int getCardNumber() {
+	public int getCardNumber() throws RemoteException {
 		return realUser.getCardNumber();
 	}
 
 	@Override
-	public boolean isLoginValid(String id, String password) {
+	public boolean isLoginValid(String id, String password) throws RemoteException {
 		return realUser.isLoginValid(id, password);
 	}
 
 	@Override
-	public void disconnect() {
+	public void disconnect() throws RemoteException {
 		// Change the real user to the null user, in order to keep the current
 		// object valid even after being disconnected.
 		realUser = NULL_USER_SINGLETON;
@@ -282,7 +288,7 @@ public class UserImpl implements User {
 	}
 
 	@Override
-	public List<Book> getBookHistory() {
+	public List<Book> getBookHistory() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -295,7 +301,7 @@ public class UserImpl implements User {
 	@Override
 	public int hashCode() {
 		// Card number is supposed to be unique.
-		return realUser.getCardNumber();
+		return realUser.hashCode();
 	}
 
 	@Override
