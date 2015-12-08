@@ -8,6 +8,7 @@ import fr.upem.rmirest.bilmancamp.database.Database;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 public class LibraryImpl implements Library {
@@ -88,19 +89,23 @@ public class LibraryImpl implements Library {
 
 	@Override
 	public boolean borrow(Book book, User user) {
-
-		if (database.isAvailable(book)) {
-			return database.borrow(book, user);
-		}
-
-		database.addToQueue(user, book);
-		return false;
+		return database.borrow(book, user);
 	}
 
 	@Override
-	public boolean rateBook(Book book, User user,int value) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean rateBook(Book book, User user, int value) {
+		return database.rateBook(book, user, value);
+	}
+
+	@Override
+	public User connect(String id, String password, MailBox<Book> callback) {
+		return database.connectUser(id, password, callback);
+	}
+
+	@Override
+	public boolean giveBack(Book book, User user) {
+
+		return database.giveBack(book, user);
 	}
 
 }

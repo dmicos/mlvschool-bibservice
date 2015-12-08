@@ -225,6 +225,42 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	/**
+	 * Give back given {@link Book}
+	 * 
+	 * @param book
+	 *            The {@link Book} to gibe back
+	 * @param user
+	 *            the borrower
+	 * @return <code>true</code> if operation succeeds otherwise
+	 *         <code>false</code>
+	 * @throws SQLException
+	 */
+
+	public boolean giveBack(Book book, User user) throws SQLException {
+
+		Objects.requireNonNull(book);
+		Objects.requireNonNull(user);
+
+		// maintain stock
+		updateStock(book, 1);
+
+		// Keep track
+		PreparedStatement ps = getConnection()
+				.prepareStatement("UPDATE borrow SET state=1 WHERE idBook=? and idUser=? ");
+		ps.setInt(1, book.getId());
+		ps.setInt(2, user.getId());
+
+		return ps.executeUpdate() > 0;
+	}
+
+	private void updateStock(Book book, int value) throws SQLException {
+		PreparedStatement ps1 = getConnection().prepareStatement("UPDATE book SET stock = stock + ? WHERE id=?");
+		ps1.setInt(1, value);
+		ps1.setInt(2, book.getId());
+		ps1.executeUpdate();
+	}
+
+	/**
 	 * Borrow given {@link Book}
 	 * 
 	 * @param book
@@ -240,13 +276,16 @@ public class BookTable extends AbstractTableModel<Book> {
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
 
-		PreparedStatement ps1 = getConnection().prepareStatement("UPDATE book SET stock = stock - 1");
-		PreparedStatement ps2 = getConnection()
-				.prepareStatement("INSERT INTO borrow(idUser,idBook,datetime) VALUES(?,?,CURRENT_TIMESTAMP)");
-		ps2.setInt(1, user.getId());
-		ps2.setInt(2, book.getId());
+		// decrease stock
+		updateStock(book, -1);
 
-		return ps1.executeUpdate() > 0 && ps2.executeUpdate() > 0;
+		// Insert operation
+		PreparedStatement ps = getConnection()
+				.prepareStatement("INSERT INTO borrow(idUser,idBook,datetime,state) VALUES(?,?,CURRENT_TIMESTAMP,0)");
+		ps.setInt(1, user.getId());
+		ps.setInt(2, book.getId());
+
+		return ps.executeUpdate() > 0;
 	}
 
 	/**
@@ -263,7 +302,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		Objects.requireNonNull(book);
 
 		PreparedStatement ps = getConnection().prepareStatement(
-				"SELECT * FROM queue q INNER JOIN user u ON q.idUser = user.id ORDER BY position desc LIMIT ?");
+				"SELECT * FROM queue q INNER JOIN user u ON q.idUser = u.id ORDER BY position desc LIMIT ?");
 		ps.setInt(1, limit);
 
 		return UserTable.extractUserFromResultSet(ps.executeQuery());
@@ -290,6 +329,42 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	/**
+	 * Check if a user is already in the queue
+	 * 
+	 * @param book
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean isAlreadyInQueue(Book book, User user) throws SQLException {
+
+		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM queue WHERE idUser=? AND idBook=?");
+		ps.setInt(1, user.getId());
+		ps.setInt(2, book.getId());
+
+		return ps.executeQuery().first();
+	}
+
+	/**
+	 * Check if he is attempting to borrow a book that he has already borrowed
+	 * and not yet returned
+	 * 
+	 * @param book
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean hasAlreadyBorrowed(Book book, User user) throws SQLException {
+
+		PreparedStatement ps = getConnection()
+				.prepareStatement("SELECT * FROM borrow WHERE idUser=? AND idBook=? AND State=0");
+		ps.setInt(1, user.getId());
+		ps.setInt(2, book.getId());
+
+		return ps.executeQuery().first();
+	}
+
+	/**
 	 * Remove {@Link User} from the queue
 	 * 
 	 * @param book
@@ -302,7 +377,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
 
-		PreparedStatement ps = getConnection().prepareStatement("DELETE FROM queue WHERE idUser=?,idBook=?");
+		PreparedStatement ps = getConnection().prepareStatement("DELETE FROM queue WHERE idUser=? AND idBook=?");
 		ps.setInt(1, user.getId());
 		ps.setInt(2, book.getId());
 		ps.executeUpdate();

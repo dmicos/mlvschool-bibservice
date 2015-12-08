@@ -3,6 +3,7 @@ package fr.upem.rmirest.bilmancamp.database;
 import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 public interface Database {
@@ -47,6 +48,20 @@ public interface Database {
 	 * @return the {@link User} or null if the credentials were invalids.
 	 */
 	public User connectUser(String id, String password);
+
+	/**
+	 * Get a {@link User} object from the database values, using the given
+	 * credentials.
+	 * 
+	 * @param id
+	 *            the user id.
+	 * @param password
+	 *            the encrypted user password.
+	 * @param callback
+	 *            The user callback address
+	 * @return the {@link User} or null if the credentials were invalids.
+	 */
+	public User connectUser(String id, String password, MailBox<Book> callback);
 
 	/**
 	 * Get a list of {@link Book}s that corresponds to one of the keywords.
@@ -162,5 +177,17 @@ public interface Database {
 	 *         <code>false</code>
 	 */
 	public boolean rateBook(Book book, User user, int value);
+
+	/**
+	 * Allow the given {@link User} to give back a book if he borrowed it.
+	 * 
+	 * @param user
+	 *            the {@link User} who give back the current {@link Book}.
+	 * @param book
+	 *            The {@link Book} to give back
+	 * @return <code>true</code> if operation succeeds otherwise
+	 *         <code>false</code>
+	 */
+	public boolean giveBack(Book book, User user);
 
 }

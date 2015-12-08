@@ -70,6 +70,18 @@ public interface Library extends Remote {
 	public User connect(String id, String password) throws IllegalArgumentException;
 
 	/**
+	 * connect an user and keeps in memory his callback interface
+	 * 
+	 * @param id
+	 *            the unique id of the user, composed of it's name and it's card
+	 *            number.
+	 * @param password
+	 * @param callback
+	 * @return a {@link User} object which allows interactions with the books.
+	 */
+	public User connect(String id, String password, MailBox<Book> callback) throws IllegalArgumentException;
+
+	/**
 	 * Search a {@link Book} using some keywords, which can be tags, categories,
 	 * author, or part of the title.
 	 * 
@@ -159,5 +171,15 @@ public interface Library extends Remote {
 	 *         <code>false</code>
 	 */
 	public boolean rateBook(Book book, User user, int value);
+
+	/**
+	 * Allow the given {@link User} to give back a book if he borrowed it.
+	 * 
+	 * @param user
+	 *            the {@link User} who give back the current {@link Book}.
+	 * @param book
+	 *            The {@link Book} to give back
+	 */
+	public boolean giveBack(Book book, User user);
 
 }

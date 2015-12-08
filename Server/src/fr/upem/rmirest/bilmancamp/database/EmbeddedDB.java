@@ -3,12 +3,16 @@ package fr.upem.rmirest.bilmancamp.database;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.persistence.BookTable;
 import fr.upem.rmirest.bilmancamp.persistence.CategoryTable;
@@ -24,6 +28,7 @@ public class EmbeddedDB implements Database {
 	private final BookTable bTable;
 	private final UserTable uTable;
 	private final CategoryTable cTable;
+	private final Map<User, MailBox<Book>> addresses;
 
 	/**
 	 * Create an embedded database
@@ -35,6 +40,8 @@ public class EmbeddedDB implements Database {
 		bTable = new BookTable(conn);
 		uTable = new UserTable(conn);
 		cTable = new CategoryTable(conn);
+		addresses = new HashMap<>();
+
 	}
 
 	@Override
@@ -165,7 +172,21 @@ public class EmbeddedDB implements Database {
 	public boolean borrow(Book book, User user) {
 
 		try {
+
+			if (bTable.hasAlreadyBorrowed(book, user))
+				return false;
+
+			// Book is not available. Add in queue if not
+			if (!isAvailable(book)) {
+
+				if (!bTable.isAlreadyInQueue(book, user))
+					addToQueue(user, book);
+
+				return false;
+			}
+
 			return bTable.borrow(book, user);
+
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
@@ -211,6 +232,49 @@ public class EmbeddedDB implements Database {
 	public boolean rateBook(Book book, User user, int value) {
 		try {
 			return bTable.rate(user, book, value);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return false;
+	}
+
+	@Override
+	public User connectUser(String id, String password, MailBox<Book> callback) {
+		Objects.requireNonNull(callback);
+
+		User user = connectUser(id, password);
+
+		if (user != null)
+			addresses.put(user, callback);
+
+		return user;
+	}
+
+	@Override
+	public boolean giveBack(Book book, User user) {
+
+		try {
+			if (bTable.giveBack(book, user)) {
+
+				// check if there is some people in the queue
+				List<User> queue = bTable.getQueue(book, 1);
+
+				// Has waiters
+				if (!queue.isEmpty()) {
+					// Notify user
+					MailBox<Book> callbackAddr = addresses.get(queue.get(0));
+					if (callbackAddr != null) {
+						callbackAddr.receive(book);
+						borrow(book, queue.get(0));
+						
+						bTable.removeFromQueue(book, queue.get(0));
+					}
+				}
+
+				return true;
+			}
+
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}

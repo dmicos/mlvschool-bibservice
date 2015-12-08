@@ -4706,3 +4706,1386 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
 2015-12-07 03:03:40 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 21:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 21:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 21:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 21:46:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 21:57:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "IDBOOK" not found; SQL statement:
+UPDATE book SET stock = stock + ? WHERE idBook=? [42122-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:178)
+	at org.h2.command.dml.Update.prepare(Update.java:181)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.updateStock(BookTable.java:257)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.borrow(BookTable.java:280)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDB.borrow(EmbeddedDB.java:175)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:71)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2015-12-07 21:57:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "IDBOOK" not found; SQL statement:
+UPDATE book SET stock = stock + ? WHERE idBook=? [42122-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:178)
+	at org.h2.command.dml.Update.prepare(Update.java:181)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.updateStock(BookTable.java:257)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.borrow(BookTable.java:280)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDB.borrow(EmbeddedDB.java:175)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2015-12-07 21:57:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "IDBOOK" not found; SQL statement:
+UPDATE book SET stock = stock + ? WHERE idBook=? [42122-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:178)
+	at org.h2.command.dml.Update.prepare(Update.java:181)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.updateStock(BookTable.java:257)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.giveBack(BookTable.java:245)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDB.giveBack(EmbeddedDB.java:244)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2015-12-07 21:58:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "IDBOOK" not found; SQL statement:
+UPDATE book SET stock = stock + ? WHERE idBook=? [42122-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:178)
+	at org.h2.command.dml.Update.prepare(Update.java:181)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.updateStock(BookTable.java:257)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.borrow(BookTable.java:280)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDB.borrow(EmbeddedDB.java:175)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:83)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2015-12-07 21:58:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 21:58:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:00:32 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.implementation(EmbeddedDBTest.java:29)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:42)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 44 more
+2015-12-07 22:01:09 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.implementation(EmbeddedDBTest.java:29)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:42)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 44 more
+2015-12-07 22:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:02:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:02:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:19:08 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.implementation(EmbeddedDBTest.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 44 more
+2015-12-07 22:19:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:19:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:19:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:21:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:23:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:23:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:23:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:29:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:29:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:29:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:01 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 22:30:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:30:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:31:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:31:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:31:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:33:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:33:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:33:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:35:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:35:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:35:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:37:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:37:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:37:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:37:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:40:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:40:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:40:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:45:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:46:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:46:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:46:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:38 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 22:47:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:47:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:48:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER.ID" not found; SQL statement:
+SELECT * FROM queue q INNER JOIN user u ON q.idUser = user.id ORDER BY position desc LIMIT ? [42122-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:838)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.getQueue(BookTable.java:304)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDB.giveBack(EmbeddedDB.java:247)
+	at fr.upem.rmirest.bilmancamp.models.LibraryImpl.giveBack(LibraryImpl.java:114)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2015-12-07 22:49:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:49:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:49:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:49:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:51:01 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.implementation(EmbeddedDBTest.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 44 more
+2015-12-07 22:51:09 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.implementation(EmbeddedDBTest.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 44 more
+2015-12-07 22:51:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:51:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:51:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:45 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 22:52:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:52:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:53:48 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.implementation(EmbeddedDBTest.java:31)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDBTest.notificationTestOK(EmbeddedDBTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 44 more
+2015-12-07 22:54:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:54:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:54:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:56:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 22:57:22 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.implementation(ServerApplication.java:35)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.notificationTestOK(ServerApplication.java:47)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.main(ServerApplication.java:23)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 23:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:13 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 23:04:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:04:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:05:31 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.implementation(ServerApplication.java:35)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.notificationTestOK(ServerApplication.java:47)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.main(ServerApplication.java:23)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-07 23:05:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:05:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:05:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:22:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:22:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:22:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:22:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:22:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:22:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:24:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:24:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:24:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:27:07 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.implementation(ServerApplication.java:43)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.main(ServerApplication.java:24)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 21 more
+2015-12-07 23:27:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:27:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:27:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:31:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:31:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:31:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:31:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:31:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:44:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "ID" not found; SQL statement:
+SELECT * FROM queue WHERE idUser=? AND id=idBook=? [42122-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:178)
+	at org.h2.expression.Comparison.optimize(Comparison.java:178)
+	at org.h2.expression.ConditionAndOr.optimize(ConditionAndOr.java:131)
+	at org.h2.command.dml.Select.prepare(Select.java:838)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.isAlreadyInQueue(BookTable.java:344)
+	at fr.upem.rmirest.bilmancamp.persistence.BookTable.addToQueue(BookTable.java:324)
+	at fr.upem.rmirest.bilmancamp.database.EmbeddedDB.addToQueue(EmbeddedDB.java:197)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.main(ServerApplication.java:25)
+2015-12-07 23:45:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:45:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:45:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:45:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:45:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:45:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:45:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:46:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:46:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:46:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:46:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:47:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:47:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-07 23:47:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:13:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:13:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:15:10 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.upem.rmirest.bilmancamp.helpers.DBHelper.connect(DBHelper.java:31)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.implementation(ServerApplication.java:33)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.notificationTestOK(ServerApplication.java:45)
+	at fr.upem.rmirest.bilmancamp.ServerApplication.main(ServerApplication.java:21)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-08 00:15:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:15:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:15:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:15:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE FROM QUEUE WHERE IDUSER=?,[*]IDBOOK=? "; SQL statement:
+DELETE FROM queue WHERE idUser=?,idBook=? [42000-190]
+2015-12-08 00:15:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:15:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:15:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:17:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:17:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:17:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:17:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE FROM QUEUE WHERE IDUSER=?,[*]IDBOOK=? "; SQL statement:
+DELETE FROM queue WHERE idUser=?,idBook=? [42000-190]
+2015-12-08 00:18:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:18:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:18:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:20:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:20:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:20:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:22:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:22:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:22:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:22:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:23:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:23:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:23:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:27:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:27:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:27:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:27:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:49:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:49:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:49:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:49:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:49:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:49:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:51:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:51:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:51:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:24 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:295)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:94)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:373)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:356)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2888)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:154)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:99)
+	at org.h2.engine.Database.getPageStore(Database.java:2450)
+	at org.h2.engine.Database.open(Database.java:672)
+	at org.h2.engine.Database.openDatabase(Database.java:269)
+	at org.h2.engine.Database.<init>(Database.java:263)
+	at org.h2.engine.Engine.openSession(Engine.java:65)
+	at org.h2.engine.Engine.openSession(Engine.java:175)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:153)
+	at org.h2.engine.Engine.createSession(Engine.java:136)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:349)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:72)
+	at org.netbeans.modules.db.explorer.DbDriverManager.getConnection(DbDriverManager.java:131)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.doConnect(DatabaseConnection.java:904)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.access$200(DatabaseConnection.java:103)
+	at org.netbeans.modules.db.explorer.DatabaseConnection$3.run(DatabaseConnection.java:970)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1423)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2033)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]" [50000-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 27 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Rest/bilious-octoprune/Server/rsc/library.mv.db [1.4.190/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:773)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
+	... 22 more
+2015-12-08 00:52:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:52:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:56:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:56:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:56:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:57:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:57:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]
+2015-12-08 00:57:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-190]

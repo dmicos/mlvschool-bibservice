@@ -29,7 +29,6 @@ public class JavaDatabaseTest {
 		try {
 			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
 		} catch (SQLException | ClassNotFoundException ex) {
-			ex.printStackTrace();
 			return new JavaDatabase();
 		}
 	}

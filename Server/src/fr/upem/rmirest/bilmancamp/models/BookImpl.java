@@ -245,38 +245,14 @@ public class BookImpl implements Book {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
+
+		if (!(obj instanceof Book)) {
 			return false;
 		}
-		if (!(obj instanceof BookImpl)) {
-			return false;
-		}
+
 		Book other = (Book) obj;
 
-		if (!this.getTitle().equals(other.getTitle())) {
-			return false;
-		}
-		if (!this.getAuthors().equals(other.getAuthors())) {
-			return false;
-		}
-
-		if (!this.getSummary().equals(other.getSummary())) {
-			return false;
-		}
-		if (!this.getCategories().equals(other.getCategories())) {
-			return false;
-		}
-		if (!this.getTags().equals(other.getTags())) {
-			return false;
-		}
-		if (this.getPrice() != other.getPrice()) {
-			return false;
-		}
-
-		return true;
+		return getId() == other.getId();
 	}
 
 }

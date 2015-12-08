@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 /**
@@ -278,6 +279,17 @@ public class JavaDatabase implements Database {
 	public boolean rateBook(Book book, User user, int value) {
 		book.rate(user, value);
 		return false;
+	}
+
+	@Override
+	public User connectUser(String id, String password, MailBox<Book> callback) {
+		return connectUser(id, password);
+	}
+
+	@Override
+	public boolean giveBack(Book book, User user) {
+		book.giveBack(user);
+		return true;
 	}
 
 }
