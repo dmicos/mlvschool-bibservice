@@ -1,7 +1,13 @@
 /* Basic CSS description of my own visual of Java FX. 
- * Copyright Abwuds 2016.
+ * Copyright Jefferson 2016.
  */
  
+/*
+@font-face{	
+	-fx-font-family: 'SF UI DisplayHeavy';
+    src: url("/fonts/SF-UI-Display-Heavy.otf");
+}
+*/
  
  /* Size of the scene */
  .sceneSize {
@@ -14,6 +20,10 @@
  	-fx-background-color: #1f1f1f;
  }
  
+ .noBackground, #cancelButton {
+ 	-fx-background-color: none;
+ }
+ 
  .orangeText, #connexionTitle {
  	-fx-fill: #e37b04;
  }
@@ -22,29 +32,71 @@
  	-fx-fill: #ffffff;
  }
  
- .white70Text, #connexionFooter {
+ .orangeBackground, #bigOrangeButton {
+ 	-fx-background-color: #e37b04;
+ }
+ 
+ .white70Background, #connexionFooter {
+ 	-fx-background-color: #ffffffB3;
+ }
+ 
+ .white70Text {
  	-fx-fill: #ffffffB3;
  }
  
- /* \COLORS */
+ .white50Text {
+ 	-fx-fill: #ffffff80;
+ }
  
- /* FONTS */
-.uiRegularFont, #connexionTitle {
-	-fx-font-family: "SF UI Display Regular";
-}
+ .noBorderNoStroke {
+ 	-fx-border-color: none;
+ 	-fx-stroke-width: 0.0;
+ }
  
-.uiLightFont, #connexionFooter {
-	-fx-font-family: "SF UI Display Light";
-}
-
- #connexionTitle, #connexionSubTitle {
- 	-fx-font-size: 110.0px;
+/* Buttons */
+ #bigOrangeButton {
+	-fx-text-fill: #ffffff;
+	-fx-border-radius: 0.0;
+	-fx-pref-width: 192.0px;
+	-fx-pref-height: 58.0px;
+	-fx-background-radius: 0.0;
+ }
+ 
+ #bigOrangeButton:hover {
+	-fx-text-fill: #000000;
+ }
+ 
+ #signUpPrompt{
+ 	-fx-background-color: #ffffff;
+ 	-fx-pref-width: 180.0px;
+ 	-fx-pref-height: 46.0px;
+ 	-fx-max-width: 180.0px;
+ 	-fx-max-height: 46.0px;
+ 	-fx-min-width: 180.0px;
+ 	-fx-min-height: 46.0px;
+ }
+ 
+ #loginPrompt {
+ 	-fx-background-color: #ffffff;
+ 	-fx-pref-width: 192.0px;
+ 	-fx-pref-height: 58.0px;
+ 	-fx-max-width: 192.0px;
+ 	-fx-max-height: 58.0px;
+ 	-fx-min-width: 192.0px;
+ 	-fx-min-height: 58.0px;
+ }
+ 
+ #cancelButton {
+ 	-fx-text-fill: #ffffff80;
+ }
+ 
+ /* Titles */
+ #connexionTitle {
  }
  
  #connexionSubTitle {
- 	-fx-font-size: 30.0px;
  }
  
  #connexionFooter {
- 	-fx-font-size: 18px;
+ 	-fx-fill: #ffffffB3;
  }
