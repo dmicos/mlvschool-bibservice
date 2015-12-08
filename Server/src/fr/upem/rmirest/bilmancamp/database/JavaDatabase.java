@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.database;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +16,7 @@ import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This implementation of {@link Database} uses Java objects to keep data
@@ -137,13 +139,16 @@ public class JavaDatabase implements Database {
 		 * @return a list of keywords.
 		 */
 		private static List<String> getBookKeywords(Book book) {
-			List<String> bw = new ArrayList<>();
-			// Get all the book's related words.
-			bw.addAll(book.getCategories());
-			bw.addAll(book.getTags());
-			bw.addAll(Arrays.asList(book.getTitle().split(" ")));
-			// Put them in lower case and return it.
-			return bw.stream().map(s -> s.toLowerCase()).collect(Collectors.toList());
+			/*
+			 * List<String> bw = new ArrayList<>(); // Get all the book's
+			 * related words. bw.addAll(book.getCategories());
+			 * bw.addAll(book.getTags());
+			 * bw.addAll(Arrays.asList(book.getTitle().split(" "))); // Put them
+			 * in lower case and return it. return bw.stream().map(s ->
+			 * s.toLowerCase()).collect(Collectors.toList());
+			 */
+
+			throw new NotImplementedException();
 		}
 
 	}
@@ -153,23 +158,30 @@ public class JavaDatabase implements Database {
 		private final Map<String, User> users = new HashMap<>();
 
 		public boolean add(User user) {
-			String computedId = UserHelper.computeId(user);
-			if (users.containsKey(computedId)) {
-				return false;
-			}
-			users.put(computedId, user);
-			return true;
+			// String computedId = UserHelper.computeId(user);
+			// if (users.containsKey(computedId)) {
+			// return false;
+			// }
+			// users.put(computedId, user);
+			// return true;
+
+			throw new NotImplementedException();
+
 		}
 
 		public User connect(String id, String password) {
-			if (!users.containsKey(id)) {
-				return null;
-			}
-			User user = users.get(id);
-			if (user.isLoginValid(id, password)) {
-				return user;
-			}
-			return null;
+
+			// if (!users.containsKey(id)) {
+			// return null;
+			// }
+			// User user = users.get(id);
+			// if (user.isLoginValid(id, password)) {
+			// return user;
+			// }
+			// return null;
+
+			throw new NotImplementedException();
+
 		}
 
 	}
@@ -217,10 +229,15 @@ public class JavaDatabase implements Database {
 
 	@Override
 	public List<Book> getBookFromCategory(String category) {
-		return bTable.getAll()
-				.stream().map(be -> be.getBook()).filter(book -> book.getCategories().stream()
-						.map(cat -> cat.toLowerCase()).collect(Collectors.toList()).contains(category))
-				.collect(Collectors.toList());
+
+		throw new NotImplementedException();
+
+		// return bTable.getAll()
+		// .stream().map(be -> be.getBook()).filter(book ->
+		// book.getCategories().stream()
+		// .map(cat ->
+		// cat.toLowerCase()).collect(Collectors.toList()).contains(category))
+		// .collect(Collectors.toList());
 	}
 
 	@Override
@@ -231,15 +248,23 @@ public class JavaDatabase implements Database {
 
 	@Override
 	public List<Book> getBookBestRate(int number) {
-		return bTable.getAll().stream().map(be -> be.getBook()).sorted((b1, b2) -> (int) (b2.getRate() - b1.getRate()))
-				.limit(number).collect(Collectors.toList());
+		// return bTable.getAll().stream().map(be -> be.getBook()).sorted((b1,
+		// b2) -> (int) (b2.getRate() - b1.getRate()))
+		// .limit(number).collect(Collectors.toList());
+
+		throw new NotImplementedException();
+
 	}
 
 	@Override
 	public List<Book> getBookMostConsulted(int number) {
-		return bTable.getAll().stream().map(be -> be.getBook())
-				.sorted((b1, b2) -> b2.getConsultationNumber() - b1.getConsultationNumber()).limit(number)
-				.collect(Collectors.toList());
+		// return bTable.getAll().stream().map(be -> be.getBook())
+		// .sorted((b1, b2) -> b2.getConsultationNumber() -
+		// b1.getConsultationNumber()).limit(number)
+		// .collect(Collectors.toList());
+		//
+		throw new NotImplementedException();
+
 	}
 
 	@Override
@@ -266,7 +291,7 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
-	public boolean isAvailable(Book book) {
+	public boolean isAvailable(Book book) throws RemoteException {
 		return book.isAvailable();
 	}
 
@@ -277,8 +302,7 @@ public class JavaDatabase implements Database {
 
 	@Override
 	public boolean rateBook(Book book, User user, int value) {
-		book.rate(user, value);
-		return false;
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -288,8 +312,9 @@ public class JavaDatabase implements Database {
 
 	@Override
 	public boolean giveBack(Book book, User user) {
-		book.giveBack(user);
-		return true;
+
+		throw new NotImplementedException();
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.database;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addBook(Book book) {
+	public boolean addBook(Book book) throws RemoteException {
 
 		try {
 			return bTable.insert(book);
@@ -57,7 +58,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addUser(User user) {
+	public boolean addUser(User user) throws RemoteException {
 
 		try {
 			return uTable.insert(user);
@@ -69,7 +70,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addUser(User user, String password) {
+	public boolean addUser(User user, String password) throws RemoteException {
 
 		try {
 			return uTable.insert(user, password);
@@ -92,7 +93,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> searchBookFromKeywords(String... keywords) {
+	public List<Book> searchBookFromKeywords(String... keywords) throws RemoteException {
 
 		try {
 			return bTable.search(keywords);
@@ -116,12 +117,12 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookFromCategory(String category) {
+	public List<Book> getBookFromCategory(String category) throws RemoteException {
 		return searchBookFromKeywords(category);
 	}
 
 	@Override
-	public List<Book> getBookRecents(int number) {
+	public List<Book> getBookRecents(int number) throws RemoteException {
 
 		try {
 			return bTable.selectMostRecent(number);
@@ -133,7 +134,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookBestRate(int number) {
+	public List<Book> getBookBestRate(int number) throws RemoteException {
 
 		try {
 			return bTable.selectMostRated(number);
@@ -145,7 +146,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookMostConsulted(int number) {
+	public List<Book> getBookMostConsulted(int number) throws RemoteException {
 
 		try {
 			return bTable.selectMostConsulted(number);
@@ -157,7 +158,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookMostSimilar(Book book, int number) {
+	public List<Book> getBookMostSimilar(Book book, int number) throws RemoteException {
 
 		try {
 			return bTable.mostSimilar(book, number);
@@ -169,7 +170,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean borrow(Book book, User user) {
+	public boolean borrow(Book book, User user) throws RemoteException {
 
 		try {
 
@@ -206,7 +207,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addToQueue(User user, Book book) {
+	public boolean addToQueue(User user, Book book) throws RemoteException {
 		try {
 			return bTable.addToQueue(book, user);
 		} catch (SQLException e) {
@@ -217,7 +218,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean isAvailable(Book book) {
+	public boolean isAvailable(Book book) throws RemoteException {
 
 		try {
 			return bTable.canBorrow(book);
@@ -229,7 +230,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean rateBook(Book book, User user, int value) {
+	public boolean rateBook(Book book, User user, int value) throws RemoteException {
 		try {
 			return bTable.rate(user, book, value);
 		} catch (SQLException e) {
@@ -252,7 +253,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean giveBack(Book book, User user) {
+	public boolean giveBack(Book book, User user) throws RemoteException {
 
 		try {
 			if (bTable.giveBack(book, user)) {

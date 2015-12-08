@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.persistence;
 
 import java.nio.file.Paths;
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public boolean insert(Book book) throws SQLException {
+	public boolean insert(Book book) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(book);
 
@@ -73,7 +74,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public List<Book> select() throws SQLException {
+	public List<Book> select() throws SQLException, RemoteException {
 
 		List<Book> content = new ArrayList<>();
 		Statement statement = getConnection().createStatement();
@@ -84,7 +85,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public List<Book> select(int offset, int limit) throws SQLException {
+	public List<Book> select(int offset, int limit) throws SQLException, RemoteException {
 
 		List<Book> content = new ArrayList<>();
 		PreparedStatement ps = getConnection()
@@ -103,8 +104,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the max result
 	 * @return the list of {@link Book}
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public List<Book> selectMostRecent(int limit) throws SQLException {
+	public List<Book> selectMostRecent(int limit) throws SQLException, RemoteException {
 
 		List<Book> content = new ArrayList<>();
 		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM book ORDER BY datetime desc LIMIT ? ");
@@ -124,8 +126,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param value
 	 *            the value
 	 * @return
+	 * @throws RemoteException 
 	 */
-	public boolean rate(User user, Book book, int value) throws SQLException {
+	public boolean rate(User user, Book book, int value) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(user);
 		Objects.requireNonNull(book);
@@ -149,8 +152,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the page size
 	 * @return a list of the <code>limit</code> most rated
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public List<Book> selectMostRated(int limit) throws SQLException {
+	public List<Book> selectMostRated(int limit) throws SQLException, RemoteException {
 
 		List<Book> content = new ArrayList<>();
 		PreparedStatement ps = getConnection().prepareStatement(
@@ -162,7 +166,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public Optional<Book> find(Object... pk) throws SQLException {
+	public Optional<Book> find(Object... pk) throws SQLException, RemoteException {
 
 		if (pk.length != 1)
 			throw new IllegalArgumentException("Only one key is expected");
@@ -180,7 +184,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public List<Book> search(String... tags) throws SQLException {
+	public List<Book> search(String... tags) throws SQLException, RemoteException {
 
 		if (tags.length < 1)
 			throw new IllegalArgumentException("You must give at least one keyword");
@@ -199,7 +203,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public boolean update(Book oldVal, Book newVal) throws SQLException {
+	public boolean update(Book oldVal, Book newVal) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(oldVal);
 		Objects.requireNonNull(newVal);
@@ -234,9 +238,10 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
 
-	public boolean giveBack(Book book, User user) throws SQLException {
+	public boolean giveBack(Book book, User user) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -253,7 +258,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		return ps.executeUpdate() > 0;
 	}
 
-	private void updateStock(Book book, int value) throws SQLException {
+	private void updateStock(Book book, int value) throws SQLException, RemoteException {
 		PreparedStatement ps1 = getConnection().prepareStatement("UPDATE book SET stock = stock + ? WHERE id=?");
 		ps1.setInt(1, value);
 		ps1.setInt(2, book.getId());
@@ -270,8 +275,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public boolean borrow(Book book, User user) throws SQLException {
+	public boolean borrow(Book book, User user) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -315,8 +321,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the {@link Book} to borrow
 	 * @param user
 	 *            the {@link User} who wants to borrow
+	 * @throws RemoteException 
 	 */
-	public boolean addToQueue(Book book, User user) throws SQLException {
+	public boolean addToQueue(Book book, User user) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -335,8 +342,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param user
 	 * @return
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public boolean isAlreadyInQueue(Book book, User user) throws SQLException {
+	public boolean isAlreadyInQueue(Book book, User user) throws SQLException, RemoteException {
 
 		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM queue WHERE idUser=? AND idBook=?");
 		ps.setInt(1, user.getId());
@@ -353,8 +361,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param user
 	 * @return
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public boolean hasAlreadyBorrowed(Book book, User user) throws SQLException {
+	public boolean hasAlreadyBorrowed(Book book, User user) throws SQLException, RemoteException {
 
 		PreparedStatement ps = getConnection()
 				.prepareStatement("SELECT * FROM borrow WHERE idUser=? AND idBook=? AND State=0");
@@ -371,8 +380,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the {@link Book} borrowed
 	 * @param user
 	 *            the {@link User} to remove
+	 * @throws RemoteException 
 	 */
-	public void removeFromQueue(Book book, User user) throws SQLException {
+	public void removeFromQueue(Book book, User user) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -390,8 +400,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param book
 	 * @return
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public boolean canBorrow(Book book) throws SQLException {
+	public boolean canBorrow(Book book) throws SQLException, RemoteException {
 
 		PreparedStatement ps = getConnection().prepareStatement("SELECT stock FROM book WHERE id=?");
 		ps.setObject(1, book.getId());
@@ -411,8 +422,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the page size
 	 * @return a list {@link Book}
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public List<Book> selectMostConsulted(int number) throws SQLException {
+	public List<Book> selectMostConsulted(int number) throws SQLException, RemoteException {
 
 		List<Book> content = new ArrayList<>();
 		PreparedStatement ps = getConnection()
@@ -429,8 +441,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param book
 	 *            The {@link}
 	 * @return a list of key words
+	 * @throws RemoteException 
 	 */
-	private List<String> createKeyWords(Book book) {
+	private List<String> createKeyWords(Book book) throws RemoteException {
 
 		List<String> kw = new ArrayList<>();
 		kw.addAll(Arrays.asList(book.getTitle().split(" ")));
@@ -444,8 +457,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param book
 	 * @param limit
 	 * @return
+	 * @throws RemoteException 
 	 */
-	public List<Book> mostSimilar(Book book, int limit) throws SQLException {
+	public List<Book> mostSimilar(Book book, int limit) throws SQLException, RemoteException {
 
 		Map<Book, Long> occurences = new HashMap<>();
 		Set<String> kw = new HashSet<>();
@@ -471,8 +485,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * 
 	 * @param books
 	 *            the list consulted {@link Book}
+	 * @throws RemoteException 
 	 */
-	private void consult(List<Book> books) throws SQLException {
+	private void consult(List<Book> books) throws SQLException, RemoteException {
 		PreparedStatement ps = getConnection().prepareStatement("UPDATE book Set viewCounter=viewCounter+1 WHERE id=?");
 
 		for (Book b : books) {

@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -31,10 +32,11 @@ public interface Library extends Remote {
 	 *            a list of words related to the book.
 	 * @throws IllegalArgumentException
 	 *             if one of the arguments is <code>null</code> or invalid.
+	 * @throws RemoteException
 	 */
 	public void addBook(String title, List<String> authors, String summary, Image mainImage,
 			List<Image> secondaryImages, List<String> categories, double price, List<String> tags)
-					throws IllegalArgumentException;
+					throws IllegalArgumentException, RemoteException;
 
 	/**
 	 * Register a new user in the library.
@@ -51,9 +53,10 @@ public interface Library extends Remote {
 	 *         <code>false</code> otherwise (user already existing).
 	 * @throws IllegalArgumentException
 	 *             if one of the arguments is <code>null</code> or invalid.
+	 * @throws RemoteException
 	 */
 	public boolean addUser(String status, String firstName, String lastName, int cardNumber, String password)
-			throws IllegalArgumentException;
+			throws IllegalArgumentException, RemoteException;
 
 	/**
 	 * Connect a user using it's id and it's password.
@@ -65,9 +68,9 @@ public interface Library extends Remote {
 	 *            the user's password.
 	 * @return a {@link User} object which allows interactions with the books.
 	 * @throws IllegalArgumentException
-	 *             TODO
+	 * @throws RemoteException
 	 */
-	public User connect(String id, String password) throws IllegalArgumentException;
+	public User connect(String id, String password) throws IllegalArgumentException, RemoteException;
 
 	/**
 	 * connect an user and keeps in memory his callback interface
@@ -79,7 +82,7 @@ public interface Library extends Remote {
 	 * @param callback
 	 * @return a {@link User} object which allows interactions with the books.
 	 */
-	public User connect(String id, String password, MailBox<Book> callback) throws IllegalArgumentException;
+	public User connect(String id, String password, MailBox<Book> callback) throws IllegalArgumentException,RemoteException;
 
 	/**
 	 * Search a {@link Book} using some keywords, which can be tags, categories,
@@ -88,22 +91,25 @@ public interface Library extends Remote {
 	 * @param keywords
 	 *            the list of keywords used to search.
 	 * @return a list of {@link Book} which corresponds to the keywords.
+	 * @throws RemoteException
 	 */
-	public List<Book> searchBooks(String... keywords);
+	public List<Book> searchBooks(String... keywords) throws RemoteException;
 
 	/**
 	 * Get the existing categories of books in the library.
 	 * 
 	 * @return the list of categories.
+	 * @throws RemoteException
 	 */
-	public List<String> getCategories();
+	public List<String> getCategories() throws RemoteException;
 
 	/**
 	 * TODO ?
 	 * 
 	 * @return
+	 * @throws RemoteException
 	 */
-	public int getCategorySize();
+	public int getCategorySize() throws RemoteException;
 
 	/**
 	 * Get all the {@link Book}s which are of the given category.
@@ -111,30 +117,34 @@ public interface Library extends Remote {
 	 * @param category
 	 *            the category of {@link Book}s which are researched.
 	 * @return a list of {@link Book}s of the given category.
+	 * @throws RemoteException
 	 */
-	public List<Book> getCategoryBooks(String category);
+	public List<Book> getCategoryBooks(String category) throws RemoteException;
 
 	/**
 	 * 
 	 * @param number
 	 * @return a list of the <code>number</code> most recently added books.
+	 * @throws RemoteException
 	 */
-	public List<Book> getMoreRecentBooks(int number);
+	public List<Book> getMoreRecentBooks(int number) throws RemoteException;
 
 	/**
 	 * 
 	 * @param number
 	 * @return a list of the <code>number</code> first books based of book's
 	 *         evaluations.
+	 * @throws RemoteException
 	 */
-	public List<Book> getBestRatedBooks(int number);
+	public List<Book> getBestRatedBooks(int number) throws RemoteException;
 
 	/**
 	 * 
 	 * @param number
 	 * @return a list of the <code>number</code> most borrowed books.
+	 * @throws RemoteException
 	 */
-	public List<Book> getMostConsultedBooks(int number);
+	public List<Book> getMostConsultedBooks(int number) throws RemoteException;
 
 	/**
 	 * Get the <code>number</code> books the most similar to the given one.
@@ -145,20 +155,34 @@ public interface Library extends Remote {
 	 *            the wanted number of books.
 	 * @return a list of the <code>number</code> books the most similar to
 	 *         <code>book</code>.
+	 * @throws RemoteException
 	 */
-	public List<Book> getMostSimilarsBooks(Book book, int number);
+	public List<Book> getMostSimilarsBooks(Book book, int number) throws RemoteException;
 
 	/**
-	 * Try to borrow the given {@link Book}. If not available, then user will
-	 * notify later once available
+	 * Try to borrow the given {@link Book}. If not available, then user will be
+	 * notify later once available.
 	 * 
 	 * @param book
 	 *            the {@link Book} to borrow
 	 * @param user
 	 *            the {@link User} borrowing the {@link Book}
 	 * @return <code>true</code> if available otherwise <code>false</code>
+	 * @throws RemoteException
 	 */
-	public boolean borrow(Book book, User user);
+	public boolean borrow(Book book, User user) throws RemoteException;
+
+	/**
+	 * Allow the given {@link User} to give back the given {@link Book} if he
+	 * borrowed it previously.
+	 * 
+	 * @param book
+	 *            the book to give back.
+	 * @param user
+	 *            the user to give back the book.
+	 * @throws RemoteException
+	 */
+	public boolean giveBack(Book book, User user) throws RemoteException;
 
 	/**
 	 * Give an evaluation to the given {@link Book} from given {@link User}
@@ -169,17 +193,10 @@ public interface Library extends Remote {
 	 *            The rate value
 	 * @return <code>true</code> if operatio succeeds otherwise
 	 *         <code>false</code>
+	 * @throws RemoteException
 	 */
-	public boolean rateBook(Book book, User user, int value);
+	public boolean rateBook(Book book, User user, int value) throws RemoteException;
 
-	/**
-	 * Allow the given {@link User} to give back a book if he borrowed it.
-	 * 
-	 * @param user
-	 *            the {@link User} who give back the current {@link Book}.
-	 * @param book
-	 *            The {@link Book} to give back
-	 */
-	public boolean giveBack(Book book, User user);
+
 
 }

@@ -1,8 +1,8 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
-import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +10,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import fr.upem.rmirest.bilmancamp.helpers.DBHelper;
+import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookImpl;
 import fr.upem.rmirest.bilmancamp.models.UserImpl;
 
-public class JavaDatabaseTest {
+public class EmbeddedDBTest {
 
 	/**
 	 * Return a {@link Database} of the tested implementation. Allows this junit
@@ -26,30 +28,20 @@ public class JavaDatabaseTest {
 	 */
 	private static Database implementation() {
 
-
-//		try {
-//			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
-//		} catch (SQLException | ClassNotFoundException ex) {
-//			return new JavaDatabase();
-//		}
-//=======
-		return new JavaDatabase();
+		try {
+			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return new JavaDatabase();
+		}
 	}
 
 	private static Image image() {
-		return new Image() {
-			private static final long serialVersionUID = 4060559163469041882L;
-
-			@Override
-			public String getPath() {
-				// TODO Auto-generated method stub
-				return "false path";
-			}
-		};
+		return ImageHelper.DEFAULT_IMAGE;
 	}
 
 	@Test
-	public void testAddBook() throws RemoteException {
+	public void testAddBook() {
 		// This should work and not throw any exception
 		Database db = implementation();
 		Book book = new BookImpl("Les aventures de champimou", Arrays.asList("Quentin"),
@@ -59,7 +51,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testAddUser() throws RemoteException {
+	public void testAddUser() {
 		// Standard addition to the database
 		Database db = implementation();
 		User user = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
@@ -67,7 +59,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testAddUserExisting() throws RemoteException {
+	public void testAddUserExisting() {
 		Database db = implementation();
 		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
 		User user2 = new UserImpl("Student", "Joshua", "Mangue", "ilovequadrillage", 1, new ArrayList<>());
@@ -90,7 +82,7 @@ public class JavaDatabaseTest {
 	// }
 
 	@Test
-	public void testConnectUserWrongUsername() throws RemoteException {
+	public void testConnectUserWrongUsername() {
 		Database db = implementation();
 		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
 		db.addUser(user1);
@@ -99,7 +91,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testConnectUserWrongPassword() throws RemoteException {
+	public void testConnectUserWrongPassword() {
 		Database db = implementation();
 		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
 		db.addUser(user1);
@@ -107,7 +99,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testSearchBookFromKeywords() throws RemoteException {
+	public void testSearchBookFromKeywords() {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
 				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
@@ -131,7 +123,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testGetCategories() throws RemoteException {
+	public void testGetCategories() {
 		Database db = implementation();
 		assert (null != db.getCategories());
 		// fail("DataBase interface doesn't yet allow this kind of test."); //
@@ -140,7 +132,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testGetBookFromCategory() throws RemoteException {
+	public void testGetBookFromCategory() {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
 				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
@@ -158,7 +150,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testGetBookRecents() throws RemoteException {
+	public void testGetBookRecents() {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
 				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
@@ -182,7 +174,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testGetBookBestRate() throws RemoteException {
+	public void testGetBookBestRate() {
 		fail("Need some improvements of the DataBase interface.");
 		Database db = implementation();
 		// Add books.
@@ -208,7 +200,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testGetBookMostConsulted() throws RemoteException {
+	public void testGetBookMostConsulted() {
 		fail("Need some improvements of the DataBase interface.");
 		Database db = implementation();
 		// Add books.
@@ -236,7 +228,7 @@ public class JavaDatabaseTest {
 	}
 
 	@Test
-	public void testGetBookMostSimilar() throws RemoteException {
+	public void testGetBookMostSimilar() {
 		assert (5 == 3);
 		Database db = implementation();
 		// Create and add some books

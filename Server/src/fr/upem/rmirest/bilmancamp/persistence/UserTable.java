@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.persistence;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,16 +23,16 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public boolean insert(User obj) throws SQLException {
+	public boolean insert(User obj) throws SQLException, RemoteException {
 		return insert(obj, UserHelper.generatePassword());
 	}
 
-	public boolean insert(User user, String password) throws SQLException {
+	public boolean insert(User user, String password) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(user);
 		Objects.requireNonNull(password);
 
-		if (!loginIsAvailable(UserHelper.computeId(user)))
+		if (!loginIsAvailable(UserHelper.computeId(user.getFirstName(), user.getLastName(), user.getCardNumber())))
 			return false;
 
 		return prepareUser(user, password).executeUpdate() > 0;
@@ -99,7 +100,7 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public boolean update(User oldVal, User newVal) throws SQLException {
+	public boolean update(User oldVal, User newVal) throws SQLException, RemoteException {
 
 		Objects.requireNonNull(oldVal);
 		Objects.requireNonNull(newVal);
@@ -113,7 +114,7 @@ public class UserTable extends AbstractTableModel<User> {
 		ps.setString(2, newVal.getLastName());
 		ps.setString(3, newVal.getStatus());
 		ps.setInt(4, newVal.getCardNumber());
-		ps.setString(5, UserHelper.computeId(newVal));
+		ps.setString(5, UserHelper.computeId(newVal.getFirstName(),newVal.getLastName(),newVal.getCardNumber()));
 		ps.setInt(1, oldVal.getId());
 		return ps.executeUpdate() > 0;
 	}
@@ -127,8 +128,9 @@ public class UserTable extends AbstractTableModel<User> {
 	 *            The user's password
 	 * @return A {@link PreparedStatement}
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	private PreparedStatement prepareUser(User obj, String password) throws SQLException {
+	private PreparedStatement prepareUser(User obj, String password) throws SQLException, RemoteException {
 
 		String query = "INSERT INTO user(fname,name,status,cardNumber,datetime,login,loggable,password) VALUES(?,?,?,?,CURRENT_TIMESTAMP,?,?,?)";
 		PreparedStatement ps = getConnection().prepareStatement(query);
@@ -136,7 +138,7 @@ public class UserTable extends AbstractTableModel<User> {
 		ps.setString(2, obj.getLastName());
 		ps.setString(3, obj.getStatus());
 		ps.setInt(4, obj.getCardNumber());
-		ps.setString(5, UserHelper.computeId(obj));
+		ps.setString(5, UserHelper.computeId(obj.getFirstName(),obj.getLastName(),obj.getCardNumber()));
 		ps.setBoolean(6, true);
 		ps.setString(7, password);
 
