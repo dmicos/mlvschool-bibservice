@@ -22,7 +22,7 @@ public class ServerRMI {
 	public void serverRMITest() throws RemoteException, NotBoundException {
 
 		// policy
-		System.setProperty("java.security.policy", "Server/confFiles/sec.policy");
+		System.setProperty("java.security.policy", "confFiles/sec.policy");
 
 		// Secu Manager
 		if (System.getSecurityManager() == null) {
