@@ -104,7 +104,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the max result
 	 * @return the list of {@link Book}
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public List<Book> selectMostRecent(int limit) throws SQLException, RemoteException {
 
@@ -126,7 +126,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param value
 	 *            the value
 	 * @return
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public boolean rate(User user, Book book, int value) throws SQLException, RemoteException {
 
@@ -152,7 +152,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the page size
 	 * @return a list of the <code>limit</code> most rated
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public List<Book> selectMostRated(int limit) throws SQLException, RemoteException {
 
@@ -238,7 +238,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 
 	public boolean giveBack(Book book, User user) throws SQLException, RemoteException {
@@ -275,7 +275,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public boolean borrow(Book book, User user) throws SQLException, RemoteException {
 
@@ -321,7 +321,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the {@link Book} to borrow
 	 * @param user
 	 *            the {@link User} who wants to borrow
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public boolean addToQueue(Book book, User user) throws SQLException, RemoteException {
 
@@ -342,7 +342,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param user
 	 * @return
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public boolean isAlreadyInQueue(Book book, User user) throws SQLException, RemoteException {
 
@@ -361,7 +361,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param user
 	 * @return
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public boolean hasAlreadyBorrowed(Book book, User user) throws SQLException, RemoteException {
 
@@ -380,7 +380,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the {@link Book} borrowed
 	 * @param user
 	 *            the {@link User} to remove
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public void removeFromQueue(Book book, User user) throws SQLException, RemoteException {
 
@@ -400,7 +400,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param book
 	 * @return
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public boolean canBorrow(Book book) throws SQLException, RemoteException {
 
@@ -422,7 +422,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the page size
 	 * @return a list {@link Book}
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public List<Book> selectMostConsulted(int number) throws SQLException, RemoteException {
 
@@ -441,7 +441,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param book
 	 *            The {@link}
 	 * @return a list of key words
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	private List<String> createKeyWords(Book book) throws RemoteException {
 
@@ -457,7 +457,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param book
 	 * @param limit
 	 * @return
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public List<Book> mostSimilar(Book book, int limit) throws SQLException, RemoteException {
 
@@ -485,7 +485,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * 
 	 * @param books
 	 *            the list consulted {@link Book}
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	private void consult(List<Book> books) throws SQLException, RemoteException {
 		PreparedStatement ps = getConnection().prepareStatement("UPDATE book Set viewCounter=viewCounter+1 WHERE id=?");

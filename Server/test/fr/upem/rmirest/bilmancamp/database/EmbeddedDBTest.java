@@ -2,6 +2,7 @@ package fr.upem.rmirest.bilmancamp.database;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +42,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testAddBook() {
+	public void testAddBook() throws RemoteException {
 		// This should work and not throw any exception
 		Database db = implementation();
 		Book book = new BookImpl("Les aventures de champimou", Arrays.asList("Quentin"),
@@ -51,7 +52,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testAddUser() {
+	public void testAddUser() throws RemoteException {
 		// Standard addition to the database
 		Database db = implementation();
 		User user = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
@@ -59,7 +60,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testAddUserExisting() {
+	public void testAddUserExisting() throws RemoteException {
 		Database db = implementation();
 		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
 		User user2 = new UserImpl("Student", "Joshua", "Mangue", "ilovequadrillage", 1, new ArrayList<>());
@@ -82,7 +83,7 @@ public class EmbeddedDBTest {
 	// }
 
 	@Test
-	public void testConnectUserWrongUsername() {
+	public void testConnectUserWrongUsername() throws RemoteException {
 		Database db = implementation();
 		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
 		db.addUser(user1);
@@ -91,7 +92,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testConnectUserWrongPassword() {
+	public void testConnectUserWrongPassword() throws RemoteException {
 		Database db = implementation();
 		User user1 = new UserImpl("Student", "Jefferson", "Mangue", "pony", 1, new ArrayList<>());
 		db.addUser(user1);
@@ -99,7 +100,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testSearchBookFromKeywords() {
+	public void testSearchBookFromKeywords() throws RemoteException {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
 				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
@@ -123,7 +124,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testGetCategories() {
+	public void testGetCategories() throws RemoteException {
 		Database db = implementation();
 		assert (null != db.getCategories());
 		// fail("DataBase interface doesn't yet allow this kind of test."); //
@@ -132,7 +133,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testGetBookFromCategory() {
+	public void testGetBookFromCategory() throws RemoteException {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
 				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
@@ -150,7 +151,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testGetBookRecents() {
+	public void testGetBookRecents() throws RemoteException {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
 				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
@@ -174,7 +175,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testGetBookBestRate() {
+	public void testGetBookBestRate() throws RemoteException {
 		fail("Need some improvements of the DataBase interface.");
 		Database db = implementation();
 		// Add books.
@@ -200,7 +201,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testGetBookMostConsulted() {
+	public void testGetBookMostConsulted() throws RemoteException {
 		fail("Need some improvements of the DataBase interface.");
 		Database db = implementation();
 		// Add books.
@@ -228,7 +229,7 @@ public class EmbeddedDBTest {
 	}
 
 	@Test
-	public void testGetBookMostSimilar() {
+	public void testGetBookMostSimilar() throws RemoteException {
 		assert (5 == 3);
 		Database db = implementation();
 		// Create and add some books
