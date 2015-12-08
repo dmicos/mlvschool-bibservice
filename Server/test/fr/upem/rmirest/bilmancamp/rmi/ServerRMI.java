@@ -15,6 +15,7 @@ import fr.upem.rmirest.bilmancamp.database.JavaDatabase;
 import fr.upem.rmirest.bilmancamp.helpers.DBHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.models.LibraryImpl;
+import utils.Constants;
 
 public class ServerRMI {
 
@@ -22,7 +23,7 @@ public class ServerRMI {
 	public void serverRMITest() throws RemoteException, NotBoundException {
 
 		// policy
-		System.setProperty("java.security.policy", "confFiles/sec.policy");
+		System.setProperty("java.security.policy", Constants.SECURITY_POLICY_PATH);
 
 		// Secu Manager
 		if (System.getSecurityManager() == null) {
@@ -31,7 +32,9 @@ public class ServerRMI {
 
 		// setup object
 		Library lib = new LibraryImpl(implementation());
-		Registry reg = LocateRegistry.createRegistry(8888); // Server Embedded registry for quick Test
+		Registry reg = LocateRegistry.createRegistry(8888); // Server Embedded
+															// registry for
+															// quick Test
 		reg.rebind("lib", lib);
 
 		// Tested in other file
@@ -46,7 +49,7 @@ public class ServerRMI {
 	private static Database implementation() {
 
 		try {
-			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
+			return new EmbeddedDB(DBHelper.connect("jdbc:h2:" + Constants.DATABASE_PATH, "pony", "merens*30"));
 		} catch (SQLException | ClassNotFoundException ex) {
 			return new JavaDatabase();
 		}

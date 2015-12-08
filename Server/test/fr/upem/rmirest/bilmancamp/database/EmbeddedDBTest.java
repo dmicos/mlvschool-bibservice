@@ -18,6 +18,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookImpl;
 import fr.upem.rmirest.bilmancamp.models.UserImpl;
+import utils.Constants;
 
 public class EmbeddedDBTest {
 
@@ -30,7 +31,8 @@ public class EmbeddedDBTest {
 	private static Database implementation() {
 
 		try {
-			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
+			return new EmbeddedDB(
+					DBHelper.connect("jdbc:h2:" + "jdbc:h2:" + Constants.DATABASE_PATH, "pony", "merens*30"));
 		} catch (SQLException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 			return new JavaDatabase();
@@ -46,7 +48,7 @@ public class EmbeddedDBTest {
 		// This should work and not throw any exception
 		Database db = implementation();
 		Book book = new BookImpl("Les aventures de champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42,
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42,
 				Arrays.asList("Champimou", "saga"), image(), Arrays.asList(image()));
 		db.addBook(book);
 	}
@@ -103,10 +105,10 @@ public class EmbeddedDBTest {
 	public void testSearchBookFromKeywords() throws RemoteException {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book book2 = new BookImpl("Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
-				"Un voyage vers des contrées nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un voyage vers des contrï¿½es nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book anotherbook = new BookImpl("Dive into Python", Arrays.asList("JYT"), "A guide for python 3",
 				Arrays.asList("Programming"), 666.42, Arrays.asList("Software", "python"), image(),
@@ -136,10 +138,10 @@ public class EmbeddedDBTest {
 	public void testGetBookFromCategory() throws RemoteException {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book book2 = new BookImpl("Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
-				"Un voyage vers des contrées nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un voyage vers des contrï¿½es nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		db.addBook(book1);
 		db.addBook(book2);
@@ -154,10 +156,10 @@ public class EmbeddedDBTest {
 	public void testGetBookRecents() throws RemoteException {
 		Database db = implementation();
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book book2 = new BookImpl("Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
-				"Un voyage vers des contrées nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un voyage vers des contrï¿½es nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book lastBook = new BookImpl("Dive into Python", Arrays.asList("JYT"), "A guide for python 3",
 				Arrays.asList("Programming"), 666.42, Arrays.asList("Software", "python"), image(),
@@ -180,10 +182,10 @@ public class EmbeddedDBTest {
 		Database db = implementation();
 		// Add books.
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book book2 = new BookImpl("Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
-				"Un voyage vers des contrées nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un voyage vers des contrï¿½es nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		db.addBook(book1);
 		db.addBook(book2);
@@ -206,10 +208,10 @@ public class EmbeddedDBTest {
 		Database db = implementation();
 		// Add books.
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("Romance"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		Book book2 = new BookImpl("Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
-				"Un voyage vers des contrées nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un voyage vers des contrï¿½es nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		db.addBook(book1);
 		db.addBook(book2);
@@ -234,15 +236,15 @@ public class EmbeddedDBTest {
 		Database db = implementation();
 		// Create and add some books
 		Book refBook = new BookImpl("Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
-				"Un voyage vers des contrées nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un voyage vers des contrï¿½es nouvelles", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		// "les" "aventures", "de", "un", "sf", "saga" : 6
 		Book book1 = new BookImpl("Les aventures de Champimou", Arrays.asList("Quentin"),
-				"Un récit d'aventure exceptionnel", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Un rï¿½cit d'aventure exceptionnel", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		// "de", "sf", "saga" : 3
 		Book book2 = new BookImpl("Le retour de ChampiMou", Arrays.asList("Yannerson"),
-				"Le spectre du mal rôde à nouveau", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
+				"Le spectre du mal rï¿½de ï¿½ nouveau", Arrays.asList("SF"), 666.42, Arrays.asList("saga"), image(),
 				Arrays.asList(image()));
 		// No matches
 		Book anotherbook = new BookImpl("Dive into Python", Arrays.asList("JYP"), "A guide for python 3",
