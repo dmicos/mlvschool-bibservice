@@ -1,8 +1,9 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +11,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import fr.upem.rmirest.bilmancamp.helpers.DBHelper;
+import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookImpl;
 import fr.upem.rmirest.bilmancamp.models.UserImpl;
 
-public class JavaDatabaseTest {
+public class EmbeddedDBTest {
 
 	/**
 	 * Return a {@link Database} of the tested implementation. Allows this junit
@@ -26,26 +29,16 @@ public class JavaDatabaseTest {
 	 */
 	private static Database implementation() {
 
-
-//		try {
-//			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
-//		} catch (SQLException | ClassNotFoundException ex) {
-//			return new JavaDatabase();
-//		}
-//=======
-		return new JavaDatabase();
+		try {
+			return new EmbeddedDB(DBHelper.connect("jdbc:h2:./Server/rsc/library", "pony", "merens*30"));
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return new JavaDatabase();
+		}
 	}
 
 	private static Image image() {
-		return new Image() {
-			private static final long serialVersionUID = 4060559163469041882L;
-
-			@Override
-			public String getPath() {
-				// TODO Auto-generated method stub
-				return "false path";
-			}
-		};
+		return ImageHelper.DEFAULT_IMAGE;
 	}
 
 	@Test

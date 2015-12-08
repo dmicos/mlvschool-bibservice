@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,8 +82,8 @@ public class UserImpl implements User {
 		}
 
 		@Override
-		public boolean isLoginValid(String id, String password) {
-			return id.equals(UserHelper.computeId(this)) && password.equals(this.password);
+		public boolean isLoginValid(String id, String password) throws RemoteException {
+			return id.equals(UserHelper.computeId(firstName, lastName, cardNumber)) && password.equals(this.password);
 		}
 
 		@Override
@@ -105,48 +106,6 @@ public class UserImpl implements User {
 			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 			result = prime * result + ((status == null) ? 0 : status.hashCode());
 			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (obj == null) {
-				return false;
-			}
-			if (!(obj instanceof RealUser)) {
-				return false;
-			}
-			RealUser other = (RealUser) obj;
-			if (!getOuterType().equals(other.getOuterType())) {
-				return false;
-			}
-			if (cardNumber != other.cardNumber) {
-				return false;
-			}
-			if (firstName == null) {
-				if (other.firstName != null) {
-					return false;
-				}
-			} else if (!firstName.equals(other.firstName)) {
-				return false;
-			}
-			if (lastName == null) {
-				if (other.lastName != null) {
-					return false;
-				}
-			} else if (!lastName.equals(other.lastName)) {
-				return false;
-			}
-			if (status == null) {
-				if (other.status != null) {
-					return false;
-				}
-			} else if (!status.equals(other.status)) {
-				return false;
-			}
-			return true;
 		}
 
 		private UserImpl getOuterType() {
@@ -202,13 +161,20 @@ public class UserImpl implements User {
 			return false;
 		}
 
+		@Override
 		public String toString() {
 			return "Disconnected user";
 		}
 
+		@Override
 		public boolean equals(Object obj) {
 			return false;
 		};
+
+		@Override
+		public int hashCode() {
+			return 0;
+		}
 	};
 
 	// Database fields
@@ -241,38 +207,38 @@ public class UserImpl implements User {
 	}
 
 	@Override
-	public int getId() {
+	public int getId() throws RemoteException {
 		return id;
 	}
 
 	// Delegation methods.
 	@Override
-	public String getStatus() {
+	public String getStatus() throws RemoteException {
 		return realUser.getStatus();
 	}
 
 	@Override
-	public String getFirstName() {
+	public String getFirstName() throws RemoteException {
 		return realUser.getFirstName();
 	}
 
 	@Override
-	public String getLastName() {
+	public String getLastName() throws RemoteException {
 		return realUser.getLastName();
 	}
 
 	@Override
-	public int getCardNumber() {
+	public int getCardNumber() throws RemoteException {
 		return realUser.getCardNumber();
 	}
 
 	@Override
-	public boolean isLoginValid(String id, String password) {
+	public boolean isLoginValid(String id, String password) throws RemoteException {
 		return realUser.isLoginValid(id, password);
 	}
 
 	@Override
-	public void disconnect() {
+	public void disconnect() throws RemoteException {
 		// Change the real user to the null user, in order to keep the current
 		// object valid even after being disconnected.
 		realUser = NULL_USER_SINGLETON;
@@ -280,7 +246,7 @@ public class UserImpl implements User {
 	}
 
 	@Override
-	public List<Book> getBookHistory() {
+	public List<Book> getBookHistory() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -293,29 +259,18 @@ public class UserImpl implements User {
 	@Override
 	public int hashCode() {
 		// Card number is supposed to be unique.
-		return realUser.getCardNumber();
+		return realUser.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
+
+		if (!(obj instanceof UserImpl))
 			return false;
-		}
-		if (!(obj instanceof User)) {
-			return false;
-		}
+
 		UserImpl other = (UserImpl) obj;
-		if (realUser == null) {
-			if (other.realUser != null) {
-				return false;
-			}
-		} else if (!realUser.equals(other.realUser)) {
-			return false;
-		}
-		return true;
+
+		return id == other.id;
 	}
 
 }

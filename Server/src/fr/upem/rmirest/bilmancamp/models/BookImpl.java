@@ -1,11 +1,11 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +41,7 @@ public class BookImpl implements Book {
 	// Object fields
 	private User borrower = null;
 	private final ArrayDeque<User> subscribers;
+	// TODO : Comment gérer les notations de livre ?
 	private final Set<User> raters;
 
 	public BookImpl(int id, String title, List<String> authors, String summary, List<String> categories, double price,
@@ -72,7 +73,6 @@ public class BookImpl implements Book {
 		raters = new HashSet<>();
 	}
 
-	// Quentin V1 updated by Ybilissor to persist id
 	public BookImpl(String title, List<String> authors, String summary, List<String> categories, double price,
 			List<String> tags, Image mainImage, List<Image> secondaryImages) {
 		this(idCount, title, authors, summary, categories, price, tags, mainImage, Collections.emptyList());
@@ -87,62 +87,62 @@ public class BookImpl implements Book {
 	// Getters
 
 	@Override
-	public int getId() {
+	public int getId() throws RemoteException {
 		return id;
 	}
 
 	@Override
-	public LocalDate getDate() {
+	public LocalDate getDate() throws RemoteException {
 		return date.plusDays(0);
 	}
 
 	@Override
-	public String getTitle() {
+	public String getTitle() throws RemoteException {
 		return title;
 	}
 
 	@Override
-	public List<String> getAuthors() {
+	public List<String> getAuthors() throws RemoteException {
 		return Collections.unmodifiableList(authors);
 	}
 
 	@Override
-	public String getSummary() {
+	public String getSummary() throws RemoteException {
 		return summary;
 	}
 
 	@Override
-	public List<String> getCategories() {
+	public List<String> getCategories() throws RemoteException {
 		return Collections.unmodifiableList(categories);
 	}
 
 	@Override
-	public int getConsultationNumber() {
+	public int getConsultationNumber() throws RemoteException {
 		return consultationNumber;
 	}
 
 	@Override
-	public List<String> getTags() {
+	public List<String> getTags() throws RemoteException {
 		return Collections.unmodifiableList(tags);
 	}
 
 	@Override
-	public Image getMainImage() {
+	public Image getMainImage() throws RemoteException {
 		return mainImage;
 	}
 
 	@Override
-	public List<Image> getSecondaryImages() {
+	public List<Image> getSecondaryImages() throws RemoteException {
 		return Collections.unmodifiableList(secondaryImages);
 	}
 
 	@Override
-	public double getPrice() {
+	public double getPrice() throws RemoteException {
 		return price;
 	}
 
 	@Override
-	public float getRate() {
+	public float getRate() throws RemoteException {
 		if (rateNumber == 0) {
 			return 0;
 		}
@@ -150,76 +150,32 @@ public class BookImpl implements Book {
 	}
 
 	@Override
-	public int getRateNumber() {
+	public int getRateNumber() throws RemoteException {
 		return rateNumber;
 	}
 
 	@Override
-	public List<BookComment> getComments() {
+	public List<BookComment> getComments() throws RemoteException {
 		return Collections.unmodifiableList(comments);
 	}
 
 	@Override
-	public boolean isAvailable() {
+	public boolean isAvailable() throws RemoteException {
 		return borrower == null;
 	}
 
 	@Override
-	public boolean borrow(User user) {
-		// If the book is available, let the user borrow it.
-		if (borrower == null) {
-			borrower = user;
-			consultationNumber++;
-			return true;
-		}
-		// Add in the queue only if the user is not the current borrower
-		// and if it's not already into.
-		if (!borrower.equals(user) && subscribers.contains(user)) {
-			subscribers.add(user);
-		}
-		return false;
-	}
-
-	@Override
-	public void rate(User user, int evaluation) throws IllegalArgumentException {
-		if (evaluation < 0 || evaluation > 5) {
-			throw new IllegalArgumentException("Evaluation of a book cannot be " + evaluation);
-		}
-		if (!raters.contains(user)) {
-			raters.add(user);
-			totalRate += evaluation;
-			rateNumber += 1;
-		}
-	}
-
-	@Override
-	public void comment(BookComment bookComment) {
+	public void comment(BookComment bookComment) throws RemoteException {
 		comments.add(Objects.requireNonNull(bookComment));
 	}
 
 	@Override
-	public void giveBack(User user) {
-		if (borrower.equals(user)) {
-			// If there is an user waiting for this book.
-			if (!subscribers.isEmpty()) {
-				User newBorrower = subscribers.pop();
-				// TODO find a way to notify the Library that the book was
-				// borrowed
-				// by this user. (for borrowing history)
-				// Borrowing history should not be stored into the User object
-				// because of it's Database related nature.
-				borrower = user;
-			}
-		}
-	}
-
-	@Override
-	public void unregister(User user) {
+	public void unregister(User user) throws RemoteException {
 		subscribers.remove(user);
 	}
 
 	@Override
-	public int getRankInWaitingQueue(User user) {
+	public int getRankInWaitingQueue(User user) throws RemoteException {
 		// TODO need some reallocations. Maybe change the ArrayDeque subscribers
 		// to an ArrayList for improved complexity.
 		return Arrays.asList(subscribers.toArray()).indexOf(user) + 1;
@@ -227,7 +183,7 @@ public class BookImpl implements Book {
 
 	@Override
 	public String toString() {
-		return String.format("%s by %s", getTitle(), getAuthors());
+		return String.format("%s by %s", title, authors);
 	}
 
 	@Override
@@ -247,38 +203,13 @@ public class BookImpl implements Book {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
 		if (!(obj instanceof BookImpl)) {
 			return false;
 		}
-		Book other = (Book) obj;
 
-		if (!this.getTitle().equals(other.getTitle())) {
-			return false;
-		}
-		if (!this.getAuthors().equals(other.getAuthors())) {
-			return false;
-		}
+		BookImpl other = (BookImpl) obj;
 
-		if (!this.getSummary().equals(other.getSummary())) {
-			return false;
-		}
-		if (!this.getCategories().equals(other.getCategories())) {
-			return false;
-		}
-		if (!this.getTags().equals(other.getTags())) {
-			return false;
-		}
-		if (this.getPrice() != other.getPrice()) {
-			return false;
-		}
-
-		return true;
+		return id == other.id;
 	}
 
 }

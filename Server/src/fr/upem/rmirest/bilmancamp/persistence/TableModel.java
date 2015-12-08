@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.persistence;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public interface TableModel<T> {
 	 *            The item to add
 	 * @return
 	 */
-	public boolean insert(T obj) throws SQLException;
+	public boolean insert(T obj) throws SQLException,RemoteException;
 
 	/**
 	 * Delete the row(s) matching given keys
@@ -33,14 +34,14 @@ public interface TableModel<T> {
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 */
-	public boolean delete(Object... pk) throws SQLException;
+	public boolean delete(Object... pk) throws SQLException,RemoteException;
 
 	/**
 	 * Get all table's rows contained into current table
 	 * 
 	 * @return the list of {@link T}
 	 */
-	public List<T> select() throws SQLException;
+	public List<T> select() throws SQLException,RemoteException;
 
 	/**
 	 * Get rows data from table
@@ -51,7 +52,7 @@ public interface TableModel<T> {
 	 *            the number of rows to retrieve
 	 * @return a list of {@link T}
 	 */
-	public List<T> select(int index, int limit) throws SQLException;
+	public List<T> select(int index, int limit) throws SQLException,RemoteException;
 
 	/**
 	 * find all rows that match given key(s)
@@ -60,7 +61,7 @@ public interface TableModel<T> {
 	 *            the table's primary key(s)
 	 * @return an optional object of type {@link T}
 	 */
-	public Optional<T> find(Object... pk) throws SQLException;
+	public Optional<T> find(Object... pk) throws SQLException,RemoteException;
 
 	/**
 	 * Search into table if there is any row matching given keywords
@@ -69,7 +70,7 @@ public interface TableModel<T> {
 	 *            the {@link T} tags
 	 * @return a list of {@link T}
 	 */
-	public List<T> search(String... tags) throws SQLException;
+	public List<T> search(String... tags) throws SQLException,RemoteException;
 
 	/**
 	 * Update given old{@link T} by the new {@link T}
@@ -79,6 +80,6 @@ public interface TableModel<T> {
 	 * @return <code>true</code> if operation in successful otherwise
 	 *         <code>false</code>
 	 */
-	public boolean update(T oldVal, T newVal) throws SQLException;
+	public boolean update(T oldVal, T newVal) throws SQLException,RemoteException;
 
 }

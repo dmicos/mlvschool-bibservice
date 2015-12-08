@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 public interface User extends Remote {
@@ -9,28 +10,33 @@ public interface User extends Remote {
 	 * Get the database related id of this User.
 	 * 
 	 * @return the unique id in the database.
+	 * @throws RemoteException
 	 */
-	public int getId();
+	public int getId() throws RemoteException;
 
 	/**
 	 * @return the status of the current user.
+	 * @throws RemoteException
 	 */
-	public String getStatus();
+	public String getStatus() throws RemoteException;
 
 	/**
 	 * @return the current user's first name.
+	 * @throws RemoteException
 	 */
-	public String getFirstName();
+	public String getFirstName() throws RemoteException;
 
 	/**
 	 * @return the current user's last name.
+	 * @throws RemoteException
 	 */
-	public String getLastName();
+	public String getLastName() throws RemoteException;
 
 	/**
 	 * @return the current user's library card number.
+	 * @throws RemoteException
 	 */
-	public int getCardNumber();
+	public int getCardNumber() throws RemoteException;
 
 	/**
 	 * Get a list of all borrowed books.
@@ -38,8 +44,9 @@ public interface User extends Remote {
 	 * TODO Maybe move as Library::getBookHistory(User) for database access.
 	 * 
 	 * @return a list of all the books the current user have borrowed.
+	 * @throws RemoteException
 	 */
-	public List<Book> getBookHistory();
+	public List<Book> getBookHistory() throws RemoteException;
 
 	/**
 	 * Indicates if the given credentials are valid for the current user.
@@ -50,12 +57,15 @@ public interface User extends Remote {
 	 * @param password
 	 *            the encrypted password.
 	 * @return true if the given connection data are valid for the current user.
+	 * @throws RemoteException
 	 */
-	public boolean isLoginValid(String id, String password);
+	public boolean isLoginValid(String id, String password) throws RemoteException;
 
 	/**
 	 * Disconnect the current user.
+	 * 
+	 * @throws RemoteException
 	 */
-	public void disconnect();
+	public void disconnect() throws RemoteException;
 
 }
