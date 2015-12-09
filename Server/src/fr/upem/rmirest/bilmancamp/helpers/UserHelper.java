@@ -13,7 +13,7 @@ public class UserHelper {
 	 * @return
 	 */
 	public static String computeId(UserPOJO user) {
-		return user.getLastName() + user.getCardNumber();
+		return user.getLastName().toLowerCase() + '.' + user.getCardNumber();
 	}
 
 	/**

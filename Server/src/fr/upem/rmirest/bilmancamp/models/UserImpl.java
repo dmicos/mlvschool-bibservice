@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.models;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,7 +16,12 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
  * @author qcampos
  *
  */
-public class UserImpl implements User {
+public class UserImpl extends UnicastRemoteObject implements User {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2857973181293273060L;
 
 	/**
 	 * The {@link UserImpl} is in reality a proxy for {@link User}. It will
@@ -79,7 +85,7 @@ public class UserImpl implements User {
 
 		@Override
 		public String toString() {
-			return String.format("%s n°%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
+			return String.format("%s nï¿½%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
 		}
 
 		@Override
@@ -169,7 +175,8 @@ public class UserImpl implements User {
 	private User realUser;
 	private UserPOJO model;
 
-	public UserImpl(UserPOJO model) {
+	public UserImpl(UserPOJO model) throws RemoteException {
+		super();
 		this.model = model;
 		realUser = new RealUser(model);
 	}

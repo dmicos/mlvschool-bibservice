@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.models;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -10,15 +11,19 @@ import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
-public class BookImpl implements Book {
+public class BookImpl extends UnicastRemoteObject implements Book {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7753109795230221876L;
 	private final BookPOJO model;
 
-	public BookImpl(BookPOJO model) {
-
+	public BookImpl(BookPOJO model) throws RemoteException {
+		super();
 		this.model = Objects.requireNonNull(model);
 	}
-	
+
 	// Getters
 	@Override
 	public int getId() throws RemoteException {
