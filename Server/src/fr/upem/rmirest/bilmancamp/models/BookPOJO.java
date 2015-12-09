@@ -1,3 +1,4 @@
+
 package fr.upem.rmirest.bilmancamp.models;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ public class BookPOJO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2090961306833130244L;
 	// Database fields
 	private final int id;
 	private final LocalDate date;

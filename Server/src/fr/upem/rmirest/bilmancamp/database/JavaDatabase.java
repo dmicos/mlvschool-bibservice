@@ -276,6 +276,12 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
+	public List<BookPOJO> getBorrowedBooks(UserPOJO user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public boolean borrow(BookPOJO book, UserPOJO user) {
 		// TODO Auto-generated method stub
 		return false;
@@ -329,5 +335,4 @@ public class JavaDatabase implements Database {
 		return true;
 	}
 
-	
 }

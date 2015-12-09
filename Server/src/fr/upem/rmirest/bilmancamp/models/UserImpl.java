@@ -2,11 +2,8 @@ package fr.upem.rmirest.bilmancamp.models;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collections;
-import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
-import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
@@ -70,11 +67,6 @@ public class UserImpl extends UnicastRemoteObject implements User {
 		}
 
 		@Override
-		public List<Book> getBookHistory() {
-			return Collections.unmodifiableList(model.getHistory());
-		}
-
-		@Override
 		public boolean isLoginValid(String id, String password) throws RemoteException {
 			return id.equals(UserHelper.computeId(model)) && password.equals(model.getPassword());
 		}
@@ -86,7 +78,7 @@ public class UserImpl extends UnicastRemoteObject implements User {
 
 		@Override
 		public String toString() {
-			return String.format("%s nï¿½%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
+			return String.format("%s n°%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
 		}
 
 		@Override
@@ -136,11 +128,6 @@ public class UserImpl extends UnicastRemoteObject implements User {
 		@Override
 		public int getCardNumber() {
 			return 0;
-		}
-
-		@Override
-		public List<Book> getBookHistory() {
-			return Collections.emptyList();
 		}
 
 		@Override
@@ -219,12 +206,6 @@ public class UserImpl extends UnicastRemoteObject implements User {
 		// object valid even after being disconnected.
 		realUser = NULL_USER_SINGLETON;
 
-	}
-
-	@Override
-	public List<Book> getBookHistory() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

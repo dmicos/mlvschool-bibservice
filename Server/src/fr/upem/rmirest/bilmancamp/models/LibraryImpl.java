@@ -162,6 +162,19 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 		return false;
 	}
 
+	@Override
+	public List<Book> getBookHistory(User user) throws RemoteException {
+		// TODO Add this feature to the database implementation.
+		return Collections.emptyList();
+		// TODO This is so buggy, you really should change it ASAP. 
+	}
+
+	@Override
+	public void disconnect(User user) throws RemoteException {
+		addresses.remove(user);
+		user.disconnect();
+	}
+
 	/**
 	 * Handle {@link Book} availability of a book by notifying user
 	 * 
@@ -172,19 +185,13 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	 * @throws RemoteException
 	 */
 	private void contactIfOnline(UserPOJO uPojo, Book book, MailBox<Book> callbackAddr) throws RemoteException {
-
+	
 		if (callbackAddr != null) {
-
+	
 			BookPOJO bPojo = Mapper.createBookPOJO(book);
 			callbackAddr.receive(book);
 			database.borrow(bPojo, uPojo);
 			database.removeFromQueue(bPojo, uPojo);
 		}
-	}
-
-	@Override
-	public void disconnect(User user) throws RemoteException {
-		addresses.remove(user);
-		user.disconnect();
 	}
 }

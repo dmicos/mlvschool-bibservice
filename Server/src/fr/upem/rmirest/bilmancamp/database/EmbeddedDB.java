@@ -163,6 +163,12 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
+	public List<BookPOJO> getBorrowedBooks(UserPOJO user) {
+		// TODO I'm too afraid to touch this database. I'll probably break something.
+		return Collections.emptyList();
+	}
+
+	@Override
 	public boolean borrow(BookPOJO book, UserPOJO user) {
 
 		try {
