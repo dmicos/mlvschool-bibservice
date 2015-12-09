@@ -1,5 +1,7 @@
 package fr.upem.rmirest.bilmancamp.helpers;
 
+import fr.upem.rmirest.bilmancamp.models.UserPOJO;
+
 public class UserHelper {
 
 	/**
@@ -10,10 +12,9 @@ public class UserHelper {
 	 * @param cardNumber
 	 * @return
 	 */
-	public static String computeId(String fname, String lname, int cardNumber) {
-		return fname.substring(0, 1).toLowerCase() + lname.toLowerCase() + cardNumber;
+	public static String computeId(UserPOJO user) {
+		return user.getLastName() + user.getCardNumber();
 	}
-
 
 	/**
 	 * Generate a default password. it is a debug method

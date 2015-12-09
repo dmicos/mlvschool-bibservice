@@ -1,20 +1,15 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
-import fr.upem.rmirest.bilmancamp.interfaces.User;
+import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 import fr.upem.rmirest.bilmancamp.persistence.BookTable;
 import fr.upem.rmirest.bilmancamp.persistence.CategoryTable;
 import fr.upem.rmirest.bilmancamp.persistence.UserTable;
@@ -29,7 +24,6 @@ public class EmbeddedDB implements Database {
 	private final BookTable bTable;
 	private final UserTable uTable;
 	private final CategoryTable cTable;
-	private final Map<User, MailBox<Book>> addresses;
 
 	/**
 	 * Create an embedded database
@@ -41,12 +35,11 @@ public class EmbeddedDB implements Database {
 		bTable = new BookTable(conn);
 		uTable = new UserTable(conn);
 		cTable = new CategoryTable(conn);
-		addresses = new HashMap<>();
 
 	}
 
 	@Override
-	public boolean addBook(Book book) throws RemoteException {
+	public boolean addBook(BookPOJO book) {
 
 		try {
 			return bTable.insert(book);
@@ -58,7 +51,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addUser(User user) throws RemoteException {
+	public boolean addUser(UserPOJO user) {
 
 		try {
 			return uTable.insert(user);
@@ -70,7 +63,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addUser(User user, String password) throws RemoteException {
+	public boolean addUser(UserPOJO user, String password) {
 
 		try {
 			return uTable.insert(user, password);
@@ -81,10 +74,10 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public User connectUser(String id, String password) {
+	public UserPOJO connectUser(String id, String password) {
 
 		try {
-			Optional<User> op = uTable.exist(id, password);
+			Optional<UserPOJO> op = uTable.exist(id, password);
 			return op.isPresent() ? op.get() : null;
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -93,7 +86,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> searchBookFromKeywords(String... keywords) throws RemoteException {
+	public List<BookPOJO> searchBookFromKeywords(String... keywords) {
 
 		try {
 			return bTable.search(keywords);
@@ -117,12 +110,12 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookFromCategory(String category) throws RemoteException {
+	public List<BookPOJO> getBookFromCategory(String category) {
 		return searchBookFromKeywords(category);
 	}
 
 	@Override
-	public List<Book> getBookRecents(int number) throws RemoteException {
+	public List<BookPOJO> getBookRecents(int number) {
 
 		try {
 			return bTable.selectMostRecent(number);
@@ -134,7 +127,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookBestRate(int number) throws RemoteException {
+	public List<BookPOJO> getBookBestRate(int number) {
 
 		try {
 			return bTable.selectMostRated(number);
@@ -146,7 +139,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookMostConsulted(int number) throws RemoteException {
+	public List<BookPOJO> getBookMostConsulted(int number) {
 
 		try {
 			return bTable.selectMostConsulted(number);
@@ -158,7 +151,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<Book> getBookMostSimilar(Book book, int number) throws RemoteException {
+	public List<BookPOJO> getBookMostSimilar(BookPOJO book, int number) {
 
 		try {
 			return bTable.mostSimilar(book, number);
@@ -170,7 +163,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean borrow(Book book, User user) throws RemoteException {
+	public boolean borrow(BookPOJO book, UserPOJO user) {
 
 		try {
 
@@ -196,7 +189,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public List<User> getQueue(Book book, int limit) {
+	public List<UserPOJO> getQueue(BookPOJO book, int limit) {
 		try {
 			return bTable.getQueue(book, limit);
 		} catch (SQLException e) {
@@ -207,7 +200,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addToQueue(User user, Book book) throws RemoteException {
+	public boolean addToQueue(UserPOJO user, BookPOJO book) {
 		try {
 			return bTable.addToQueue(book, user);
 		} catch (SQLException e) {
@@ -218,7 +211,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean isAvailable(Book book) throws RemoteException {
+	public boolean isAvailable(BookPOJO book) {
 
 		try {
 			return bTable.canBorrow(book);
@@ -230,7 +223,7 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean rateBook(Book book, User user, int value) throws RemoteException {
+	public boolean rateBook(BookPOJO book, UserPOJO user, int value) {
 		try {
 			return bTable.rate(user, book, value);
 		} catch (SQLException e) {
@@ -241,41 +234,47 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public User connectUser(String id, String password, MailBox<Book> callback) {
-		Objects.requireNonNull(callback);
+	public boolean giveBack(BookPOJO book, UserPOJO user) {
 
-		User user = connectUser(id, password);
+		try {
+			return bTable.giveBack(book, user);
 
-		if (user != null)
-			addresses.put(user, callback);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
 
-		return user;
+		return false;
 	}
 
 	@Override
-	public boolean giveBack(Book book, User user) throws RemoteException {
+	public boolean removeFromQueue(BookPOJO book, UserPOJO user) {
 
 		try {
-			if (bTable.giveBack(book, user)) {
+			return bTable.removeFromQueue(book, user);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
 
-				// check if there is some people in the queue
-				List<User> queue = bTable.getQueue(book, 1);
+		return false;
+	}
 
-				// Has waiters
-				if (!queue.isEmpty()) {
-					// Notify user
-					MailBox<Book> callbackAddr = addresses.get(queue.get(0));
-					if (callbackAddr != null) {
-						callbackAddr.receive(book);
-						borrow(book, queue.get(0));
-						
-						bTable.removeFromQueue(book, queue.get(0));
-					}
-				}
+	@Override
+	public List<BookPOJO> hasBookInWait(UserPOJO user) {
 
-				return true;
-			}
+		try {
+			return bTable.hasBookInWait(user);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
 
+		return Collections.emptyList();
+	}
+
+	@Override
+	public boolean clear() {
+
+		try {
+			return bTable.delete() && uTable.delete();
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}

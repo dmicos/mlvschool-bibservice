@@ -1,6 +1,5 @@
 package fr.upem.rmirest.bilmancamp.persistence;
 
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,27 +13,27 @@ import java.util.Optional;
 
 import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
-import fr.upem.rmirest.bilmancamp.models.UserImpl;
+import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
-public class UserTable extends AbstractTableModel<User> {
+public class UserTable extends AbstractTableModel<UserPOJO> {
 
 	public UserTable(Connection connection) {
 		super(connection);
 	}
 
 	@Override
-	public boolean insert(User obj) throws SQLException, RemoteException {
+	public boolean insert(UserPOJO obj) throws SQLException {
 		return insert(obj, UserHelper.generatePassword());
 	}
 
-	public boolean insert(User user, String password) throws SQLException, RemoteException {
+	public boolean insert(UserPOJO user, String password) throws SQLException {
 
 		Objects.requireNonNull(user);
 		Objects.requireNonNull(password);
 
-		if (!loginIsAvailable(UserHelper.computeId(user.getFirstName(), user.getLastName(), user.getCardNumber())))
+		if (!loginIsAvailable(UserHelper.computeId(user)))
 			return false;
-
+			
 		return prepareUser(user, password).executeUpdate() > 0;
 	}
 
@@ -51,7 +50,7 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public List<User> select() throws SQLException {
+	public List<UserPOJO> select() throws SQLException {
 
 		Statement st = getConnection().createStatement();
 		return extractUserFromResultSet(
@@ -59,7 +58,7 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public List<User> select(int index, int limit) throws SQLException {
+	public List<UserPOJO> select(int index, int limit) throws SQLException {
 		PreparedStatement ps = getConnection().prepareStatement(
 				"SELECT * FROM user WHERE loggable = 1  ORDER BY name asc,fname asc LIMIT ? OFFSET ?");
 		ps.setInt(1, limit);
@@ -68,7 +67,7 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public Optional<User> find(Object... pk) throws SQLException {
+	public Optional<UserPOJO> find(Object... pk) throws SQLException {
 		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM user WHERE id=? AND loggable = 1");
 		ps.setObject(1, pk[0]);
 		ResultSet rs = ps.executeQuery();
@@ -80,7 +79,7 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public List<User> search(String... tags) throws SQLException {
+	public List<UserPOJO> search(String... tags) throws SQLException {
 
 		if (tags.length < 1)
 			throw new IllegalArgumentException("You must give at least one keyword");
@@ -100,7 +99,7 @@ public class UserTable extends AbstractTableModel<User> {
 	}
 
 	@Override
-	public boolean update(User oldVal, User newVal) throws SQLException, RemoteException {
+	public boolean update(UserPOJO oldVal, UserPOJO newVal) throws SQLException {
 
 		Objects.requireNonNull(oldVal);
 		Objects.requireNonNull(newVal);
@@ -114,7 +113,7 @@ public class UserTable extends AbstractTableModel<User> {
 		ps.setString(2, newVal.getLastName());
 		ps.setString(3, newVal.getStatus());
 		ps.setInt(4, newVal.getCardNumber());
-		ps.setString(5, UserHelper.computeId(newVal.getFirstName(),newVal.getLastName(),newVal.getCardNumber()));
+		ps.setString(5, UserHelper.computeId(newVal));
 		ps.setInt(1, oldVal.getId());
 		return ps.executeUpdate() > 0;
 	}
@@ -128,9 +127,9 @@ public class UserTable extends AbstractTableModel<User> {
 	 *            The user's password
 	 * @return A {@link PreparedStatement}
 	 * @throws SQLException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
-	private PreparedStatement prepareUser(User obj, String password) throws SQLException, RemoteException {
+	private PreparedStatement prepareUser(UserPOJO obj, String password) throws SQLException {
 
 		String query = "INSERT INTO user(fname,name,status,cardNumber,datetime,login,loggable,password) VALUES(?,?,?,?,CURRENT_TIMESTAMP,?,?,?)";
 		PreparedStatement ps = getConnection().prepareStatement(query);
@@ -138,7 +137,7 @@ public class UserTable extends AbstractTableModel<User> {
 		ps.setString(2, obj.getLastName());
 		ps.setString(3, obj.getStatus());
 		ps.setInt(4, obj.getCardNumber());
-		ps.setString(5, UserHelper.computeId(obj.getFirstName(),obj.getLastName(),obj.getCardNumber()));
+		ps.setString(5, UserHelper.computeId(obj));
 		ps.setBoolean(6, true);
 		ps.setString(7, password);
 
@@ -156,7 +155,7 @@ public class UserTable extends AbstractTableModel<User> {
 	 *         {@link User}}
 	 * @throws SQLException
 	 */
-	public Optional<User> exist(String login, String password) throws SQLException {
+	public Optional<UserPOJO> exist(String login, String password) throws SQLException {
 		PreparedStatement ps = getConnection()
 				.prepareStatement("SELECT * FROM user WHERE login=? AND password=? AND loggable = 1");
 		ps.setString(1, login);
@@ -184,9 +183,9 @@ public class UserTable extends AbstractTableModel<User> {
 		return !ps.executeQuery().first();
 	}
 
-	public static List<User> extractUserFromResultSet(ResultSet rs) throws SQLException {
+	public static List<UserPOJO> extractUserFromResultSet(ResultSet rs) throws SQLException {
 
-		List<User> dest = new ArrayList<>();
+		List<UserPOJO> dest = new ArrayList<>();
 		rs.beforeFirst();
 		while (rs.next()) {
 			dest.add(extractRow(rs));
@@ -195,10 +194,16 @@ public class UserTable extends AbstractTableModel<User> {
 		return dest;
 	}
 
-	private static User extractRow(ResultSet rs) throws SQLException {
+	private static UserPOJO extractRow(ResultSet rs) throws SQLException {
 
-		return new UserImpl(rs.getInt("id"), rs.getString("status"), rs.getString("fname"), rs.getString("name"),
+		return new UserPOJO(rs.getInt("id"), rs.getString("status"), rs.getString("fname"), rs.getString("name"),
 				rs.getString("password"), rs.getInt("cardNumber"));
+	}
+
+	@Override
+	public boolean delete() throws SQLException {
+		Statement st = getConnection().createStatement();
+		return st.executeUpdate("DELETE FROM user") > 0;
 	}
 
 }

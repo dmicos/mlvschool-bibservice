@@ -31,59 +31,45 @@ public class UserImpl implements User {
 	private class RealUser implements User {
 
 		// Model fields
-		private final String status;
-		private final String firstName;
-		private final String lastName;
-		private final String password;
-		private final int cardNumber;
+		private UserPOJO model;
 
-		private final List<Book> history;
-
-		public RealUser(String status, String firstName, String lastName, String password, int cardNumber,
-				List<Book> history) {
-
-			// Model fields
-			this.status = status;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.password = password;
-			this.cardNumber = cardNumber;
-			this.history = history;
+		public RealUser(UserPOJO model) {
+			this.model = model;
 		}
 
 		@Override
 		public int getId() {
-			return 0;
+			return model.getId();
 		}
 
 		@Override
 		public String getStatus() {
-			return status;
+			return model.getStatus();
 		}
 
 		@Override
 		public String getFirstName() {
-			return firstName;
+			return model.getFirstName();
 		}
 
 		@Override
 		public String getLastName() {
-			return lastName;
+			return model.getLastName();
 		}
 
 		@Override
 		public int getCardNumber() {
-			return cardNumber;
+			return model.getCardNumber();
 		}
 
 		@Override
 		public List<Book> getBookHistory() {
-			return Collections.unmodifiableList(history);
+			return Collections.unmodifiableList(model.getHistory());
 		}
 
 		@Override
 		public boolean isLoginValid(String id, String password) throws RemoteException {
-			return id.equals(UserHelper.computeId(firstName, lastName, cardNumber)) && password.equals(this.password);
+			return id.equals(UserHelper.computeId(model)) && password.equals(model.getPassword());
 		}
 
 		@Override
@@ -101,17 +87,16 @@ public class UserImpl implements User {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + getOuterType().hashCode();
-			result = prime * result + cardNumber;
-			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-			result = prime * result + ((status == null) ? 0 : status.hashCode());
+			result = prime * result + model.getCardNumber();
+			result = prime * result + ((model.getFirstName() == null) ? 0 : model.getFirstName().hashCode());
+			result = prime * result + ((model.getLastName() == null) ? 0 : model.getLastName().hashCode());
+			result = prime * result + ((model.getStatus() == null) ? 0 : model.getStatus().hashCode());
 			return result;
 		}
 
 		private UserImpl getOuterType() {
 			return UserImpl.this;
 		}
-
 	}
 
 	/**
@@ -177,38 +162,21 @@ public class UserImpl implements User {
 		}
 	};
 
-	// Database fields
-	private static int idCount = 1;
-	private int id;
-
 	// Model fields
 	/**
 	 * The real {@link User} object which will receive all delegation methods.
 	 */
 	private User realUser;
+	private UserPOJO model;
 
-	public UserImpl(int id, String status, String firstName, String lastName, String password, int cardNumber,
-			List<Book> history) {
-
-		// Model field
-		realUser = new RealUser(status, firstName, lastName, password, cardNumber, history);
-		// Database fields
-		this.id = id;
-		idCount++;
-	}
-
-	public UserImpl(String status, String firstName, String lastName, String password, int cardNumber,
-			List<Book> history) {
-		this(idCount, status, firstName, lastName, password, cardNumber, Collections.emptyList());
-	}
-
-	public UserImpl(int id, String status, String firstName, String lastName, String password, int cardNumber) {
-		this(id, status, firstName, lastName, password, cardNumber, Collections.emptyList());
+	public UserImpl(UserPOJO model) {
+		this.model = model;
+		realUser = new RealUser(model);
 	}
 
 	@Override
 	public int getId() throws RemoteException {
-		return id;
+		return realUser.getId();
 	}
 
 	// Delegation methods.
@@ -270,7 +238,7 @@ public class UserImpl implements User {
 
 		UserImpl other = (UserImpl) obj;
 
-		return id == other.id;
+		return model.getId() == other.model.getId();
 	}
 
 }

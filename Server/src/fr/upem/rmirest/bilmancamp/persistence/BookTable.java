@@ -1,7 +1,6 @@
 package fr.upem.rmirest.bilmancamp.persistence;
 
 import java.nio.file.Paths;
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,16 +23,17 @@ import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
-import fr.upem.rmirest.bilmancamp.models.BookImpl;
+import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
-public class BookTable extends AbstractTableModel<Book> {
+public class BookTable extends AbstractTableModel<BookPOJO> {
 
 	public BookTable(Connection connection) {
 		super(connection);
 	}
 
 	@Override
-	public boolean insert(Book book) throws SQLException, RemoteException {
+	public boolean insert(BookPOJO book) throws SQLException {
 
 		Objects.requireNonNull(book);
 
@@ -74,9 +74,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public List<Book> select() throws SQLException, RemoteException {
+	public List<BookPOJO> select() throws SQLException {
 
-		List<Book> content = new ArrayList<>();
+		List<BookPOJO> content = new ArrayList<>();
 		Statement statement = getConnection().createStatement();
 		ResultSet rs = statement.executeQuery("SELECT * FROM book ORDER BY title asc");
 		extractFromResultSet(content, rs);
@@ -85,9 +85,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public List<Book> select(int offset, int limit) throws SQLException, RemoteException {
+	public List<BookPOJO> select(int offset, int limit) throws SQLException {
 
-		List<Book> content = new ArrayList<>();
+		List<BookPOJO> content = new ArrayList<>();
 		PreparedStatement ps = getConnection()
 				.prepareStatement("SELECT * FROM book   ORDER BY title asc LIMIT ? OFFSET ?");
 		ps.setInt(1, limit);
@@ -106,9 +106,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public List<Book> selectMostRecent(int limit) throws SQLException, RemoteException {
+	public List<BookPOJO> selectMostRecent(int limit) throws SQLException {
 
-		List<Book> content = new ArrayList<>();
+		List<BookPOJO> content = new ArrayList<>();
 		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM book ORDER BY datetime desc LIMIT ? ");
 		ps.setInt(1, limit);
 		extractFromResultSet(content, ps.executeQuery());
@@ -128,7 +128,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public boolean rate(User user, Book book, int value) throws SQLException, RemoteException {
+	public boolean rate(UserPOJO user, BookPOJO book, int value) throws SQLException {
 
 		Objects.requireNonNull(user);
 		Objects.requireNonNull(book);
@@ -154,9 +154,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public List<Book> selectMostRated(int limit) throws SQLException, RemoteException {
+	public List<BookPOJO> selectMostRated(int limit) throws SQLException {
 
-		List<Book> content = new ArrayList<>();
+		List<BookPOJO> content = new ArrayList<>();
 		PreparedStatement ps = getConnection().prepareStatement(
 				"SELECT * FROM book INNER JOIN  (select idBook ,AVG(VALUE) as rank from rate r  group by idBook) ON idBook = id order by rank desc LIMIT ?");
 		ps.setInt(1, limit);
@@ -166,7 +166,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public Optional<Book> find(Object... pk) throws SQLException, RemoteException {
+	public Optional<BookPOJO> find(Object... pk) throws SQLException {
 
 		if (pk.length != 1)
 			throw new IllegalArgumentException("Only one key is expected");
@@ -176,7 +176,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.first()) {
-			Optional<Book> op = Optional.of(extractRow(rs));
+			Optional<BookPOJO> op = Optional.of(extractRow(rs));
 			consult(Arrays.asList(op.get()));
 			return op;
 		}
@@ -184,7 +184,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	@Override
-	public List<Book> search(String... tags) throws SQLException, RemoteException {
+	public List<BookPOJO> search(String... tags) throws SQLException {
 
 		if (tags.length < 1)
 			throw new IllegalArgumentException("You must give at least one keyword");
@@ -196,14 +196,14 @@ public class BookTable extends AbstractTableModel<Book> {
 		builder.append("SELECT * FROM book WHERE LCASE(ptags) LIKE ")
 				.append(String.join(" OR LCASE(ptags) LIKE ", lowTags)).append(" ORDER BY title");
 
-		List<Book> content = new ArrayList<>();
+		List<BookPOJO> content = new ArrayList<>();
 		extractFromResultSet(content, getConnection().createStatement().executeQuery(builder.toString()));
 		consult(content);
 		return content;
 	}
 
 	@Override
-	public boolean update(Book oldVal, Book newVal) throws SQLException, RemoteException {
+	public boolean update(BookPOJO oldVal, BookPOJO newVal) throws SQLException {
 
 		Objects.requireNonNull(oldVal);
 		Objects.requireNonNull(newVal);
@@ -241,7 +241,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws RemoteException
 	 */
 
-	public boolean giveBack(Book book, User user) throws SQLException, RemoteException {
+	public boolean giveBack(BookPOJO book, UserPOJO user) throws SQLException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -258,7 +258,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		return ps.executeUpdate() > 0;
 	}
 
-	private void updateStock(Book book, int value) throws SQLException, RemoteException {
+	private void updateStock(BookPOJO book, int value) throws SQLException {
 		PreparedStatement ps1 = getConnection().prepareStatement("UPDATE book SET stock = stock + ? WHERE id=?");
 		ps1.setInt(1, value);
 		ps1.setInt(2, book.getId());
@@ -277,7 +277,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public boolean borrow(Book book, User user) throws SQLException, RemoteException {
+	public boolean borrow(BookPOJO book, UserPOJO user) throws SQLException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -303,15 +303,46 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the limit of result
 	 * @return
 	 */
-	public List<User> getQueue(Book book, int limit) throws SQLException {
+	public List<UserPOJO> getQueue(BookPOJO book, int limit) throws SQLException {
 
 		Objects.requireNonNull(book);
 
 		PreparedStatement ps = getConnection().prepareStatement(
-				"SELECT * FROM queue q INNER JOIN user u ON q.idUser = u.id ORDER BY position desc LIMIT ?");
+				"SELECT * FROM queue q INNER JOIN user u ON q.idUser = u.id ORDER BY position asc LIMIT ?");
 		ps.setInt(1, limit);
 
 		return UserTable.extractUserFromResultSet(ps.executeQuery());
+	}
+
+	/**
+	 * Check if there are some {@link BookPOJO} in wait of borrowing
+	 * 
+	 * @param user
+	 *            the borrower
+	 * @return a list of {@link BookPOJO} that can be borrowed
+	 * @throws SQLException
+	 */
+	public List<BookPOJO> hasBookInWait(UserPOJO user) throws SQLException {
+
+		Objects.requireNonNull(user);
+
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM queue q INNER JOIN book b ON q.idBook = b.id WHERE q.idUser=? ORDER BY position asc");
+		ps.setInt(1, user.getId());
+
+		List<BookPOJO> booksInQueue = new ArrayList<>();
+		List<BookPOJO> availableBook = new ArrayList<>();
+
+		extractFromResultSet(booksInQueue, ps.executeQuery());
+
+		for (BookPOJO b : booksInQueue) {
+
+			if (getQueue(b, 1).contains(user) && canBorrow(b)) {
+				availableBook.add(b);
+			}
+		}
+
+		return availableBook;
 	}
 
 	/**
@@ -323,7 +354,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the {@link User} who wants to borrow
 	 * @throws RemoteException
 	 */
-	public boolean addToQueue(Book book, User user) throws SQLException, RemoteException {
+	public boolean addToQueue(BookPOJO book, UserPOJO user) throws SQLException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -344,7 +375,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public boolean isAlreadyInQueue(Book book, User user) throws SQLException, RemoteException {
+	public boolean isAlreadyInQueue(BookPOJO book, UserPOJO user) throws SQLException {
 
 		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM queue WHERE idUser=? AND idBook=?");
 		ps.setInt(1, user.getId());
@@ -363,7 +394,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public boolean hasAlreadyBorrowed(Book book, User user) throws SQLException, RemoteException {
+	public boolean hasAlreadyBorrowed(BookPOJO book, UserPOJO user) throws SQLException {
 
 		PreparedStatement ps = getConnection()
 				.prepareStatement("SELECT * FROM borrow WHERE idUser=? AND idBook=? AND State=0");
@@ -374,15 +405,15 @@ public class BookTable extends AbstractTableModel<Book> {
 	}
 
 	/**
-	 * Remove {@Link User} from the queue
+	 * Remove {@Link UserPOJO} from the queue
 	 * 
 	 * @param book
-	 *            the {@link Book} borrowed
+	 *            the {@link BookPOJO} borrowed
 	 * @param user
-	 *            the {@link User} to remove
+	 *            the {@link UserPO} to remove
 	 * @throws RemoteException
 	 */
-	public void removeFromQueue(Book book, User user) throws SQLException, RemoteException {
+	public boolean removeFromQueue(BookPOJO book, UserPOJO user) throws SQLException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(user);
@@ -390,7 +421,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		PreparedStatement ps = getConnection().prepareStatement("DELETE FROM queue WHERE idUser=? AND idBook=?");
 		ps.setInt(1, user.getId());
 		ps.setInt(2, book.getId());
-		ps.executeUpdate();
+		return ps.executeUpdate() > 0;
 
 	}
 
@@ -402,7 +433,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public boolean canBorrow(Book book) throws SQLException, RemoteException {
+	public boolean canBorrow(BookPOJO book) throws SQLException {
 
 		PreparedStatement ps = getConnection().prepareStatement("SELECT stock FROM book WHERE id=?");
 		ps.setObject(1, book.getId());
@@ -424,9 +455,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @throws SQLException
 	 * @throws RemoteException
 	 */
-	public List<Book> selectMostConsulted(int number) throws SQLException, RemoteException {
+	public List<BookPOJO> selectMostConsulted(int number) throws SQLException {
 
-		List<Book> content = new ArrayList<>();
+		List<BookPOJO> content = new ArrayList<>();
 		PreparedStatement ps = getConnection()
 				.prepareStatement("SELECT * FROM book ORDER BY viewCounter desc  LIMIT ? ");
 		ps.setInt(1, number);
@@ -443,7 +474,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return a list of key words
 	 * @throws RemoteException
 	 */
-	private List<String> createKeyWords(Book book) throws RemoteException {
+	private List<String> createKeyWords(BookPOJO book) {
 
 		List<String> kw = new ArrayList<>();
 		kw.addAll(Arrays.asList(book.getTitle().split(" ")));
@@ -459,9 +490,9 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<Book> mostSimilar(Book book, int limit) throws SQLException, RemoteException {
+	public List<BookPOJO> mostSimilar(BookPOJO book, int limit) throws SQLException {
 
-		Map<Book, Long> occurences = new HashMap<>();
+		Map<BookPOJO, Long> occurences = new HashMap<>();
 		Set<String> kw = new HashSet<>();
 		kw.addAll(book.getTags());
 		kw.addAll(book.getCategories());
@@ -470,7 +501,7 @@ public class BookTable extends AbstractTableModel<Book> {
 		for (String item : kw) {
 
 			search(item).stream().filter(b -> !b.equals(book))
-					.collect(Collectors.groupingBy((Book b) -> b, Collectors.counting())).forEach((k, v) -> {
+					.collect(Collectors.groupingBy((BookPOJO b) -> b, Collectors.counting())).forEach((k, v) -> {
 						occurences.merge(k, v, (a, b) -> b + v);
 					});
 
@@ -487,10 +518,10 @@ public class BookTable extends AbstractTableModel<Book> {
 	 *            the list consulted {@link Book}
 	 * @throws RemoteException
 	 */
-	private void consult(List<Book> books) throws SQLException, RemoteException {
+	private void consult(List<BookPOJO> books) throws SQLException {
 		PreparedStatement ps = getConnection().prepareStatement("UPDATE book Set viewCounter=viewCounter+1 WHERE id=?");
 
-		for (Book b : books) {
+		for (BookPOJO b : books) {
 			ps.setInt(1, b.getId());
 			ps.executeUpdate();
 		}
@@ -503,7 +534,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @param rs
 	 * @throws SQLException
 	 */
-	private void extractFromResultSet(List<Book> dest, ResultSet rs) throws SQLException {
+	private void extractFromResultSet(List<BookPOJO> dest, ResultSet rs) throws SQLException {
 		rs.beforeFirst();
 		while (rs.next()) {
 			dest.add(extractRow(rs));
@@ -518,7 +549,7 @@ public class BookTable extends AbstractTableModel<Book> {
 	 * @return {@link Book}
 	 * @throws SQLException
 	 */
-	private Book extractRow(ResultSet rs) throws SQLException {
+	private BookPOJO extractRow(ResultSet rs) throws SQLException {
 
 		// Load all stored images
 		List<Image> images = ImageHelper.loadImage(Arrays.asList(rs.getString("image").split(",")).stream()
@@ -528,9 +559,17 @@ public class BookTable extends AbstractTableModel<Book> {
 		List<Image> secondaries = images.size() > 1 ? images.subList(1, images.size()) : Collections.emptyList();
 
 		// Create the book
-		return new BookImpl(rs.getInt("id"), rs.getString("title"), Arrays.asList(rs.getString("authors").split(",")),
+		return new BookPOJO(rs.getInt("id"), rs.getString("title"), Arrays.asList(rs.getString("authors").split(",")),
 				rs.getString("description"), Arrays.asList(rs.getString("catName").split(",")), rs.getDouble("price"),
 				Arrays.asList(rs.getString("tags").split(",")), images.get(0), secondaries);
+
+	}
+
+	@Override
+	public boolean delete() throws SQLException {
+		Statement st = getConnection().createStatement();
+		return (st.executeUpdate("DELETE FROM borrow") & st.executeUpdate("DELETE FROM rate")
+				& st.executeUpdate("DELETE FROM queue") & st.executeUpdate("DELETE FROM book")) > 0;
 
 	}
 
