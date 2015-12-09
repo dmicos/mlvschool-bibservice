@@ -2,6 +2,9 @@ package application.utils;
 
 public class Constants {
 
+	// TODO delete THIS
+	public static final String DATABASE_PATH = "./data/rsc/library";
+	
 	/**
 	 * Numerical constants.
 	 */

@@ -36,6 +36,7 @@ public class Main extends Application {
 			loadCSS(scene, "/css/florange.css");
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
 		} catch (IOException e) {
 			System.err.println("Cannot load the scene : " + e.getCause() + '\n' + e.getMessage());
 			e.printStackTrace();

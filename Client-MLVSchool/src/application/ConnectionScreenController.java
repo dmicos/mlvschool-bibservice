@@ -38,9 +38,10 @@ public class ConnectionScreenController implements Initializable {
 	@FXML
 	private VBox titleGroup;
 
-	// Various modules with their controller.
+	// SignUp module.
 	private Pane signUpModuleView;
 	private SignUpController signUpController;
+	// LogIn module.
 	private Pane logInModuleView;
 	private LogInController logInController;
 
@@ -113,8 +114,8 @@ public class ConnectionScreenController implements Initializable {
 		double fadeDuration = 700;
 		double fromOpacity = 0, toOpacity = 1;
 		Interpolator interpolation = Interpolator.EASE_OUT;
-		titleGroup.setOpacity(toOpacity);
-		Animations.delay(500, transitionOpacityAnimation(interpolation, fromX, fromY, toX, toY, transDuration,
+		titleGroup.setOpacity(fromOpacity);
+		Animations.delay(800, transitionOpacityAnimation(interpolation, fromX, fromY, toX, toY, transDuration,
 				fadeDuration, fromOpacity, toOpacity, titleGroup, () -> {
 				})).play();
 	}
