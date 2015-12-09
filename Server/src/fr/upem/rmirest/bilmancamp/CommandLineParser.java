@@ -26,9 +26,6 @@ public class CommandLineParser {
 	@Parameter(names = "-port", description = "specify the port of the registry")
 	private int port = Constants.DEFAULT_PORT;
 
-	public List<String> getParameters() {
-		return parameters;
-	}
 
 	public Integer getVerbose() {
 		return verbose;

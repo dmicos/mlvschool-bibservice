@@ -2,6 +2,9 @@ package application.utils;
 
 public class Constants {
 
+	public static final String SECURITY_POLICY_PATH = "data/confFiles/sec.policy";
+	
+	
 	/**
 	 * Numerical constants.
 	 */
@@ -28,4 +31,5 @@ public class Constants {
 	public static final String SF_TEXT_REGULAR = "/fonts/SF-UI-Text-Regular.otf";
 	public static final String SF_TEXT_MEDIUM = "/fonts/SF-UI-Text-Medium.otf";
 	public static final String SF_TEXT_LIGHT = "/fonts/SF-UI-Text-Light.otf";
+
 }

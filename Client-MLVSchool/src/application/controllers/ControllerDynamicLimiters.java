@@ -54,4 +54,16 @@ public class ControllerDynamicLimiters {
 			}
 		});
 	}
+
+	public static void setLoginConstraint(final TextField tf) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("[a-zA-Z]{0,10}\\.{0,1}[0-9]{0,5}")) {
+					tf.setText(oldValue);
+					return;
+				}
+			}
+		});
+	}
 }

@@ -29,7 +29,7 @@
                   <Font name="SF UI Text Regular" size="24.0" />
                </font>
             </PasswordField>
-            <Button id="bigOrangeButton" fx:id="buttonLogin" mnemonicParsing="false" text="Log In">
+            <Button id="bigOrangeButton" fx:id="buttonLogin" mnemonicParsing="false" onAction="#logInClicked" text="Log In">
                <font>
                   <Font name="SF UI Display Regular" size="32.0" />
                </font></Button>

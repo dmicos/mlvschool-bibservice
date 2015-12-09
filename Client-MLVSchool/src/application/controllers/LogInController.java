@@ -30,9 +30,24 @@ public class LogInController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		ControllerDynamicLimiters.setLoginConstraint(tFLogin);
 		ControllerDynamicLimiters.addTextLimiter(tFLogin, Constants.LOGGING_LENGTH);
-		ControllerDynamicLimiters.setAlphabeticConstraint(tFLogin);
 		ControllerDynamicLimiters.addTextLimiter(tFPassword, Constants.PASSWORD_LENGTH);
+	}
+
+	@FXML
+	public void logInClicked() {
+		// Verifying every field.
+		String login = tFLogin.getText();
+		if (login.isEmpty()) {
+			System.err.println("LogInController tfLogin empty.");
+			return;
+		}
+		String password = tFPassword.getText();
+		if (password.isEmpty()) {
+			System.err.println("LogInController tFPassword empty.");
+			return;
+		}
 	}
 
 	@FXML

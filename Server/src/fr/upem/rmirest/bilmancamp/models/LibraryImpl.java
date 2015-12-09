@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
@@ -32,7 +31,6 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 		super();
 		this.database = database;
 		addresses = new ConcurrentHashMap<>();
-
 	}
 
 	@Override
@@ -62,8 +60,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 	@Override
 	public List<Book> searchBooks(String... keywords) throws RemoteException {
-		return database.searchBookFromKeywords(keywords).stream().map(b -> new BookImpl(b))
-				.collect(Collectors.toList());
+		return Pojos.booksPojoToBooksRemote(database.searchBookFromKeywords(keywords));
 	}
 
 	@Override
@@ -79,29 +76,29 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 	@Override
 	public List<Book> getCategoryBooks(String category) throws RemoteException {
-		return database.getBookFromCategory(category).stream().map(b -> new BookImpl(b)).collect(Collectors.toList());
+		List<BookPOJO> books = database.getBookFromCategory(category);
+		return Pojos.booksPojoToBooksRemote(books);
 	}
 
 	@Override
 	public List<Book> getMoreRecentBooks(int number) throws RemoteException {
-		return database.getBookRecents(number).stream().map(b -> new BookImpl(b)).collect(Collectors.toList());
+		return Pojos.booksPojoToBooksRemote(database.getBookRecents(number));
 	}
 
 	@Override
 	public List<Book> getBestRatedBooks(int number) throws RemoteException {
-		return database.getBookBestRate(number).stream().map(b -> new BookImpl(b)).collect(Collectors.toList());
+		return Pojos.booksPojoToBooksRemote(database.getBookBestRate(number));
 	}
 
 	@Override
 	public List<Book> getMostConsultedBooks(int number) throws RemoteException {
-		return database.getBookMostConsulted(number).stream().map(b -> new BookImpl(b)).collect(Collectors.toList());
+		return Pojos.booksPojoToBooksRemote(database.getBookMostConsulted(number));
 	}
 
 	@Override
 	public List<Book> getMostSimilarsBooks(Book book, int number) throws RemoteException {
 
-		return database.getBookMostSimilar(Mapper.createBookPOJO(book), number).stream().map(b -> new BookImpl(b))
-				.collect(Collectors.toList());
+		return Pojos.booksPojoToBooksRemote(database.getBookMostSimilar(Mapper.createBookPOJO(book), number));
 	}
 
 	/* Actions on the content */
