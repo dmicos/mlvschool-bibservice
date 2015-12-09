@@ -197,13 +197,23 @@ public interface Library extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean rateBook(Book book, User user, int value) throws RemoteException;
-	
-	
+
+	/**
+	 * Get a list of all {@link Book}s borrowed by the given {@link User}.
+	 * 
+	 * @param user
+	 * 
+	 * @return a list of all the books the given user have borrowed.
+	 * @throws RemoteException
+	 */
+	public List<Book> getBookHistory(User user) throws RemoteException;
+
 	/**
 	 * disconnect given user
+	 * 
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void disconnect(User user)throws RemoteException;
+	public void disconnect(User user) throws RemoteException;
 
 }

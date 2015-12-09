@@ -39,16 +39,6 @@ public interface User extends Remote {
 	public int getCardNumber() throws RemoteException;
 
 	/**
-	 * Get a list of all borrowed books.
-	 * 
-	 * TODO Maybe move as Library::getBookHistory(User) for database access.
-	 * 
-	 * @return a list of all the books the current user have borrowed.
-	 * @throws RemoteException
-	 */
-	public List<Book> getBookHistory() throws RemoteException;
-
-	/**
 	 * Indicates if the given credentials are valid for the current user.
 	 * 
 	 * @param id
