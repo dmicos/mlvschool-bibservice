@@ -16,6 +16,7 @@ import java.rmi.NotBoundException;
 import application.utils.Constants;
 import application.utils.FontManager;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
+import fr.upem.rmirest.bilmancamp.interfaces.User;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +61,9 @@ public class Main extends Application {
 			bib.addUser("Professor", "Jefferson", "Mangue", 84300, "12345");
 			// Tested in other file
 			try {
-				System.out.println(bib.connect("mangue.84300", "12345"));
+				User user = bib.connect("mangue.84300", "12345");
+				System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getId() + " "
+						+ user.getStatus() + " " + user.getBookHistory() + '\n' + bib.getCategories());
 			} catch (IllegalArgumentException e) {
 				System.err.println(e.getMessage());
 				Platform.exit();
@@ -76,7 +79,6 @@ public class Main extends Application {
 		}
 	}
 
-	
 	private void loadCSS(Scene scene, String cssPath) {
 		scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
 	}
