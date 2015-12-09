@@ -36,47 +36,46 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		try {
+		//try {
 			// // Loading custom resources.
-			// loadFonts();
-			// // Loading the connection screen.
-			// Pane screen = loadScreen(Constants.CONNECTION_SCREEN_MODULE);
-			// Scene scene = new Scene(screen, 1200, 800);
-			// loadCSS(scene, "/css/florange.css");
-			// primaryStage.setScene(scene);
-			// primaryStage.show();
+			 loadFonts();
+			 // Loading the connection screen.
+			 Pane screen = loadScreen(Constants.CONNECTION_SCREEN_MODULE);
+			 Scene scene = new Scene(screen, 1200, 800);
+			 loadCSS(scene, "/css/florange.css");
+			 primaryStage.setScene(scene);
+			 primaryStage.show();
 
-			// policy
-			// TODO set this in args or a file.
-			String codebase = "file:///Users/Baxtalou/Documents/Master2/REST2/ProjetRMIREST/bilious-octoprune/Server/src/";
-			System.setProperty("java.security.policy", Constants.SECURITY_POLICY_PATH);
-			System.setProperty("java.rmi.server.codebase", codebase);
-			Library bib = (Library) Naming.lookup("rmi://localhost:8888/libraryService");
-
-			// Security Manager
-			if (System.getSecurityManager() == null) {
-				System.setSecurityManager(new SecurityManager());
-			}
-			bib.addUser("Professor", "Jefferson", "Mangue", 84300, "12345");
-			// Tested in other file
-			try {
-				System.out.println(bib.connect("mangue.84300", "12345"));
-			} catch (IllegalArgumentException e) {
-				System.err.println(e.getMessage());
-				Platform.exit();
-			}
-
-		} catch (NotBoundException e) {
-			System.err.println("Cannot bind to the rmi server.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.err.println("Cannot load the scene : " + e.getCause() + '\n' + e.getMessage());
-			e.printStackTrace();
-			return;
-		}
+//			// policy
+//			// TODO set this in args or a file.
+//			String codebase = "file:///Users/Baxtalou/Documents/Master2/REST2/ProjetRMIREST/bilious-octoprune/Server/src/";
+//			System.setProperty("java.security.policy", Constants.SECURITY_POLICY_PATH);
+//			System.setProperty("java.rmi.server.codebase", codebase);
+//			Library bib = (Library) Naming.lookup("rmi://localhost:8888/libraryService");
+//
+//			// Security Manager
+//			if (System.getSecurityManager() == null) {
+//				System.setSecurityManager(new SecurityManager());
+//			}
+//			bib.addUser("Professor", "Jefferson", "Mangue", 84300, "12345");
+//			// Tested in other file
+//			try {
+//				System.out.println(bib.connect("mangue.84300", "12345"));
+//			} catch (IllegalArgumentException e) {
+//				System.err.println(e.getMessage());
+//				Platform.exit();
+//			}
+//
+//		} catch (NotBoundException e) {
+//			System.err.println("Cannot bind to the rmi server.");
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			System.err.println("Cannot load the scene : " + e.getCause() + '\n' + e.getMessage());
+//			e.printStackTrace();
+//			return;
+//		}
 	}
 
-	
 	private void loadCSS(Scene scene, String cssPath) {
 		scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
 	}
