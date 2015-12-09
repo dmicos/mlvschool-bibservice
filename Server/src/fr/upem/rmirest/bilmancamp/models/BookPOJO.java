@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +10,12 @@ import java.util.Objects;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
-public class BookPOJO {
+public class BookPOJO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2090961306833130244L;
 	// Database fields
 	private final int id;
 	private final LocalDate date;
