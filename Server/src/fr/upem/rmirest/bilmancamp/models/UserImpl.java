@@ -17,6 +17,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
  */
 public class UserImpl implements User {
 
+	
 	/**
 	 * The {@link UserImpl} is in reality a proxy for {@link User}. It will
 	 * delegate every operations to the class {@link RealUser}.
@@ -169,7 +170,8 @@ public class UserImpl implements User {
 	private User realUser;
 	private UserPOJO model;
 
-	public UserImpl(UserPOJO model) {
+	public UserImpl(UserPOJO model) throws RemoteException {
+		super();
 		this.model = model;
 		realUser = new RealUser(model);
 	}

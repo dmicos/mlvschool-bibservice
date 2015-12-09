@@ -1,12 +1,14 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 
-public class UserPOJO {
+public class UserPOJO  implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private final String status;
 	private final String firstName;
 	private final String lastName;

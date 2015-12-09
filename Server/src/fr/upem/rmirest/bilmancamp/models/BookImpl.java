@@ -12,10 +12,11 @@ import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
 public class BookImpl implements Book {
 
+
 	private final BookPOJO model;
 
-	public BookImpl(BookPOJO model) {
-
+	public BookImpl(BookPOJO model){
+		super();
 		this.model = Objects.requireNonNull(model);
 	}
 	
