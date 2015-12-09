@@ -35,6 +35,7 @@ public class ServerRMI {
 		Registry reg = LocateRegistry.createRegistry(8888); // Server Embedded
 															// registry for
 															// quick Test
+
 		reg.rebind("lib", lib);
 
 		// Tested in other file
@@ -43,7 +44,6 @@ public class ServerRMI {
 		// Check server stored data and client response data
 		Assert.assertEquals(lib.getMoreRecentBooks(10), clientLib.getMoreRecentBooks(10));
 		Assert.assertEquals(lib.getCategories(), clientLib.getCategories());
-
 	}
 
 	private static Database implementation() {

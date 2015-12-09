@@ -1,6 +1,5 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,10 +11,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import fr.upem.rmirest.bilmancamp.helpers.UserHelper;
-import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
-import fr.upem.rmirest.bilmancamp.interfaces.User;
+import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -37,9 +34,9 @@ public class JavaDatabase implements Database {
 		 */
 		class BookEntry {
 			private final long timestamp;
-			private final Book book;
+			private final BookPOJO book;
 
-			public BookEntry(Book book) {
+			public BookEntry(BookPOJO book) {
 				this.book = book;
 				timestamp = System.nanoTime();
 			}
@@ -48,7 +45,7 @@ public class JavaDatabase implements Database {
 				return timestamp;
 			}
 
-			public Book getBook() {
+			public BookPOJO getBook() {
 				return book;
 			}
 
@@ -69,7 +66,7 @@ public class JavaDatabase implements Database {
 
 		}
 
-		public void add(Book book) {
+		public void add(BookPOJO book) {
 			books.add(new BookEntry(Objects.requireNonNull(book)));
 		}
 
@@ -77,12 +74,12 @@ public class JavaDatabase implements Database {
 			return Collections.unmodifiableList(books);
 		}
 
-		public List<Book> searchFromKeywords(String... keywords) {
+		public List<BookPOJO> searchFromKeywords(String... keywords) {
 			return books.stream().map(be -> be.getBook()).filter(book -> matchKeywords(book, keywords))
 					.collect(Collectors.toList());
 		}
 
-		public List<Book> getMostSimilar(Book refBook, int number) {
+		public List<BookPOJO> getMostSimilar(BookPOJO refBook, int number) {
 			// Get all the book's keyword.
 			List<String> bookKeywords = getBookKeywords(refBook);
 			Set<String> initial = new HashSet<>();
@@ -114,7 +111,7 @@ public class JavaDatabase implements Database {
 		 * @param keywords
 		 * @return <code>true</code> if the given book match at least a keyword.
 		 */
-		private static boolean matchKeywords(Book book, String... keywords) {
+		private static boolean matchKeywords(BookPOJO book, String... keywords) {
 			// Create as list of all Book related words.
 			List<String> bw = getBookKeywords(book);
 
@@ -138,7 +135,7 @@ public class JavaDatabase implements Database {
 		 * @param book
 		 * @return a list of keywords.
 		 */
-		private static List<String> getBookKeywords(Book book) {
+		private static List<String> getBookKeywords(BookPOJO book) {
 			/*
 			 * List<String> bw = new ArrayList<>(); // Get all the book's
 			 * related words. bw.addAll(book.getCategories());
@@ -155,9 +152,9 @@ public class JavaDatabase implements Database {
 
 	static class UserTable {
 
-		private final Map<String, User> users = new HashMap<>();
+		private final Map<String, UserPOJO> users = new HashMap<>();
 
-		public boolean add(User user) {
+		public boolean add(UserPOJO user) {
 			// String computedId = UserHelper.computeId(user);
 			// if (users.containsKey(computedId)) {
 			// return false;
@@ -169,7 +166,7 @@ public class JavaDatabase implements Database {
 
 		}
 
-		public User connect(String id, String password) {
+		public UserPOJO connect(String id, String password) {
 
 			// if (!users.containsKey(id)) {
 			// return null;
@@ -202,23 +199,23 @@ public class JavaDatabase implements Database {
 	private final CategoryTable cTable = new CategoryTable();
 
 	@Override
-	public boolean addBook(Book book) {
+	public boolean addBook(BookPOJO book) {
 		bTable.add(book);
 		return true;
 	}
 
 	@Override
-	public boolean addUser(User user) {
+	public boolean addUser(UserPOJO user) {
 		return uTable.add(user);
 	}
 
 	@Override
-	public User connectUser(String id, String password) {
+	public UserPOJO connectUser(String id, String password) {
 		return uTable.connect(id, password);
 	}
 
 	@Override
-	public List<Book> searchBookFromKeywords(String... keywords) {
+	public List<BookPOJO> searchBookFromKeywords(String... keywords) {
 		return bTable.searchFromKeywords(keywords);
 	}
 
@@ -228,7 +225,7 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
-	public List<Book> getBookFromCategory(String category) {
+	public List<BookPOJO> getBookFromCategory(String category) {
 
 		throw new NotImplementedException();
 
@@ -241,13 +238,13 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
-	public List<Book> getBookRecents(int number) {
+	public List<BookPOJO> getBookRecents(int number) {
 		return bTable.getAll().stream().sorted((b1, b2) -> (int) (b2.getTimestamp() - b1.getTimestamp())).limit(number)
 				.map(be -> be.getBook()).collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Book> getBookBestRate(int number) {
+	public List<BookPOJO> getBookBestRate(int number) {
 		// return bTable.getAll().stream().map(be -> be.getBook()).sorted((b1,
 		// b2) -> (int) (b2.getRate() - b1.getRate()))
 		// .limit(number).collect(Collectors.toList());
@@ -257,7 +254,7 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
-	public List<Book> getBookMostConsulted(int number) {
+	public List<BookPOJO> getBookMostConsulted(int number) {
 		// return bTable.getAll().stream().map(be -> be.getBook())
 		// .sorted((b1, b2) -> b2.getConsultationNumber() -
 		// b1.getConsultationNumber()).limit(number)
@@ -268,53 +265,69 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
-	public List<Book> getBookMostSimilar(Book book, int number) {
+	public List<BookPOJO> getBookMostSimilar(BookPOJO book, int number) {
 		return bTable.getMostSimilar(book, number);
 	}
 
 	@Override
-	public boolean borrow(Book book, User user) {
+	public boolean addUser(UserPOJO user, String password) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<User> getQueue(Book book, int limit) {
+	public boolean borrow(BookPOJO book, UserPOJO user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAvailable(BookPOJO book) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<UserPOJO> getQueue(BookPOJO book, int limit) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean addToQueue(User user, Book book) {
+	public boolean addToQueue(UserPOJO user, BookPOJO book) {
+		// TODO Auto-generated method stub
 		return false;
-
 	}
 
 	@Override
-	public boolean isAvailable(Book book) throws RemoteException {
-		return book.isAvailable();
+	public boolean rateBook(BookPOJO book, UserPOJO user, int value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public boolean addUser(User user, String password) {
-		return addUser(user);
+	public boolean giveBack(BookPOJO book, UserPOJO user) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public boolean rateBook(Book book, User user, int value) {
-		throw new NotImplementedException();
+	public boolean removeFromQueue(BookPOJO book, UserPOJO user) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public User connectUser(String id, String password, MailBox<Book> callback) {
-		return connectUser(id, password);
+	public List<BookPOJO> hasBookInWait(UserPOJO user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public boolean giveBack(Book book, User user) {
-
-		throw new NotImplementedException();
-
+	public boolean clear() {
+		uTable.users.clear();
+		return true;
 	}
 
+	
 }

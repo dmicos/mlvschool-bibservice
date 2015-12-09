@@ -5,10 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import fr.upem.rmirest.bilmancamp.database.Database;
+import fr.upem.rmirest.bilmancamp.database.EmbeddedDB;
+import fr.upem.rmirest.bilmancamp.database.JavaDatabase;
+import utils.Constants;
+
 public final class DBHelper {
 
 	private static final String DRIVER = "org.h2.Driver";
-	
+	private static Database embeddedDB;
+
 	/**
 	 * 
 	 * @param dbFilePath
@@ -22,14 +28,30 @@ public final class DBHelper {
 	public static Connection connect(String dbFilePath, String username, String password)
 			throws ClassNotFoundException, SQLException {
 
-		// Load Driver class
 		Class.forName(DRIVER);
 
-		// Try to connect to embedded db. If the db file is not found, it will
-		// be generated but empty. We need to
-		// re-create db script.
-		return DriverManager.getConnection(Objects.requireNonNull(dbFilePath),
-				Objects.requireNonNull(username), Objects.requireNonNull(password));
+		return DriverManager.getConnection(Objects.requireNonNull(dbFilePath), Objects.requireNonNull(username),
+				Objects.requireNonNull(password));
+	}
+
+	/**
+	 * Return a {@link Database} of the tested implementation. Allows this junit
+	 * test to be easily changed for every implementation.
+	 * 
+	 * @return a Database object of the tested class.
+	 */
+	public static Database embeddedDB() {
+
+		if (embeddedDB != null)
+			return embeddedDB;
+
+		try {
+			embeddedDB = new EmbeddedDB(DBHelper.connect("jdbc:h2:" + Constants.DATABASE_PATH, "pony", "merens*30"));
+			return embeddedDB;
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+			return new JavaDatabase();
+		}
 	}
 
 }

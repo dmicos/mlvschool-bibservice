@@ -1,11 +1,11 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
+import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
 public interface Database {
 
@@ -17,52 +17,38 @@ public interface Database {
 	 * @return <code> true </code> if operation succeeds otherwise
 	 *         <code> false </code>
 	 */
-	public boolean addBook(Book book) throws RemoteException;
+	public boolean addBook(BookPOJO book) ;
 
 	/**
-	 * Add the given {@link User} to the database.
+	 * Add the given {@link UserPOJO} to the database.
 	 * 
 	 * @param user
 	 *            the user to add.
 	 * @return <code>true</code> if the user was added correctly,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean addUser(User user) throws RemoteException;
+	public boolean addUser(UserPOJO user) ;
 
 	/**
-	 * Add a new {@link User} with his password
+	 * Add a new {@link UserPOJO} with his password
 	 * 
 	 * @param user
 	 * @param password
 	 * @return
 	 */
-	public boolean addUser(User user, String password) throws RemoteException;
+	public boolean addUser(UserPOJO user, String password) ;
 
 	/**
-	 * Get a {@link User} object from the database values, using the given
+	 * Get a {@link UserPOJO} object from the database values, using the given
 	 * credentials.
 	 * 
 	 * @param id
 	 *            the user id.
 	 * @param password
 	 *            the encrypted user password.
-	 * @return the {@link User} or null if the credentials were invalids.
+	 * @return the {@link UserPOJO} or null if the credentials were invalids.
 	 */
-	public User connectUser(String id, String password) throws RemoteException;
-
-	/**
-	 * Get a {@link User} object from the database values, using the given
-	 * credentials.
-	 * 
-	 * @param id
-	 *            the user id.
-	 * @param password
-	 *            the encrypted user password.
-	 * @param callback
-	 *            The user callback address
-	 * @return the {@link User} or null if the credentials were invalids.
-	 */
-	public User connectUser(String id, String password, MailBox<Book> callback) throws RemoteException;
+	public UserPOJO connectUser(String id, String password) ;
 
 	/**
 	 * Get a list of {@link Book}s that corresponds to one of the keywords.
@@ -72,22 +58,22 @@ public interface Database {
 	 *            an {@link Iterable} of keywords.
 	 * @return a list of books that corresponds to one of the keywords.
 	 */
-	public List<Book> searchBookFromKeywords(String... keywords) throws RemoteException;
+	public List<BookPOJO> searchBookFromKeywords(String... keywords) ;
 
 	/**
 	 * Get all the categories of books in the database.
 	 * 
 	 * @return a list of all the categories.
 	 */
-	public List<String> getCategories() throws RemoteException;
+	public List<String> getCategories() ;
 
 	/**
-	 * Get all the {@link Book}s that are of the given category.
+	 * Get all the {@link BookPOJO}s that are of the given category.
 	 * 
 	 * @param category
 	 * @return a list of books of the given category.
 	 */
-	public List<Book> getBookFromCategory(String category) throws RemoteException;
+	public List<BookPOJO> getBookFromCategory(String category) ;
 
 	/**
 	 * Get the <code>number</code> most recent {@link Book}s.
@@ -95,7 +81,7 @@ public interface Database {
 	 * @param number
 	 * @return a list of the <code>number</code> most recent books.
 	 */
-	public List<Book> getBookRecents(int number) throws RemoteException;
+	public List<BookPOJO> getBookRecents(int number) ;
 
 	/**
 	 * Get the <code>number</code> best rated {@link Book}s.
@@ -103,15 +89,15 @@ public interface Database {
 	 * @param number
 	 * @return a list of the <code>number</code> best rates books.
 	 */
-	public List<Book> getBookBestRate(int number) throws RemoteException;
+	public List<BookPOJO> getBookBestRate(int number) ;
 
 	/**
-	 * Get the <code>number</code> most consulted {@link Book}s.
+	 * Get the <code>number</code> most consulted {@link BookPOJO}s.
 	 * 
 	 * @param number
 	 * @return a list of the <code>number</code> most consulted books.
 	 */
-	public List<Book> getBookMostConsulted(int number) throws RemoteException;
+	public List<BookPOJO> getBookMostConsulted(int number) ;
 
 	/**
 	 * Get the <code>number</code> books the most similar to the given one.
@@ -123,19 +109,19 @@ public interface Database {
 	 * @return a list of the <code>number</code> books the most similar to
 	 *         <code>book</code>.
 	 */
-	public List<Book> getBookMostSimilar(Book book, int number) throws RemoteException;
+	public List<BookPOJO> getBookMostSimilar(BookPOJO book, int number) ;
 
 	/**
-	 * Try to borrow the given {@link Book}. If not available, then user will
+	 * Try to borrow the given {@link BookPOJO}. If not available, then user will
 	 * notify later once available
 	 * 
 	 * @param book
-	 *            the {@link Book} to borrow
+	 *            the {@link BookPOJO} to borrow
 	 * @param user
-	 *            the {@link User} borrowing the {@link Book}
+	 *            the {@link UserPOJO} borrowing the {@link Book}
 	 * @return <code>true</code> if available otherwise <code>false</code>
 	 */
-	public boolean borrow(Book book, User user) throws RemoteException;
+	public boolean borrow(BookPOJO book, UserPOJO user) ;
 
 	/**
 	 * Check if the given {@link Book}is available
@@ -144,16 +130,16 @@ public interface Database {
 	 *            the {@link Book} to check
 	 * @return <code>true</code> if available otherwise <code>false</code>
 	 */
-	public boolean isAvailable(Book book) throws RemoteException;
+	public boolean isAvailable(BookPOJO book) ;
 
 	/**
 	 * Get the <code>limit</code> waiters
 	 * 
 	 * @param book
-	 *            the {@link Book} to borrow
-	 * @return a list of {@link User}
+	 *            the {@link BookPOJO} to borrow
+	 * @return a list of {@link UserPOJO}
 	 */
-	public List<User> getQueue(Book book, int limit) throws RemoteException;
+	public List<UserPOJO> getQueue(BookPOJO book, int limit) ;
 
 	/**
 	 * Add given {@link User} to the {@link Book} queue
@@ -165,10 +151,10 @@ public interface Database {
 	 * 
 	 * @return <code>true</code> if succeed otherwise <code>false</code>
 	 */
-	public boolean addToQueue(User user, Book book) throws RemoteException;
+	public boolean addToQueue(UserPOJO user, BookPOJO book) ;
 
 	/**
-	 * Give an evaluation to the given {@link Book} from given {@link User}
+	 * Give an evaluation to the given {@link BookPOJO} from given {@link UserPOJO}
 	 * 
 	 * @param book
 	 *            the book to rate
@@ -177,18 +163,45 @@ public interface Database {
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 */
-	public boolean rateBook(Book book, User user, int value) throws RemoteException;
+	public boolean rateBook(BookPOJO book, UserPOJO user, int value) ;
 
 	/**
-	 * Allow the given {@link User} to give back a book if he borrowed it.
+	 * Allow the given {@link UserPOJO} to give back a book if he borrowed it.
 	 * 
 	 * @param user
-	 *            the {@link User} who give back the current {@link Book}.
+	 *            the {@link UserPOJO} who give back the current {@link Book}.
 	 * @param book
-	 *            The {@link Book} to give back
+	 *            The {@link BookPOJO} to give back
 	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 */
-	public boolean giveBack(Book book, User user) throws RemoteException;
+	public boolean giveBack(BookPOJO book, UserPOJO user) ;
+	
+	
+	/**
+	 * Remove {@Link UserPOJO} from the queue
+	 * 
+	 * @param book
+	 *            the {@link BookPOJO} borrowed
+	 * @param user
+	 *            the {@link UserPO} to remove
+	 * @throws RemoteException
+	 */
+	public boolean removeFromQueue(BookPOJO book, UserPOJO user);
+	
+	
+	/**
+	 * Remove {@Link UserPOJO} from the queue
+	 *
+	 * @param user
+	 *            the {@link UserPO} to remove
+	 * @throws RemoteException
+	 */
+	public List<BookPOJO> hasBookInWait(UserPOJO user);
+	
+	/**
+	 * Clear the whole database
+	 */
+	public boolean clear();
 
 }

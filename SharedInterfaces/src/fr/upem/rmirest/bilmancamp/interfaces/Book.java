@@ -89,15 +89,6 @@ public interface Book extends Remote {
 	 */
 	public List<BookComment> getComments() throws RemoteException;
 
-	// TODO ajouter les autres getters de je suis fatigué loool.
-	// Tu les trouveras en faisant la classe d'implantation !
-	// Je checkerai aprÃ¨s mon cours,,,,
-
-	/**
-	 * @return <code>true</code> if the book can be borrowed.
-	 */
-	public boolean isAvailable() throws RemoteException;
-
 	/**
 	 * Adds a commentary to the current {@link Book}.
 	 * 
@@ -105,25 +96,4 @@ public interface Book extends Remote {
 	 *            the commentary about the current book.
 	 */
 	public void comment(BookComment bookComment) throws RemoteException;
-
-	/**
-	 * Unregister the given {@link User} from the reservation queue of the
-	 * current {@link Book}.
-	 * 
-	 * @param user
-	 *            the {@link User} who unregister the reservation queue.
-	 */
-	public void unregister(User user) throws RemoteException;
-
-	/**
-	 * Allow the given {@link User} to know it's position into the reservation
-	 * queue of the current {@link Book}.
-	 * 
-	 * @param user
-	 *            the {@link User} who wants to know it's position in the
-	 *            current {@link Book}'s reservation queue.
-	 * @return the position of the given {@link User} in the current
-	 *         {@link Book}'s reservation queue.
-	 */
-	public int getRankInWaitingQueue(User user) throws RemoteException;
 }

@@ -2,202 +2,119 @@ package fr.upem.rmirest.bilmancamp.models;
 
 import java.rmi.RemoteException;
 import java.time.LocalDate;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
-import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 public class BookImpl implements Book {
 
-	// Id counter
-	private static int idCount = 1;
+	private final BookPOJO model;
 
-	// Database fields
-	private final int id;
-	private final LocalDate date;
-	// Model fields
-	private final String title;
-	private final List<String> authors;
-	private final String summary;
-	private final List<String> categories;
-	private int consultationNumber = 0;
-	private final List<String> tags;
-	private final Image mainImage;
-	private final List<Image> secondaryImages;
-	private final double price;
-	private float totalRate;
-	private int rateNumber;
-	private final List<BookComment> comments;
+	public BookImpl(BookPOJO model) {
 
-	// Object fields
-	private User borrower = null;
-	private final ArrayDeque<User> subscribers;
-	// TODO : Comment gérer les notations de livre ?
-	private final Set<User> raters;
-
-	public BookImpl(int id, String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, Image mainImage, List<Image> secondaryImages) {
-
-		// Database fields
-		this.id = id;
-		idCount++;
-		date = LocalDate.now();
-		// Model fields initialization
-		this.title = Objects.requireNonNull(title);
-		this.authors = Objects.requireNonNull(authors);
-		this.summary = summary;
-		this.categories = Objects.requireNonNull(categories);
-		this.tags = Objects.requireNonNull(tags);
-		this.mainImage = Objects.requireNonNull(mainImage);
-		this.secondaryImages = Objects.requireNonNull(secondaryImages);
-		comments = new ArrayList<>();
-		// TODO I guess constructors should not throw exceptions. Switch of a
-		// factory method latter ?
-		if (price < 0) {
-			throw new IllegalArgumentException("The price of a book cannot be " + price);
-		}
-		this.price = price;
-		this.totalRate = 0;
-		this.rateNumber = 0;
-		// Data fields initialization
-		subscribers = new ArrayDeque<>();
-		raters = new HashSet<>();
+		this.model = Objects.requireNonNull(model);
 	}
-
-	public BookImpl(String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, Image mainImage, List<Image> secondaryImages) {
-		this(idCount, title, authors, summary, categories, price, tags, mainImage, Collections.emptyList());
-	}
-
-	public BookImpl(int id, String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, Image mainImage) {
-		this(id, title, authors, summary, categories, price, tags, mainImage, Collections.emptyList());
-
-	}
-
+	
 	// Getters
-
 	@Override
 	public int getId() throws RemoteException {
-		return id;
+		return model.getId();
 	}
 
 	@Override
 	public LocalDate getDate() throws RemoteException {
-		return date.plusDays(0);
+		return model.getDate();
 	}
 
 	@Override
 	public String getTitle() throws RemoteException {
-		return title;
+		return model.getTitle();
 	}
 
 	@Override
 	public List<String> getAuthors() throws RemoteException {
-		return Collections.unmodifiableList(authors);
+		return Collections.unmodifiableList(model.getAuthors());
 	}
 
 	@Override
 	public String getSummary() throws RemoteException {
-		return summary;
+		return model.getSummary();
 	}
 
 	@Override
 	public List<String> getCategories() throws RemoteException {
-		return Collections.unmodifiableList(categories);
+		return Collections.unmodifiableList(model.getCategories());
 	}
 
 	@Override
 	public int getConsultationNumber() throws RemoteException {
-		return consultationNumber;
+		return model.getConsultationNumber();
 	}
 
 	@Override
 	public List<String> getTags() throws RemoteException {
-		return Collections.unmodifiableList(tags);
+		return Collections.unmodifiableList(model.getTags());
 	}
 
 	@Override
 	public Image getMainImage() throws RemoteException {
-		return mainImage;
+		return model.getMainImage();
 	}
 
 	@Override
 	public List<Image> getSecondaryImages() throws RemoteException {
-		return Collections.unmodifiableList(secondaryImages);
+		return Collections.unmodifiableList(model.getSecondaryImages());
 	}
 
 	@Override
 	public double getPrice() throws RemoteException {
-		return price;
+		return model.getPrice();
 	}
 
 	@Override
 	public float getRate() throws RemoteException {
-		if (rateNumber == 0) {
+		if (model.getRateNumber() == 0) {
 			return 0;
 		}
-		return totalRate / rateNumber;
+		return model.getTotalRate() / model.getRateNumber();
 	}
 
 	@Override
 	public int getRateNumber() throws RemoteException {
-		return rateNumber;
+		return model.getRateNumber();
 	}
 
 	@Override
 	public List<BookComment> getComments() throws RemoteException {
-		return Collections.unmodifiableList(comments);
-	}
-
-	@Override
-	public boolean isAvailable() throws RemoteException {
-		return borrower == null;
+		return Collections.unmodifiableList(model.getComments());
 	}
 
 	@Override
 	public void comment(BookComment bookComment) throws RemoteException {
-		comments.add(Objects.requireNonNull(bookComment));
-	}
-
-	@Override
-	public void unregister(User user) throws RemoteException {
-		subscribers.remove(user);
-	}
-
-	@Override
-	public int getRankInWaitingQueue(User user) throws RemoteException {
-		// TODO need some reallocations. Maybe change the ArrayDeque subscribers
-		// to an ArrayList for improved complexity.
-		return Arrays.asList(subscribers.toArray()).indexOf(user) + 1;
+		model.getComments().add(Objects.requireNonNull(bookComment));
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s by %s", title, authors);
+		return String.format("%s by %s", model.getTitle(), model.getAuthors());
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((authors == null) ? 0 : authors.hashCode());
-		result = prime * result + ((categories == null) ? 0 : categories.hashCode());
+		result = prime * result + ((model.getAuthors() == null) ? 0 : model.getAuthors().hashCode());
+		result = prime * result + ((model.getCategories() == null) ? 0 : model.getCategories().hashCode());
 		long temp;
-		temp = Double.doubleToLongBits(price);
+		temp = Double.doubleToLongBits(model.getPrice());
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((summary == null) ? 0 : summary.hashCode());
-		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((model.getSummary() == null) ? 0 : model.getSummary().hashCode());
+		result = prime * result + ((model.getTags() == null) ? 0 : model.getTags().hashCode());
+		result = prime * result + ((model.getTitle() == null) ? 0 : model.getTitle().hashCode());
 		return result;
 	}
 
@@ -209,7 +126,11 @@ public class BookImpl implements Book {
 
 		BookImpl other = (BookImpl) obj;
 
-		return id == other.id;
+		return model.getId() == other.model.getId();
+	}
+
+	public BookPOJO getModel() {
+		return model;
 	}
 
 }
