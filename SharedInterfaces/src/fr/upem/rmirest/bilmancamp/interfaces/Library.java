@@ -82,7 +82,8 @@ public interface Library extends Remote {
 	 * @param callback
 	 * @return a {@link User} object which allows interactions with the books.
 	 */
-	public User connect(String id, String password, MailBox<Book> callback) throws IllegalArgumentException,RemoteException;
+	public User connect(String id, String password, MailBox<Book> callback)
+			throws IllegalArgumentException, RemoteException;
 
 	/**
 	 * Search a {@link Book} using some keywords, which can be tags, categories,
@@ -196,7 +197,13 @@ public interface Library extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean rateBook(Book book, User user, int value) throws RemoteException;
-
-
+	
+	
+	/**
+	 * disconnect given user
+	 * @param user
+	 * @throws RemoteException
+	 */
+	public void disconnect(User user)throws RemoteException;
 
 }
