@@ -16,7 +16,8 @@ public class ServerApplication {
 	private final CommandLineParser env;
 
 	/**
-	 * Represent a RMI server using given {@link to configure itself}
+	 * Represent a RMI server using given {@link CommandLineParser} to configure
+	 * itself
 	 * 
 	 * @param parameters
 	 *            the command line parameters
