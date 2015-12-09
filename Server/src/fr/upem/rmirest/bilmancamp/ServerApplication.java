@@ -33,7 +33,7 @@ public class ServerApplication {
 	 */
 	private void start() throws RemoteException {
 
-		Library __lib__ = sharedObject();
+		Library lib = sharedObject();
 		Registry registry;
 
 		/* Create or use an existing registry */
@@ -44,10 +44,11 @@ public class ServerApplication {
 		}
 
 		/* Reset the database */
-		if (env.isReset())
+		if (env.isReset()) {
 			DBHelper.embeddedDB().clear();
+		}
 
-		registry.rebind("libraryService", __lib__);
+		registry.rebind("libraryService", lib);
 	}
 
 	/**
