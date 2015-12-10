@@ -78,18 +78,22 @@ public class SignUpModule implements Initializable, Module {
 		loadFontWorkAround();
 	}
 
-	public void onSignUpFailed() {
+	/**
+	 * Called when the sign in operation from this module has failed.
+	 */
+	void onSignUpFailed() {
 		isSigningUp = false;
 		buttonSignUp.setDisable(false);
-		Consumer<TextField> wrongValue = tf -> {
+		// Notifying visually with red prompts.
+		Consumer<TextField> wrongNotification = tf -> {
 			// The method playWrongRectangle needs scene coordinates.
 			Point2D pp = Transformations.toSceneCoordinates(tf, tmp);
 			Animations.playWrongRectangle(pp.getX(), pp.getY(), tf.getWidth(), tf.getHeight(), paneRoot);
 		};
-		wrongValue.accept(tFFirstname);
-		wrongValue.accept(tFLastname);
-		wrongValue.accept(tFCardID);
-		wrongValue.accept(tFPassword);
+		wrongNotification.accept(tFFirstname);
+		wrongNotification.accept(tFLastname);
+		wrongNotification.accept(tFCardID);
+		wrongNotification.accept(tFPassword);
 	}
 
 	@FXML

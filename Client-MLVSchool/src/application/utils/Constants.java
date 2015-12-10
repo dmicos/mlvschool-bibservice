@@ -19,6 +19,7 @@ public class Constants {
 	public static final String CONNECTION_SCREEN_MODULE = "/scenes/connectionScreen/connectionScreen.fxml";
 	public static final String CONNECTION_SIGNUP_MODULE = "/scenes/connectionScreen/signUpModule.fxml";
 	public static final String CONNECTION_LOGIN_MODULE = "/scenes/connectionScreen/logInModule.fxml";
+	public static final String HOME_SCREEN_MODULE = "/scenes/homeScreen/homeScreen.fxml";
 
 	/**
 	 * Font constants.

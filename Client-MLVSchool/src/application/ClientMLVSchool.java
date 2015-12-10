@@ -13,12 +13,19 @@ import application.controllers.ModuleLoader;
 import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
+import application.controllers.home_screen.HomeScreen;
 import application.model.ProxyModel;
 import application.utils.Constants;
 import application.utils.FontManager;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.scene.CacheHint;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * 
@@ -73,6 +80,7 @@ public class ClientMLVSchool extends Application {
 		loader.registerFXMLLoader(ConnectionScreen.class, Constants.CONNECTION_SCREEN_MODULE);
 		loader.registerFXMLLoader(SignUpModule.class, Constants.CONNECTION_SIGNUP_MODULE);
 		loader.registerFXMLLoader(LogInModule.class, Constants.CONNECTION_LOGIN_MODULE);
+		loader.registerFXMLLoader(HomeScreen.class, Constants.HOME_SCREEN_MODULE);
 	}
 
 	/**
@@ -112,5 +120,22 @@ public class ClientMLVSchool extends Application {
 
 	private static ConnectionScreen loadConnectionScreen() {
 		return ModuleLoader.getInstance().load(ConnectionScreen.class);
+	}
+
+	public static void transitionToNewLayout(Parent currentLayout, Parent newLayout) {
+		Scene scene = INSTANCE.getScene();
+		VBox root = new VBox();
+		root.getChildren().addAll(newLayout, currentLayout);
+		root.setTranslateY(-scene.getHeight());
+		root.setCache(true);
+		root.setCacheShape(true);
+		root.setCacheHint(CacheHint.SPEED); // Less visually "pleasant".
+		scene.setRoot(root);
+		scene.getRoot();
+		TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), root);
+		translateTransition.setInterpolator(Interpolator.EASE_OUT);
+		translateTransition.setToY(0);
+		translateTransition.play();
+		// TODO set home as the main root.
 	}
 }

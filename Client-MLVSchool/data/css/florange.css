@@ -20,6 +20,10 @@
  	-fx-background-color: #1f1f1f;
  }
  
+ .black50Background {
+ 	-fx-background-color: #1f1f1f99;
+ }
+ 
  .noBackground, #cancelButton {
  	-fx-background-color: none;
  }

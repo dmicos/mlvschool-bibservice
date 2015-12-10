@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import application.ClientMLVSchool;
 import application.controllers.Module;
 import application.controllers.ModuleLoader;
+import application.controllers.home_screen.HomeScreen;
 import application.model.ModelRules;
 import application.model.ProxyModel;
 import application.utils.Animations;
@@ -175,7 +177,7 @@ public class ConnectionScreen implements Initializable, Module {
 	}
 
 	private void launchHomeScreen() {
-		System.out.println("Launching HOME !");
+		ClientMLVSchool.transitionToNewLayout(paneRoot, ModuleLoader.getInstance().load(HomeScreen.class).getView());
 	}
 
 	@FXML
