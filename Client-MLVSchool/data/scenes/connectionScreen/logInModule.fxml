@@ -8,58 +8,64 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LogInController">
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.connection_screen.LogInModule">
 	<styleClass>
 		<String fx:value="noBackground" />
 		<String fx:value="sceneSize" />
 	</styleClass>
 	<children>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="36.0">
-         <children>
-            <TextField id="loginPrompt" fx:id="tFLogin" promptText="Login">
-               <font>
-                  <Font name="SF UI Text Regular" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="300.0" />
-               </VBox.margin>
-            </TextField>
-            <PasswordField id="loginPrompt" fx:id="tFPassword" promptText="Password">
-               <font>
-                  <Font name="SF UI Text Regular" size="24.0" />
-               </font>
-            </PasswordField>
-            <Button id="bigOrangeButton" fx:id="buttonLogin" mnemonicParsing="false" onAction="#logInClicked" text="Log In">
-               <font>
-                  <Font name="SF UI Display Regular" size="32.0" />
-               </font></Button>
-            <Button id="cancelButton" fx:id="buttonCancel" mnemonicParsing="false" onAction="#cancelClicked">
-               <font>
-                  <Font name="SF UI Text Light" size="24.0" />
-               </font>
-               <graphic>
-                  <VBox alignment="CENTER" maxHeight="30.0" maxWidth="78.0" minHeight="30.0" minWidth="78.0" prefHeight="30.0" prefWidth="78.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white70Text" text="Cancel">
-                           <font>
-                              <Font name="SF UI Text Light" size="24.0" />
-                           </font>
-                        </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="1.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="3.0" width="40.0">
-                           <styleClass>
-                              <String fx:value="white70Text" />
-                              <String fx:value="noBorder" />
-                           </styleClass>
-                        </Rectangle>
-                     </children>
-                  </VBox>
-               </graphic>
-            </Button>
-         </children>
-         <styleClass>
-            <String fx:value="sceneSize" />
-            <String fx:value="noBackground" />
-         </styleClass>
-      </VBox>
+		<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="36.0">
+			<children>
+				<TextField id="loginPrompt" fx:id="tFLogin" promptText="Login">
+					<font>
+						<Font name="SF UI Text Regular" size="24.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="300.0" />
+					</VBox.margin>
+				</TextField>
+				<PasswordField id="loginPrompt" fx:id="tFPassword" promptText="Password">
+					<font>
+						<Font name="SF UI Text Regular" size="24.0" />
+					</font>
+				</PasswordField>
+				<Button id="bigOrangeButton" fx:id="buttonLogin" mnemonicParsing="false" onAction="#logInClicked" text="Log In">
+					<font>
+						<Font name="SF UI Display Regular" size="32.0" />
+					</font>
+				</Button>
+				<Button id="cancelButton" fx:id="buttonCancel" mnemonicParsing="false" onAction="#cancelClicked">
+					<font>
+						<Font name="SF UI Text Light" size="24.0" />
+					</font>
+					<graphic>
+						<VBox alignment="CENTER" maxHeight="30.0" maxWidth="78.0" minHeight="30.0" minWidth="78.0" prefHeight="30.0" prefWidth="78.0">
+							<children>
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white70Text" text="Cancel">
+									<font>
+										<Font name="SF UI Text Light" size="24.0" />
+									</font>
+								</Text>
+								<Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="1.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="3.0" width="40.0">
+									<styleClass>
+										<String fx:value="white70Text" />
+										<String fx:value="noBorder" />
+									</styleClass>
+								</Rectangle>
+							</children>
+						</VBox>
+					</graphic>
+				</Button>
+			</children>
+			<styleClass>
+				<String fx:value="sceneSize" />
+				<String fx:value="noBackground" />
+			</styleClass>
+		</VBox>
+      <Text fx:id="hintText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white50Text" text="lastname.cardID" x="724.0" y="336.0">
+         <font>
+            <Font name="SF UI Display Ultralight" size="24.0" />
+         </font>
+      </Text>
 	</children>
 </Pane>

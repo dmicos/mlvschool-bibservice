@@ -1,4 +1,4 @@
-package application.view.animations;
+package application.utils;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -8,6 +8,9 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class Animations {
@@ -36,6 +39,32 @@ public class Animations {
 		PauseTransition pause = new PauseTransition(new Duration(delay));
 		SequentialTransition sequence = new SequentialTransition(pause, wrapped);
 		return sequence;
+	}
+
+	public static void playWrongRectangle(double x, double y, double width, double height, Pane parent) {
+		playColorRectangle(x, y, width, height, parent, Color.RED, new Color(1, 0, 0, 0.2));
+	}
+
+	public static void playGoodRectangle(double x, double y, double width, double height, Pane parent) {
+		playColorRectangle(x, y, width, height, parent, Color.GREEN, new Color(0, 1, 0, 0.2));
+	}
+
+	private static void playColorRectangle(double x, double y, double width, double height, Pane parent, Color color,
+			Color innerColor) {
+		Rectangle r = new Rectangle(x, y, width, height);
+		r.setStroke(color);
+		r.setStrokeWidth(4);
+		r.setFill(innerColor);
+		FadeTransition fade = new FadeTransition(new Duration(5), r);
+		fade.setFromValue(0);
+		fade.setToValue(1);
+		FadeTransition fadeR = new FadeTransition(new Duration(700), r);
+		fadeR.setFromValue(1);
+		fadeR.setToValue(0);
+		parent.getChildren().add(r);
+		SequentialTransition trans = new SequentialTransition(fade, new PauseTransition(new Duration(500)), fadeR);
+		trans.setOnFinished(e -> parent.getChildren().remove(r));
+		trans.play();
 	}
 
 }

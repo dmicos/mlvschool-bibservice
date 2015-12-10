@@ -1,10 +1,19 @@
 package application.controllers;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
-public class ControllerDynamicLimiters {
+/**
+ * Provides every functionalities to control bindings of various JAVAFX text
+ * fields controls.
+ * 
+ * @author Jefferson
+ *
+ */
+public class BindingsLimits {
 
 	/**
 	 * Sets the max length of a {@link TextField}.
@@ -25,14 +34,18 @@ public class ControllerDynamicLimiters {
 		});
 	}
 
+	/**
+	 * Transforms a {@link TextField} in a numeric only prompt.
+	 * 
+	 * @param tf
+	 */
 	public static void setNumericConstraint(final TextField tf) {
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue.matches("\\d*")) {
+				if (newValue.matches("[0-9]*")) {
 					try {
-						int value = Integer.parseInt(newValue);
-						tf.setText(Integer.toString(value));
+						tf.setText(newValue);
 						return;
 					} catch (Exception e) {
 						return;
@@ -43,6 +56,11 @@ public class ControllerDynamicLimiters {
 		});
 	}
 
+	/**
+	 * Transforms a {@link TextField} in an alphabetic only prompt.
+	 * 
+	 * @param tf
+	 */
 	public static void setAlphabeticConstraint(final TextField tf) {
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -55,6 +73,11 @@ public class ControllerDynamicLimiters {
 		});
 	}
 
+	/**
+	 * Transforms a {@link TextField} in a login only prompt (lastname.cardID).
+	 * 
+	 * @param tf
+	 */
 	public static void setLoginConstraint(final TextField tf) {
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -65,5 +88,15 @@ public class ControllerDynamicLimiters {
 				}
 			}
 		});
+	}
+
+	/**
+	 * Creates a string binding that contains the value of the given observable
+	 * string converted to lowercase. See {@link String#toLowerCase()}.
+	 * 
+	 * Thanks to @https://github.com/lestard/.
+	 */
+	public static StringBinding toLowerCase(ObservableValue<String> text) {
+		return Bindings.createStringBinding(() -> text.getValue() == null ? "" : text.getValue().toLowerCase(), text);
 	}
 }

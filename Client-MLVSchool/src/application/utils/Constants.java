@@ -32,4 +32,6 @@ public class Constants {
 	public static final String SF_TEXT_MEDIUM = "/fonts/SF-UI-Text-Medium.otf";
 	public static final String SF_TEXT_LIGHT = "/fonts/SF-UI-Text-Light.otf";
 
+	public static double SCENE_WIDTH = 1200;
+	public static double SCENE_HEIGHT = 800;
 }

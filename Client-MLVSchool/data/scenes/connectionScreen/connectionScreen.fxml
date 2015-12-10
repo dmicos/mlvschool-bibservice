@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
@@ -8,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ConnectionScreenController">
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.connection_screen.ConnectionScreen">
 	<styleClass>
 		<String fx:value="blackBackground" />
 		<String fx:value="sceneSize" />
@@ -18,7 +20,7 @@
 			<children>
 				<Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../css/florange.css">
 					<children>
-						<Text id="connexionTitle" fx:id="titleID" layoutX="271.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School">
+						<Text id="connexionTitle" fx:id="title" layoutX="271.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School">
 							<font>
 								<Font name="SF UI Display Regular" size="110.0" />
 							</font>
@@ -28,7 +30,7 @@
 								<Image url="@../../icons/hand_book_icon.png" />
 							</image>
 						</ImageView>
-						<Text id="connexionSubTitle" layoutX="781.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI.">
+						<Text id="connexionSubTitle" fx:id="subTitle" layoutX="781.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI.">
 							<font>
 								<Font name="SF UI Display Light" size="30.0" />
 							</font>
@@ -72,7 +74,7 @@
 						<Insets bottom="14.0" />
 					</VBox.margin>
 				</Rectangle>
-				<Text id="connexionFooter" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School Copyright 2015 Bilissor Yann, Campos Quentin, Mangue Jefferson.">
+				<Text id="connexionFooter" fx:id="footer" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School Copyright 2015 Bilissor Yann, Campos Quentin, Mangue Jefferson.">
 					<VBox.margin>
 						<Insets bottom="12.0" />
 					</VBox.margin>
