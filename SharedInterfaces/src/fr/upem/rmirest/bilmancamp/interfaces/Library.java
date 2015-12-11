@@ -105,12 +105,23 @@ public interface Library extends Remote {
 	public List<String> getCategories() throws RemoteException;
 
 	/**
-	 * TODO ?
+	 * Get the description of a book category.
 	 * 
-	 * @return
+	 * @param category
+	 *            the category name.
+	 * @return the description of the given category or {@code null} if the
+	 *         category does not exists.
 	 * @throws RemoteException
 	 */
-	public int getCategorySize() throws RemoteException;
+	public String getCategoryDescription(String category) throws RemoteException;
+
+	/**
+	 * Get the recognized {@link User}'s status for the current {@link Library}.
+	 * 
+	 * @return a list of recognized status.
+	 * @throws RemoteException
+	 */
+	public List<String> getStatus() throws RemoteException;
 
 	/**
 	 * Get all the {@link Book}s which are of the given category.

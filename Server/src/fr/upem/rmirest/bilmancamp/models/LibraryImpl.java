@@ -1,13 +1,18 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
@@ -15,6 +20,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
+import utils.LibraryImplDataLoader;
 import utils.Mapper;
 
 public class LibraryImpl extends UnicastRemoteObject implements Library {
@@ -29,11 +35,26 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	// Library values
 	private final Database database;
 	private final Map<User, MailBox<Book>> addresses;
+	private final Map<String, String> categories;
+	private final List<String> status;
 
 	public LibraryImpl(Database database) throws RemoteException {
 		super(0);
 		this.database = database;
 		addresses = new ConcurrentHashMap<>();
+		categories = new HashMap<>();
+		status = new ArrayList<>();
+	}
+
+	public static Library createLibraryImpl(Database database, String configPath)
+			throws JsonParseException, JsonMappingException, IOException {
+		LibraryImpl lib = new LibraryImpl(database);
+		// Initialize the loader and load data into the fields.
+		LibraryImplDataLoader loader = LibraryImplDataLoader.createLoader(configPath);
+		lib.categories.putAll(loader.getCategories());
+		lib.status.addAll(loader.getStatus());
+		// Return the fully initialized library.
+		return lib;
 	}
 
 	@Override
@@ -72,9 +93,13 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
-	public int getCategorySize() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getCategoryDescription(String category) {
+		return categories.get(category);
+	}
+
+	@Override
+	public List<String> getStatus() throws RemoteException {
+		return Collections.unmodifiableList(status);
 	}
 
 	@Override
@@ -167,9 +192,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 	@Override
 	public List<Book> getBookHistory(User user) throws RemoteException {
-		// TODO Add this feature to the database implementation.
-		return Collections.emptyList();
-		// TODO This is so buggy, you really should change it ASAP. 
+		return Pojos.booksPojoToBooksRemote(database.getBorrowedBooks(Mapper.createUserPOJO(user)));
 	}
 
 	@Override
@@ -188,9 +211,9 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	 * @throws RemoteException
 	 */
 	private void contactIfOnline(UserPOJO uPojo, Book book, MailBox<Book> callbackAddr) throws RemoteException {
-	
+
 		if (callbackAddr != null) {
-	
+
 			BookPOJO bPojo = Mapper.createBookPOJO(book);
 			callbackAddr.receive(book);
 			database.borrow(bPojo, uPojo);

@@ -103,7 +103,7 @@ public interface Database {
 	 * Get the <code>number</code> books the most similar to the given one.
 	 * 
 	 * @param book
-	 *            the comparaison book.
+	 *            the comparison book.
 	 * @param number
 	 *            the wanted number of books.
 	 * @return a list of the <code>number</code> books the most similar to
