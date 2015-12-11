@@ -4,16 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Properties;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
 import fr.upem.rmirest.bilmancamp.database.EmbeddedDB;
-import fr.upem.rmirest.bilmancamp.database.JavaDatabase;
 import utils.Constants;
 
 public final class DBHelper {
 
 	private static final String DRIVER = "org.h2.Driver";
-	private static Database embeddedDB;
 
 	/**
 	 * 
@@ -42,16 +41,32 @@ public final class DBHelper {
 	 */
 	public static Database embeddedDB() {
 
-		if (embeddedDB != null)
-			return embeddedDB;
+		String sharedPath = System.getProperty(Constants.DB_HOME);
+
+		if (sharedPath == null) {
+			sharedPath = Constants.DATABASE_PATH;
+			//saveHomeDir(sharedPath);
+		}
 
 		try {
-			embeddedDB = new EmbeddedDB(DBHelper.connect("jdbc:h2:" + Constants.DATABASE_PATH, "pony", "merens*30"));
-			return embeddedDB;
+			Database db =  new EmbeddedDB(connect("jdbc:h2:" + sharedPath, "pony", "merens*30"));
+			return db;
 		} catch (SQLException | ClassNotFoundException ex) {
 			ex.printStackTrace();
-			return new JavaDatabase();
+			return null;
 		}
+	}
+
+	/**
+	 * Add a shared property
+	 * 
+	 * @param path
+	 */
+	public static void saveHomeDir(String path) {
+
+		Properties props = new Properties();
+		props.put("DB_HOME", path);
+		System.setProperties(props);
 	}
 
 }

@@ -3,6 +3,7 @@ package fr.upem.rmirest.bilmancamp.models;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +40,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public List<String> getAuthors() throws RemoteException {
-		return Collections.unmodifiableList(model.getAuthors());
+		return Collections.unmodifiableList(Arrays.asList(model.getAuthors()));
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public List<String> getCategories() throws RemoteException {
-		return Collections.unmodifiableList(model.getCategories());
+		return Collections.unmodifiableList(Arrays.asList(model.getCategories()));
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public List<String> getTags() throws RemoteException {
-		return Collections.unmodifiableList(model.getTags());
+		return Collections.unmodifiableList(Arrays.asList(model.getTags()));
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public List<Image> getSecondaryImages() throws RemoteException {
-		return Collections.unmodifiableList(model.getSecondaryImages());
+		return Collections.unmodifiableList(Arrays.asList(model.getSecondaryImages()));
 	}
 
 	@Override
@@ -92,12 +93,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public List<BookComment> getComments() throws RemoteException {
-		return Collections.unmodifiableList(model.getComments());
-	}
-
-	@Override
-	public void comment(BookComment bookComment) throws RemoteException {
-		model.getComments().add(Objects.requireNonNull(bookComment));
+		return Collections.unmodifiableList(Arrays.asList(model.getComments()));
 	}
 
 	@Override

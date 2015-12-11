@@ -22,13 +22,16 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7781484523332395659L;
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	// Library values
 	private final Database database;
 	private final Map<User, MailBox<Book>> addresses;
 
 	public LibraryImpl(Database database) throws RemoteException {
-		super();
+		super(0);
 		this.database = database;
 		addresses = new ConcurrentHashMap<>();
 	}

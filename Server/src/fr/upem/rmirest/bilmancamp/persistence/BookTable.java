@@ -53,7 +53,7 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setString(8,
 				String.join(",",
 						Stream.concat(Stream.of(book.getMainImage().getPath()),
-								book.getSecondaryImages().stream().map(img -> img.getPath()))
+								Arrays.asList(book.getSecondaryImages()).stream().map(img -> img.getPath()))
 						.collect(Collectors.toList())));
 		ps.setString(9, String.join(",", createKeyWords(book)));
 		ps.setInt(10, 1);
@@ -220,7 +220,7 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setString(8,
 				String.join(",",
 						Stream.concat(Stream.of(newVal.getMainImage().getPath()),
-								newVal.getSecondaryImages().stream().map(img -> img.getPath()))
+								Arrays.asList(newVal.getSecondaryImages()).stream().map(img -> img.getPath()))
 						.collect(Collectors.toList())));
 		ps.setString(9, String.join(",", createKeyWords(newVal)));
 		ps.setInt(10, newVal.getId());
@@ -478,8 +478,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 
 		List<String> kw = new ArrayList<>();
 		kw.addAll(Arrays.asList(book.getTitle().split(" ")));
-		kw.addAll(book.getCategories());
-		kw.addAll(book.getTags());
+		kw.addAll(Arrays.asList(book.getCategories()));
+		kw.addAll(Arrays.asList(book.getTags()));
 		return kw;
 	}
 
@@ -494,9 +494,7 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 
 		Map<BookPOJO, Long> occurences = new HashMap<>();
 		Set<String> kw = new HashSet<>();
-		kw.addAll(book.getTags());
-		kw.addAll(book.getCategories());
-		kw.addAll(Arrays.asList(book.getTitle().split(" ")));
+		kw.addAll(createKeyWords(book));
 
 		for (String item : kw) {
 

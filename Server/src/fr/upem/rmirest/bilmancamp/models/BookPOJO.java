@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
 public class BookPOJO implements Serializable {
@@ -32,7 +31,7 @@ public class BookPOJO implements Serializable {
 	private final double price;
 	private float totalRate;
 	private int rateNumber;
-	private final List<BookComment> comments;
+	private final List<CommentImpl> comments;
 
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
 			List<String> tags, Image mainImage, List<Image> secondaryImages) {
@@ -99,39 +98,39 @@ public class BookPOJO implements Serializable {
 		return title;
 	}
 
-	public List<String> getAuthors() {
-		return authors;
+	public String[] getAuthors() {
+		return authors.toArray(new String[0]);
 	}
 
 	public String getSummary() {
 		return summary;
 	}
 
-	public List<String> getCategories() {
-		return categories;
+	public String[] getCategories() {
+		return categories.toArray(new String[0]);
 	}
 
-	public List<String> getTags() {
-		return tags;
+	public String[] getTags() {
+		return tags.toArray(new String[0]);
 	}
 
 	public Image getMainImage() {
 		return mainImage;
 	}
 
-	public List<Image> getSecondaryImages() {
-		return secondaryImages;
+	public Image[] getSecondaryImages() {
+		return secondaryImages.toArray(new Image[0]);
 	}
 
 	public double getPrice() {
 		return price;
 	}
 
-	public List<BookComment> getComments() {
-		return Collections.unmodifiableList(comments);
+	public CommentImpl[] getComments() {
+		return Collections.unmodifiableList(comments).toArray(new CommentImpl[0]);
 	}
 
-	public void addComment(BookComment comment) {
+	public void addComment(CommentImpl comment) {
 		comments.add(comment);
 	}
 

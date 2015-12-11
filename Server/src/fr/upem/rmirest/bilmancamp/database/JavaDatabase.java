@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This implementation of {@link Database} uses Java objects to keep data
@@ -145,7 +144,7 @@ public class JavaDatabase implements Database {
 			 * s.toLowerCase()).collect(Collectors.toList());
 			 */
 
-			throw new NotImplementedException();
+			throw new UnsupportedOperationException();
 		}
 
 	}
@@ -162,7 +161,7 @@ public class JavaDatabase implements Database {
 			// users.put(computedId, user);
 			// return true;
 
-			throw new NotImplementedException();
+			throw new UnsupportedOperationException();
 
 		}
 
@@ -177,7 +176,7 @@ public class JavaDatabase implements Database {
 			// }
 			// return null;
 
-			throw new NotImplementedException();
+			throw new UnsupportedOperationException();
 
 		}
 
@@ -227,7 +226,7 @@ public class JavaDatabase implements Database {
 	@Override
 	public List<BookPOJO> getBookFromCategory(String category) {
 
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 
 		// return bTable.getAll()
 		// .stream().map(be -> be.getBook()).filter(book ->
@@ -249,7 +248,7 @@ public class JavaDatabase implements Database {
 		// b2) -> (int) (b2.getRate() - b1.getRate()))
 		// .limit(number).collect(Collectors.toList());
 
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 
 	}
 
@@ -260,7 +259,7 @@ public class JavaDatabase implements Database {
 		// b1.getConsultationNumber()).limit(number)
 		// .collect(Collectors.toList());
 		//
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 
 	}
 

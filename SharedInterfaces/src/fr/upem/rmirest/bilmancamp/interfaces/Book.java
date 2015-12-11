@@ -89,11 +89,4 @@ public interface Book extends Remote {
 	 */
 	public List<BookComment> getComments() throws RemoteException;
 
-	/**
-	 * Adds a commentary to the current {@link Book}.
-	 * 
-	 * @param bookComment
-	 *            the commentary about the current book.
-	 */
-	public void comment(BookComment bookComment) throws RemoteException;
 }

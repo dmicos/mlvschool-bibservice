@@ -211,6 +211,5 @@ public interface Database {
 	 * Clear the whole database
 	 */
 	public boolean clear();
-	
 
 }
