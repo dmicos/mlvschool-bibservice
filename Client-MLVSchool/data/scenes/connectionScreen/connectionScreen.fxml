@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.connection_screen.ConnectionScreen">
+	<styleClass>
+		<String fx:value="blackBackground" />
+		<String fx:value="sceneSize" />
+	</styleClass>
+	<children>
+		<VBox fx:id="titleGroup" prefHeight="200.0" prefWidth="100.0">
+			<children>
+				<Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../css/florange.css">
+					<children>
+						<Text id="connexionTitle" fx:id="title" layoutX="271.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School">
+							<font>
+								<Font name="SF UI Display Regular" size="110.0" />
+							</font>
+						</Text>
+						<ImageView fitHeight="50.0" fitWidth="50.0" layoutX="858.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../../icons/hand_book_icon.png" />
+							</image>
+						</ImageView>
+						<Text id="connexionSubTitle" fx:id="subTitle" layoutX="781.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RMI.">
+							<font>
+								<Font name="SF UI Display Light" size="30.0" />
+							</font>
+						</Text>
+					</children>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+				</Pane>
+			</children>
+			<styleClass>
+				<String fx:value="sceneSize" />
+				<String fx:value="noBackground" />
+			</styleClass>
+		</VBox>
+		<VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+			<children>
+				<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+					<styleClass>
+						<String fx:value="noBackground" />
+						<String fx:value="sceneSize" />
+					</styleClass>
+					<children>
+						<Button id="bigOrangeButton" fx:id="buttonLogIn" mnemonicParsing="false" onAction="#logInButtonClicked" text="Log In">
+							<font>
+								<Font name="SF UI Display Regular" size="30.0" />
+							</font>
+						</Button>
+						<Button id="bigOrangeButton" fx:id="buttonSignUp" mnemonicParsing="false" onAction="#signUpButtonClicked" text="Sign Up">
+							<font>
+								<Font name="SF UI Display Regular" size="30.0" />
+							</font>
+							<VBox.margin>
+								<Insets top="40.0" />
+							</VBox.margin>
+						</Button>
+					</children>
+				</VBox>
+				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="0.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="white70Text" width="248.0">
+					<VBox.margin>
+						<Insets bottom="14.0" />
+					</VBox.margin>
+				</Rectangle>
+				<Text id="connexionFooter" fx:id="footer" strokeType="OUTSIDE" strokeWidth="0.0" text="MLV School Copyright 2015 Bilissor Yann, Campos Quentin, Mangue Jefferson.">
+					<VBox.margin>
+						<Insets bottom="12.0" />
+					</VBox.margin>
+					<font>
+						<Font name="SF UI Display Ultralight" size="18.0" />
+					</font>
+				</Text>
+			</children>
+			<styleClass>
+				<String fx:value="noBackground" />
+				<String fx:value="sceneSize" />
+			</styleClass>
+		</VBox>
+	</children>
+</Pane>

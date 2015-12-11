@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.connection_screen.SignUpModule">
+	<children>
+		<VBox alignment="TOP_CENTER">
+			<children>
+				<GridPane maxHeight="172.0" maxWidth="378.0" minHeight="172.0" minWidth="378.0" prefHeight="172.0" prefWidth="378.0" styleClass="noBackground">
+					<children>
+						<TextField id="signUpPrompt" fx:id="tFFirstname" promptText="Firstname">
+							<font>
+								<Font name="SF UI Text Regular" size="24.0" />
+							</font>
+						</TextField>
+						<TextField id="signUpPrompt" fx:id="tFLastname" promptText="Lastname" GridPane.columnIndex="1">
+							<font>
+								<Font name="SF UI Text Regular" size="24.0" />
+							</font>
+						</TextField>
+						<TextField id="signUpPrompt" fx:id="tFCardID" promptText="CardID" GridPane.rowIndex="1">
+							<font>
+								<Font name="SF UI Text Regular" size="24.0" />
+							</font>
+						</TextField>
+						<Text fx:id="textlogin" fill="#00000080" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white50Text" text="firstname.cardID" GridPane.columnIndex="1" GridPane.rowIndex="1">
+							<font>
+								<Font name="SF UI Display Ultralight" size="24.0" />
+							</font>
+							<GridPane.margin>
+								<Insets left="8.0" />
+							</GridPane.margin>
+						</Text>
+						<PasswordField id="signUpPrompt" fx:id="tFPassword" promptText="Password" GridPane.rowIndex="2">
+							<font>
+								<Font name="SF UI Text Regular" size="24.0" />
+							</font>
+						</PasswordField>
+						<ComboBox fx:id="statusList" maxHeight="50.0" maxWidth="170.0" minHeight="50.0" minWidth="170.0" prefHeight="50.0" prefWidth="170.0" stylesheets="@../../css/florange.css" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
+					</children>
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<VBox.margin>
+						<Insets top="296.0" />
+					</VBox.margin>
+				</GridPane>
+				<Button id="bigOrangeButton" fx:id="buttonSignUp" mnemonicParsing="false" onAction="#signUpClicked" text="Sign Up">
+					<font>
+						<Font name="SF UI Display Regular" size="32.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="60.0" />
+					</VBox.margin>
+				</Button>
+				<Button id="cancelButton" fx:id="buttonCancel" mnemonicParsing="false" onAction="#cancelClicked">
+					<font>
+						<Font name="SF UI Text Light" size="24.0" />
+					</font>
+					<graphic>
+						<VBox alignment="CENTER" maxHeight="30.0" maxWidth="78.0" minHeight="30.0" minWidth="78.0" prefHeight="30.0" prefWidth="78.0">
+							<children>
+								<Text fx:id="textCancel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white70Text" text="Cancel">
+									<font>
+										<Font name="SF UI Text Light" size="24.0" />
+									</font>
+								</Text>
+								<Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="1.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="3.0" width="40.0">
+									<styleClass>
+										<String fx:value="white70Text" />
+										<String fx:value="noBorder" />
+									</styleClass>
+								</Rectangle>
+							</children>
+						</VBox>
+					</graphic>
+					<VBox.margin>
+						<Insets top="14.0" />
+					</VBox.margin>
+				</Button>
+			</children>
+         <styleClass>
+            <String fx:value="noBackground" />
+            <String fx:value="sceneSize" />
+         </styleClass>
+		</VBox>
+	</children>
+	<styleClass>
+		<String fx:value="sceneSize" />
+		<String fx:value="noBackground" />
+	</styleClass>
+   <stylesheets>
+      <URL value="@../../css/florange.css" />
+      <URL value="@../../css/combobox.css" />
+   </stylesheets>
+</Pane>
