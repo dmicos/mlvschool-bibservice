@@ -56,6 +56,20 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 		return lib;
 	}
 
+	/**
+	 * Populates the database of the current {@link LibraryImpl} with some
+	 * values from its own category. Will also parse the given json files which
+	 * must contains data for users and books.
+	 * 
+	 * @param userFilePath
+	 * @param bookFilePath
+	 */
+	public void populateDatabase(String userFilePath, String bookFilePath) {
+		// Add categories to the database
+		categories.forEach((key, value) -> database.addCategory(key));
+
+	}
+
 	@Override
 	public void addBook(String title, List<String> authors, String summary, Image mainImage,
 			List<Image> secondaryImages, List<String> categories, double price, List<String> tags)
@@ -93,7 +107,11 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 	@Override
 	public String getCategoryDescription(String category) {
-		return categories.get(category);
+		String description = categories.get(category);
+		if (description == null) {
+			throw new IllegalArgumentException("The category does not exists : " + category);
+		}
+		return description;
 	}
 
 	@Override
@@ -129,6 +147,11 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	/* Actions on the content */
+
+	@Override
+	public List<Book> getPendingBooks(User user) throws RemoteException {
+		return Pojos.booksPojoToBooksRemote(database.getPendingBooks(Mapper.createUserPOJO(user)));
+	}
 
 	@Override
 	public boolean borrow(Book book, User user) throws RemoteException {
@@ -187,6 +210,11 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<Book> getBooks(User user) throws RemoteException {
+		return Pojos.booksPojoToBooksRemote(database.getBooks(Mapper.createUserPOJO(user)));
 	}
 
 	@Override

@@ -207,6 +207,18 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
+	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub for Yann the Database master
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub for Yann the Database master
+		return Collections.emptyList();
+	}
+
+	@Override
 	public List<UserPOJO> getQueue(BookPOJO book, int limit) {
 		try {
 			return bTable.getQueue(book, limit);

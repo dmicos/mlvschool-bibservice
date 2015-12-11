@@ -340,4 +340,16 @@ public class JavaDatabase implements Database {
 		return true;
 	}
 
+	@Override
+	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
