@@ -219,6 +219,12 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
+	public boolean addCategory(String category) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public List<String> getCategories() {
 		return Collections.unmodifiableList(cTable.getAll());
 	}

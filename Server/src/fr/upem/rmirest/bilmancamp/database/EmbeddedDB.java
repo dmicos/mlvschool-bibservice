@@ -98,6 +98,17 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
+	public boolean addCategory(String category) {
+		try {
+			cTable.insert(category);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public List<String> getCategories() {
 
 		try {
@@ -164,7 +175,8 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getBorrowedBooks(UserPOJO user) {
-		// TODO I'm too afraid to touch this database. I'll probably break something.
+		// TODO I'm too afraid to touch this database. I'll probably break
+		// something.
 		return Collections.emptyList();
 	}
 

@@ -61,6 +61,16 @@ public interface Database {
 	public List<BookPOJO> searchBookFromKeywords(String... keywords);
 
 	/**
+	 * Add the given category to the current database.
+	 * 
+	 * @param category
+	 *            the category to add.
+	 * @return <code>true</code> if successfully added, <code>false</code>
+	 *         otherwise.
+	 */
+	public boolean addCategory(String category);
+
+	/**
 	 * Get all the categories of books in the database.
 	 * 
 	 * @return a list of all the categories.
