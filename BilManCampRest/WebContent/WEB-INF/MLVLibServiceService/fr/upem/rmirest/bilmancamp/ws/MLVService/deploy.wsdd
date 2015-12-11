@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MLVLibServiceService WSDL service -->
+
+  <service name="MLVLibService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://MLVService.ws.bilmancamp.rmirest.upem.fr"/>
+      <parameter name="wsdlServiceElement" value="MLVLibServiceService"/>
+      <parameter name="schemaQualified" value="http://models.bilmancamp.rmirest.upem.fr,http://MLVService.ws.bilmancamp.rmirest.upem.fr"/>
+      <parameter name="wsdlServicePort" value="MLVLibService"/>
+      <parameter name="className" value="fr.upem.rmirest.bilmancamp.ws.MLVService.MLVLibService"/>
+      <parameter name="wsdlPortType" value="MLVLibService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getCategories" qname="operNS:getCategories" returnQName="retNS:getCategoriesReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" name="getMostSimilarBook" qname="operNS:getMostSimilarBook" returnQName="retNS:getMostSimilarBookReturn" returnType="rtns:BookPOJO" soapAction="">
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://models.bilmancamp.rmirest.upem.fr" qname="pns:model" type="tns:BookPOJO"/>
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:number" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" name="getMostConsultedBook" qname="operNS:getMostConsultedBook" returnQName="retNS:getMostConsultedBookReturn" returnType="rtns:BookPOJO" soapAction="">
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:number" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" name="getBookFromCategory" qname="operNS:getBookFromCategory" returnQName="retNS:getBookFromCategoryReturn" returnType="rtns:BookPOJO" soapAction="">
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:category" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" name="searchBooks" qname="operNS:searchBooks" returnQName="retNS:searchBooksReturn" returnType="rtns:BookPOJO" soapAction="">
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:tags" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="buy" qname="operNS:buy" returnQName="retNS:buyReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://models.bilmancamp.rmirest.upem.fr" qname="pns:book" type="tns:BookPOJO"/>
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:devise" type="tns:string"/>
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:cardNumber" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" name="getBookForSell" qname="operNS:getBookForSell" returnQName="retNS:getBookForSellReturn" returnType="rtns:BookPOJO" soapAction="">
+        <parameter xmlns:pns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:limit" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="searchBooks getBookFromCategory getCategories getMostConsultedBook buy getBookForSell getMostSimilarBook"/>
+
+      <arrayMapping xmlns:ns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:cmp-ns="http://models.bilmancamp.rmirest.upem.fr" qname="ns:ArrayOf_tns1_RealImage" type="java:fr.upem.rmirest.bilmancamp.models.RealImage[]" innerType="cmp-ns:RealImage" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://models.bilmancamp.rmirest.upem.fr" qname="ns:CommentImpl" type="java:fr.upem.rmirest.bilmancamp.models.CommentImpl" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://models.bilmancamp.rmirest.upem.fr" qname="ns:RealImage" type="java:fr.upem.rmirest.bilmancamp.models.RealImage" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:cmp-ns="http://models.bilmancamp.rmirest.upem.fr" qname="ns:ArrayOf_tns1_CommentImpl" type="java:fr.upem.rmirest.bilmancamp.models.CommentImpl[]" innerType="cmp-ns:CommentImpl" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://models.bilmancamp.rmirest.upem.fr" qname="ns:BookPOJO" type="java:fr.upem.rmirest.bilmancamp.models.BookPOJO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

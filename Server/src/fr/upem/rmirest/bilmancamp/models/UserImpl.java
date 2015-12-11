@@ -78,7 +78,7 @@ public class UserImpl extends UnicastRemoteObject implements User {
 
 		@Override
 		public String toString() {
-			return String.format("%s n°%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
+			return String.format("%s nï¿½%s - %s %s", getStatus(), getCardNumber(), getFirstName(), getLastName());
 		}
 
 		@Override

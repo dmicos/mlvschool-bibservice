@@ -1,0 +1,90 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+ <ns1:globalConfiguration>
+  <ns1:parameter name="sendMultiRefs" value="true"/>
+  <ns1:parameter name="disablePrettyXML" value="true"/>
+  <ns1:parameter name="adminPassword" value="admin"/>
+  <ns1:parameter name="attachments.Directory" value="D:\Rest-RMI\bilious-octoprune\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\BilManCampRest\WEB-INF\attachments"/>
+  <ns1:parameter name="dotNetSoapEncFix" value="true"/>
+  <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <ns1:parameter name="sendXMLDeclaration" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:requestFlow>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="session"/>
+   </ns1:handler>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="request"/>
+    <ns1:parameter name="extension" value=".jwr"/>
+   </ns1:handler>
+  </ns1:requestFlow>
+ </ns1:globalConfiguration>
+ <ns1:handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <ns1:service name="AdminService" provider="java:MSG">
+  <ns1:parameter name="allowedMethods" value="AdminService"/>
+  <ns1:parameter name="enableRemoteAdmin" value="false"/>
+  <ns1:parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+ </ns1:service>
+ <ns1:service name="Version" provider="java:RPC">
+  <ns1:parameter name="allowedMethods" value="getVersion"/>
+  <ns1:parameter name="className" value="org.apache.axis.Version"/>
+ </ns1:service>
+ <ns1:service name="MLVLibService" provider="java:RPC" style="wrapped" use="literal">
+  <ns2:operation name="getCategories" qname="ns1:getCategories" returnQName="ns1:getCategoriesReturn" returnType="xsd:string" soapAction="" xmlns:ns1="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/"/>
+  <ns1:operation name="getMostSimilarBook" qname="ns2:getMostSimilarBook" returnQName="ns2:getMostSimilarBookReturn" returnType="ns3:BookPOJO" soapAction="" xmlns:ns2="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns3="http://models.bilmancamp.rmirest.upem.fr">
+   <ns1:parameter qname="ns2:model" type="ns3:BookPOJO"/>
+   <ns1:parameter qname="ns2:number" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="getMostConsultedBook" qname="ns4:getMostConsultedBook" returnQName="ns4:getMostConsultedBookReturn" returnType="ns5:BookPOJO" soapAction="" xmlns:ns4="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns5="http://models.bilmancamp.rmirest.upem.fr">
+   <ns1:parameter qname="ns4:number" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="getBookFromCategory" qname="ns6:getBookFromCategory" returnQName="ns6:getBookFromCategoryReturn" returnType="ns7:BookPOJO" soapAction="" xmlns:ns6="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns7="http://models.bilmancamp.rmirest.upem.fr">
+   <ns1:parameter qname="ns6:category" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="searchBooks" qname="ns8:searchBooks" returnQName="ns8:searchBooksReturn" returnType="ns9:BookPOJO" soapAction="" xmlns:ns8="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns9="http://models.bilmancamp.rmirest.upem.fr">
+   <ns1:parameter qname="ns8:tags" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="buy" qname="ns10:buy" returnQName="ns10:buyReturn" returnType="xsd:boolean" soapAction="" xmlns:ns10="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns10:book" type="ns11:BookPOJO" xmlns:ns11="http://models.bilmancamp.rmirest.upem.fr"/>
+   <ns1:parameter qname="ns10:devise" type="xsd:string"/>
+   <ns1:parameter qname="ns10:cardNumber" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getBookForSell" qname="ns12:getBookForSell" returnQName="ns12:getBookForSellReturn" returnType="ns13:BookPOJO" soapAction="" xmlns:ns12="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns13="http://models.bilmancamp.rmirest.upem.fr">
+   <ns1:parameter qname="ns12:limit" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="searchBooks getBookFromCategory getCategories getMostConsultedBook buy getBookForSell getMostSimilarBook"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="MLVLibService"/>
+  <ns1:parameter name="className" value="fr.upem.rmirest.bilmancamp.ws.MLVService.MLVLibService"/>
+  <ns1:parameter name="wsdlServicePort" value="MLVLibService"/>
+  <ns1:parameter name="schemaQualified" value="http://models.bilmancamp.rmirest.upem.fr,http://MLVService.ws.bilmancamp.rmirest.upem.fr"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://MLVService.ws.bilmancamp.rmirest.upem.fr"/>
+  <ns1:parameter name="wsdlServiceElement" value="MLVLibServiceService"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns14:CommentImpl" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:fr.upem.rmirest.bilmancamp.models.CommentImpl" xmlns:ns14="http://models.bilmancamp.rmirest.upem.fr"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns15:RealImage" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:fr.upem.rmirest.bilmancamp.models.RealImage" xmlns:ns15="http://models.bilmancamp.rmirest.upem.fr"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns16:BookPOJO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:fr.upem.rmirest.bilmancamp.models.BookPOJO" xmlns:ns16="http://models.bilmancamp.rmirest.upem.fr"/>
+  <ns1:arrayMapping innerType="xsd:string" languageSpecificType="java:java.lang.String[]" qname="ns17:ArrayOf_xsd_string" xmlns:ns17="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:arrayMapping innerType="ns19:RealImage" languageSpecificType="java:fr.upem.rmirest.bilmancamp.models.RealImage[]" qname="ns18:ArrayOf_tns1_RealImage" xmlns:ns18="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns19="http://models.bilmancamp.rmirest.upem.fr"/>
+  <ns1:arrayMapping innerType="ns21:CommentImpl" languageSpecificType="java:fr.upem.rmirest.bilmancamp.models.CommentImpl[]" qname="ns20:ArrayOf_tns1_CommentImpl" xmlns:ns20="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:ns21="http://models.bilmancamp.rmirest.upem.fr"/>
+ </ns1:service>
+ <ns1:transport name="http">
+  <ns1:requestFlow>
+   <ns1:handler type="URLMapper"/>
+   <ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </ns1:requestFlow>
+  <ns1:parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <ns1:parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </ns1:transport>
+ <ns1:transport name="local">
+  <ns1:responseFlow>
+   <ns1:handler type="LocalResponder"/>
+  </ns1:responseFlow>
+ </ns1:transport>
+</ns1:deployment>

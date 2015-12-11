@@ -1,0 +1,52 @@
+/* Basic CSS description of my own visual of Java FX. 
+ * Copyright Jefferson 2016.
+ */
+ 
+.combo-box .cell {
+	-fx-background-color: #1f1f1f;
+	-fx-text-fill: #ffffff;
+	-fx-font-family: "SD UI Text Regular";
+	-fx-font-size: 24.0;
+}
+
+.my-list-cell {
+	-fx-background-color: #1f1f1f;
+	-fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1f1f1f;
+    -fx-background-insets: 0.0, 1.0;
+    /*-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 8.0, 0.0 , 0.0 , 0.0 );*/
+}
+
+/* Not selected in the pop-up. */
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: 4.0 0.0 4.0 5.0;
+
+    /* No alternate highlighting */
+    -fx-background-color: #1f1f1f;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view {
+    -fx-background: -fx-accent;
+    -fx-background-color: #1f1f1f;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1f1f1f;
+}
+ 
+ .combo-box-base {
+-fx-background-color: none ; 	
+}
+
+/*
+ .combo-box-base:focused {
+-fx-background-radius: 6.4, 4.0, 5.0, 3.0;
+-fx-background-insets: -1.4, 0.0, 1.0, 2.0;
+}
+*/

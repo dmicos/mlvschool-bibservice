@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SignUpController">
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.connection_screen.SignUpModule">
 	<children>
 		<VBox alignment="TOP_CENTER">
 			<children>
@@ -38,21 +39,12 @@
 								<Insets left="8.0" />
 							</GridPane.margin>
 						</Text>
-                  <PasswordField id="signUpPrompt" fx:id="tFPassword" promptText="Password" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="SF UI Text Regular" size="24.0" />
-                     </font>
-                  </PasswordField>
-                  <ComboBox maxHeight="30.0" maxWidth="144.0" minHeight="30.0" minWidth="144.0" prefHeight="30.0" prefWidth="144.0" styleClass="noBackground" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-						<MenuButton maxHeight="30.0" maxWidth="144.0" minHeight="30.0" minWidth="144.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" styleClass="noBackground" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+						<PasswordField id="signUpPrompt" fx:id="tFPassword" promptText="Password" GridPane.rowIndex="2">
 							<font>
-								<Font name="SF UI Text Regular" size="18.0" />
+								<Font name="SF UI Text Regular" size="24.0" />
 							</font>
-							<items>
-								<MenuItem mnemonicParsing="false" style="-fx-text-fill: #000000;" styleClass="noBackground" text="Teacher" />
-								<MenuItem mnemonicParsing="false" style="-fx-text-fill: #000000;" styleClass="noBackground" text="Student" />
-							</items>
-						</MenuButton>
+						</PasswordField>
+						<ComboBox fx:id="statusList" maxHeight="50.0" maxWidth="170.0" minHeight="50.0" minWidth="170.0" prefHeight="50.0" prefWidth="170.0" stylesheets="@../../css/florange.css" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
 					</children>
 					<columnConstraints>
 						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -101,14 +93,18 @@
 					</VBox.margin>
 				</Button>
 			</children>
-			<styleClass>
-				<String fx:value="noBackground" />
-				<String fx:value="sceneSize" />
-			</styleClass>
+         <styleClass>
+            <String fx:value="noBackground" />
+            <String fx:value="sceneSize" />
+         </styleClass>
 		</VBox>
 	</children>
-   <styleClass>
-      <String fx:value="sceneSize" />
-      <String fx:value="noBackground" />
-   </styleClass>
+	<styleClass>
+		<String fx:value="sceneSize" />
+		<String fx:value="noBackground" />
+	</styleClass>
+   <stylesheets>
+      <URL value="@../../css/florange.css" />
+      <URL value="@../../css/combobox.css" />
+   </stylesheets>
 </Pane>
