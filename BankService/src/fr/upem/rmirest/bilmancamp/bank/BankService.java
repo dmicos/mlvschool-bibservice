@@ -35,7 +35,7 @@ public class BankService implements Bank {
 		}
 		double accountChange;
 		try {
-			accountChange = change(database.getAccountCurrency(id), currency, amount);
+			accountChange = change(currency, database.getAccountCurrency(id), amount);
 		} catch (RemoteException | IllegalArgumentException e) {
 			return false;
 		}
@@ -52,8 +52,11 @@ public class BankService implements Bank {
 		}
 		double accountChange;
 		try {
-			accountChange = change(database.getAccountCurrency(id), currency, amount);
+			accountChange = change(currency, database.getAccountCurrency(id), amount);
 		} catch (RemoteException e) {
+			return false;
+		}
+		if (accountChange < amount) {
 			return false;
 		}
 		return database.withdraw(id, accountChange);
