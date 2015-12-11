@@ -9,78 +9,91 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="paneRoot" maxHeight="800.0" maxWidth="220.0" minHeight="800.0" minWidth="220.0" prefHeight="800.0" prefWidth="220.0" style="-fx-background-color: #1F1F1F;" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.BurgerMenuModule">
+<Pane fx:id="paneRoot" cache="true" cacheHint="SPEED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="274.0" styleClass="noBackground" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.BurgerMenuModule">
 	<children>
-		<VBox prefWidth="140.0" spacing="20.0" style="-fx-background-color: #1F1F1F;">
+		<Button fx:id="burgerButton" layoutX="246.0" layoutY="26.0" maxHeight="24.0" maxWidth="26.0" minHeight="24.0" minWidth="26.0" mnemonicParsing="false" onAction="#burgerClicked" prefHeight="24.0" prefWidth="26.0" styleClass="noBackground">
+			<graphic>
+				<ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../../icons/burger_menu_icon.png" />
+					</image>
+				</ImageView>
+			</graphic>
+		</Button>
+		<VBox maxHeight="800.0" maxWidth="220.0" minHeight="800.0" minWidth="220.0" prefHeight="800.0" prefWidth="220.0" style="-fx-background-color: #1F1F1F;" stylesheets="@../../css/florange.css">
 			<children>
-				<Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeClicked" style="-fx-background-color: none; -fx-padding: 0;" text="Home" textFill="WHITE">
-					<font>
-						<Font name="SF UI Text Semibold" size="32.0" />
-					</font>
-				</Button>
-				<Button fx:id="libraryButton" alignment="TOP_LEFT" mnemonicParsing="false" style="-fx-background-color: none; -fx-padding: 0;" text="Library" textFill="#ffffffb2">
-					<font>
-						<Font name="SF UI Text Semibold" size="32.0" />
-					</font>
-				</Button>
-				<Button fx:id="profilButton" alignment="TOP_LEFT" mnemonicParsing="false" style="-fx-background-color: none; -fx-padding: 0;" text="Profil" textFill="#ffffffb2">
-					<font>
-						<Font name="SF UI Text Semibold" size="32.0" />
-					</font>
-				</Button>
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0">
-					<VBox.margin>
-						<Insets top="6.0" />
-					</VBox.margin>
-				</Rectangle>
-				<Button fx:id="addBookButton" alignment="TOP_LEFT" mnemonicParsing="false" style="-fx-background-color: none; -fx-padding: 0;" text="Add book" textFill="#e37b05">
-					<font>
-						<Font name="SF UI Text Semibold" size="32.0" />
-					</font>
-					<VBox.margin>
-						<Insets bottom="8.0" top="8.0" />
-					</VBox.margin>
-				</Button>
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0" />
-				<VBox prefHeight="200.0" prefWidth="100.0">
+				<VBox prefWidth="140.0" spacing="20.0" style="-fx-background-color: #1F1F1F;">
 					<children>
-						<Text fx:id="firstName" fill="#ffffffb2" strokeType="OUTSIDE" strokeWidth="0.0" text="Jefferson">
+						<Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeClicked" style="-fx-background-color: none; -fx-padding: 0;" styleClass="burgerButton" text="Home" textFill="WHITE">
 							<font>
-								<Font name="SF UI Display Thin" size="28.0" />
+								<Font name="SF UI Text Semibold" size="32.0" />
 							</font>
-						</Text>
-						<Text fx:id="lastName" fill="#ffffffb2" strokeType="OUTSIDE" strokeWidth="0.0" text="Mangue">
+						</Button>
+						<Button fx:id="libraryButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#libraryClicked" style="-fx-background-color: none; -fx-padding: 0;" styleClass="burgerButton" text="Library" textFill="#ffffffb2">
 							<font>
-								<Font name="SF UI Display Thin" size="28.0" />
+								<Font name="SF UI Text Semibold" size="32.0" />
 							</font>
-						</Text>
-					</children>
-				</VBox>
-				<Button fx:id="logOutButton" mnemonicParsing="false" style="-fx-background-color: none; -fx-padding: 0;" textFill="#ffffffb2">
-					<font>
-						<Font name="SF UI Text Regular" size="28.0" />
-					</font>
-					<graphic>
-						<HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0" style="-fx-padding: 0;">
+						</Button>
+						<Button fx:id="profilButton" alignment="TOP_LEFT" mnemonicParsing="false" style="-fx-background-color: none; -fx-padding: 0;" styleClass="burgerButton" text="Profil" textFill="#ffffffb2">
+							<font>
+								<Font name="SF UI Text Semibold" size="32.0" />
+							</font>
+						</Button>
+						<Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0">
+							<VBox.margin>
+								<Insets top="6.0" />
+							</VBox.margin>
+						</Rectangle>
+						<Button fx:id="addBookButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addBookClicked" style="-fx-background-color: none; -fx-padding: 0;" text="Add book" textFill="#e37b05">
+							<font>
+								<Font name="SF UI Text Semibold" size="32.0" />
+							</font>
+							<VBox.margin>
+								<Insets bottom="8.0" top="8.0" />
+							</VBox.margin>
+						</Button>
+						<Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0" />
+						<VBox prefHeight="200.0" prefWidth="100.0">
 							<children>
-								<Text fx:id="logOutText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white70Text" text="Log out">
+								<Text fx:id="firstName" fill="#ffffffb2" strokeType="OUTSIDE" strokeWidth="0.0" text="Jefferson">
 									<font>
-										<Font name="SF UI Text Regular" size="28.0" />
+										<Font name="SF UI Display Thin" size="28.0" />
 									</font>
 								</Text>
-								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="@../../../../../../Animation%20Layouts/data/icons/log_out_icon.png" />
-									</image>
-								</ImageView>
+								<Text fx:id="lastName" fill="#ffffffb2" strokeType="OUTSIDE" strokeWidth="0.0" text="Mangue">
+									<font>
+										<Font name="SF UI Display Thin" size="28.0" />
+									</font>
+								</Text>
 							</children>
-						</HBox>
-					</graphic>
-				</Button>
+						</VBox>
+						<Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutClicked" style="-fx-background-color: none; -fx-padding: 0;" styleClass="burgerButton" textFill="#ffffffb2">
+							<font>
+								<Font name="SF UI Text Regular" size="28.0" />
+							</font>
+							<graphic>
+								<HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0" style="-fx-padding: 0;">
+									<children>
+										<Text fx:id="logOutText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white70Text" text="Log out">
+											<font>
+												<Font name="SF UI Text Regular" size="28.0" />
+											</font>
+										</Text>
+										<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../../../../../../Animation%20Layouts/data/icons/log_out_icon.png" />
+											</image>
+										</ImageView>
+									</children>
+								</HBox>
+							</graphic>
+						</Button>
+					</children>
+					<VBox.margin>
+						<Insets left="35.0" top="98.0" />
+					</VBox.margin>
+				</VBox>
 			</children>
-			<VBox.margin>
-				<Insets left="35.0" top="98.0" />
-			</VBox.margin>
 		</VBox>
 	</children>
-</VBox>
+</Pane>

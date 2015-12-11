@@ -41,6 +41,15 @@ public class Animations {
 		return sequence;
 	}
 
+	public static TranslateTransition transition(double fromX, double toX, float duration, Interpolator interpolator,
+			Pane view) {
+		TranslateTransition transition = new TranslateTransition(new Duration(duration), view);
+		transition.setFromX(fromX);
+		transition.setToX(toX);
+		transition.setInterpolator(interpolator);
+		return transition;
+	}
+
 	public static void playWrongRectangle(double x, double y, double width, double height, Pane parent) {
 		playColorRectangle(x, y, width, height, parent, Color.RED, new Color(1, 0, 0, 0.2));
 	}
@@ -66,5 +75,4 @@ public class Animations {
 		trans.setOnFinished(e -> parent.getChildren().remove(r));
 		trans.play();
 	}
-
 }

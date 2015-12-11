@@ -121,7 +121,7 @@ public class LogInModule implements Initializable, Module {
 	}
 
 	void hideForWelcomeMessage() {
-		Animations.transitionOpacityAnimation(Interpolator.EASE_OUT, 0, 0, -200, 0, 400, 250, 1, 0, paneRoot,
+		Animations.transitionOpacityAnimation(Interpolator.EASE_OUT, 0, 0, -200, 0, 500, 250, 1, 0, paneRoot,
 				() -> paneRoot.setVisible(false)).play();
 	}
 

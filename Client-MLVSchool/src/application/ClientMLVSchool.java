@@ -10,12 +10,12 @@ import static application.utils.Constants.SF_TEXT_REGULAR;
 import static application.utils.Constants.SF_TEXT_SEMIBOLD;
 
 import application.controllers.ModuleLoader;
+import application.controllers.Screen;
 import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.HomeScreen;
-import application.controllers.home_screen.Screen;
 import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
@@ -141,20 +141,16 @@ public class ClientMLVSchool extends Application {
 	/**
 	 * Transitions, after a delay <code>delay</code>, the entire scene from the
 	 * current layout, to the new <code>newLayout</code>.
-	 * 
-	 * @param delay
-	 * @param currentLayout
-	 * @param newLayout
 	 */
-	public static void transitionToNewLayout(double delay, Screen currentLayout, Screen newLayout) {
+	public static void setNewScreen(double delay, Screen currentScreen, Screen newScreen) {
 		// The root is a VBox of the current and the new layout.
-		Pane newView = newLayout.getView();
-		Pane currentView = currentLayout.getView();
+		Pane newView = newScreen.getView();
+		Pane currentView = currentScreen.getView();
 		VBox root = new VBox();
 		Scene scene = INSTANCE.getScene();
-
 		root.getChildren().addAll(newView, currentView);
 		root.setTranslateY(-scene.getHeight());
+
 		// Caching the animation for better performances.
 		root.setCache(true);
 		root.setCacheShape(true);
@@ -171,7 +167,7 @@ public class ClientMLVSchool extends Application {
 		sequence.setOnFinished(e -> {
 			root.getChildren().remove(newView);
 			scene.setRoot(newView);
-			newLayout.startHasMainScreen(currentLayout.getUser(), currentLayout.getProxyModel());
+			newScreen.startHasMainScreen(currentScreen.getProxyModel());
 		});
 		sequence.play();
 	}

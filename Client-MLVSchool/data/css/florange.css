@@ -2,13 +2,6 @@
  * Copyright Jefferson 2016.
  */
  
-/*
-@font-face{	
-	-fx-font-family: 'SF UI DisplayHeavy';
-    src: url("/fonts/SF-UI-Display-Heavy.otf");
-}
-*/
- 
  /* Size of the scene */
  .sceneSize {
  	-fx-pref-width: 1200.0;
@@ -103,4 +96,31 @@
  
  #connexionFooter {
  	-fx-fill: #ffffffB3;
+ }
+ 
+ .burgerButton {
+ 	-fx-text-fill: #ffffffb2;
+ }
+ .burgerButton:active {
+ 	-fx-text-fill: #fff000;
+ }
+  .burgerButton:focus {
+ 	-fx-text-fill: #fff000;
+ }
+ .burgerButton:selected {
+ 	-fx-text-fill: #fff000;
+ }
+ 
+ .burgerButton:hover {
+ 	-fx-text-fill: #ffffff;
+ }
+ 
+ .categoryCard {
+ 	-fx-border-color: #1f1f1f;
+ 	-fx-border-width: 0.2px;
+ 	-fx-background-color: #1f1f1fB3;
+ }
+ 
+ .categoryCard:hover .categoryText {
+ 	-fx-underline: true;
  }

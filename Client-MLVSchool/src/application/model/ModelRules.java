@@ -11,6 +11,6 @@ public class ModelRules {
 	 * @return the computed logging.
 	 */
 	public static String computeUserLogging(String lastName, int cardID) {
-		return lastName + '.' + cardID;
+		return lastName.toLowerCase() + '.' + cardID;
 	}
 }

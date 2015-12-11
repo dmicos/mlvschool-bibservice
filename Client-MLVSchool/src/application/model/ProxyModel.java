@@ -19,17 +19,22 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
  */
 public class ProxyModel {
 
-	private Library library;
+	/* The remote library connected */
+	private LibraryAsynchrone library;
+	/* The current remote user connected */
+	private UserAsynchrone userConnected;
 
 	public void connectServer() throws MalformedURLException, RemoteException, NotBoundException {
 		// Time out period to allow the GUI to cache more. (Animation caches
-		// hints stuffs) You can put it to 0, it will only affect the very
-		// firsts animations' quality.
+		// hints & stuffs of my module) You can put it to 0, it will only affect
+		// the very firsts animations' speed.
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
-		library = (Library) Naming.lookup("rmi://localhost:8888/libraryService");
+		// TODO put it in a configuration file.
+		Library library = (Library) Naming.lookup("rmi://localhost:8888/libraryService");
+		this.library = LibraryAsynchrone.createLibraryAsynchrone(library);
 	}
 
 	public List<String> getLibraryStatus() {
@@ -41,11 +46,18 @@ public class ProxyModel {
 	}
 
 	public User connectUser(String login, String password) throws IllegalArgumentException, RemoteException {
-		return library.connect(login, password);
+		Library library = this.library.getLibrary();
+		User remoteUser = library.connect(login, password);
+		userConnected = UserAsynchrone.createUserAsynchrone(remoteUser, library.getBookHistory(remoteUser));
+		return userConnected.getUser();
 	}
 
 	public boolean addUser(String firstName, String lastName, int cardID, String password, String status)
 			throws IllegalArgumentException, RemoteException {
-		return library.addUser(status, firstName, lastName, cardID, password);
+		return library.getLibrary().addUser(status, firstName, lastName, cardID, password);
+	}
+
+	public UserAsynchrone getConnectedUser() {
+		return userConnected;
 	}
 }

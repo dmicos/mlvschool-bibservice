@@ -16,8 +16,8 @@ import java.util.ResourceBundle;
 import application.ClientMLVSchool;
 import application.controllers.Module;
 import application.controllers.ModuleLoader;
+import application.controllers.Screen;
 import application.controllers.home_screen.HomeScreen;
-import application.controllers.home_screen.Screen;
 import application.model.ModelRules;
 import application.model.ProxyModel;
 import application.utils.Animations;
@@ -77,7 +77,6 @@ public class ConnectionScreen implements Initializable, Screen {
 
 	/* Model controlled */
 	private ProxyModel proxyModel;
-	private User user;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -122,11 +121,6 @@ public class ConnectionScreen implements Initializable, Screen {
 		return proxyModel;
 	}
 
-	@Override
-	public User getUser() {
-		return user;
-	}
-
 	/**
 	 * Launches the animation title. Here the connection with the server has to
 	 * be done.
@@ -145,7 +139,6 @@ public class ConnectionScreen implements Initializable, Screen {
 	 * authenticated. Transition to the home screen with this account.
 	 */
 	public void onUserConnected(User user, String firstName, String lastName) {
-		this.user = Objects.requireNonNull(user);
 		// Adding a new message of Welcome.
 		Text welcomeText = new Text("Welcome, " + firstName + ' ' + lastName + '.');
 		welcomeText.setFill(new Color(1, 1, 1, 0.7f));
@@ -176,7 +169,7 @@ public class ConnectionScreen implements Initializable, Screen {
 	}
 
 	private void launchHomeScreen() {
-		ClientMLVSchool.transitionToNewLayout(300, this, ModuleLoader.getInstance().load(HomeScreen.class));
+		ClientMLVSchool.setNewScreen(300, this, ModuleLoader.getInstance().load(HomeScreen.class));
 	}
 
 	@FXML
@@ -225,7 +218,7 @@ public class ConnectionScreen implements Initializable, Screen {
 	}
 
 	@Override
-	public void startHasMainScreen(User user, ProxyModel proxyModel) {
+	public void startHasMainScreen(ProxyModel proxyModel) {
 	}
 
 	public void comeBackToState1() {
