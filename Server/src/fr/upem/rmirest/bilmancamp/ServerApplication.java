@@ -59,7 +59,9 @@ public class ServerApplication {
 	 * @throws RemoteException
 	 */
 	private Library sharedObject() throws RemoteException {
-		return new LibraryImpl(DBHelper.embeddedDB());
+		Library lib = new LibraryImpl(DBHelper.embeddedDB());
+		
+		return lib;
 	}
 
 	public static void main(String[] args) throws RemoteException {

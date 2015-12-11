@@ -20,6 +20,7 @@ public class UserImpl extends UnicastRemoteObject implements User {
 	 */
 	private static final long serialVersionUID = -2857973181293273060L;
 
+	
 	/**
 	 * The {@link UserImpl} is in reality a proxy for {@link User}. It will
 	 * delegate every operations to the class {@link RealUser}.

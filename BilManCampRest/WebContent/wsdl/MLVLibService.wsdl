@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:intf="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns:tns1="http://models.bilmancamp.rmirest.upem.fr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://MLVService.ws.bilmancamp.rmirest.upem.fr" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://models.bilmancamp.rmirest.upem.fr"/>
+   <element name="getCategories">
+    <complexType/>
+   </element>
+   <element name="getCategoriesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getCategoriesReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMostSimilarBook">
+    <complexType>
+     <sequence>
+      <element name="model" type="tns1:BookPOJO"/>
+      <element name="number" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns1_CommentImpl">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:CommentImpl"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns1_RealImage">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:RealImage"/>
+    </sequence>
+   </complexType>
+   <element name="getMostSimilarBookResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getMostSimilarBookReturn" type="tns1:BookPOJO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMostConsultedBook">
+    <complexType>
+     <sequence>
+      <element name="number" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMostConsultedBookResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getMostConsultedBookReturn" type="tns1:BookPOJO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getBookFromCategory">
+    <complexType>
+     <sequence>
+      <element name="category" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getBookFromCategoryResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getBookFromCategoryReturn" type="tns1:BookPOJO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="searchBooks">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="tags" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="searchBooksResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="searchBooksReturn" type="tns1:BookPOJO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buy">
+    <complexType>
+     <sequence>
+      <element name="book" type="tns1:BookPOJO"/>
+      <element name="devise" type="xsd:string"/>
+      <element name="cardNumber" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buyResponse">
+    <complexType>
+     <sequence>
+      <element name="buyReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getBookForSell">
+    <complexType>
+     <sequence>
+      <element name="limit" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getBookForSellResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getBookForSellReturn" type="tns1:BookPOJO"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://models.bilmancamp.rmirest.upem.fr" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://MLVService.ws.bilmancamp.rmirest.upem.fr"/>
+   <complexType name="CommentImpl">
+    <sequence/>
+   </complexType>
+   <complexType name="RealImage">
+    <sequence>
+     <element name="path" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="BookPOJO">
+    <sequence>
+     <element name="authors" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="categories" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="comments" nillable="true" type="impl:ArrayOf_tns1_CommentImpl"/>
+     <element name="consultationNumber" type="xsd:int"/>
+     <element name="id" type="xsd:int"/>
+     <element name="mainImage" nillable="true" type="tns1:RealImage"/>
+     <element name="price" type="xsd:double"/>
+     <element name="rateNumber" type="xsd:int"/>
+     <element name="secondaryImages" nillable="true" type="impl:ArrayOf_tns1_RealImage"/>
+     <element name="summary" nillable="true" type="xsd:string"/>
+     <element name="tags" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+     <element name="totalRate" type="xsd:float"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getMostConsultedBookResponse">
+
+      <wsdl:part element="impl:getMostConsultedBookResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMostSimilarBookRequest">
+
+      <wsdl:part element="impl:getMostSimilarBook" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getBookFromCategoryResponse">
+
+      <wsdl:part element="impl:getBookFromCategoryResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buyResponse">
+
+      <wsdl:part element="impl:buyResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCategoriesRequest">
+
+      <wsdl:part element="impl:getCategories" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCategoriesResponse">
+
+      <wsdl:part element="impl:getCategoriesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getBookFromCategoryRequest">
+
+      <wsdl:part element="impl:getBookFromCategory" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="searchBooksRequest">
+
+      <wsdl:part element="impl:searchBooks" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMostSimilarBookResponse">
+
+      <wsdl:part element="impl:getMostSimilarBookResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buyRequest">
+
+      <wsdl:part element="impl:buy" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMostConsultedBookRequest">
+
+      <wsdl:part element="impl:getMostConsultedBook" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getBookForSellResponse">
+
+      <wsdl:part element="impl:getBookForSellResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getBookForSellRequest">
+
+      <wsdl:part element="impl:getBookForSell" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="searchBooksResponse">
+
+      <wsdl:part element="impl:searchBooksResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="MLVLibService">
+
+      <wsdl:operation name="getCategories">
+
+         <wsdl:input message="impl:getCategoriesRequest" name="getCategoriesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCategoriesResponse" name="getCategoriesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMostSimilarBook">
+
+         <wsdl:input message="impl:getMostSimilarBookRequest" name="getMostSimilarBookRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMostSimilarBookResponse" name="getMostSimilarBookResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMostConsultedBook">
+
+         <wsdl:input message="impl:getMostConsultedBookRequest" name="getMostConsultedBookRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMostConsultedBookResponse" name="getMostConsultedBookResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getBookFromCategory">
+
+         <wsdl:input message="impl:getBookFromCategoryRequest" name="getBookFromCategoryRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getBookFromCategoryResponse" name="getBookFromCategoryResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="searchBooks">
+
+         <wsdl:input message="impl:searchBooksRequest" name="searchBooksRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:searchBooksResponse" name="searchBooksResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buy">
+
+         <wsdl:input message="impl:buyRequest" name="buyRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:buyResponse" name="buyResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getBookForSell">
+
+         <wsdl:input message="impl:getBookForSellRequest" name="getBookForSellRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getBookForSellResponse" name="getBookForSellResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="MLVLibServiceSoapBinding" type="impl:MLVLibService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getCategories">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCategoriesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCategoriesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMostSimilarBook">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMostSimilarBookRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMostSimilarBookResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMostConsultedBook">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMostConsultedBookRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMostConsultedBookResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getBookFromCategory">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getBookFromCategoryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getBookFromCategoryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="searchBooks">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="searchBooksRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="searchBooksResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buy">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="buyRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="buyResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getBookForSell">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getBookForSellRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getBookForSellResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="MLVLibServiceService">
+
+      <wsdl:port binding="impl:MLVLibServiceSoapBinding" name="MLVLibService">
+
+         <wsdlsoap:address location="http://localhost:8080/BilManCampRest/services/MLVLibService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
