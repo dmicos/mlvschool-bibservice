@@ -23,20 +23,21 @@
  <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
  <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
  <ns1:service name="BankService" provider="java:RPC" style="wrapped" use="literal">
-  <ns2:operation name="withdraw" qname="ns1:withdraw" returnQName="ns1:withdrawReturn" returnType="xsd:boolean" soapAction="" xmlns:ns1="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
-   <ns2:parameter qname="ns1:id" type="xsd:long"/>
-   <ns2:parameter qname="ns1:password" type="xsd:string"/>
-   <ns2:parameter qname="ns1:currency" type="xsd:string"/>
+  <ns2:operation name="change" qname="ns1:change" returnQName="ns1:changeReturn" returnType="xsd:double" soapAction="" xmlns:ns1="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns2:parameter qname="ns1:currencyFrom" type="xsd:string"/>
+   <ns2:parameter qname="ns1:currencyTo" type="xsd:string"/>
    <ns2:parameter qname="ns1:amount" type="xsd:double"/>
   </ns2:operation>
-  <ns1:operation name="change" qname="ns2:change" returnQName="ns2:changeReturn" returnType="xsd:double" soapAction="" xmlns:ns2="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns2:currencyFrom" type="xsd:string"/>
-   <ns1:parameter qname="ns2:currencyTo" type="xsd:string"/>
-   <ns1:parameter qname="ns2:amount" type="xsd:double"/>
+  <ns1:operation name="balance" qname="ns2:balance" returnQName="ns2:balanceReturn" returnType="xsd:double" soapAction="" xmlns:ns2="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns2:id" type="xsd:long"/>
+   <ns1:parameter qname="ns2:password" type="xsd:string"/>
+   <ns1:parameter qname="ns2:currency" type="xsd:string"/>
   </ns1:operation>
-  <ns1:operation name="createAccount" qname="ns3:createAccount" returnQName="ns3:createAccountReturn" returnType="xsd:long" soapAction="" xmlns:ns3="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns3:currency" type="xsd:string"/>
+  <ns1:operation name="withdraw" qname="ns3:withdraw" returnQName="ns3:withdrawReturn" returnType="xsd:boolean" soapAction="" xmlns:ns3="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns3:id" type="xsd:long"/>
    <ns1:parameter qname="ns3:password" type="xsd:string"/>
+   <ns1:parameter qname="ns3:currency" type="xsd:string"/>
+   <ns1:parameter qname="ns3:amount" type="xsd:double"/>
   </ns1:operation>
   <ns1:operation name="deposit" qname="ns4:deposit" returnQName="ns4:depositReturn" returnType="xsd:boolean" soapAction="" xmlns:ns4="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <ns1:parameter qname="ns4:id" type="xsd:long"/>
@@ -44,10 +45,9 @@
    <ns1:parameter qname="ns4:currency" type="xsd:string"/>
    <ns1:parameter qname="ns4:amount" type="xsd:double"/>
   </ns1:operation>
-  <ns1:operation name="balance" qname="ns5:balance" returnQName="ns5:balanceReturn" returnType="xsd:double" soapAction="" xmlns:ns5="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns5:id" type="xsd:long"/>
-   <ns1:parameter qname="ns5:password" type="xsd:string"/>
+  <ns1:operation name="createAccount" qname="ns5:createAccount" returnQName="ns5:createAccountReturn" returnType="xsd:long" soapAction="" xmlns:ns5="http://bank.bilmancamp.rmirest.upem.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <ns1:parameter qname="ns5:currency" type="xsd:string"/>
+   <ns1:parameter qname="ns5:password" type="xsd:string"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="balance change deposit createAccount withdraw"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
@@ -55,8 +55,8 @@
   <ns1:parameter name="className" value="fr.upem.rmirest.bilmancamp.bank.BankService"/>
   <ns1:parameter name="wsdlServicePort" value="BankService"/>
   <ns1:parameter name="schemaQualified" value="http://bank.bilmancamp.rmirest.upem.fr"/>
-  <ns1:parameter name="wsdlTargetNamespace" value="http://bank.bilmancamp.rmirest.upem.fr"/>
-  <ns1:parameter name="wsdlServiceElement" value="BankServiceService"/><ns1:parameter name="scope" value="application" />
+  <ns1:parameter name="wsdlTargetNamespace" value="http://bank.bilmancamp.rmirest.upem.fr"/><ns1:parameter name="wsdlServiceElement" value="BankServiceService" />
+  <ns1:parameter name="scope" value="application"/>
  </ns1:service>
  <ns1:service name="AdminService" provider="java:MSG">
   <ns1:parameter name="allowedMethods" value="AdminService"/>

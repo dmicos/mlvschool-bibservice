@@ -56,7 +56,7 @@ public class BankService implements Bank {
 		} catch (RemoteException e) {
 			return false;
 		}
-		if (accountChange < amount) {
+		if (accountChange > database.balance(id)) {
 			return false;
 		}
 		return database.withdraw(id, accountChange);

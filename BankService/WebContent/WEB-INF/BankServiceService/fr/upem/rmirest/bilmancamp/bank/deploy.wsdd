@@ -10,20 +10,21 @@
       <parameter name="className" value="fr.upem.rmirest.bilmancamp.bank.BankService"/>
       <parameter name="wsdlPortType" value="BankService"/>
       <parameter name="typeMappingVersion" value="1.2"/>
-      <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="withdraw" qname="operNS:withdraw" returnQName="retNS:withdrawReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:long"/>
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currency" type="tns:string"/>
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:amount" type="tns:double"/>
-      </operation>
       <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="change" qname="operNS:change" returnQName="retNS:changeReturn" returnType="rtns:double" soapAction="">
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currencyFrom" type="tns:string"/>
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currencyTo" type="tns:string"/>
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:amount" type="tns:double"/>
       </operation>
-      <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createAccount" qname="operNS:createAccount" returnQName="retNS:createAccountReturn" returnType="rtns:long" soapAction="">
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currency" type="tns:string"/>
+      <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="balance" qname="operNS:balance" returnQName="retNS:balanceReturn" returnType="rtns:double" soapAction="">
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:long"/>
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currency" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="withdraw" qname="operNS:withdraw" returnQName="retNS:withdrawReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:long"/>
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currency" type="tns:string"/>
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:amount" type="tns:double"/>
       </operation>
       <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deposit" qname="operNS:deposit" returnQName="retNS:depositReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:long"/>
@@ -31,10 +32,9 @@
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currency" type="tns:string"/>
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:amount" type="tns:double"/>
       </operation>
-      <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="balance" qname="operNS:balance" returnQName="retNS:balanceReturn" returnType="rtns:double" soapAction="">
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:long"/>
-        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+      <operation xmlns:operNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:retNS="http://bank.bilmancamp.rmirest.upem.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createAccount" qname="operNS:createAccount" returnQName="retNS:createAccountReturn" returnType="rtns:long" soapAction="">
         <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:currency" type="tns:string"/>
+        <parameter xmlns:pns="http://bank.bilmancamp.rmirest.upem.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
       </operation>
       <parameter name="allowedMethods" value="balance change deposit createAccount withdraw"/>
 

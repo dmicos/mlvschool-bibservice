@@ -28,6 +28,7 @@ public class BankDatabaseImpl implements BankDatabase {
 	public boolean accessValid(long id, String password) {
 		BankAccount bankAccount = accounts.get(id);
 		if (bankAccount == null) {
+			System.out.println("Account doesn't exists");
 			return false;
 		}
 		return bankAccount.getPassword().equals(password);
