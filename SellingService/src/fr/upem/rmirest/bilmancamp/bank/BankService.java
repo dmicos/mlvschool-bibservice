@@ -8,9 +8,9 @@
 package fr.upem.rmirest.bilmancamp.bank;
 
 public interface BankService extends java.rmi.Remote {
-    public boolean withdraw(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException;
     public double change(java.lang.String currencyFrom, java.lang.String currencyTo, double amount) throws java.rmi.RemoteException;
-    public long createAccount(java.lang.String currency, java.lang.String password) throws java.rmi.RemoteException;
-    public boolean deposit(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException;
     public double balance(long id, java.lang.String password, java.lang.String currency) throws java.rmi.RemoteException;
+    public boolean withdraw(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException;
+    public boolean deposit(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException;
+    public long createAccount(java.lang.String currency, java.lang.String password) throws java.rmi.RemoteException;
 }

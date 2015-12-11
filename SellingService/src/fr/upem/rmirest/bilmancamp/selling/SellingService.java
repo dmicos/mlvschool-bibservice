@@ -31,6 +31,7 @@ public class SellingService implements Selling {
 
 	private BankService getBank() throws ServiceException {
 		return new BankServiceServiceLocator().getBankService();
+		
 	}
 
 }

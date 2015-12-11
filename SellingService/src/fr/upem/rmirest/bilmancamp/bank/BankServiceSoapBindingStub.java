@@ -24,23 +24,6 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("withdraw");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "id"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "password"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currency"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "amount"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "double"), double.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
-        oper.setReturnClass(boolean.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "withdrawReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
-        oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[0] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("change");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currencyFrom"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
@@ -53,17 +36,36 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "changeReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[1] = oper;
+        _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("createAccount");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currency"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.setName("balance");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "id"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "password"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"));
-        oper.setReturnClass(long.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "createAccountReturn"));
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currency"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "double"));
+        oper.setReturnClass(double.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "balanceReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[1] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("withdraw");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "id"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "password"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currency"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "amount"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "double"), double.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        oper.setReturnClass(boolean.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "withdrawReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[2] = oper;
@@ -86,16 +88,14 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         _operations[3] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("balance");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "id"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"), long.class, false, false);
+        oper.setName("createAccount");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currency"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "password"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "currency"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "double"));
-        oper.setReturnClass(double.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "balanceReturn"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "long"));
+        oper.setReturnClass(long.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "createAccountReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[4] = oper;
@@ -153,46 +153,12 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         }
     }
 
-    public boolean withdraw(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[0]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "withdraw"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(id), password, currency, new java.lang.Double(amount)});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return ((java.lang.Boolean) _resp).booleanValue();
-            } catch (java.lang.Exception _exception) {
-                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
     public double change(java.lang.String currencyFrom, java.lang.String currencyTo, double amount) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[1]);
+        _call.setOperation(_operations[0]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -221,7 +187,41 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 }
     }
 
-    public long createAccount(java.lang.String currency, java.lang.String password) throws java.rmi.RemoteException {
+    public double balance(long id, java.lang.String password, java.lang.String currency) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[1]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "balance"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(id), password, currency});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return ((java.lang.Double) _resp).doubleValue();
+            } catch (java.lang.Exception _exception) {
+                return ((java.lang.Double) org.apache.axis.utils.JavaUtils.convert(_resp, double.class)).doubleValue();
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public boolean withdraw(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -233,11 +233,11 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "createAccount"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "withdraw"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {currency, password});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(id), password, currency, new java.lang.Double(amount)});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -245,9 +245,9 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         else {
             extractAttachments(_call);
             try {
-                return ((java.lang.Long) _resp).longValue();
+                return ((java.lang.Boolean) _resp).booleanValue();
             } catch (java.lang.Exception _exception) {
-                return ((java.lang.Long) org.apache.axis.utils.JavaUtils.convert(_resp, long.class)).longValue();
+                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -289,7 +289,7 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 }
     }
 
-    public double balance(long id, java.lang.String password, java.lang.String currency) throws java.rmi.RemoteException {
+    public long createAccount(java.lang.String currency, java.lang.String password) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -301,11 +301,11 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "balance"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://bank.bilmancamp.rmirest.upem.fr", "createAccount"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Long(id), password, currency});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {currency, password});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -313,9 +313,9 @@ public class BankServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         else {
             extractAttachments(_call);
             try {
-                return ((java.lang.Double) _resp).doubleValue();
+                return ((java.lang.Long) _resp).longValue();
             } catch (java.lang.Exception _exception) {
-                return ((java.lang.Double) org.apache.axis.utils.JavaUtils.convert(_resp, double.class)).doubleValue();
+                return ((java.lang.Long) org.apache.axis.utils.JavaUtils.convert(_resp, long.class)).longValue();
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
