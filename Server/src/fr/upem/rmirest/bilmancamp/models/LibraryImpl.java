@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
@@ -38,7 +37,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	private final Map<String, String> categories;
 	private final List<String> status;
 
-	public LibraryImpl(Database database) throws RemoteException {
+	private LibraryImpl(Database database) throws RemoteException {
 		super(0);
 		this.database = database;
 		addresses = new ConcurrentHashMap<>();
@@ -47,7 +46,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	public static Library createLibraryImpl(Database database, String configPath)
-			throws JsonParseException, JsonMappingException, IOException {
+			throws JsonMappingException, IOException {
 		LibraryImpl lib = new LibraryImpl(database);
 		// Initialize the loader and load data into the fields.
 		LibraryImplDataLoader loader = LibraryImplDataLoader.createLoader(configPath);

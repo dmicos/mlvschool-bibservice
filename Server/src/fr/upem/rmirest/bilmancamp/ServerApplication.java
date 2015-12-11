@@ -1,5 +1,7 @@
 package fr.upem.rmirest.bilmancamp;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -12,6 +14,8 @@ import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.models.LibraryImpl;
 
 public class ServerApplication {
+
+	private static final String LIBRARY_CONFIG_FILE_PATH = "data/confFiles/dataset.json";
 
 	private final CommandLineParser env;
 
@@ -59,9 +63,12 @@ public class ServerApplication {
 	 * @throws RemoteException
 	 */
 	private Library sharedObject() throws RemoteException {
-		Library lib = new LibraryImpl(DBHelper.embeddedDB());
-		
-		return lib;
+		try {
+			return LibraryImpl.createLibraryImpl(DBHelper.embeddedDB(), LIBRARY_CONFIG_FILE_PATH);
+		} catch (IOException e) {
+			throw new UncheckedIOException("The library config file could not be parsed : " + LIBRARY_CONFIG_FILE_PATH,
+					e);
+		}
 	}
 
 	public static void main(String[] args) throws RemoteException {

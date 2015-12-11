@@ -1,5 +1,7 @@
 package fr.upem.rmirest.bilmancamp.rmi;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -31,7 +33,12 @@ public class ServerRMI {
 		}
 
 		// setup object
-		Library lib = new LibraryImpl(implementation());
+		Library lib;
+		try {
+			lib = LibraryImpl.createLibraryImpl(implementation(), "data/confFiles/dataset.json");
+		} catch (IOException e) {
+			throw new UncheckedIOException("Cannot read the library config file", e);
+		}
 		Registry reg = LocateRegistry.createRegistry(8888); // Server Embedded
 															// registry for
 															// quick Test
