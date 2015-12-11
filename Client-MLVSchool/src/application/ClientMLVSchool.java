@@ -13,21 +13,27 @@ import application.controllers.ModuleLoader;
 import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
+import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.HomeScreen;
+import application.controllers.home_screen.Screen;
 import application.model.ProxyModel;
+import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.FontManager;
 import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.CacheHint;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
+ * Main JAVAFX client application. It has to extend {@link Application} to be
+ * conform the the JAVAFX cycle activity.
  * 
  * @author Jefferson
  *
@@ -46,6 +52,10 @@ public class ClientMLVSchool extends Application {
 		launch(args);
 	}
 
+	/**
+	 * The Application is a "stand alone" singleton. According to the JAVAFX
+	 * cycle activity.
+	 */
 	private static ClientMLVSchool INSTANCE;
 	private Scene scene;
 
@@ -57,6 +67,7 @@ public class ClientMLVSchool extends Application {
 		connectionScreen.setModel(new ProxyModel());
 		connectionScreen.startCient();
 		loadCSS(scene, "/css/florange.css"); // Custom CSS style sheet.
+		loadCSS(scene, "/css/combobox.css"); // Custom CSS style sheet.
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -64,6 +75,9 @@ public class ClientMLVSchool extends Application {
 		INSTANCE = this;
 	}
 
+	/**
+	 * Loads the application's first screen. And resets the model.
+	 */
 	public static void reloadApplicationFirstScreen() {
 		ConnectionScreen connectionScreen = loadConnectionScreen();
 		Scene scene = INSTANCE.getScene();
@@ -81,6 +95,7 @@ public class ClientMLVSchool extends Application {
 		loader.registerFXMLLoader(SignUpModule.class, Constants.CONNECTION_SIGNUP_MODULE);
 		loader.registerFXMLLoader(LogInModule.class, Constants.CONNECTION_LOGIN_MODULE);
 		loader.registerFXMLLoader(HomeScreen.class, Constants.HOME_SCREEN_MODULE);
+		loader.registerFXMLLoader(BurgerMenuModule.class, Constants.HOME_BURGER_MENU_MODULE);
 	}
 
 	/**
@@ -99,6 +114,7 @@ public class ClientMLVSchool extends Application {
 		fontManager.register(SF_DISPLAY_THIN, 28);
 		fontManager.register(SF_TEXT_SEMIBOLD, 18);
 		fontManager.register(SF_TEXT_SEMIBOLD, 24);
+		fontManager.register(SF_TEXT_SEMIBOLD, 32);
 		fontManager.register(SF_TEXT_SEMIBOLD, 36);
 		fontManager.register(SF_TEXT_SEMIBOLD, 52);
 		fontManager.register(SF_TEXT_REGULAR, 18);
@@ -122,20 +138,41 @@ public class ClientMLVSchool extends Application {
 		return ModuleLoader.getInstance().load(ConnectionScreen.class);
 	}
 
-	public static void transitionToNewLayout(Parent currentLayout, Parent newLayout) {
-		Scene scene = INSTANCE.getScene();
+	/**
+	 * Transitions, after a delay <code>delay</code>, the entire scene from the
+	 * current layout, to the new <code>newLayout</code>.
+	 * 
+	 * @param delay
+	 * @param currentLayout
+	 * @param newLayout
+	 */
+	public static void transitionToNewLayout(double delay, Screen currentLayout, Screen newLayout) {
+		// The root is a VBox of the current and the new layout.
+		Pane newView = newLayout.getView();
+		Pane currentView = currentLayout.getView();
 		VBox root = new VBox();
-		root.getChildren().addAll(newLayout, currentLayout);
+		Scene scene = INSTANCE.getScene();
+
+		root.getChildren().addAll(newView, currentView);
 		root.setTranslateY(-scene.getHeight());
+		// Caching the animation for better performances.
 		root.setCache(true);
 		root.setCacheShape(true);
-		root.setCacheHint(CacheHint.SPEED); // Less visually "pleasant".
+		root.setCacheHint(CacheHint.SPEED);
 		scene.setRoot(root);
-		scene.getRoot();
+
+		// The translation animation.
 		TranslateTransition translateTransition = new TranslateTransition(Duration.millis(800), root);
 		translateTransition.setInterpolator(Interpolator.EASE_OUT);
 		translateTransition.setToY(0);
-		translateTransition.play();
-		// TODO set home as the main root.
+
+		// Reseting the newLayout as the only root at the end of the sequence.
+		Transition sequence = Animations.delay(delay, translateTransition);
+		sequence.setOnFinished(e -> {
+			root.getChildren().remove(newView);
+			scene.setRoot(newView);
+			newLayout.startHasMainScreen(currentLayout.getUser(), currentLayout.getProxyModel());
+		});
+		sequence.play();
 	}
 }

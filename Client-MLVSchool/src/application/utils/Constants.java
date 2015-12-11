@@ -3,8 +3,7 @@ package application.utils;
 public class Constants {
 
 	public static final String SECURITY_POLICY_PATH = "data/confFiles/sec.policy";
-	
-	
+
 	/**
 	 * Numerical constants.
 	 */
@@ -20,6 +19,13 @@ public class Constants {
 	public static final String CONNECTION_SIGNUP_MODULE = "/scenes/connectionScreen/signUpModule.fxml";
 	public static final String CONNECTION_LOGIN_MODULE = "/scenes/connectionScreen/logInModule.fxml";
 	public static final String HOME_SCREEN_MODULE = "/scenes/homeScreen/homeScreen.fxml";
+	public static final String HOME_BURGER_MENU_MODULE = "/scenes/homeScreen/burgerMenu.fxml";
+
+	/**
+	 * Icons. PS: From application/ClientMLVSchool.java
+	 */
+	public static final String DATABASE_ICON = "../icons/database_icon.png";
+	public static final String INFO_ICON = "../icons/info_icon.png";
 
 	/**
 	 * Font constants.
@@ -32,6 +38,7 @@ public class Constants {
 	public static final String SF_TEXT_REGULAR = "/fonts/SF-UI-Text-Regular.otf";
 	public static final String SF_TEXT_MEDIUM = "/fonts/SF-UI-Text-Medium.otf";
 	public static final String SF_TEXT_LIGHT = "/fonts/SF-UI-Text-Light.otf";
+
 
 	public static double SCENE_WIDTH = 1200;
 	public static double SCENE_HEIGHT = 800;

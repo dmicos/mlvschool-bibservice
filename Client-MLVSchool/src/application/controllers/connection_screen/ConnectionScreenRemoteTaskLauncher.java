@@ -3,7 +3,10 @@ package application.controllers.connection_screen;
 import java.util.List;
 
 import application.ClientMLVSchool;
+import application.model.ModelRules;
 import application.model.ProxyModel;
+import application.utils.NotificationsManager;
+import application.utils.NotificationsManager.NotificationType;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import javafx.animation.PauseTransition;
 import javafx.concurrent.Task;
@@ -39,9 +42,8 @@ class ConnectionScreenRemoteTaskLauncher {
 
 		// Handling the failure.
 		task.setOnFailed(e -> {
-			System.err.println("Server not reached.");
+			// Server not reached. Connecting again.
 			PauseTransition p = new PauseTransition(new Duration(TIMEOUT));
-			System.err.println("Connecting again.");
 			p.setOnFinished(ee -> connectServer(screen));
 			p.play();
 		});
@@ -53,15 +55,18 @@ class ConnectionScreenRemoteTaskLauncher {
 		ProxyModel proxyModel = screen.getProxyModel();
 
 		Task<ConnectingTaskInfo> task = createConnectingUserTaskWithSucceedHandled(screen, login, password, proxyModel);
-
 		// Handling the failure.
 		task.setOnFailed(e -> {
-			System.err.println("Login failed.");
-			if (task.getException().getCause().getClass() == IllegalArgumentException.class) {
+			Throwable exception = task.getException();
+			if (exception == null) {
+				ClientMLVSchool.reloadApplicationFirstScreen();
+				return;
+			}
+			if (exception.getClass() == IllegalArgumentException.class) {
 				loginModule.onLoginError();
 				return;
 			}
-			reloadApplication("Connection lost");
+			reloadApplication("Connection lost.");
 		});
 
 		launchTask(task);
@@ -73,7 +78,8 @@ class ConnectionScreenRemoteTaskLauncher {
 		Task<ConnectingTaskInfo> task = createConnectingUserTaskWithSucceedHandled(screen, login, password, proxyModel);
 
 		// Handling the failure.
-		task.setOnFailed(e -> reloadApplication("Critic login failed. After account creation"));
+		task.setOnFailed(
+				e -> reloadApplication("Error of transmision with the Library : " + task.getException().getMessage()));
 
 		launchTask(task);
 	}
@@ -92,12 +98,15 @@ class ConnectionScreenRemoteTaskLauncher {
 		// Handling the success.
 		task.setOnSucceeded(e -> {
 			if (task.getValue()) {
-				// TODO use notification for this.
-				System.err.println("User created");
+				String title = status + " created !";
+				String message = "Welcome to your new library " + firstName + ' ' + lastName;
+				NotificationsManager.notify(title, message, NotificationType.INFO);
 				screen.onUserAdded(firstName, lastName, cardID, password, status);
 				return;
 			}
 			// Not connected with no exceptions.
+			String message = ModelRules.computeUserLogging(lastName, cardID) + " already exists.";
+			NotificationsManager.notify("Information :", message, NotificationType.INFO);
 			signUpModule.onSignUpFailed();
 		});
 
@@ -110,10 +119,7 @@ class ConnectionScreenRemoteTaskLauncher {
 	}
 
 	private static void reloadApplication(String message) {
-		// TODO cancel all pending tasks if there are.
-		// TODO notification "An error has occurred while transmitting with
-		// the server."
-		System.err.println(message);
+		NotificationsManager.notify("Library :", message, NotificationType.DATABASE);
 		ClientMLVSchool.reloadApplicationFirstScreen();
 	}
 
@@ -135,7 +141,6 @@ class ConnectionScreenRemoteTaskLauncher {
 
 		// Handling the success.
 		task.setOnSucceeded(e -> {
-			System.err.println("Login succeed.");
 			ConnectingTaskInfo info = task.getValue();
 			screen.onUserConnected(info.user, info.firstName, info.lastName);
 		});

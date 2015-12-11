@@ -4,7 +4,11 @@ import static application.utils.Animations.transitionOpacityAnimation;
 import static application.utils.Constants.SF_DISPLAY_LIGHT;
 import static application.utils.Constants.SF_DISPLAY_REGULAR;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -13,6 +17,7 @@ import application.ClientMLVSchool;
 import application.controllers.Module;
 import application.controllers.ModuleLoader;
 import application.controllers.home_screen.HomeScreen;
+import application.controllers.home_screen.Screen;
 import application.model.ModelRules;
 import application.model.ProxyModel;
 import application.utils.Animations;
@@ -37,7 +42,7 @@ import javafx.scene.text.Text;
  * @author Jefferson
  *
  */
-public class ConnectionScreen implements Initializable, Module {
+public class ConnectionScreen implements Initializable, Screen {
 
 	@FXML
 	private Pane paneRoot;
@@ -70,7 +75,9 @@ public class ConnectionScreen implements Initializable, Module {
 	/* LogIn module */
 	private LogInModule logInController;
 
+	/* Model controlled */
 	private ProxyModel proxyModel;
+	private User user;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -83,6 +90,7 @@ public class ConnectionScreen implements Initializable, Module {
 
 		// Loading fonts of the current objects.
 		loadFontsWorkaround();
+
 		// Loading modules.
 		signUpController = loadModule(SignUpModule.class);
 		logInController = loadModule(LogInModule.class);
@@ -93,34 +101,35 @@ public class ConnectionScreen implements Initializable, Module {
 		hide();
 	}
 
+	static String readFile(String path, Charset encoding) throws IOException {
+		byte[] encoded = Files.readAllBytes(Paths.get(path));
+		return new String(encoded, encoding);
+	}
+
 	public void startCient() {
 		ConnectionScreenRemoteTaskLauncher.connectServer(this);
 	}
 
 	/**
 	 * Sets the current PROXY model used to populate the screen.
-	 * 
-	 * @param proxyModel
 	 */
 	public void setModel(ProxyModel proxyModel) {
 		this.proxyModel = Objects.requireNonNull(proxyModel);
 	}
 
-	/**
-	 * Only used in package visibility. For the
-	 * {@link ConnectionScreenRemoteTaskLauncher}.
-	 * 
-	 * @return the current {@link ProxyModel} used.
-	 */
-	ProxyModel getProxyModel() {
+	@Override
+	public ProxyModel getProxyModel() {
 		return proxyModel;
+	}
+
+	@Override
+	public User getUser() {
+		return user;
 	}
 
 	/**
 	 * Launches the animation title. Here the connection with the server has to
 	 * be done.
-	 * 
-	 * @param statusList
 	 */
 	void onServerReached(List<String> statusList) {
 		startTitleGroupAnimation();
@@ -134,12 +143,9 @@ public class ConnectionScreen implements Initializable, Module {
 	/**
 	 * Notifies the current {@link ConnectionScreen} that a user has been
 	 * authenticated. Transition to the home screen with this account.
-	 * 
-	 * @param user
-	 * @param lastName
-	 * @param firstName
 	 */
 	public void onUserConnected(User user, String firstName, String lastName) {
+		this.user = Objects.requireNonNull(user);
 		// Adding a new message of Welcome.
 		Text welcomeText = new Text("Welcome, " + firstName + ' ' + lastName + '.');
 		welcomeText.setFill(new Color(1, 1, 1, 0.7f));
@@ -151,7 +157,7 @@ public class ConnectionScreen implements Initializable, Module {
 		welcomeText.setCacheHint(CacheHint.SPEED);
 		paneRoot.getChildren().add(welcomeText);
 
-		Animations.delay(650, transitionOpacityAnimation(Interpolator.EASE_OUT, 200, 0, 0, 0, 400, 350, 0, 1,
+		Animations.delay(800, transitionOpacityAnimation(Interpolator.EASE_OUT, 200, 0, 0, 0, 400, 350, 0, 1,
 				welcomeText, () -> launchHomeScreen())).play();
 
 		// Hiding the loginController.
@@ -161,23 +167,16 @@ public class ConnectionScreen implements Initializable, Module {
 	/**
 	 * Notifies the current {@link ConnectionScreen} that a user hash been added
 	 * to the library. Now automatically connecting it.
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param cardID
-	 * @param password
-	 * @param status
 	 */
 	public void onUserAdded(String firstName, String lastName, int cardID, String password, String status) {
 		ConnectionScreenRemoteTaskLauncher.connectUserAfterAddInLibrary(this,
 				ModelRules.computeUserLogging(lastName, cardID), password);
-
 		// Hiding the loginController.
 		signUpController.hideForWelcomeMessage();
 	}
 
 	private void launchHomeScreen() {
-		ClientMLVSchool.transitionToNewLayout(paneRoot, ModuleLoader.getInstance().load(HomeScreen.class).getView());
+		ClientMLVSchool.transitionToNewLayout(300, this, ModuleLoader.getInstance().load(HomeScreen.class));
 	}
 
 	@FXML
@@ -225,14 +224,8 @@ public class ConnectionScreen implements Initializable, Module {
 		return paneRoot;
 	}
 
-	private <T extends Module> T loadModule(Class<T> moduleClass) {
-		// Loading the module.
-		T module = ModuleLoader.getInstance().load(moduleClass);
-		// Hiding this module.
-		module.hide();
-		// Adding the module to the current screen.
-		paneRoot.getChildren().add(module.getView());
-		return module;
+	@Override
+	public void startHasMainScreen(User user, ProxyModel proxyModel) {
 	}
 
 	public void comeBackToState1() {
@@ -278,6 +271,16 @@ public class ConnectionScreen implements Initializable, Module {
 		Animations.delay(0, transitionOpacityAnimation(interpolation, fromX, fromY, toX, toY, transDuration,
 				fadeDuration, fromOpacity, toOpacity, titleGroup, () -> {
 				})).play();
+	}
+
+	private <T extends Module> T loadModule(Class<T> moduleClass) {
+		// Loading the module.
+		T module = ModuleLoader.getInstance().load(moduleClass);
+		// Hiding this module.
+		module.hide();
+		// Adding the module to the current screen.
+		paneRoot.getChildren().add(module.getView());
+		return module;
 	}
 
 	private void loadFontsWorkaround() {

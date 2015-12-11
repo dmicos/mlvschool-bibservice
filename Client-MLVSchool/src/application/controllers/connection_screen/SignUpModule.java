@@ -11,7 +11,7 @@ import application.controllers.Module;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.FontManager;
-import application.utils.Transformations;
+import application.utils.CoordinateTransformations;
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -87,7 +87,7 @@ public class SignUpModule implements Initializable, Module {
 		// Notifying visually with red prompts.
 		Consumer<TextField> wrongNotification = tf -> {
 			// The method playWrongRectangle needs scene coordinates.
-			Point2D pp = Transformations.toSceneCoordinates(tf, tmp);
+			Point2D pp = CoordinateTransformations.toSceneCoordinates(tf, tmp);
 			Animations.playWrongRectangle(pp.getX(), pp.getY(), tf.getWidth(), tf.getHeight(), paneRoot);
 		};
 		wrongNotification.accept(tFFirstname);
@@ -104,7 +104,7 @@ public class SignUpModule implements Initializable, Module {
 		// Indicate a red rectangle marker on the Region r.
 		Consumer<Region> wrongMarker = r -> {
 			// The method playWrongRectangle needs scene coordinates.
-			Point2D pp = Transformations.toSceneCoordinates(r, tmp);
+			Point2D pp = CoordinateTransformations.toSceneCoordinates(r, tmp);
 			Animations.playWrongRectangle(pp.getX(), pp.getY(), r.getPrefWidth(), r.getPrefHeight(), paneRoot);
 		};
 
