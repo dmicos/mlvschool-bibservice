@@ -175,10 +175,15 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getBorrowedBooks(UserPOJO user) {
-		// TODO I'm too afraid to touch this database. I'll probably break
-		// something.
-		return Collections.emptyList();
-	}
+	
+		try {
+			return bTable.getBorrowedBooks(user);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();	
+		}
 
 	@Override
 	public boolean borrow(BookPOJO book, UserPOJO user) {
@@ -208,13 +213,25 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
-		// TODO Auto-generated method stub for Yann the Database master
+	
+		try {
+			return bTable.getBooksNotReturnedYet(userPOJO);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
 		return Collections.emptyList();
 	}
 
 	@Override
 	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
-		// TODO Auto-generated method stub for Yann the Database master
+		
+		try {
+			return bTable.getPendingBooks(userPOJO);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+		
 		return Collections.emptyList();
 	}
 
