@@ -44,22 +44,22 @@ public class BankServiceProxy implements fr.upem.rmirest.bilmancamp.bank.BankSer
     return bankService;
   }
   
-  public double change(java.lang.String currencyFrom, java.lang.String currencyTo, double amount) throws java.rmi.RemoteException{
-    if (bankService == null)
-      _initBankServiceProxy();
-    return bankService.change(currencyFrom, currencyTo, amount);
-  }
-  
   public boolean withdraw(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException{
     if (bankService == null)
       _initBankServiceProxy();
     return bankService.withdraw(id, password, currency, amount);
   }
   
-  public double balance(long id, java.lang.String password, java.lang.String currency) throws java.rmi.RemoteException{
+  public double change(java.lang.String currencyFrom, java.lang.String currencyTo, double amount) throws java.rmi.RemoteException{
     if (bankService == null)
       _initBankServiceProxy();
-    return bankService.balance(id, password, currency);
+    return bankService.change(currencyFrom, currencyTo, amount);
+  }
+  
+  public long createAccount(java.lang.String currency, java.lang.String password) throws java.rmi.RemoteException{
+    if (bankService == null)
+      _initBankServiceProxy();
+    return bankService.createAccount(currency, password);
   }
   
   public boolean deposit(long id, java.lang.String password, java.lang.String currency, double amount) throws java.rmi.RemoteException{
@@ -68,10 +68,10 @@ public class BankServiceProxy implements fr.upem.rmirest.bilmancamp.bank.BankSer
     return bankService.deposit(id, password, currency, amount);
   }
   
-  public long createAccount(java.lang.String currency, java.lang.String password) throws java.rmi.RemoteException{
+  public double balance(long id, java.lang.String password, java.lang.String currency) throws java.rmi.RemoteException{
     if (bankService == null)
       _initBankServiceProxy();
-    return bankService.createAccount(currency, password);
+    return bankService.balance(id, password, currency);
   }
   
   
