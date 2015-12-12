@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.controllers.Module;
+import application.utils.Constants;
+import application.utils.FontManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -29,6 +31,6 @@ public class SearchModule implements Initializable, Module {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO fonts.
+		textField.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_LIGHT, 18));
 	}
 }

@@ -1,6 +1,8 @@
 package application.model;
 
 import java.rmi.RemoteException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
@@ -9,11 +11,16 @@ public class BookAsynchrone {
 
 	private final String title;
 	private final String image;
+	private final List<String> authors;
+	private final int rate;
+	private final String date;
 
-	public BookAsynchrone(String title, String image) {
+	public BookAsynchrone(String title, List<String> authors, String date, int rate, String mainImage) {
+		this.authors = authors;
+		this.date = date;
+		this.rate = rate;
 		this.title = Objects.requireNonNull(title);
-		this.image = Objects.requireNonNull(image);
-		System.out.println(title);
+		this.image = Objects.requireNonNull(mainImage);
 	}
 
 	/**
@@ -22,13 +29,28 @@ public class BookAsynchrone {
 	 * @throws RemoteException
 	 */
 	public static BookAsynchrone createBookAsynchrone(Book book) throws RemoteException {
-
+		String title = book.getTitle();
 		String mainImage = book.getMainImage();
-		return new BookAsynchrone(book.getTitle(), mainImage);
+		List<String> authors = book.getAuthors();
+		String date = book.getDate().toString();
+		int rate = (int) book.getRate();
+		return new BookAsynchrone(title, authors, date, rate, mainImage);
 	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public List<String> getAuthors() {
+		return Collections.unmodifiableList(authors);
+	}
+
+	public String getDate() {
+		return date;
 	}
 
 	public String getImage() {

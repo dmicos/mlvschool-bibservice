@@ -20,6 +20,8 @@ import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.CategoryDescriptionModule;
 import application.controllers.home_screen.HomeScreen;
 import application.controllers.home_screen.SearchModule;
+import application.controllers.research_screen.BookEntryModule;
+import application.controllers.research_screen.ResearchScreen;
 import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
@@ -117,6 +119,8 @@ public class ClientMLVSchool extends Application {
 		loader.registerFXMLLoader(CategoryDescriptionModule.class, Constants.HOME_CATEGORY_MODULE);
 		loader.registerFXMLLoader(SearchModule.class, Constants.HOME_SEARCH_MODULE);
 		loader.registerFXMLLoader(BookSpinerModule.class, Constants.HOME_SPINER_MODULE);
+		loader.registerFXMLLoader(ResearchScreen.class, Constants.RESEARCH_SCREEN);
+		loader.registerFXMLLoader(BookEntryModule.class, Constants.RESEARCH_BOOK_ENTRY_MODULE);
 	}
 
 	/**
@@ -191,6 +195,20 @@ public class ClientMLVSchool extends Application {
 			newScreen.startHasMainScreen();
 		});
 		sequence.play();
+	}
+
+	/**
+	 * Change the entire scene from the current layout, to the new
+	 * <code>newLayout</code>.
+	 */
+	public static void setInstantNewScreen(Screen currentScreen, Screen newScreen) {
+		Pane newView = newScreen.getView();
+		Scene scene = INSTANCE.getScene();
+		scene.setRoot(newView);
+		newView.setCache(true);
+		newView.setCacheShape(true);
+		newView.setCacheHint(CacheHint.SPEED);
+		newScreen.startHasMainScreen();
 	}
 
 	@Override

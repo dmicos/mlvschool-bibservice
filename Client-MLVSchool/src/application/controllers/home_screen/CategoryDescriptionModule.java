@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.controllers.Module;
+import application.utils.Constants;
+import application.utils.FontManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -22,9 +24,11 @@ public class CategoryDescriptionModule implements Initializable, Module {
 	@FXML
 	private Text title;
 
+	private HomeScreen homeScreen;
+
 	@FXML
 	void paneRootClicked() {
-		System.out.println("PaneRootClicked");
+		homeScreen.clickOnCategory(title.getText());
 	}
 
 	@Override
@@ -34,7 +38,9 @@ public class CategoryDescriptionModule implements Initializable, Module {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO load fonts here.
+		FontManager fontManger = FontManager.getInstance();
+		title.setFont(fontManger.getFont(Constants.SF_TEXT_SEMIBOLD, 24));
+		description.setFont(fontManger.getFont(Constants.SF_TEXT_REGULAR, 20));
 	}
 
 	public void setInformations(String category, String description) {
@@ -42,4 +48,7 @@ public class CategoryDescriptionModule implements Initializable, Module {
 		this.description.setText(description);
 	}
 
+	public void setScreen(HomeScreen homeScreen) {
+		this.homeScreen = homeScreen;
+	}
 }
