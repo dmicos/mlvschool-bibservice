@@ -143,6 +143,40 @@ public class LibraryImplDataLoader {
 		return books;
 	}
 
+	public static List<RateWrapper> loadRates(String rateFilePath)
+			throws JsonProcessingException, FileNotFoundException, IOException {
+
+		// Initializes the json parsing and the list.
+		List<RateWrapper> rates = new ArrayList<>();
+		BufferedReader reader = Files.newBufferedReader(Paths.get(rateFilePath), Charset.forName("UTF-8"));
+		JsonNode root = mapper.readTree(reader);
+
+		// Read the books.
+		root.get("rates").forEach(node -> {
+			// Parse a book and add it to the list.
+			int user = node.get("user").asInt();
+			int book = node.get("book").asInt();
+			int rate = node.get("rate").asInt();
+			RateWrapper readValue = new RateWrapper(user, book, rate);
+			rates.add(readValue);
+		});
+
+		// Return the list.
+		return rates;
+	}
+
+	public static void main(String[] args) throws JsonProcessingException, FileNotFoundException, IOException {
+		List<UserPOJO> users = loadUsers("data/confFiles/userset.json");
+		System.out.println(users);
+		System.out.println(users.size());
+
+		List<BookPOJO> books = loadBooks("data/confFiles/bookset.json");
+		System.out.println(books.size());
+
+		List<RateWrapper> rates = loadRates("data/confFiles/rateset.json");
+		System.out.println(rates);
+	}
+
 	/**
 	 * Parses the {@link String} as Json to create a {@link Map} using Jackson
 	 * API.
@@ -160,15 +194,6 @@ public class LibraryImplDataLoader {
 		HashMap<String, String> map = mapper.readValue(content, new TypeReference<HashMap<String, String>>() {
 		});
 		return map;
-	}
-
-	public static void main(String[] args) throws JsonProcessingException, FileNotFoundException, IOException {
-		List<UserPOJO> users = loadUsers("data/confFiles/userset.json");
-		System.out.println(users);
-		System.out.println(users.size());
-		
-		List<BookPOJO> books = loadBooks("data/confFiles/bookset.json");
-		System.out.println(books.size());
 	}
 
 }

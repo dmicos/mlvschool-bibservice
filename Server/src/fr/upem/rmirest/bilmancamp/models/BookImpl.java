@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import com.sun.org.apache.xml.internal.serializer.ToStream;
+
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 
@@ -19,6 +21,10 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 	public BookImpl(BookPOJO model) throws RemoteException {
 		super();
 		this.model = Objects.requireNonNull(model);
+	}
+
+	public BookPOJO getModel() {
+		return model;
 	}
 
 	// Getters
@@ -125,9 +131,6 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 		return model.getId() == other.model.getId();
 	}
-
-	public BookPOJO getModel() {
-		return model;
-	}
+	
 
 }
