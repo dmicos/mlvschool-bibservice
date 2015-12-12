@@ -599,8 +599,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	@Override
 	public boolean delete() throws SQLException {
 		Statement st = getConnection().createStatement();
-		return (st.executeUpdate("DELETE FROM borrow") & st.executeUpdate("DELETE FROM rate")
-				& st.executeUpdate("DELETE FROM queue") & st.executeUpdate("DELETE FROM book")) > 0;
+		return (st.executeUpdate("DELETE FROM borrow") | st.executeUpdate("DELETE FROM rate")
+				| st.executeUpdate("DELETE FROM queue") | st.executeUpdate("DELETE FROM book")) > 0;
 
 	}
 
