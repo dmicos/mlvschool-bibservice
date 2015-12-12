@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
@@ -83,8 +82,8 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
-	public void addBook(String title, List<String> authors, String summary, Image mainImage,
-			List<Image> secondaryImages, List<String> categories, double price, List<String> tags)
+	public void addBook(String title, List<String> authors, String summary, String mainImage,
+			List<String> secondaryImages, List<String> categories, double price, List<String> tags)
 					throws IllegalArgumentException, RemoteException {
 
 		database.addBook(new BookPOJO(0, title, authors, summary, categories, price, tags, mainImage, secondaryImages));

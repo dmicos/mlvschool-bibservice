@@ -12,8 +12,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import fr.upem.rmirest.bilmancamp.helpers.DBHelper;
-import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 import utils.Constants;
@@ -36,8 +34,8 @@ public class EmbeddedDBTest {
 		}
 	}
 
-	private static Image image() {
-		return ImageHelper.DEFAULT_IMAGE;
+	private static String image() {
+		return "";
 	}
 
 	@Test
@@ -125,7 +123,7 @@ public class EmbeddedDBTest {
 	@Test
 	public void testGetCategories() throws RemoteException {
 		Database db = implementation();
-		assert(null != db.getCategories());
+		assert (null != db.getCategories());
 		// fail("DataBase interface doesn't yet allow this kind of test."); //
 		// TODO
 
@@ -229,7 +227,7 @@ public class EmbeddedDBTest {
 
 	@Test
 	public void testGetBookMostSimilar() throws RemoteException {
-		assert(5 == 3);
+		assert (5 == 3);
 		Database db = implementation();
 		// Create and add some books
 		BookPOJO refBook = new BookPOJO(0, "Les nouvelles aventures de Champidur", Arrays.asList("JYT"),

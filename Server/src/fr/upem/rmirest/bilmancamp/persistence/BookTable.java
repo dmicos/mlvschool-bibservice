@@ -1,6 +1,6 @@
 package fr.upem.rmirest.bilmancamp.persistence;
 
-import java.nio.file.Paths;
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,9 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
@@ -52,9 +50,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setString(7, String.join(",", book.getCategories()));
 		ps.setString(8,
 				String.join(",",
-						Stream.concat(Stream.of(book.getMainImage().getData()),
-								Arrays.asList(book.getSecondaryImages()).stream().map(img -> img.getData()))
-						.collect(Collectors.toList())));
+						Stream.concat(Stream.of(book.getMainImage()), Arrays.asList(book.getSecondaryImages()).stream())
+								.collect(Collectors.toList())));
 		ps.setString(9, String.join(",", createKeyWords(book)));
 		ps.setInt(10, 1);
 
@@ -218,9 +215,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setInt(6, newVal.getConsultationNumber());
 		ps.setString(7, String.join(",", newVal.getCategories()));
 		ps.setString(8,
-				String.join(",",
-						Stream.concat(Stream.of(newVal.getMainImage().getData()),
-								Arrays.asList(newVal.getSecondaryImages()).stream().map(img -> img.getData()))
+				String.join(",", Stream
+						.concat(Stream.of(newVal.getMainImage()), Arrays.asList(newVal.getSecondaryImages()).stream())
 						.collect(Collectors.toList())));
 		ps.setString(9, String.join(",", createKeyWords(newVal)));
 		ps.setInt(10, newVal.getId());
@@ -345,42 +341,39 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		return availableBook;
 	}
 
-	
 	public List<BookPOJO> getBooksNotReturnedYet(UserPOJO user) throws SQLException {
 
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=? AND state=0) ORDER BY title ASC");
-		ps.setInt(1,user.getId());
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=? AND state=0) ORDER BY title ASC");
+		ps.setInt(1, user.getId());
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
+
 	public List<BookPOJO> getBorrowedBooks(UserPOJO user) throws SQLException {
 
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=?) ORDER BY title ASC");
-		ps.setInt(1,user.getId());
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=?) ORDER BY title ASC");
+		ps.setInt(1, user.getId());
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
+
 	public List<BookPOJO> getPendingBooks(UserPOJO user) throws SQLException {
 
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM queue WHERE idUser=? ) ORDER BY title ASC");
-		ps.setInt(1,user.getId());
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM queue WHERE idUser=? ) ORDER BY title ASC");
+		ps.setInt(1, user.getId());
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
 
-	
 	/**
 	 * Add {@Link User} to the queue
 	 * 
@@ -586,11 +579,10 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	private BookPOJO extractRow(ResultSet rs) throws SQLException {
 
 		// Load all stored images
-		List<Image> images = ImageHelper.loadImage(Arrays.asList(rs.getString("image").split(",")).stream()
-				.map(i -> Paths.get(i)).collect(Collectors.toList()));
+		List<String> images = Arrays.asList(rs.getString("image").split(",")).stream().collect(Collectors.toList());
 
 		// Check and get secondaries if stored
-		List<Image> secondaries = images.size() > 1 ? images.subList(1, images.size()) : Collections.emptyList();
+		List<String> secondaries = images.size() > 1 ? images.subList(1, images.size()) : Collections.emptyList();
 
 		// Create the book
 		return new BookPOJO(rs.getInt("id"), rs.getString("title"), Arrays.asList(rs.getString("authors").split(",")),
@@ -602,8 +594,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	@Override
 	public boolean delete() throws SQLException {
 		Statement st = getConnection().createStatement();
-		return (st.executeUpdate("DELETE FROM borrow") & st.executeUpdate("DELETE FROM rate")
-				& st.executeUpdate("DELETE FROM queue") & st.executeUpdate("DELETE FROM book")) > 0;
+		return (st.executeUpdate("DELETE FROM borrow") | st.executeUpdate("DELETE FROM rate")
+				| st.executeUpdate("DELETE FROM queue") | st.executeUpdate("DELETE FROM book")) > 0;
 
 	}
 

@@ -10,7 +10,6 @@ import java.util.Objects;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
 public class BookImpl extends UnicastRemoteObject implements Book {
 
@@ -64,12 +63,12 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 	}
 
 	@Override
-	public Image getMainImage() throws RemoteException {
+	public String getMainImage() throws RemoteException {
 		return model.getMainImage();
 	}
 
 	@Override
-	public List<Image> getSecondaryImages() throws RemoteException {
+	public List<String> getSecondaryImages() throws RemoteException {
 		return Collections.unmodifiableList(Arrays.asList(model.getSecondaryImages()));
 	}
 

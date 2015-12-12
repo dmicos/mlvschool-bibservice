@@ -3,7 +3,6 @@ package fr.upem.rmirest.bilmancamp.modelloaders;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
 
 /**
@@ -21,15 +20,15 @@ public class BookWrapper {
 	private List<String> categories;
 	private double price;
 	private List<String> tags;
-	private ImageWrapper mainImage;
-	private List<ImageWrapper> secondaryImages;
+	private String mainImage;
+	private List<String> secondaryImages;
 
 	public BookWrapper() {
 		super();
 	}
 
 	public BookWrapper(int id, String title, List<String> authors, String summary, List<String> categories,
-			double price, List<String> tags, ImageWrapper mainImage, List<ImageWrapper> secondaryImages) {
+			double price, List<String> tags, String mainImage, List<String> secondaryImages) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -98,24 +97,24 @@ public class BookWrapper {
 		this.tags = tags;
 	}
 
-	public Image getMainImage() {
+	public String getMainImage() {
 		return mainImage;
 	}
 
-	public void setMainImage(ImageWrapper mainImage) {
+	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
 
-	public List<ImageWrapper> getSecondaryImages() {
+	public List<String> getSecondaryImages() {
 		return secondaryImages;
 	}
 
-	public void setSecondaryImages(List<ImageWrapper> secondaryImages) {
+	public void setSecondaryImages(List<String> secondaryImages) {
 		this.secondaryImages = secondaryImages;
 	}
 
 	public BookPOJO toBookPOJO() {
-		ArrayList<Image> secImg = new ArrayList<>();
+		ArrayList<String> secImg = new ArrayList<>();
 		secImg.addAll(secondaryImages);
 		return new BookPOJO(id, title, authors, summary, categories, price, tags, mainImage, secImg);
 	}
