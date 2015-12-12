@@ -4,8 +4,6 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
@@ -48,14 +46,6 @@ public class ProxyModel {
 		this.library = LibraryAsynchrone.createLibraryAsynchrone(library);
 	}
 
-	public List<String> getLibraryStatus() {
-		// TODO I NEED A LIBRARY METHOD FOR THIS !!
-		ArrayList<String> list = new ArrayList<>();
-		list.add("Teacher");
-		list.add("Student");
-		return list;
-	}
-	
 	public LibraryAsynchrone getLibrary() {
 		return library;
 	}
@@ -63,7 +53,7 @@ public class ProxyModel {
 	public User connectUser(String login, String password) throws IllegalArgumentException, RemoteException {
 		Library library = this.library.getLibrary();
 		User remoteUser = library.connect(login, password);
-		userConnected = UserAsynchrone.createUserAsynchrone(remoteUser, library.getBookHistory(remoteUser));
+		userConnected = UserAsynchrone.createUserAsynchrone(library, remoteUser, library.getBookHistory(remoteUser));
 		state = State.CONNECTED;
 		return userConnected.getUser();
 	}

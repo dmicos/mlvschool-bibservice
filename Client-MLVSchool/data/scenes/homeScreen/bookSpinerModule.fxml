@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="paneRoot" spacing="32.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.BookSpinerModule">
+   <children>
+      <Text fx:id="title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 5 livres les plus récents">
+         <font>
+            <Font name="SF UI Text Semibold" size="36.0" />
+         </font>
+      </Text>
+      <HBox fx:id="bookHBox" alignment="CENTER_LEFT" prefHeight="145.0" prefWidth="964.0" spacing="90.0">
+         <children>
+            <ImageView fx:id="book1" fitHeight="145.0" fitWidth="120.0" onMouseClicked="#book1Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/bookImage1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="book2" fitHeight="145.0" fitWidth="120.0" onMouseClicked="#book2Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/bookImage1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="book3" fitHeight="145.0" fitWidth="120.0" onMouseClicked="#book3Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/bookImage1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="book4" fitHeight="145.0" fitWidth="120.0" onMouseClicked="#book4Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/bookImage1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="book5" fitHeight="145.0" fitWidth="120.0" onMouseClicked="#book5Clicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/bookImage1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </children>
+</VBox>

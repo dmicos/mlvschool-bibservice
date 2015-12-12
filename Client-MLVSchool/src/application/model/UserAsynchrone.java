@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 /**
@@ -41,12 +42,13 @@ public class UserAsynchrone {
 	 * @return The {@link UserAsynchrone} created.
 	 * @throws RemoteException
 	 */
-	static UserAsynchrone createUserAsynchrone(User remoteUser, List<Book> bookHistory) throws RemoteException {
+	static UserAsynchrone createUserAsynchrone(Library library, User remoteUser, List<Book> bookHistory)
+			throws RemoteException {
 		String firstName = remoteUser.getFirstName();
 		String lastName = remoteUser.getLastName();
 		String status = remoteUser.getStatus();
 		int id = remoteUser.getId();
-		int nbBooks = 6; // TODO change User::getBooks with the real method.
+		int nbBooks = library.getBooks(remoteUser).size();
 		return new UserAsynchrone(remoteUser, firstName, lastName, status, id, nbBooks);
 	}
 

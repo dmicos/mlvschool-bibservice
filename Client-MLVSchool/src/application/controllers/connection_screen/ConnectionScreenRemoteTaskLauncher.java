@@ -1,8 +1,7 @@
 package application.controllers.connection_screen;
 
-import java.util.List;
-
 import application.ClientMLVSchool;
+import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
 import application.utils.NotificationsManager;
@@ -29,11 +28,11 @@ class ConnectionScreenRemoteTaskLauncher {
 	static void connectServer(ConnectionScreen screen) {
 
 		ProxyModel proxyModel = screen.getProxyModel();
-		Task<List<String>> task = new Task<List<String>>() {
+		Task<LibraryAsynchrone> task = new Task<LibraryAsynchrone>() {
 			@Override
-			protected List<String> call() throws Exception {
+			protected LibraryAsynchrone call() throws Exception {
 				proxyModel.connectServer();
-				return proxyModel.getLibraryStatus();
+				return proxyModel.getLibrary();
 			}
 		};
 

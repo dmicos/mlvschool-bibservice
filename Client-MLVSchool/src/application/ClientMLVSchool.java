@@ -15,6 +15,7 @@ import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.AddBookModule;
+import application.controllers.home_screen.BookSpinerModule;
 import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.CategoryDescriptionModule;
 import application.controllers.home_screen.HomeScreen;
@@ -105,6 +106,7 @@ public class ClientMLVSchool extends Application {
 		loader.registerFXMLLoader(AddBookModule.class, Constants.HOME_ADD_BOOK_MODULE);
 		loader.registerFXMLLoader(CategoryDescriptionModule.class, Constants.HOME_CATEGORY_MODULE);
 		loader.registerFXMLLoader(SearchModule.class, Constants.HOME_SEARCH_MODULE);
+		loader.registerFXMLLoader(BookSpinerModule.class, Constants.HOME_SPINER_MODULE);
 	}
 
 	/**
@@ -176,7 +178,7 @@ public class ClientMLVSchool extends Application {
 		sequence.setOnFinished(e -> {
 			root.getChildren().remove(newView);
 			scene.setRoot(newView);
-			newScreen.startHasMainScreen(currentScreen.getProxyModel());
+			newScreen.startHasMainScreen();
 		});
 		sequence.play();
 	}
