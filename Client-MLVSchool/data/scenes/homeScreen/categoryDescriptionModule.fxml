@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="paneRoot" alignment="BOTTOM_LEFT" maxHeight="202.0" maxWidth="300.0" minHeight="202.0" minWidth="300.0" onMouseClicked="#paneRootClicked" prefHeight="202.0" prefWidth="300.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.CategoryDescriptionModule">
+   <children>
+      <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="text" wrappingWidth="200.0">
+         <font>
+            <Font name="SF UI Text Semibold" size="24.0" />
+         </font>
+         <styleClass>
+            <String fx:value="orangeText" />
+            <String fx:value="categoryText" />
+         </styleClass>
+         <VBox.margin>
+            <Insets bottom="8.0" />
+         </VBox.margin>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="0.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="white70Text" width="162.0">
+         <VBox.margin>
+            <Insets bottom="16.0" />
+         </VBox.margin>
+      </Rectangle>
+      <Label fx:id="description" maxHeight="72.0" maxWidth="202.0" minHeight="72.0" minWidth="202.0" prefHeight="72.0" prefWidth="202.0" style="-fx-text-fill: #ffffff;" styleClass="whiteText" text="Every books, specially for the STAPS section." wrapText="true">
+         <font>
+            <Font name="SF UI Text Regular" size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="30.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+   <padding>
+      <Insets left="50.0" />
+   </padding>
+   <styleClass>
+      <String fx:value="blackBackground" />
+      <String fx:value="categoryCard" />
+   </styleClass>
+</VBox>

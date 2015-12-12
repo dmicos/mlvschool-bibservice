@@ -4,11 +4,7 @@ import static application.utils.Animations.transitionOpacityAnimation;
 import static application.utils.Constants.SF_DISPLAY_LIGHT;
 import static application.utils.Constants.SF_DISPLAY_REGULAR;
 
-import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -98,11 +94,6 @@ public class ConnectionScreen implements Initializable, Screen {
 
 		// Hiding every thing at first.
 		hide();
-	}
-
-	static String readFile(String path, Charset encoding) throws IOException {
-		byte[] encoded = Files.readAllBytes(Paths.get(path));
-		return new String(encoded, encoding);
 	}
 
 	public void startCient() {

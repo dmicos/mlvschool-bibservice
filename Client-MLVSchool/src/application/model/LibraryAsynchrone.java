@@ -50,7 +50,7 @@ public class LibraryAsynchrone {
 		Objects.requireNonNull(library);
 		Map<String, String> descriptions = new HashMap<>();
 		List<String> categories = library.getCategories();
-		
+
 		for (String category : categories) {
 			descriptions.put(category, library.getCategoryDescription(category));
 		}
@@ -89,7 +89,13 @@ public class LibraryAsynchrone {
 
 	private static List<BookAsynchrone> convertToBooksAsynchrone(List<Book> books) throws RemoteException {
 		try {
-			return books.stream().map(b -> BookAsynchrone.createBookAsynchrone(b)).collect(Collectors.toList());
+			return books.stream().map(b -> {
+				try {
+					return BookAsynchrone.createBookAsynchrone(b);
+				} catch (RemoteException e) {
+					throw new UncheckedRemoteException(e);
+				}
+			}).collect(Collectors.toList());
 		} catch (UncheckedRemoteException e) {
 			throw e.getCause();
 		}

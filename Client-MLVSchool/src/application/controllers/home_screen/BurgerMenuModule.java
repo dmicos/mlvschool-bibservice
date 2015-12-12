@@ -3,13 +3,10 @@ package application.controllers.home_screen;
 import static application.utils.Animations.transitionX;
 
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import application.ClientMLVSchool;
 import application.controllers.Module;
-import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.FontManager;
 import javafx.animation.Interpolator;

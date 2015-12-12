@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="sceneSize" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.HomeScreen">
+	<children>
+		<ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../images/libraryMLV.jpg" />
+			</image>
+			<viewport>
+				<Rectangle2D height="1066.6" width="1600.0" />
+			</viewport>
+		</ImageView>
+		<Text fx:id="screenTitle" fill="WHITE" layoutX="927.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Research">
+			<font>
+				<Font name="SF UI Text Semibold" size="52.0" />
+			</font>
+		</Text>
+      <HBox fx:id="paneRoot1" layoutX="370.0" layoutY="24.0" maxHeight="34.0" maxWidth="456.0" minHeight="34.0" minWidth="456.0" prefHeight="34.0" prefWidth="456.0" style="-fx-background-radius: 6.2;" styleClass="blackBackground" stylesheets="@../../css/florange.css">
+         <children>
+            <ChoiceBox fx:id="choiceBox" maxHeight="34.0" maxWidth="128.0" minHeight="34.0" minWidth="128.0" prefHeight="34.0" prefWidth="128.0" styleClass="noBackground" stylesheets="@../../css/comboBox.css" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="white70Text" width="0.8" />
+            <TextField fx:id="textField" maxHeight="32.0" maxWidth="275.0" minHeight="32.0" minWidth="260.0" prefHeight="32.0" prefWidth="266.0" promptText="Search" style="-fx-text-fill: #ffffff; -fx-border-color: transparent;" styleClass="blackBackground">
+               <font>
+                  <Font name="SF UI Text Light" size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="-2.0" right="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/search_icon.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D height="32.0" />
+               </viewport>
+               <HBox.margin>
+                  <Insets bottom="6.0" left="10.0" top="6.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <ScrollPane layoutX="376.0" layoutY="180.0" prefHeight="622.0" prefWidth="823.0" stylesheets="@../../css/scrollview.css">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="58.0">
+               <children>
+                  <HBox alignment="CENTER" maxHeight="152.0" minHeight="152.0" prefHeight="152.0" prefWidth="908.0" spacing="36.0">
+                     <children>
+                        <ImageView fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/bookImage1.png" />
+                           </image>
+                        </ImageView>
+                        <VBox minWidth="600.0" prefHeight="206.0" prefWidth="696.0">
+                           <children>
+                              <HBox fx:id="titleDatePane" alignment="BOTTOM_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label fx:id="titleLabel" text="Programmation Android" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Semibold" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="-2.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="dateLabel" text="13 Février 2015" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Light" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="1.5" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="authorsLabel" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="8.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="start1" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start2" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start3" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start4" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start5" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0;" styleClass="takeButton" text="Borrow" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Display Regular" size="32.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="2.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="4.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="152.0" minHeight="152.0" prefHeight="152.0" prefWidth="908.0" spacing="36.0">
+                     <children>
+                        <ImageView fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/bookImage1.png" />
+                           </image>
+                        </ImageView>
+                        <VBox minWidth="600.0" prefHeight="206.0" prefWidth="696.0">
+                           <children>
+                              <HBox fx:id="titleDatePane1" alignment="BOTTOM_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label fx:id="titleLabel1" text="Programmation Android" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Semibold" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="-2.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="dateLabel1" text="13 Février 2015" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Light" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="1.5" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="authorsLabel1" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="8.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="start11" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start21" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start31" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start41" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start51" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0; -fx-background-radius: 0;" styleClass="greyButton" text="Give Back" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Display Regular" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="4.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" maxHeight="152.0" minHeight="152.0" prefHeight="152.0" prefWidth="908.0" spacing="36.0">
+                     <children>
+                        <ImageView fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/bookImage1.png" />
+                           </image>
+                        </ImageView>
+                        <VBox minWidth="600.0" prefHeight="206.0" prefWidth="696.0">
+                           <children>
+                              <HBox fx:id="titleDatePane11" alignment="BOTTOM_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label fx:id="titleLabel11" text="Programmation Android" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Semibold" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="-2.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="dateLabel11" text="13 Février 2015" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Light" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="1.5" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="authorsLabel11" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="8.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="start111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start211" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start311" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start411" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start511" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0;" styleClass="takeButton" text="Borrow" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Display Regular" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="4.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" maxHeight="152.0" minHeight="152.0" prefHeight="152.0" prefWidth="908.0" spacing="36.0">
+                     <children>
+                        <ImageView fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/bookImage1.png" />
+                           </image>
+                        </ImageView>
+                        <VBox minWidth="600.0" prefHeight="206.0" prefWidth="696.0">
+                           <children>
+                              <HBox fx:id="titleDatePane111" alignment="BOTTOM_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label fx:id="titleLabel111" text="Programmation Android" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Semibold" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="-2.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="dateLabel111" text="13 Février 2015" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Light" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="1.5" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="authorsLabel111" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="8.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="start1111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start2111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start3111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start4111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start5111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0;" styleClass="takeButton" text="Borrow" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Display Regular" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="4.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" maxHeight="152.0" minHeight="152.0" prefHeight="152.0" prefWidth="908.0" spacing="36.0">
+                     <children>
+                        <ImageView fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/bookImage1.png" />
+                           </image>
+                        </ImageView>
+                        <VBox minWidth="600.0" prefHeight="206.0" prefWidth="696.0">
+                           <children>
+                              <HBox fx:id="titleDatePane1111" alignment="BOTTOM_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label fx:id="titleLabel1111" text="Programmation Android" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Semibold" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets top="-2.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="dateLabel1111" text="13 Février 2015" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Light" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="1.5" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="authorsLabel1111" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="8.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="start11111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start21111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start31111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_filled_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start41111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="start51111" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/start_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0;" styleClass="takeButton" text="Borrow" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Display Regular" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="4.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+      </ScrollPane>
+      <VBox fx:id="categoriesPane" layoutY="178.0" prefHeight="622.0" prefWidth="296.0" spacing="24.0" styleClass="blackBackground">
+         <children>
+            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Home">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Mathematics">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Computer Science">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Sport">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Physics">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Economy">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="44.0" top="36.0" />
+         </padding>
+      </VBox>
+      <TextFlow layoutX="120.0" layoutY="116.0" maxWidth="500.0" minWidth="411.0" prefHeight="43.0" prefWidth="411.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Research : ">
+               <font>
+                  <Font name="SF UI Text Semibold" size="36.0" />
+               </font>
+            </Text>
+            <Text fx:id="tagText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="orangeText" text="Sport, Courir, Vite" wrappingWidth="214.0">
+               <font>
+                  <Font name="SF UI Text Semibold" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </TextFlow>
+	</children>
+</Pane>

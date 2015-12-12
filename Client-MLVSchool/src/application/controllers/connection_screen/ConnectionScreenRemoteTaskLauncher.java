@@ -43,6 +43,9 @@ class ConnectionScreenRemoteTaskLauncher {
 		// Handling the failure.
 		task.setOnFailed(e -> {
 			// Server not reached. Connecting again.
+			Throwable exception = task.getException();
+			System.err.println(exception.getCause() + "\n" + exception.getMessage());
+			exception.printStackTrace();
 			PauseTransition p = new PauseTransition(new Duration(TIMEOUT));
 			p.setOnFinished(ee -> connectServer(screen));
 			p.play();

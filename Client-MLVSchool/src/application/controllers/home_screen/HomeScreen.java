@@ -1,5 +1,6 @@
 package application.controllers.home_screen;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -8,17 +9,18 @@ import java.util.ResourceBundle;
 
 import application.controllers.ModuleLoader;
 import application.controllers.Screen;
+import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
 import application.model.ProxyModel;
 import application.model.UserAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
+import application.utils.ImageProcessors;
 import application.utils.NotificationsManager;
 import application.utils.NotificationsManager.NotificationType;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -76,13 +78,27 @@ public class HomeScreen implements Initializable, Screen {
 
 		List<String> categories = library.getCategories();
 		Map<String, String> descriptions = library.getDescriptions();
-		ObservableList<Node> children = categoryGrid.getChildren();
-		System.out.println("Size : " +categories.size());
+		System.out.println("Size : " + categories.size());
+
+		try {
+			int i = 1;
+			List<BookAsynchrone> bestBooks = library.getBestBooks();
+			System.out.println(bestBooks.size());
+			for (BookAsynchrone b : bestBooks) {
+				ImageView v = new ImageView(ImageProcessors.decodeBase64(b.getImage().getData()));
+				v.setLayoutX(212 * i++);
+				v.setLayoutY(176);
+				paneRoot.getChildren().add(v);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		int lineSize = 4;
 		for (int i = 0; i < 8; ++i) {
 			CategoryDescriptionModule categoryModule = ModuleLoader.getInstance().load(CategoryDescriptionModule.class);
 			String category = categories.get(i);
 			categoryModule.setInformations(category, descriptions.get(category));
-			children.add(categoryModule.getView());
+			categoryGrid.add(categoryModule.getView(), i % lineSize, i / lineSize);
 		}
 	}
 

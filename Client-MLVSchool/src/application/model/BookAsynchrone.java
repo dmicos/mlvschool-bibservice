@@ -3,7 +3,6 @@ package application.model;
 import java.rmi.RemoteException;
 import java.util.Objects;
 
-import application.utils.UncheckedRemoteException;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
@@ -19,15 +18,14 @@ public class BookAsynchrone {
 
 	/**
 	 * Has to be called in the thread reserved for RMI transfers.
+	 * 
+	 * @throws RemoteException
 	 */
-	public static BookAsynchrone createBookAsynchrone(Book book) {
-		// TODO get all fields.
-		try {
-			book.getTitle();
-		} catch (RemoteException e) {
-			throw new UncheckedRemoteException(e);
-		}
-		return new BookAsynchrone("Titre factice", () -> BOOK);
+	public static BookAsynchrone createBookAsynchrone(Book book) throws RemoteException {
+//		book.getMainImage();
+		Image mainImage = 
+		() -> {return BOOK;};//book.getMainImage();
+		return new BookAsynchrone(book.getTitle(), mainImage);
 	}
 
 	public String getTitle() {

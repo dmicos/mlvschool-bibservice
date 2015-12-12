@@ -37,6 +37,26 @@
  	-fx-background-color: #e37b04;
  }
  
+ .greyButton {
+ 	-fx-background-color:  #808080;
+ 	-fx-text-fill: #ffffff;
+ 	-fx-background-radius: 0px;
+ }
+ 
+ .takeButton {
+ 	-fx-background-color: #e37b04;
+ 	-fx-text-fill: #ffffff;
+ 	-fx-background-radius: 0px;
+ }
+ 
+ .takeButton:hover {
+ 	-fx-underline: true;
+ }
+ 
+ .greyButton:hover {
+ 	-fx-underline: true;
+ }
+ 
  .white70Background, #connexionFooter {
  	-fx-background-color: #ffffffB3;
  }
