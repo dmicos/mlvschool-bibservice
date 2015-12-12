@@ -1,13 +1,13 @@
 {
 	"status":["Student", "Teacher"],
 	"categories":{
-		"Sport" : "Every books, specially for the STAPS section.",
-		"Foreign Languages" : "Books that will allow you to say something.",
-		"Computer Science" : "Books that will allow you to say something... to your computer.",
-		"Physic" : "Wanting to play with some strange looking acids just like JY ?",
-		"Mathematics" : "Those ancient grimoires contains dark secrets about a forgotten magic.",
-		"Economy" : "Boring books. Plenty of them because those kind of peoples speaks a lot.",
-		"Novels" : "Some very nice stories about something.",
-		"Comics" : "This is pointless. Please, click on the Mathematics category."
+		"Sport" : 				"Every books, specially for the STAPS section.",
+		"Foreign Languages" : 	"Books that will allow you to say something.",
+		"Computer Science" : 	"Books that will allow you to say something... to your computer.",
+		"Physic" : 				"Wanting to play with some strange looking acids just like JY ?",
+		"Mathematics" : 		"Those ancient grimoires contains dark secrets about a forgotten magic.",
+		"Economy" : 			"Boring books. Plenty of them because those kind of peoples speaks a lot.",
+		"Novels" : 				"Some very nice stories about something.",
+		"Comics" : 				"This is pointless. Please, click on the Mathematics category."
 	} 
 }
