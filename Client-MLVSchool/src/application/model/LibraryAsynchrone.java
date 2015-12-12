@@ -1,6 +1,7 @@
 package application.model;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -28,15 +29,18 @@ public class LibraryAsynchrone {
 	private final List<BookAsynchrone> mostConsultedBooks;
 	private final List<BookAsynchrone> mostRecentBooks;
 	private final List<String> categories;
+	private final List<String> status;
 
 	private LibraryAsynchrone(Library library, List<BookAsynchrone> bestBooks, List<BookAsynchrone> mostConsultedBooks,
-			List<BookAsynchrone> mostRecentBooks, List<String> categories, Map<String, String> descriptions) {
+			List<BookAsynchrone> mostRecentBooks, List<String> categories, Map<String, String> descriptions,
+			List<String> status) {
 		this.bestBooks = bestBooks;
 		this.mostConsultedBooks = mostConsultedBooks;
 		this.mostRecentBooks = mostRecentBooks;
 		this.library = library;
 		this.categories = categories;
 		this.descriptions = descriptions;
+		this.status = status;
 	}
 
 	/**
@@ -45,9 +49,8 @@ public class LibraryAsynchrone {
 	 * @return an instance of {@link LibraryAsynchrone}.
 	 */
 	static LibraryAsynchrone createLibraryAsynchrone(Library library) throws RemoteException {
-		// TODO implement every dynamic methods for
-		// Categories/best/recent/consulted.
 		Objects.requireNonNull(library);
+
 		Map<String, String> descriptions = new HashMap<>();
 		List<String> categories = library.getCategories();
 
@@ -60,10 +63,15 @@ public class LibraryAsynchrone {
 		List<BookAsynchrone> mostRecentBooks = convertToBooksAsynchrone(library.getMoreRecentBooks(5));
 		List<BookAsynchrone> mostConsultedBooks = convertToBooksAsynchrone(library.getMostConsultedBooks(5));
 
-		return new LibraryAsynchrone(library, bestBooks, mostConsultedBooks, mostRecentBooks, categories, descriptions);
+		// What about creating these status dynamically ?
+		List<String> status = new ArrayList<>();
+		status.add("Teacher");
+		status.add("Student");
+		return new LibraryAsynchrone(library, bestBooks, mostConsultedBooks, mostRecentBooks, categories, descriptions,
+				status);
 	}
 
-	public Library getLibrary() {
+	Library getLibrary() {
 		return library;
 	}
 
@@ -99,5 +107,9 @@ public class LibraryAsynchrone {
 		} catch (UncheckedRemoteException e) {
 			throw e.getCause();
 		}
+	}
+
+	public List<String> getStatus() {
+		return status;
 	}
 }

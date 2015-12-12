@@ -15,6 +15,7 @@ import javafx.util.Duration;
 
 public class Animations {
 
+	public static final Runnable noAction = () -> {};
 	public static Transition transitionOpacityAnimation(Interpolator interpolation, double fromX, double fromY,
 			double toX, double toY, double transDuration, double fadeDuration, double fromOpacity, double toOpacity,
 			Node node, Runnable action) {

@@ -5,7 +5,6 @@ import static application.utils.Constants.SF_DISPLAY_LIGHT;
 import static application.utils.Constants.SF_DISPLAY_REGULAR;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -14,6 +13,7 @@ import application.controllers.Module;
 import application.controllers.ModuleLoader;
 import application.controllers.Screen;
 import application.controllers.home_screen.HomeScreen;
+import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
 import application.utils.Animations;
@@ -116,13 +116,13 @@ public class ConnectionScreen implements Initializable, Screen {
 	 * Launches the animation title. Here the connection with the server has to
 	 * be done.
 	 */
-	void onServerReached(List<String> statusList) {
+	void onServerReached(LibraryAsynchrone library) {
 		startTitleGroupAnimation();
 		boolean appear = true, fromRight = true;
 		buttonsTransition(() -> buttonLogIn.setDisable(false), () -> buttonSignUp.setDisable(false), appear, fromRight);
 		progressIndicator.setVisible(false);
 		stateMessagesText.setVisible(false);
-		signUpController.setStatusList(statusList);
+		signUpController.setStatusList(library.getStatus());
 	}
 
 	/**
@@ -160,7 +160,9 @@ public class ConnectionScreen implements Initializable, Screen {
 	}
 
 	private void launchHomeScreen() {
-		ClientMLVSchool.setNewScreen(300, this, ModuleLoader.getInstance().load(HomeScreen.class));
+		HomeScreen homeModule = ModuleLoader.getInstance().load(HomeScreen.class);
+		homeModule.initDynamicContent(proxyModel);
+		ClientMLVSchool.setNewScreen(300, this, homeModule);
 	}
 
 	@FXML
@@ -209,7 +211,7 @@ public class ConnectionScreen implements Initializable, Screen {
 	}
 
 	@Override
-	public void startHasMainScreen(ProxyModel proxyModel) {
+	public void startHasMainScreen() {
 	}
 
 	public void comeBackToState1() {

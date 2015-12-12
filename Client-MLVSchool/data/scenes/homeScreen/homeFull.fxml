@@ -353,34 +353,43 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox fx:id="bookSpiner" alignment="CENTER_LEFT" layoutX="104.0" layoutY="174.0" prefHeight="145.0" prefWidth="964.0" spacing="90.0">
+      <VBox layoutX="82.0" layoutY="90.0" spacing="32.0">
          <children>
-            <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/bookImage1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/bookImage1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/bookImage1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/bookImage1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/bookImage1.png" />
-               </image>
-            </ImageView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 5 livres les plus récents">
+               <font>
+                  <Font name="SF UI Text Semibold" size="36.0" />
+               </font>
+            </Text>
+            <HBox fx:id="bookSpiner" alignment="CENTER_LEFT" prefHeight="145.0" prefWidth="964.0" spacing="90.0">
+               <children>
+                  <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bookImage1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bookImage1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bookImage1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bookImage1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="145.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bookImage1.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
 	</children>
 </Pane>

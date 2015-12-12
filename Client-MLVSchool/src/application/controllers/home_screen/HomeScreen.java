@@ -2,6 +2,7 @@ package application.controllers.home_screen;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -15,12 +16,10 @@ import application.model.ProxyModel;
 import application.model.UserAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
-import application.utils.ImageProcessors;
 import application.utils.NotificationsManager;
 import application.utils.NotificationsManager.NotificationType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -44,85 +43,39 @@ public class HomeScreen implements Initializable, Screen {
 	/* Model fields controlled */
 	private ProxyModel proxyModel;
 
+	private List<BookSpinerModule> spiners;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		loadModules();
 		loadWorkAroundFont();
 		// loadDynamicBookSpiner();
 	}
 
-	/*
-	 * private void loadDynamicBookSpiner() { try { ImageView v = new
-	 * ImageView(ImageProcessors.decodeBase64(BookAsynchrone.BOOK));
-	 * v.setLayoutX(104); v.setLayoutY(170); paneRoot.getChildren().add(v); //
-	 * To add in a Paner in background of // the singer.
-	 * paneRoot.getChildren().remove(burgerMenuModule.getView());
-	 * paneRoot.getChildren().add(burgerMenuModule.getView()); } catch
-	 * (IOException e) { e.printStackTrace(); System.err.println(
-	 * "No contractuel available, juste put the delut action !"); return; } }
-	 */
-
 	@Override
-	public void startHasMainScreen(ProxyModel proxyModel) {
+	public void startHasMainScreen() {
+		// Notify the number of book available.
+		welcomePhraseNotification(proxyModel.getConnectedUser().getNbBooks());
+		startSpinnerAnimations();
+	}
+
+	public void initDynamicContent(ProxyModel proxyModel) {
 		this.proxyModel = Objects.requireNonNull(proxyModel);
 		UserAsynchrone user = Objects.requireNonNull(proxyModel.getConnectedUser());
 
-		// Setting the user informations in the burgerMenu.
-		burgerMenuModule.setUserInfo(user.getFirstName(), user.getLastName());
-
-		// Notify the number of book available.
-		welcomePhraseNotification(user);
-
 		// Filling the categories in the grid.
 		LibraryAsynchrone library = proxyModel.getLibrary();
-
-		List<String> categories = library.getCategories();
-		Map<String, String> descriptions = library.getDescriptions();
-		System.out.println("Size : " + categories.size());
-
-		try {
-			int i = 1;
-			List<BookAsynchrone> bestBooks = library.getBestBooks();
-			System.out.println(bestBooks.size());
-			for (BookAsynchrone b : bestBooks) {
-				ImageView v = new ImageView(ImageProcessors.decodeBase64(b.getImage().getData()));
-				v.setLayoutX(212 * i++);
-				v.setLayoutY(176);
-				paneRoot.getChildren().add(v);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		int lineSize = 4;
-		for (int i = 0; i < 8; ++i) {
-			CategoryDescriptionModule categoryModule = ModuleLoader.getInstance().load(CategoryDescriptionModule.class);
-			String category = categories.get(i);
-			categoryModule.setInformations(category, descriptions.get(category));
-			categoryGrid.add(categoryModule.getView(), i % lineSize, i / lineSize);
-		}
+		loadSpinerModule(library);
+		loadModules(library, user);
 	}
 
-	private void welcomePhraseNotification(UserAsynchrone user) {
-		int nbBooks = user.getNbBooks();
-		String message = nbBooks > 0 ? "You have " + nbBooks + " books you can read." : "You can borrow 5 books !";
-		NotificationsManager.notify("Welcome :", message, NotificationType.INFO);
+	private void welcomePhraseNotification(int nbBook) {
+		String message = nbBook > 0 ? "You have " + nbBook + " books you can read." : "Enjoy your 5 free borrowing !";
+		String title = nbBook > 0 ? "Welcome" : "Hey !";
+		NotificationsManager.notify(title, message, NotificationType.INFO);
 	}
 
 	private void loadWorkAroundFont() {
 		screenTitle.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 52));
-	}
-
-	private void loadModules() {
-		burgerMenuModule = ModuleLoader.getInstance().load(BurgerMenuModule.class);
-		addBookModule = ModuleLoader.getInstance().load(AddBookModule.class);
-		searchModule = ModuleLoader.getInstance().load(SearchModule.class);
-		paneRoot.getChildren().add(addBookModule.getView());
-		paneRoot.getChildren().add(burgerMenuModule.getView());
-		paneRoot.getChildren().add(searchModule.getView());
-		searchModule.getView().setLayoutX(372);
-		searchModule.getView().setLayoutY(22);
-		// Configuring the burgerMenuModule
-		burgerMenuModule.setAddBookModule(addBookModule);
 	}
 
 	@Override
@@ -133,5 +86,80 @@ public class HomeScreen implements Initializable, Screen {
 	@Override
 	public ProxyModel getProxyModel() {
 		return proxyModel;
+	}
+
+	private void loadModules(LibraryAsynchrone library, UserAsynchrone user) {
+		// Z order bottom-up.
+		loadCategoriesTileModule(library);
+		loadSearchModule();
+		loadAddBookModule();
+		loadBurgerMenuModule(user);
+	}
+
+	private void loadSearchModule() {
+		searchModule = ModuleLoader.getInstance().load(SearchModule.class);
+		paneRoot.getChildren().add(searchModule.getView());
+		searchModule.getView().setLayoutX(372);
+		searchModule.getView().setLayoutY(22);
+	}
+
+	private void loadAddBookModule() {
+		addBookModule = ModuleLoader.getInstance().load(AddBookModule.class);
+		paneRoot.getChildren().add(addBookModule.getView());
+	}
+
+	private void loadBurgerMenuModule(UserAsynchrone user) {
+		burgerMenuModule = ModuleLoader.getInstance().load(BurgerMenuModule.class);
+		// Configuring the burgerMenuModule
+		burgerMenuModule.setAddBookModule(addBookModule);
+		// Setting the user informations in the burgerMenu.
+		burgerMenuModule.setUserInfo(user.getFirstName(), user.getLastName());
+		paneRoot.getChildren().add(burgerMenuModule.getView());
+	}
+
+	private void loadSpinerModule(LibraryAsynchrone library) {
+		spiners = new ArrayList<>();
+		String titles[] = new String[] { "The 5 best rated books", "The 5 most recent books",
+				"The 5 most consulted books" };
+		List<List<BookAsynchrone>> lists = new ArrayList<>();
+		lists.add(library.getMostRecentBooks());
+		lists.add(library.getBestBooks());
+		lists.add(library.getMostConsultedBooks());
+
+		int i = 0;
+		BookSpinerModule spiner, lastSpiner = null; // workaround.
+		for (List<BookAsynchrone> books : lists) {
+			try {
+				spiner = ModuleLoader.getInstance().load(BookSpinerModule.class);
+				spiner.initContent(books, titles[i++]);
+				spiners.add(spiner);
+				paneRoot.getChildren().add(spiner.getView());
+				spiner.hide();
+				spiner.setNextSpiner(lastSpiner);
+				lastSpiner = spiner;
+			} catch (IOException e) {
+				System.err.println("Spinner " + titles[i] + " not loaded.");
+			}
+		}
+		spiners.get(0).setNextSpiner(spiners.get(spiners.size() - 1));
+	}
+
+	private void startSpinnerAnimations() {
+		// Starting animation of the first spinner. Chaining with other on the
+		// completion.
+		spiners.get(0).show();
+	}
+
+	private void loadCategoriesTileModule(LibraryAsynchrone library) {
+		List<String> categories = library.getCategories();
+		Map<String, String> descriptions = library.getDescriptions();
+
+		int lineSize = 4;
+		for (int i = 0; i < 8; ++i) {
+			CategoryDescriptionModule categoryModule = ModuleLoader.getInstance().load(CategoryDescriptionModule.class);
+			String category = categories.get(i);
+			categoryModule.setInformations(category, descriptions.get(category));
+			categoryGrid.add(categoryModule.getView(), i % lineSize, i / lineSize);
+		}
 	}
 }
