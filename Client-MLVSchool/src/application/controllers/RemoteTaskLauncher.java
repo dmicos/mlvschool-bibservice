@@ -7,7 +7,9 @@ import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.AddBookModule;
-import application.controllers.home_screen.HomeScreen;
+import application.controllers.home_screen.BurgerMenuModule;
+import application.controllers.home_screen.SearchModule;
+import application.controllers.research_screen.ResearchScreen;
 import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
@@ -167,8 +169,8 @@ public class RemoteTaskLauncher {
 		launchTask(task);
 	}
 
-	public static void searchBooksByCategory(HomeScreen homeScreen, String category) {
-		ProxyModel proxyModel = homeScreen.getProxyModel();
+	public static void searchBooksByCategory(Screen screen, String category) {
+		ProxyModel proxyModel = screen.getProxyModel();
 
 		Task<List<BookAsynchrone>> task = new Task<List<BookAsynchrone>>() {
 			@Override
@@ -178,7 +180,20 @@ public class RemoteTaskLauncher {
 		};
 
 		// Handling the success.
-		task.setOnSucceeded(e -> homeScreen.researchBooksReady(category, task.getValue()));
+		task.setOnSucceeded(e -> {
+			// homeScreen.researchBooksReady(category, task.getValue());
+			System.out.println("HomeScreen : Searching books : After");
+			// Removing modules
+			BurgerMenuModule burgerMenuModule = screen.getBurgerMenuModule();
+			SearchModule searchModule = screen.getSearchModule();
+			screen.getView().getChildren().remove(burgerMenuModule);
+			screen.getView().getChildren().remove(searchModule);
+			// Creating the research screen.
+			ResearchScreen researchScreen = ModuleLoader.getInstance().load(ResearchScreen.class);
+			researchScreen.initContent(proxyModel, category, task.getValue(), burgerMenuModule, searchModule);
+			ClientMLVSchool.setInstantNewScreen(screen, researchScreen);
+			System.out.println("HomeScreen : Searching books : After after");
+		});
 
 		// Handling the failure.
 		task.setOnFailed(e -> reloadApplication("Connection lost."));

@@ -13,7 +13,9 @@ import application.controllers.Module;
 import application.controllers.ModuleLoader;
 import application.controllers.RemoteTaskLauncher;
 import application.controllers.Screen;
+import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.HomeScreen;
+import application.controllers.home_screen.SearchModule;
 import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
@@ -154,8 +156,8 @@ public class ConnectionScreen implements Initializable, Screen {
 	 * to the library. Now automatically connecting it.
 	 */
 	public void onUserAdded(String firstName, String lastName, int cardID, String password, String status) {
-		RemoteTaskLauncher.connectUserAfterAddInLibrary(this,
-				ModelRules.computeUserLogging(lastName, cardID), password);
+		RemoteTaskLauncher.connectUserAfterAddInLibrary(this, ModelRules.computeUserLogging(lastName, cardID),
+				password);
 		// Hiding the loginController.
 		signUpController.hideForWelcomeMessage();
 	}
@@ -282,5 +284,17 @@ public class ConnectionScreen implements Initializable, Screen {
 		buttonSignUp.setFont(buttonFont);
 		stateMessagesText.setFont(fontManager.getFont(Constants.SF_DISPLAY_ULTRALIGHT, 24));
 		footer.setFont(fontManager.getFont(Constants.SF_DISPLAY_ULTRALIGHT, 18));
+	}
+
+	@Override
+	public SearchModule getSearchModule() {
+		System.err.println("Requesting ConnectionScreen search module not existing !");
+		return null;
+	}
+
+	@Override
+	public BurgerMenuModule getBurgerMenuModule() {
+		System.err.println("Requesting ConnectionScreen burger menu module not existing !");
+		return null;
 	}
 }

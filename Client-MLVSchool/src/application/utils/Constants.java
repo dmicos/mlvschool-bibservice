@@ -26,6 +26,7 @@ public class Constants {
 	public static final String HOME_SPINER_MODULE = "/scenes/homeScreen/bookSpinerModule.fxml";
 	public static final String RESEARCH_SCREEN = "/scenes/researchScreen/researchScreen.fxml";
 	public static final String RESEARCH_BOOK_ENTRY_MODULE = "/scenes/researchScreen/bookEntryModule.fxml";
+	public static final String RESEARCH_CATEGORY_BUTTON = "/scenes/researchScreen/categoryButtonModule.fxml";
 
 	/**
 	 * Icons. PS: From application/ClientMLVSchool.java

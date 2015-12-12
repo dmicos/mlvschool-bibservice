@@ -36,6 +36,10 @@ public class ResearchScreen implements Initializable, Screen {
 
 	private ProxyModel proxyModel;
 
+	private BurgerMenuModule burgerMenuModule;
+
+	private SearchModule searchModule;
+
 	@Override
 	public Pane getView() {
 		return paneRoot;
@@ -59,6 +63,8 @@ public class ResearchScreen implements Initializable, Screen {
 	public void initContent(ProxyModel proxyModel, String keywords, List<BookAsynchrone> books,
 			BurgerMenuModule burgerMenuModule, SearchModule searchModule) {
 		this.proxyModel = proxyModel;
+		this.burgerMenuModule = burgerMenuModule;
+		this.searchModule = searchModule;
 		paneRoot.getChildren().add(burgerMenuModule.getView());
 		paneRoot.getChildren().add(searchModule.getView());
 		// Loading keyword text.
@@ -66,13 +72,13 @@ public class ResearchScreen implements Initializable, Screen {
 		// Creation of BookEntryModules for books.
 		loadBookEntries(books);
 		// Loading categories button.
-		
+
 	}
 
 	private void loadBookEntries(List<BookAsynchrone> books) {
-		System.out.println("ResearchScreen : loadBookEntries : Before");
-		int i =0;
+		int i = 0;
 		for (BookAsynchrone b : books) {
+			// TODO delete this limit.
 			if (i++ > 10) {
 				break;
 			}
@@ -80,7 +86,15 @@ public class ResearchScreen implements Initializable, Screen {
 			module.setBook(b);
 			booksEntryPane.getChildren().add(module.getView());
 		}
-		System.out.println("ResearchScreen : loadBookEntries : After");
 	}
 
+	@Override
+	public SearchModule getSearchModule() {
+		return searchModule;
+	}
+
+	@Override
+	public BurgerMenuModule getBurgerMenuModule() {
+		return burgerMenuModule;
+	}
 }

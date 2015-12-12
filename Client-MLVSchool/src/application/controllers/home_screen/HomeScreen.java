@@ -8,11 +8,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import application.ClientMLVSchool;
 import application.controllers.ModuleLoader;
 import application.controllers.RemoteTaskLauncher;
 import application.controllers.Screen;
-import application.controllers.research_screen.ResearchScreen;
 import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
 import application.model.ProxyModel;
@@ -176,7 +174,6 @@ public class HomeScreen implements Initializable, Screen {
 	}
 
 	public void clickOnCategory(String category) {
-		System.out.println("HomeScreen : Searching books : Before");
 		// Switching to the search screen.
 		RemoteTaskLauncher.searchBooksByCategory(this, category);
 		paneRoot.setDisable(true);
@@ -188,14 +185,16 @@ public class HomeScreen implements Initializable, Screen {
 	 * Switching to the new research screen.
 	 */
 	public void researchBooksReady(String keywords, List<BookAsynchrone> books) {
-		System.out.println("HomeScreen : Searching books : After");
-		// Removing modules
-		paneRoot.getChildren().remove(burgerMenuModule);
-		paneRoot.getChildren().remove(searchModule);
-		// Creating the research screen.
-		ResearchScreen researchScreen = ModuleLoader.getInstance().load(ResearchScreen.class);
-		researchScreen.initContent(proxyModel, keywords, books, burgerMenuModule, searchModule);
-		ClientMLVSchool.setInstantNewScreen(this, researchScreen);
-		System.out.println("HomeScreen : Searching books : After after");
+
+	}
+
+	@Override
+	public SearchModule getSearchModule() {
+		return searchModule;
+	}
+
+	@Override
+	public BurgerMenuModule getBurgerMenuModule() {
+		return burgerMenuModule;
 	}
 }

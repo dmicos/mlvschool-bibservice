@@ -1,5 +1,7 @@
 package application.controllers;
 
+import application.controllers.home_screen.BurgerMenuModule;
+import application.controllers.home_screen.SearchModule;
 import application.model.ProxyModel;
 
 public interface Screen extends Module {
@@ -15,4 +17,8 @@ public interface Screen extends Module {
 	 *         {@link Screen}.
 	 */
 	public ProxyModel getProxyModel();
+
+	public SearchModule getSearchModule();
+
+	public BurgerMenuModule getBurgerMenuModule();
 }
