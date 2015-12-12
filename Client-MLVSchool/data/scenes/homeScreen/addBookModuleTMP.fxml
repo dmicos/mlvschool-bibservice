@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="paneRoot" alignment="TOP_CENTER" maxHeight="716.0" maxWidth="690.0" minHeight="716.0" minWidth="690.0" prefHeight="716.0" prefWidth="690.0" spacing="12.0" styleClass="blackBackground" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.AddBookModule">
+	<children>
+		<HBox maxHeight="46.0" maxWidth="576.0" minHeight="46.0" minWidth="576.0" prefHeight="46.0" prefWidth="576.0">
+			<children>
+				<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="orangeText" text="New Book">
+					<font>
+						<Font name="SF UI Text Semibold" size="36.0" />
+					</font>
+				</Text>
+				<Button id="cancelButton" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" text="Cancel">
+					<font>
+						<Font name="SF UI Text Light" size="24.0" />
+					</font>
+					<HBox.margin>
+						<Insets left="290.0" />
+					</HBox.margin>
+				</Button>
+			</children>
+			<VBox.margin>
+				<Insets top="26.0" />
+			</VBox.margin>
+		</HBox>
+		<TextField maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" promptText="Title" styleClass="textFieldAddBook">
+			<font>
+				<Font name="SF UI Text Regular" size="26.0" />
+			</font>
+			<VBox.margin>
+				<Insets top="18.0" />
+			</VBox.margin>
+		</TextField>
+		<HBox maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" spacing="4.0">
+			<children>
+				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 1" styleClass="textFieldAddBook" />
+				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 2" styleClass="textFieldAddBook" />
+				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 3" styleClass="textFieldAddBook" />
+				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 4" styleClass="textFieldAddBook" />
+			</children>
+		</HBox>
+	</children>
+</VBox>
