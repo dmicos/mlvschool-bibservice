@@ -21,6 +21,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.modelloaders.LibraryImplDataLoader;
+import fr.upem.rmirest.bilmancamp.modelloaders.RateWrapper;
 import utils.Mapper;
 
 public class LibraryImpl extends UnicastRemoteObject implements Library {
@@ -68,7 +69,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	 * @throws FileNotFoundException
 	 * @throws JsonProcessingException
 	 */
-	public void populateDatabase(String userFilePath, String bookFilePath)
+	public void populateDatabase(String userFilePath, String bookFilePath, String rateFilePath)
 			throws JsonProcessingException, FileNotFoundException, IOException {
 		// Add categories to the database
 		categories.forEach((key, value) -> database.addCategory(key));
@@ -78,6 +79,9 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 		// Load some books
 		List<BookPOJO> books = LibraryImplDataLoader.loadBooks(bookFilePath);
 		books.forEach(book -> database.addBook(book));
+		// Get some rates on the books
+		List<RateWrapper> rates = LibraryImplDataLoader.loadRates(rateFilePath);
+		rates.forEach(rate -> database.rateBook(rate.getBook(), rate.getUser(), rate.getValue()));
 
 	}
 
