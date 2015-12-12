@@ -83,6 +83,7 @@ public class ProxyModel {
 			List<String> secondaryImages, List<String> categories, double price, List<String> tags)
 					throws IllegalArgumentException, RemoteException {
 		library.getLibrary().addBook(title, authors, summary, mainImage, secondaryImages, categories, price, tags);
-		return false;
+		library.reloadBooks();
+		return true;
 	}
 }
