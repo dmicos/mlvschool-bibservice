@@ -20,7 +20,7 @@ public class Constants {
 	public static final String CONNECTION_LOGIN_MODULE = "/scenes/connectionScreen/logInModule.fxml";
 	public static final String HOME_SCREEN_MODULE = "/scenes/homeScreen/homeScreen.fxml";
 	public static final String HOME_BURGER_MENU_MODULE = "/scenes/homeScreen/burgerMenu.fxml";
-	public static final String HOME_ADD_BOOK_MODULE = "/scenes/homeScreen/addBookModule.fxml";
+	public static final String HOME_ADD_BOOK_MODULE = "/scenes/homeScreen/addBookModuleTMP.fxml";
 	public static final String HOME_CATEGORY_MODULE = "/scenes/homeScreen/categoryDescriptionModule.fxml";
 	public static final String HOME_SEARCH_MODULE = "/scenes/homeScreen/searchModule.fxml";
 	public static final String HOME_SPINER_MODULE = "/scenes/homeScreen/bookSpinerModule.fxml";

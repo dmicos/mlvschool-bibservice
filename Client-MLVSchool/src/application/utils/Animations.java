@@ -33,7 +33,6 @@ public class Animations {
 
 		ParallelTransition anim = new ParallelTransition(node, translation, fade);
 		anim.setOnFinished(e -> action.run());
-		System.out.println("JAVAFX thread " + Thread.currentThread().getId());
 
 		return anim;
 	}

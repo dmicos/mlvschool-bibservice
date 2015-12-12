@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import application.controllers.Module;
+import application.controllers.ModuleLoader;
 import application.model.BookAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
@@ -82,6 +83,29 @@ public class BookSpinerModule implements Initializable, Module {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		title.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 36));
+	}
+
+	/**
+	 * Initializes a chain of {@link BookSpinerModule}.
+	 */
+	static void initChaineSpinners(String[] titles, List<List<BookAsynchrone>> lists, Pane paneRoot,
+			List<BookSpinerModule> spiners) {
+		int i = 0;
+		BookSpinerModule spiner, lastSpiner = null; // workaround.
+		for (List<BookAsynchrone> books : lists) {
+			try {
+				spiner = ModuleLoader.getInstance().load(BookSpinerModule.class);
+				spiner.initContent(books, titles[i++]);
+				spiners.add(spiner);
+				paneRoot.getChildren().add(spiner.getView());
+				spiner.hide();
+				spiner.setNextSpiner(lastSpiner);
+				lastSpiner = spiner;
+			} catch (IOException e) {
+				System.err.println("Spinner " + titles[i] + " not loaded.");
+			}
+		}
+		spiners.get(0).setNextSpiner(spiners.get(spiners.size() - 1));
 	}
 
 	/**

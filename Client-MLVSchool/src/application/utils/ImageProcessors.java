@@ -1,6 +1,7 @@
 package application.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,19 +49,22 @@ public class ImageProcessors {
 		byte[] decodeBuffer = INSTANCE.decoder.decodeBuffer(base64);
 		return new Image(new ByteArrayInputStream(decodeBuffer));
 	}
+
+	public static Image create(File file) {
+		return new Image("file:" + file.toString());
+	}
 }
 
-
-
-//try {
-//	// Encode / Decode;
-//	String s = Files.readAllLines(Paths.get("data/images/image64b2.txt"), Charset.defaultCharset()).stream()
-//			.reduce("", String::concat);
-//	// String s = ImageProcessors.encodeBase64("data/images/kama.jpg");
-//	ImageView v = new ImageView(ImageProcessors.decodeBase64(s));
-//	paneRoot.getChildren().add(v);
-//	System.out.println(s);
-//	// Files.write(Paths.get("./image64b2.txt"), s.getBytes());
-//} catch (IOException e1) {
-//	e1.printStackTrace();
-//}
+// try {
+// // Encode / Decode;
+// String s = Files.readAllLines(Paths.get("data/images/image64b2.txt"),
+// Charset.defaultCharset()).stream()
+// .reduce("", String::concat);
+// // String s = ImageProcessors.encodeBase64("data/images/kama.jpg");
+// ImageView v = new ImageView(ImageProcessors.decodeBase64(s));
+// paneRoot.getChildren().add(v);
+// System.out.println(s);
+// // Files.write(Paths.get("./image64b2.txt"), s.getBytes());
+// } catch (IOException e1) {
+// e1.printStackTrace();
+// }

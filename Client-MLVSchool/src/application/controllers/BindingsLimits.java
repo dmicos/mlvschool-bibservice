@@ -5,6 +5,7 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 
 /**
  * Provides every functionalities to control bindings of various JAVAFX text
@@ -21,7 +22,7 @@ public class BindingsLimits {
 	 * @param tf
 	 * @param maxLength
 	 */
-	public static void addTextLimiter(final TextField tf, final int maxLength) {
+	public static void addTextLimiter(final TextInputControl tf, final int maxLength) {
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
@@ -44,6 +45,27 @@ public class BindingsLimits {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("[0-9]*")) {
+					try {
+						tf.setText(newValue);
+						return;
+					} catch (Exception e) {
+						return;
+					}
+				}
+				tf.setText(oldValue);
+			}
+		});
+	}
+	/**
+	 * Transforms a {@link TextField} in a numeric only prompt.
+	 * 
+	 * @param tf
+	 */
+	public static void setNumericFloatConstraint(final TextField tf) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("[0-9]*\\.{0,1}[0-9]*")) {
 					try {
 						tf.setText(newValue);
 						return;

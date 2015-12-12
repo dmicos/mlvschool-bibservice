@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -8,43 +10,119 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="paneRoot" alignment="TOP_CENTER" maxHeight="716.0" maxWidth="690.0" minHeight="716.0" minWidth="690.0" prefHeight="716.0" prefWidth="690.0" spacing="12.0" styleClass="blackBackground" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.AddBookModule">
-	<children>
-		<HBox maxHeight="46.0" maxWidth="576.0" minHeight="46.0" minWidth="576.0" prefHeight="46.0" prefWidth="576.0">
-			<children>
-				<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="orangeText" text="New Book">
-					<font>
-						<Font name="SF UI Text Semibold" size="36.0" />
-					</font>
-				</Text>
-				<Button id="cancelButton" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" text="Cancel">
-					<font>
-						<Font name="SF UI Text Light" size="24.0" />
-					</font>
-					<HBox.margin>
-						<Insets left="290.0" />
-					</HBox.margin>
-				</Button>
-			</children>
-			<VBox.margin>
-				<Insets top="26.0" />
-			</VBox.margin>
-		</HBox>
-		<TextField maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" promptText="Title" styleClass="textFieldAddBook">
-			<font>
-				<Font name="SF UI Text Regular" size="26.0" />
-			</font>
-			<VBox.margin>
-				<Insets top="18.0" />
-			</VBox.margin>
-		</TextField>
-		<HBox maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" spacing="4.0">
-			<children>
-				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 1" styleClass="textFieldAddBook" />
-				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 2" styleClass="textFieldAddBook" />
-				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 3" styleClass="textFieldAddBook" />
-				<TextField maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 4" styleClass="textFieldAddBook" />
-			</children>
-		</HBox>
-	</children>
-</VBox>
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#paneRootClicked" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.AddBookModule">
+   <children>
+      <VBox fx:id="paneForm" alignment="TOP_CENTER" cache="true" cacheHint="SPEED" layoutX="310.0" layoutY="84.0" maxHeight="716.0" maxWidth="690.0" minHeight="716.0" minWidth="690.0" onMousePressed="#paneFormClicked" prefHeight="716.0" prefWidth="690.0" spacing="12.0" styleClass="blackBackground" stylesheets="@../../css/florange.css">
+         <children>
+            <HBox maxHeight="46.0" maxWidth="576.0" minHeight="46.0" minWidth="576.0" prefHeight="46.0" prefWidth="576.0">
+               <children>
+                  <Text fx:id="formTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="orangeText" text="New Book">
+                     <font>
+                        <Font name="SF UI Text Semibold" size="36.0" />
+                     </font>
+                  </Text>
+                  <Button id="cancelButton" fx:id="cancelButton" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelClicked" text="Cancel">
+                     <font>
+                        <Font name="SF UI Text Light" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="290.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="26.0" />
+               </VBox.margin>
+            </HBox>
+            <TextField fx:id="fieldTitle" maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" promptText="Title" styleClass="textFieldAddBook">
+               <font>
+                  <Font name="SF UI Text Regular" size="26.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="18.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" spacing="4.0">
+               <children>
+                  <TextField fx:id="fieldAuthor1" maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 1" styleClass="textFieldAddBook" />
+                  <TextField fx:id="fieldAuthor2" maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 2" styleClass="textFieldAddBook" />
+                  <TextField fx:id="fieldAuthor3" maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 3" styleClass="textFieldAddBook" />
+                  <TextField fx:id="fieldAuthor4" maxHeight="58.0" minHeight="58.0" prefHeight="58.0" promptText="Author 4" styleClass="textFieldAddBook" />
+               </children>
+            </HBox>
+            <TextArea fx:id="fieldAbstract" maxHeight="138.0" maxWidth="500.0" minHeight="138.0" minWidth="500.0" prefHeight="138.0" prefWidth="500.0" promptText="Abstract" styleClass="textFieldAddBook" wrapText="true" VBox.vgrow="NEVER" />
+            <Text fx:id="categoryText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="whiteText" text="Categories">
+               <font>
+                  <Font name="SF UI Text Regular" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="-4.0" right="380.0" top="-4.0" />
+               </VBox.margin>
+            </Text>
+            <HBox maxHeight="58.0" maxWidth="500.0" minHeight="58.0" minWidth="500.0" prefHeight="58.0" prefWidth="500.0" spacing="4.0">
+               <children>
+                  <ChoiceBox fx:id="categories" prefHeight="28.0" prefWidth="191.0" styleClass="noBackground" stylesheets="@../../css/combobox.css" />
+               </children>
+            </HBox>
+            <HBox maxHeight="144.0" maxWidth="500.0" minHeight="144.0" minWidth="500.0" prefHeight="144.0" prefWidth="500.0" spacing="4.0">
+               <children>
+                  <TextArea fx:id="fieldTags" maxHeight="144.0" maxWidth="123.0" minHeight="144.0" minWidth="120.0" prefHeight="144.0" prefWidth="123.0" promptText="Tags" styleClass="textFieldAddBook" wrapText="true">
+                     <font>
+                        <Font name="SF UI Text Regular" size="26.0" />
+                     </font>
+                  </TextArea>
+                  <Button fx:id="addImageButton" maxWidth="126.0" minWidth="120.0" mnemonicParsing="false" onAction="#searchImageClicked" prefHeight="144.0" prefWidth="123.0" styleClass="greyTextButton" text="Add Image 120x145" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="SF UI Text Light" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <VBox maxWidth="220.0" minWidth="220.0" prefHeight="200.0" prefWidth="220.0" spacing="6.0">
+                     <children>
+                        <Button fx:id="textButtonExistingBook" mnemonicParsing="false" style="-fx-text-fill: #e37b04; -fx-padding: 0;" styleClass="orangeTextButton" text="Use an existing Book">
+                           <font>
+                              <Font name="SF UI Display Ultralight" size="24.0" />
+                           </font>
+                        </Button>
+                        <HBox alignment="CENTER_LEFT" maxHeight="56.0" minHeight="56.0" prefHeight="56.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="fieldPrice" maxHeight="56.0" maxWidth="112.0" minHeight="56.0" minWidth="77.0" prefHeight="56.0" prefWidth="112.0" promptText="Price" styleClass="textFieldAddBook">
+                                 <font>
+                                    <Font name="SF UI Text Regular" size="26.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="-4.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Text fx:id="inEuroText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="orangeText" text="in €">
+                                 <font>
+                                    <Font name="SF UI Display Ultralight" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <Button id="bigOrangeButton" fx:id="addButton" maxWidth="190.0" minWidth="190.0" mnemonicParsing="false" onAction="#addClicked" prefWidth="120.0" styleClass="noBackground" text="Add">
+                           <font>
+                              <Font name="SF UI Text Light" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="50.0" top="-5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <styleClass>
+      <String fx:value="sceneSize" />
+      <String fx:value="noBackground" />
+   </styleClass>
+</Pane>

@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
@@ -76,5 +77,12 @@ public class ProxyModel {
 		if (state == State.CONNECTED) {
 			userConnected.getUser().disconnect();
 		}
+	}
+
+	public boolean addBook(String title, List<String> authors, String summary, String mainImage,
+			List<String> secondaryImages, List<String> categories, double price, List<String> tags)
+					throws IllegalArgumentException, RemoteException {
+		library.getLibrary().addBook(title, authors, summary, mainImage, secondaryImages, categories, price, tags);
+		return false;
 	}
 }

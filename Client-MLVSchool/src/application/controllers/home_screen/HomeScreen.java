@@ -1,6 +1,5 @@
 package application.controllers.home_screen;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class HomeScreen implements Initializable, Screen {
+
+	private static final int SEARCH_MODULE_Y = 22;
+
+	private static final int SEARCH_MODULE_X = 372;
 
 	@FXML
 	private Pane paneRoot;
@@ -92,20 +95,22 @@ public class HomeScreen implements Initializable, Screen {
 		// Z order bottom-up.
 		loadCategoriesTileModule(library);
 		loadSearchModule();
-		loadAddBookModule();
+		loadAddBookModule(library.getCategories());
 		loadBurgerMenuModule(user);
 	}
 
 	private void loadSearchModule() {
 		searchModule = ModuleLoader.getInstance().load(SearchModule.class);
 		paneRoot.getChildren().add(searchModule.getView());
-		searchModule.getView().setLayoutX(372);
-		searchModule.getView().setLayoutY(22);
+		searchModule.getView().setLayoutX(SEARCH_MODULE_X);
+		searchModule.getView().setLayoutY(SEARCH_MODULE_Y);
 	}
 
-	private void loadAddBookModule() {
+	private void loadAddBookModule(List<String> categories) {
 		addBookModule = ModuleLoader.getInstance().load(AddBookModule.class);
 		paneRoot.getChildren().add(addBookModule.getView());
+		addBookModule.setCategories(categories);
+		addBookModule.setScreen(this);
 	}
 
 	private void loadBurgerMenuModule(UserAsynchrone user) {
@@ -125,23 +130,7 @@ public class HomeScreen implements Initializable, Screen {
 		lists.add(library.getMostRecentBooks());
 		lists.add(library.getBestBooks());
 		lists.add(library.getMostConsultedBooks());
-
-		int i = 0;
-		BookSpinerModule spiner, lastSpiner = null; // workaround.
-		for (List<BookAsynchrone> books : lists) {
-			try {
-				spiner = ModuleLoader.getInstance().load(BookSpinerModule.class);
-				spiner.initContent(books, titles[i++]);
-				spiners.add(spiner);
-				paneRoot.getChildren().add(spiner.getView());
-				spiner.hide();
-				spiner.setNextSpiner(lastSpiner);
-				lastSpiner = spiner;
-			} catch (IOException e) {
-				System.err.println("Spinner " + titles[i] + " not loaded.");
-			}
-		}
-		spiners.get(0).setNextSpiner(spiners.get(spiners.size() - 1));
+		BookSpinerModule.initChaineSpinners(titles, lists, paneRoot, spiners);
 	}
 
 	private void startSpinnerAnimations() {

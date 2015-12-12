@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import application.controllers.BindingsLimits;
 import application.controllers.Module;
+import application.controllers.RemoteTaskLauncher;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.FontManager;
@@ -94,7 +95,7 @@ public class LogInModule implements Initializable, Module {
 		buttonLogin.setDisable(true);
 		connectionScreenController.getView().requestFocus();
 		// Everything is OK. Trying to log to the database.
-		ConnectionScreenRemoteTaskLauncher.connectUser(connectionScreenController, this, login, password);
+		RemoteTaskLauncher.connectUser(connectionScreenController, this, login, password);
 	}
 
 	@FXML

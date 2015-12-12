@@ -63,9 +63,11 @@ public class ClientMLVSchool extends Application {
 	private static ClientMLVSchool INSTANCE;
 	private ProxyModel proxyModel;
 	private Scene scene;
+	private Stage primaryStage;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
 		// Loading the JavaFX connection screen.
 		ConnectionScreen connectionScreen = loadConnectionScreen();
 		scene = new Scene(connectionScreen.getView(), 1200, 800);
@@ -79,6 +81,14 @@ public class ClientMLVSchool extends Application {
 
 		// Setting the first screen to start.
 		INSTANCE = this;
+	}
+
+	public static ClientMLVSchool getINSTANCE() {
+		return INSTANCE;
+	}
+
+	public Stage getStage() {
+		return primaryStage;
 	}
 
 	/**

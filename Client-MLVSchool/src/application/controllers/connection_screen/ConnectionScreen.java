@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import application.ClientMLVSchool;
 import application.controllers.Module;
 import application.controllers.ModuleLoader;
+import application.controllers.RemoteTaskLauncher;
 import application.controllers.Screen;
 import application.controllers.home_screen.HomeScreen;
 import application.model.LibraryAsynchrone;
@@ -97,7 +98,7 @@ public class ConnectionScreen implements Initializable, Screen {
 	}
 
 	public void startCient() {
-		ConnectionScreenRemoteTaskLauncher.connectServer(this);
+		RemoteTaskLauncher.connectServer(this);
 	}
 
 	/**
@@ -116,7 +117,7 @@ public class ConnectionScreen implements Initializable, Screen {
 	 * Launches the animation title. Here the connection with the server has to
 	 * be done.
 	 */
-	void onServerReached(LibraryAsynchrone library) {
+	public void onServerReached(LibraryAsynchrone library) {
 		startTitleGroupAnimation();
 		boolean appear = true, fromRight = true;
 		buttonsTransition(() -> buttonLogIn.setDisable(false), () -> buttonSignUp.setDisable(false), appear, fromRight);
@@ -153,7 +154,7 @@ public class ConnectionScreen implements Initializable, Screen {
 	 * to the library. Now automatically connecting it.
 	 */
 	public void onUserAdded(String firstName, String lastName, int cardID, String password, String status) {
-		ConnectionScreenRemoteTaskLauncher.connectUserAfterAddInLibrary(this,
+		RemoteTaskLauncher.connectUserAfterAddInLibrary(this,
 				ModelRules.computeUserLogging(lastName, cardID), password);
 		// Hiding the loginController.
 		signUpController.hideForWelcomeMessage();

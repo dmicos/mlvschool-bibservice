@@ -1,6 +1,12 @@
-package application.controllers.connection_screen;
+package application.controllers;
+
+import java.util.List;
 
 import application.ClientMLVSchool;
+import application.controllers.connection_screen.ConnectionScreen;
+import application.controllers.connection_screen.LogInModule;
+import application.controllers.connection_screen.SignUpModule;
+import application.controllers.home_screen.AddBookModule;
 import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
@@ -18,14 +24,14 @@ import javafx.util.Duration;
  * @author Jefferson
  *
  */
-class ConnectionScreenRemoteTaskLauncher {
+public class RemoteTaskLauncher {
 
 	/**
 	 * Connection timeout to reach the server again. (Each Timeout).
 	 */
 	private static final int TIMEOUT = 1000;
 
-	static void connectServer(ConnectionScreen screen) {
+	public static void connectServer(ConnectionScreen screen) {
 
 		ProxyModel proxyModel = screen.getProxyModel();
 		Task<LibraryAsynchrone> task = new Task<LibraryAsynchrone>() {
@@ -53,7 +59,7 @@ class ConnectionScreenRemoteTaskLauncher {
 		launchTask(task);
 	}
 
-	static void connectUser(ConnectionScreen screen, LogInModule loginModule, String login, String password) {
+	public static void connectUser(ConnectionScreen screen, LogInModule loginModule, String login, String password) {
 		ProxyModel proxyModel = screen.getProxyModel();
 
 		Task<ConnectingTaskInfo> task = createConnectingUserTaskWithSucceedHandled(screen, login, password, proxyModel);
@@ -61,7 +67,8 @@ class ConnectionScreenRemoteTaskLauncher {
 		task.setOnFailed(e -> {
 			Throwable exception = task.getException();
 			if (exception == null) {
-				ClientMLVSchool.reloadApplicationFirstScreen();
+				// ClientMLVSchool.reloadApplicationFirstScreen();
+				reloadApplication("Connection lost.");
 				return;
 			}
 			if (exception.getClass() == IllegalArgumentException.class) {
@@ -74,7 +81,7 @@ class ConnectionScreenRemoteTaskLauncher {
 		launchTask(task);
 	}
 
-	static void connectUserAfterAddInLibrary(ConnectionScreen screen, String login, String password) {
+	public static void connectUserAfterAddInLibrary(ConnectionScreen screen, String login, String password) {
 		ProxyModel proxyModel = screen.getProxyModel();
 
 		Task<ConnectingTaskInfo> task = createConnectingUserTaskWithSucceedHandled(screen, login, password, proxyModel);
@@ -118,6 +125,41 @@ class ConnectionScreenRemoteTaskLauncher {
 		});
 
 		launchTask(task);
+	}
+
+	public static void addBook(Screen screen, AddBookModule addBookModule, String title, List<String> authors,
+			String summary, String mainImage, List<String> secondaryImages, List<String> categories, double price,
+			List<String> tags) {
+		ProxyModel proxyModel = screen.getProxyModel();
+
+		Task<Boolean> task = new Task<Boolean>() {
+			@Override
+			protected Boolean call() throws Exception {
+				return proxyModel.addBook(title, authors, summary, mainImage, secondaryImages, categories, price, tags);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> addBookModule.onBookAdded(title));
+
+		// TODO checker l'illegal argument exception aussi.
+		// Handling the failure.
+		task.setOnFailed(e -> {
+			Throwable exception = task.getException();
+			if (exception == null) {
+				// ClientMLVSchool.reloadApplicationFirstScreen();
+				reloadApplication("Connection lost.");
+				return;
+			}
+			if (exception.getClass() == IllegalArgumentException.class) {
+				addBookModule.onBookAddedError();
+				return;
+			}
+			reloadApplication("Connection lost.");
+		});
+
+		launchTask(task);
+
 	}
 
 	private static void reloadApplication(String message) {

@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 import application.controllers.BindingsLimits;
 import application.controllers.Module;
+import application.controllers.RemoteTaskLauncher;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.FontManager;
@@ -81,7 +82,7 @@ public class SignUpModule implements Initializable, Module {
 	/**
 	 * Called when the sign in operation from this module has failed.
 	 */
-	void onSignUpFailed() {
+	public void onSignUpFailed() {
 		isSigningUp = false;
 		buttonSignUp.setDisable(false);
 		// Notifying visually with red prompts.
@@ -126,7 +127,7 @@ public class SignUpModule implements Initializable, Module {
 
 		// Everything is OK. Trying to add user to the database.
 		// We can parseInt thanks to the controller inputs restrictions.
-		ConnectionScreenRemoteTaskLauncher.addUser(connectionScreenController, this, tFFirstname.getText(),
+		RemoteTaskLauncher.addUser(connectionScreenController, this, tFFirstname.getText(),
 				tFLastname.getText(), Integer.parseInt(tFCardID.getText()), tFPassword.getText(),
 				statusList.getValue());
 	}
