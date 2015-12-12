@@ -52,8 +52,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setString(7, String.join(",", book.getCategories()));
 		ps.setString(8,
 				String.join(",",
-						Stream.concat(Stream.of(book.getMainImage().getPath()),
-								Arrays.asList(book.getSecondaryImages()).stream().map(img -> img.getPath()))
+						Stream.concat(Stream.of(book.getMainImage().getData()),
+								Arrays.asList(book.getSecondaryImages()).stream().map(img -> img.getData()))
 						.collect(Collectors.toList())));
 		ps.setString(9, String.join(",", createKeyWords(book)));
 		ps.setInt(10, 1);
@@ -219,8 +219,8 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setString(7, String.join(",", newVal.getCategories()));
 		ps.setString(8,
 				String.join(",",
-						Stream.concat(Stream.of(newVal.getMainImage().getPath()),
-								Arrays.asList(newVal.getSecondaryImages()).stream().map(img -> img.getPath()))
+						Stream.concat(Stream.of(newVal.getMainImage().getData()),
+								Arrays.asList(newVal.getSecondaryImages()).stream().map(img -> img.getData()))
 						.collect(Collectors.toList())));
 		ps.setString(9, String.join(",", createKeyWords(newVal)));
 		ps.setInt(10, newVal.getId());

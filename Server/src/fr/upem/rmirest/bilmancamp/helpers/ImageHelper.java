@@ -26,7 +26,7 @@ public class ImageHelper {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public String getPath() {
+			public String getData() {
 				return path.toString();
 			}
 		};

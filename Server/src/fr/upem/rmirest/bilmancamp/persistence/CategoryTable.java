@@ -98,7 +98,7 @@ public class CategoryTable extends AbstractTableModel<String> {
 
 		return dest;
 	}
-	
+
 	@Override
 	public boolean delete() throws SQLException {
 		Statement st = getConnection().createStatement();

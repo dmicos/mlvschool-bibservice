@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
@@ -19,7 +21,7 @@ import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
-import utils.LibraryImplDataLoader;
+import fr.upem.rmirest.bilmancamp.modelloaders.LibraryImplDataLoader;
 import utils.Mapper;
 
 public class LibraryImpl extends UnicastRemoteObject implements Library {
@@ -63,10 +65,20 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	 * 
 	 * @param userFilePath
 	 * @param bookFilePath
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws JsonProcessingException
 	 */
-	public void populateDatabase(String userFilePath, String bookFilePath) {
+	public void populateDatabase(String userFilePath, String bookFilePath)
+			throws JsonProcessingException, FileNotFoundException, IOException {
 		// Add categories to the database
 		categories.forEach((key, value) -> database.addCategory(key));
+		// Load some users
+		List<UserPOJO> users = LibraryImplDataLoader.loadUsers(userFilePath);
+		users.forEach(user -> database.addUser(user));
+		// Load some books
+		List<BookPOJO> books = LibraryImplDataLoader.loadBooks(bookFilePath);
+		books.forEach(book -> database.addBook(book));
 
 	}
 
@@ -107,11 +119,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 	@Override
 	public String getCategoryDescription(String category) {
-		String description = categories.get(category);
-		if (description == null) {
-			throw new IllegalArgumentException("The category does not exists : " + category);
-		}
-		return description;
+		return categories.get(category);
 	}
 
 	@Override

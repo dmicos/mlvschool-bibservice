@@ -40,7 +40,7 @@ public class JavaDatabaseTest {
 			private static final long serialVersionUID = 4060559163469041882L;
 
 			@Override
-			public String getPath() {
+			public String getData() {
 				// TODO Auto-generated method stub
 				return "false path";
 			}
