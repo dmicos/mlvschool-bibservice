@@ -5,7 +5,9 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import application.utils.UncheckedRemoteException;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
@@ -85,5 +87,19 @@ public class ProxyModel {
 		library.getLibrary().addBook(title, authors, summary, mainImage, secondaryImages, categories, price, tags);
 		library.reloadBooks();
 		return true;
+	}
+
+	public List<BookAsynchrone> searchByCategory(String category) throws RemoteException {
+		try {
+			return library.getLibrary().getCategoryBooks(category).stream().map(b -> {
+				try {
+					return BookAsynchrone.createBookAsynchrone(b);
+				} catch (RemoteException e) {
+					throw new UncheckedRemoteException(e);
+				}
+			}).collect(Collectors.toList());
+		} catch (UncheckedRemoteException e) {
+			throw e.getCause();
+		}
 	}
 }

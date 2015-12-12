@@ -7,6 +7,8 @@ import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.AddBookModule;
+import application.controllers.home_screen.HomeScreen;
+import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
@@ -50,7 +52,6 @@ public class RemoteTaskLauncher {
 			// Server not reached. Connecting again.
 			Throwable exception = task.getException();
 			System.err.println(exception.getCause() + "\n" + exception.getMessage());
-			exception.printStackTrace();
 			PauseTransition p = new PauseTransition(new Duration(TIMEOUT));
 			p.setOnFinished(ee -> connectServer(screen));
 			p.play();
@@ -148,7 +149,6 @@ public class RemoteTaskLauncher {
 			}
 		});
 
-		// TODO checker l'illegal argument exception aussi.
 		// Handling the failure.
 		task.setOnFailed(e -> {
 			Throwable exception = task.getException();
@@ -165,7 +165,24 @@ public class RemoteTaskLauncher {
 		});
 
 		launchTask(task);
+	}
 
+	public static void searchBooksByCategory(HomeScreen homeScreen, String category) {
+		ProxyModel proxyModel = homeScreen.getProxyModel();
+
+		Task<List<BookAsynchrone>> task = new Task<List<BookAsynchrone>>() {
+			@Override
+			protected List<BookAsynchrone> call() throws Exception {
+				return proxyModel.searchByCategory(category);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> homeScreen.researchBooksReady(category, task.getValue()));
+
+		// Handling the failure.
+		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		launchTask(task);
 	}
 
 	private static void reloadApplication(String message) {

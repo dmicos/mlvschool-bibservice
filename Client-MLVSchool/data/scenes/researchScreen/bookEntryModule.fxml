@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox fx:id="paneRoot" alignment="CENTER" cache="true" cacheHint="SPEED" maxHeight="152.0" minHeight="152.0" prefHeight="152.0" prefWidth="908.0" spacing="36.0" styleClass="noBackground" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.research_screen.BookEntryModule">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <VBox minWidth="600.0" prefHeight="206.0" prefWidth="696.0">
+         <children>
+            <HBox fx:id="titleDatePane" alignment="BOTTOM_LEFT" spacing="8.0">
+               <children>
+                  <Label fx:id="titleLabel" maxWidth="500.0" text="Programmation Android" textFill="WHITE">
+                     <font>
+                        <Font name="SF UI Text Semibold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="-2.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="dateLabel" text="13 Février 2015" textFill="WHITE">
+                     <font>
+                        <Font name="SF UI Text Light" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="1.5" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="authorsLabel" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+               <font>
+                  <Font name="SF UI Text Semibold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="start1" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/start_icon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="start2" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/start_icon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="start3" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/start_icon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="start4" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/start_icon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="start5" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/start_icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </HBox>
+            <Button fx:id="consultButton" maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" onAction="#consultCliked" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0;" styleClass="takeButton" text="Consult" textFill="WHITE">
+               <font>
+                  <Font name="SF UI Display Regular" size="32.0" />
+               </font>
+               <padding>
+                  <Insets bottom="2.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+         </children>
+         <HBox.margin>
+            <Insets bottom="4.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

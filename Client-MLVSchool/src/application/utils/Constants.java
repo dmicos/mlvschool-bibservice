@@ -24,12 +24,15 @@ public class Constants {
 	public static final String HOME_CATEGORY_MODULE = "/scenes/homeScreen/categoryDescriptionModule.fxml";
 	public static final String HOME_SEARCH_MODULE = "/scenes/homeScreen/searchModule.fxml";
 	public static final String HOME_SPINER_MODULE = "/scenes/homeScreen/bookSpinerModule.fxml";
+	public static final String RESEARCH_SCREEN = "/scenes/researchScreen/researchScreen.fxml";
+	public static final String RESEARCH_BOOK_ENTRY_MODULE = "/scenes/researchScreen/bookEntryModule.fxml";
 
 	/**
 	 * Icons. PS: From application/ClientMLVSchool.java
 	 */
 	public static final String DATABASE_ICON = "../icons/database_icon.png";
 	public static final String INFO_ICON = "../icons/info_icon.png";
+	public static final String START_ICON = "../icons/start_filled_icon.png";
 
 	/**
 	 * Font constants.
@@ -42,10 +45,6 @@ public class Constants {
 	public static final String SF_TEXT_REGULAR = "/fonts/SF-UI-Text-Regular.otf";
 	public static final String SF_TEXT_MEDIUM = "/fonts/SF-UI-Text-Medium.otf";
 	public static final String SF_TEXT_LIGHT = "/fonts/SF-UI-Text-Light.otf";
-
-
-
-
 
 	public static double SCENE_WIDTH = 1200;
 	public static double SCENE_HEIGHT = 800;
