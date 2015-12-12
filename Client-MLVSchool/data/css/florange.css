@@ -21,6 +21,10 @@
  	-fx-background-color: none;
  }
  
+ #cancelButton:hover {
+ 	-fx-underline: true;	
+ }
+ 
  .orangeText, #connexionTitle {
  	-fx-fill: #e37b04;
  }
@@ -98,6 +102,23 @@
  	-fx-fill: #ffffffB3;
  }
  
+ .orangeTextButton {
+ 	-fx-text-fill: #e37b04;
+ 	-fx-padding: 0.0;
+ 	-fx-background-color: transparent;
+ }
+ 
+ 
+ .greyTextButton {
+ 	-fx-text-fill: #ffffffB3;
+ 	-fx-padding: 10.0px;
+ 	-fx-background-color: transparent;
+ }
+ 
+ .orangeTextButton:hover, .greyTextButton:hover {
+ 	-fx-underline: true;
+ }
+ 
  .burgerButton {
  	-fx-text-fill: #ffffffb2;
  }
@@ -124,3 +145,9 @@
  .categoryCard:hover .categoryText {
  	-fx-underline: true;
  }
+
+.textFieldAddBook {
+	-fx-background-color: #ffffff;
+	-fx-font-size: 20.0px;
+	-fx-font-family : "SF UI Text Regular";
+}

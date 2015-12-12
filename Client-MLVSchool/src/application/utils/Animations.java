@@ -32,6 +32,8 @@ public class Animations {
 
 		ParallelTransition anim = new ParallelTransition(node, translation, fade);
 		anim.setOnFinished(e -> action.run());
+		System.out.println("JAVAFX thread " + Thread.currentThread().getId());
+
 		return anim;
 	}
 
@@ -41,11 +43,20 @@ public class Animations {
 		return sequence;
 	}
 
-	public static TranslateTransition transition(double fromX, double toX, float duration, Interpolator interpolator,
+	public static TranslateTransition transitionX(double fromX, double toX, float duration, Interpolator interpolator,
 			Pane view) {
 		TranslateTransition transition = new TranslateTransition(new Duration(duration), view);
 		transition.setFromX(fromX);
 		transition.setToX(toX);
+		transition.setInterpolator(interpolator);
+		return transition;
+	}
+
+	public static TranslateTransition transitionY(double fromY, double toY, float duration, Interpolator interpolator,
+			Pane view) {
+		TranslateTransition transition = new TranslateTransition(new Duration(duration), view);
+		transition.setFromY(fromY);
+		transition.setToY(toY);
 		transition.setInterpolator(interpolator);
 		return transition;
 	}

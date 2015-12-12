@@ -40,10 +40,19 @@
     -fx-text-fill: #1f1f1f;
 }
  
- .combo-box-base {
--fx-background-color: none ; 	
+.combo-box-base {
+	-fx-background-color: none ; 	
 }
 
+.choice-box >*.label {
+	-fx-text-fill: #ffffff;
+	-fx-font-family: "SF UI Text Regular";
+	-fx-font-size: 14px;
+}
+
+.noBackground >*.open-button>*.arrow {
+/* 	-fx-shape: url("../img/icons/drow_down_icon.png");*/
+}
 /*
  .combo-box-base:focused {
 -fx-background-radius: 6.4, 4.0, 5.0, 3.0;

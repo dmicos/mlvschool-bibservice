@@ -219,6 +219,12 @@ public class JavaDatabase implements Database {
 	}
 
 	@Override
+	public boolean addCategory(String category) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public List<String> getCategories() {
 		return Collections.unmodifiableList(cTable.getAll());
 	}
@@ -332,6 +338,18 @@ public class JavaDatabase implements Database {
 	public boolean clear() {
 		uTable.users.clear();
 		return true;
+	}
+
+	@Override
+	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

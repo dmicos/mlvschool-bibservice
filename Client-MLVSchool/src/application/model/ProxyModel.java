@@ -19,10 +19,21 @@ import fr.upem.rmirest.bilmancamp.interfaces.User;
  */
 public class ProxyModel {
 
+	private enum State {
+		OFFLINE, CONNECTED;
+	}
+
+	private State state;
+
 	/* The remote library connected */
 	private LibraryAsynchrone library;
+
 	/* The current remote user connected */
 	private UserAsynchrone userConnected;
+
+	public ProxyModel() {
+		state = State.OFFLINE;
+	}
 
 	public void connectServer() throws MalformedURLException, RemoteException, NotBoundException {
 		// Time out period to allow the GUI to cache more. (Animation caches
@@ -44,11 +55,16 @@ public class ProxyModel {
 		list.add("Student");
 		return list;
 	}
+	
+	public LibraryAsynchrone getLibrary() {
+		return library;
+	}
 
 	public User connectUser(String login, String password) throws IllegalArgumentException, RemoteException {
 		Library library = this.library.getLibrary();
 		User remoteUser = library.connect(login, password);
 		userConnected = UserAsynchrone.createUserAsynchrone(remoteUser, library.getBookHistory(remoteUser));
+		state = State.CONNECTED;
 		return userConnected.getUser();
 	}
 
@@ -59,5 +75,16 @@ public class ProxyModel {
 
 	public UserAsynchrone getConnectedUser() {
 		return userConnected;
+	}
+
+	/**
+	 * Disconnects the current user account, if connected.
+	 * 
+	 * @throws RemoteException
+	 */
+	public void disconnectUser() throws RemoteException {
+		if (state == State.CONNECTED) {
+			userConnected.getUser().disconnect();
+		}
 	}
 }

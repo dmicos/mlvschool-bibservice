@@ -20,15 +20,23 @@ import fr.upem.rmirest.bilmancamp.interfaces.Library;
  * @author Jefferson
  *
  */
-class LibraryAsynchrone {
+public class LibraryAsynchrone {
 
 	private final Library library;
-	private final Map<String, String> categories;
+	private final Map<String, String> descriptions;
+	private final List<BookAsynchrone> bestBooks;
+	private final List<BookAsynchrone> mostConsultedBooks;
+	private final List<BookAsynchrone> mostRecentBooks;
+	private final List<String> categories;
 
-	private LibraryAsynchrone(Library library, List<BookAsynchrone> books, List<BookAsynchrone> mostConsultedBooks,
-			List<BookAsynchrone> mostRecentBooks, Map<String, String> categories) {
-		this.library = Objects.requireNonNull(library);
-		this.categories = Objects.requireNonNull(categories);
+	private LibraryAsynchrone(Library library, List<BookAsynchrone> bestBooks, List<BookAsynchrone> mostConsultedBooks,
+			List<BookAsynchrone> mostRecentBooks, List<String> categories, Map<String, String> descriptions) {
+		this.bestBooks = bestBooks;
+		this.mostConsultedBooks = mostConsultedBooks;
+		this.mostRecentBooks = mostRecentBooks;
+		this.library = library;
+		this.categories = categories;
+		this.descriptions = descriptions;
 	}
 
 	/**
@@ -37,11 +45,14 @@ class LibraryAsynchrone {
 	 * @return an instance of {@link LibraryAsynchrone}.
 	 */
 	static LibraryAsynchrone createLibraryAsynchrone(Library library) throws RemoteException {
-		Map<String, String> categories = new HashMap<>();
-		for (String category : library.getCategories()) {
-			// TODO implement Library::getDescription:String.
-			// descriptions.add(library.getDescription(category));
-			categories.put(category, "Every books, specially for the STAPS section..");
+		// TODO implement every dynamic methods for
+		// Categories/best/recent/consulted.
+		Objects.requireNonNull(library);
+		Map<String, String> descriptions = new HashMap<>();
+		List<String> categories = library.getCategories();
+		
+		for (String category : categories) {
+			descriptions.put(category, library.getCategoryDescription(category));
 		}
 
 		// Loading best books categories.
@@ -49,15 +60,31 @@ class LibraryAsynchrone {
 		List<BookAsynchrone> mostRecentBooks = convertToBooksAsynchrone(library.getMoreRecentBooks(5));
 		List<BookAsynchrone> mostConsultedBooks = convertToBooksAsynchrone(library.getMostConsultedBooks(5));
 
-		return new LibraryAsynchrone(library, bestBooks, mostConsultedBooks, mostRecentBooks, categories);
+		return new LibraryAsynchrone(library, bestBooks, mostConsultedBooks, mostRecentBooks, categories, descriptions);
 	}
 
 	public Library getLibrary() {
 		return library;
 	}
 
-	public Map<String, String> getCategories() {
-		return Collections.unmodifiableMap(categories);
+	public List<String> getCategories() {
+		return Collections.unmodifiableList(categories);
+	}
+
+	public Map<String, String> getDescriptions() {
+		return Collections.unmodifiableMap(descriptions);
+	}
+
+	public List<BookAsynchrone> getBestBooks() {
+		return Collections.unmodifiableList(bestBooks);
+	}
+
+	public List<BookAsynchrone> getMostConsultedBooks() {
+		return Collections.unmodifiableList(mostConsultedBooks);
+	}
+
+	public List<BookAsynchrone> getMostRecentBooks() {
+		return Collections.unmodifiableList(mostRecentBooks);
 	}
 
 	private static List<BookAsynchrone> convertToBooksAsynchrone(List<Book> books) throws RemoteException {

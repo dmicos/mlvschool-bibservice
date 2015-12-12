@@ -34,7 +34,7 @@
 								<Font name="SF UI Text Semibold" size="32.0" />
 							</font>
 						</Button>
-						<Button fx:id="profilButton" alignment="TOP_LEFT" mnemonicParsing="false" style="-fx-background-color: none; -fx-padding: 0;" styleClass="burgerButton" text="Profil" textFill="#ffffffb2">
+						<Button fx:id="profilButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#profilClicked" style="-fx-background-color: none; -fx-padding: 0;" styleClass="burgerButton" text="Profil" textFill="#ffffffb2">
 							<font>
 								<Font name="SF UI Text Semibold" size="32.0" />
 							</font>

@@ -13,6 +13,7 @@ import application.utils.FontManager;
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -91,6 +92,7 @@ public class LogInModule implements Initializable, Module {
 		}
 		isLogingIn = true;
 		buttonLogin.setDisable(true);
+		connectionScreenController.getView().requestFocus();
 		// Everything is OK. Trying to log to the database.
 		ConnectionScreenRemoteTaskLauncher.connectUser(connectionScreenController, this, login, password);
 	}
@@ -121,6 +123,8 @@ public class LogInModule implements Initializable, Module {
 	}
 
 	void hideForWelcomeMessage() {
+		paneRoot.setCache(true);
+		paneRoot.setCacheHint(CacheHint.SPEED);
 		Animations.transitionOpacityAnimation(Interpolator.EASE_OUT, 0, 0, -200, 0, 500, 250, 1, 0, paneRoot,
 				() -> paneRoot.setVisible(false)).play();
 	}

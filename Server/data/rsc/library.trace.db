@@ -6683,3 +6683,24 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/Baxta
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:342)
 	... 23 more
+2015-12-12 01:48:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+SELECT * FROM category ORDER BY catName asc [42102-190]
+2015-12-12 01:48:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "BOOK" not found; SQL statement:
+SELECT * FROM book INNER JOIN  (select idBook ,AVG(VALUE) as rank from rate r  group by idBook) ON idBook = id order by rank desc LIMIT ? [42102-190]
+2015-12-12 01:48:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "BOOK" not found; SQL statement:
+SELECT * FROM book ORDER BY datetime desc LIMIT ?  [42102-190]
+2015-12-12 01:48:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "BOOK" not found; SQL statement:
+SELECT * FROM book ORDER BY viewCounter desc  LIMIT ?  [42102-190]
+2015-12-12 01:49:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+SELECT * FROM user WHERE login=? AND password=? AND loggable = 1 [42102-190]
+2015-12-12 01:49:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+SELECT * FROM user WHERE login=? AND loggable = 1 [42102-190]
+2015-12-12 01:49:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+SELECT * FROM user WHERE login=? AND password=? AND loggable = 1 [42102-190]

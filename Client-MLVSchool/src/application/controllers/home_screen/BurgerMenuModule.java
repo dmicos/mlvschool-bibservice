@@ -1,13 +1,19 @@
 package application.controllers.home_screen;
 
+import static application.utils.Animations.transitionX;
+
 import java.net.URL;
+import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
+import application.ClientMLVSchool;
 import application.controllers.Module;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.FontManager;
 import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,6 +51,9 @@ public class BurgerMenuModule implements Initializable, Module {
 	/* Whether the menu is hidden or not */
 	private boolean isHidden = true;
 
+	/* Module to add a new Book */
+	private AddBookModule addBookModule;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		paneRoot.setTranslateX(-BURGER_WIDTH);
@@ -53,31 +62,58 @@ public class BurgerMenuModule implements Initializable, Module {
 
 	@FXML
 	public void homeClicked() {
+		System.out.println("Home button clicked.");
 	}
 
 	@FXML
 	public void libraryClicked() {
+		System.out.println("Library button clicked.");
 	}
 
 	@FXML
 	public void addBookClicked() {
-
+		addBookModule.show();
+		hide();
+		System.out.println("Add button clicked.");
 	}
 
 	@FXML
 	public void logOutClicked() {
+		System.out.println("Log out button clicked.");
+	}
 
+	@FXML
+	public void profilClicked() {
+		System.out.println("Profil button clicked.");
 	}
 
 	@FXML
 	public void burgerClicked() {
 		if (isHidden) {
-			Animations.transition(-BURGER_WIDTH, 0, 500, Interpolator.LINEAR, paneRoot).play();
-			isHidden = false;
+			show();
 			return;
 		}
-		Animations.transition(0, -BURGER_WIDTH, 500, Interpolator.LINEAR, paneRoot).play();
-		isHidden = true;
+		hide();
+	}
+
+	@Override
+	public void hide() {
+		if (isHidden) {
+			return;
+		}
+		TranslateTransition transitionX = transitionX(0, -BURGER_WIDTH, 450, Interpolator.EASE_OUT, paneRoot);
+		transitionX.setOnFinished(e -> isHidden = true);
+		transitionX.play();
+	}
+
+	@Override
+	public void show() {
+		if (!isHidden) {
+			return;
+		}
+		TranslateTransition transitionX = transitionX(-BURGER_WIDTH, 0, 450, Interpolator.EASE_OUT, paneRoot);
+		transitionX.setOnFinished(e -> isHidden = false);
+		transitionX.play();
 	}
 
 	@Override
@@ -103,5 +139,9 @@ public class BurgerMenuModule implements Initializable, Module {
 	public void setUserInfo(String firstName, String lastName) {
 		this.firstName.setText(firstName);
 		this.lastName.setText(lastName);
+	}
+
+	void setAddBookModule(AddBookModule addBookModule) {
+		this.addBookModule = Objects.requireNonNull(addBookModule);
 	}
 }

@@ -14,8 +14,11 @@ import application.controllers.Screen;
 import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
+import application.controllers.home_screen.AddBookModule;
 import application.controllers.home_screen.BurgerMenuModule;
+import application.controllers.home_screen.CategoryDescriptionModule;
 import application.controllers.home_screen.HomeScreen;
+import application.controllers.home_screen.SearchModule;
 import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
@@ -57,6 +60,7 @@ public class ClientMLVSchool extends Application {
 	 * cycle activity.
 	 */
 	private static ClientMLVSchool INSTANCE;
+	private ProxyModel proxyModel;
 	private Scene scene;
 
 	@Override
@@ -64,7 +68,8 @@ public class ClientMLVSchool extends Application {
 		// Loading the JavaFX connection screen.
 		ConnectionScreen connectionScreen = loadConnectionScreen();
 		scene = new Scene(connectionScreen.getView(), 1200, 800);
-		connectionScreen.setModel(new ProxyModel());
+		proxyModel = new ProxyModel();
+		connectionScreen.setModel(proxyModel);
 		connectionScreen.startCient();
 		loadCSS(scene, "/css/florange.css"); // Custom CSS style sheet.
 		loadCSS(scene, "/css/combobox.css"); // Custom CSS style sheet.
@@ -82,7 +87,8 @@ public class ClientMLVSchool extends Application {
 		ConnectionScreen connectionScreen = loadConnectionScreen();
 		Scene scene = INSTANCE.getScene();
 		scene.setRoot(connectionScreen.getView());
-		connectionScreen.setModel(new ProxyModel());
+		INSTANCE.proxyModel = new ProxyModel();
+		connectionScreen.setModel(INSTANCE.proxyModel);
 		connectionScreen.startCient();
 	}
 
@@ -96,6 +102,9 @@ public class ClientMLVSchool extends Application {
 		loader.registerFXMLLoader(LogInModule.class, Constants.CONNECTION_LOGIN_MODULE);
 		loader.registerFXMLLoader(HomeScreen.class, Constants.HOME_SCREEN_MODULE);
 		loader.registerFXMLLoader(BurgerMenuModule.class, Constants.HOME_BURGER_MENU_MODULE);
+		loader.registerFXMLLoader(AddBookModule.class, Constants.HOME_ADD_BOOK_MODULE);
+		loader.registerFXMLLoader(CategoryDescriptionModule.class, Constants.HOME_CATEGORY_MODULE);
+		loader.registerFXMLLoader(SearchModule.class, Constants.HOME_SEARCH_MODULE);
 	}
 
 	/**
@@ -170,5 +179,10 @@ public class ClientMLVSchool extends Application {
 			newScreen.startHasMainScreen(currentScreen.getProxyModel());
 		});
 		sequence.play();
+	}
+
+	@Override
+	public void stop() throws Exception {
+		INSTANCE.proxyModel.disconnectUser();
 	}
 }

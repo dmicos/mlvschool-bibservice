@@ -105,12 +105,22 @@ public interface Library extends Remote {
 	public List<String> getCategories() throws RemoteException;
 
 	/**
-	 * TODO ?
+	 * Get the description of a book category.
 	 * 
-	 * @return
+	 * @param category
+	 *            the category name.
+	 * @return the description of the given category if it exists.
 	 * @throws RemoteException
 	 */
-	public int getCategorySize() throws RemoteException;
+	public String getCategoryDescription(String category) throws RemoteException;
+
+	/**
+	 * Get the recognized {@link User}'s status for the current {@link Library}.
+	 * 
+	 * @return a list of recognized status.
+	 * @throws RemoteException
+	 */
+	public List<String> getStatus() throws RemoteException;
 
 	/**
 	 * Get all the {@link Book}s which are of the given category.
@@ -207,6 +217,25 @@ public interface Library extends Remote {
 	 * @throws RemoteException
 	 */
 	public List<Book> getBookHistory(User user) throws RemoteException;
+
+	/**
+	 * Get a list of all the books actually borrowed by the given {@link User}.
+	 * 
+	 * @param user
+	 * @return a list of all the books actually borrowed by the given
+	 *         {@link User}.
+	 * @throws RemoteException
+	 */
+	public List<Book> getBooks(User user) throws RemoteException;
+
+	/**
+	 * Get a list of the {@link Book}s the given user is waiting for.
+	 * 
+	 * @param user
+	 * @return a list of the {@link Book}s the given user is waiting for.
+	 * @throws RemoteException
+	 */
+	public List<Book> getPendingBooks(User user) throws RemoteException;
 
 	/**
 	 * disconnect given user

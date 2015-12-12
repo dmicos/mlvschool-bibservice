@@ -20,6 +20,9 @@ public class Constants {
 	public static final String CONNECTION_LOGIN_MODULE = "/scenes/connectionScreen/logInModule.fxml";
 	public static final String HOME_SCREEN_MODULE = "/scenes/homeScreen/homeScreen.fxml";
 	public static final String HOME_BURGER_MENU_MODULE = "/scenes/homeScreen/burgerMenu.fxml";
+	public static final String HOME_ADD_BOOK_MODULE = "/scenes/homeScreen/addBookModule.fxml";
+	public static final String HOME_CATEGORY_MODULE = "/scenes/homeScreen/categoryDescriptionModule.fxml";
+	public static final String HOME_SEARCH_MODULE = "/scenes/homeScreen/searchModule.fxml";
 
 	/**
 	 * Icons. PS: From application/ClientMLVSchool.java
@@ -38,6 +41,8 @@ public class Constants {
 	public static final String SF_TEXT_REGULAR = "/fonts/SF-UI-Text-Regular.otf";
 	public static final String SF_TEXT_MEDIUM = "/fonts/SF-UI-Text-Medium.otf";
 	public static final String SF_TEXT_LIGHT = "/fonts/SF-UI-Text-Light.otf";
+
+
 
 
 	public static double SCENE_WIDTH = 1200;

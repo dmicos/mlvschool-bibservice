@@ -98,6 +98,17 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
+	public boolean addCategory(String category) {
+		try {
+			cTable.insert(category);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public List<String> getCategories() {
 
 		try {
@@ -164,9 +175,15 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getBorrowedBooks(UserPOJO user) {
-		// TODO I'm too afraid to touch this database. I'll probably break something.
-		return Collections.emptyList();
-	}
+	
+		try {
+			return bTable.getBorrowedBooks(user);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();	
+		}
 
 	@Override
 	public boolean borrow(BookPOJO book, UserPOJO user) {
@@ -192,6 +209,30 @@ public class EmbeddedDB implements Database {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
+	
+		try {
+			return bTable.getBooksNotReturnedYet(userPOJO);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
+		
+		try {
+			return bTable.getPendingBooks(userPOJO);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+		
+		return Collections.emptyList();
 	}
 
 	@Override
