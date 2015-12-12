@@ -17,6 +17,9 @@ public class CommandLineParser {
 	@Parameter(names = "-reset", description = "Reset database values")
 	private boolean reset = false;
 
+	@Parameter(names = "-init", description = "Reinitialize the database values")
+	private boolean init = false;
+
 	@Parameter(names = "-debug", description = "Debug mode")
 	private boolean debug = false;
 
@@ -26,13 +29,16 @@ public class CommandLineParser {
 	@Parameter(names = "-port", description = "specify the port of the registry")
 	private int port = Constants.DEFAULT_PORT;
 
-
 	public Integer getVerbose() {
 		return verbose;
 	}
 
 	public boolean isReset() {
 		return reset;
+	}
+
+	public boolean isInit() {
+		return init;
 	}
 
 	public boolean isDebug() {

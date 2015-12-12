@@ -16,6 +16,8 @@ import fr.upem.rmirest.bilmancamp.models.LibraryImpl;
 public class ServerApplication {
 
 	private static final String LIBRARY_CONFIG_FILE_PATH = "data/confFiles/dataset.json";
+	private static final String USER_SET_FILE_PATH = "data/confFiles/userset.json";
+	private static final String BOOK_SET_FILE_PATH = "data/confFiles/bookset.json";
 
 	private final CommandLineParser env;
 
@@ -51,6 +53,18 @@ public class ServerApplication {
 		/* Reset the database */
 		if (env.isReset()) {
 			DBHelper.embeddedDB().clear();
+		}
+
+		/* Initialize the database */
+		if (env.isInit()) {
+			DBHelper.embeddedDB().clear();
+			LibraryImpl libImpl = (LibraryImpl) lib;
+			try {
+				libImpl.populateDatabase(USER_SET_FILE_PATH, BOOK_SET_FILE_PATH);
+			} catch (IOException e) {
+				System.err.println("Unable to load the database initializers.");
+				e.printStackTrace();
+			}
 		}
 
 		registry.rebind("libraryService", lib);
