@@ -1,0 +1,11 @@
+{
+	"rates":[
+		{"user":666, "book":75, "rate":5},
+		{"user":667, "book":75, "rate":5},
+		{"user":666, "book":72, "rate":3},
+		{"user":666, "book":69, "rate":1},
+		{"user":665, "book":69, "rate":5}
+	]
+
+
+}
