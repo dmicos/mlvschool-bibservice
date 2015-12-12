@@ -140,7 +140,13 @@ public class RemoteTaskLauncher {
 		};
 
 		// Handling the success.
-		task.setOnSucceeded(e -> addBookModule.onBookAdded(title));
+		task.setOnSucceeded(e -> {
+			if (task.getValue()) {
+				addBookModule.onBookAdded(title);
+			} else {
+				addBookModule.onBookAddedError();
+			}
+		});
 
 		// TODO checker l'illegal argument exception aussi.
 		// Handling the failure.

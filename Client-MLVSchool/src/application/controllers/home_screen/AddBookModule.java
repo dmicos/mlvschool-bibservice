@@ -13,7 +13,6 @@ import application.ClientMLVSchool;
 import application.controllers.BindingsLimits;
 import application.controllers.Module;
 import application.controllers.RemoteTaskLauncher;
-import application.controllers.Screen;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.CoordinateTransformations;
@@ -83,7 +82,7 @@ public class AddBookModule implements Initializable, Module {
 	@FXML
 	private TextArea fieldTags;
 
-	private Screen enclosingScreen;
+	private HomeScreen enclosingScreen;
 
 	// Used for transform calculations.
 	private final Point2D tmp = new Point2D(0, 0);
@@ -111,6 +110,23 @@ public class AddBookModule implements Initializable, Module {
 
 	public void onBookAdded(String title) {
 		NotificationsManager.notify("Succes", "Book " + title + " successfully added.", NotificationType.DATABASE);
+		clearForm();
+		enclosingScreen.reloadSpinnerBooks();
+	}
+
+	private void clearForm() {
+		fieldTitle.setText("");
+		fieldTitle.setText("");
+		fieldAbstract.setText("");
+		fieldPrice.setText("");
+		// Not required.
+		fieldAuthor1.setText("");
+		fieldAuthor2.setText("");
+		fieldAuthor3.setText("");
+		fieldAuthor4.setText("");
+		imageBase64 = "";
+		viewerTmp.setImage(null);
+		addImageButton.setVisible(true);
 	}
 
 	@FXML
@@ -162,8 +178,10 @@ public class AddBookModule implements Initializable, Module {
 	}
 
 	public void onBookAddedError() {
-		// TODO
-		System.out.println("ERROR ON BOOK ADED");
+		NotificationsManager.notify("Information",
+				"An error has occured during the registration\nPlease verify the informations.",
+				NotificationType.DATABASE);
+		show();
 	}
 
 	private List<String> formatAuthors(String author1, String author2, String author3, String author4) {
@@ -196,8 +214,7 @@ public class AddBookModule implements Initializable, Module {
 			imageBase64 = ImageProcessors.encodeBase64(file.toString());
 			// Checking the size.
 			if (imageBase64.length() > IMAGE_MAX_SIZE) {
-				NotificationsManager.notify("Error", "Image to big ! \n" + file,
-						NotificationType.DATABASE);
+				NotificationsManager.notify("Error", "Image to big ! \n" + file, NotificationType.DATABASE);
 				return;
 			}
 			Image image = ImageProcessors.create(file);
@@ -315,7 +332,7 @@ public class AddBookModule implements Initializable, Module {
 		return paneRoot;
 	}
 
-	void setScreen(Screen screen) {
+	void setScreen(HomeScreen screen) {
 		enclosingScreen = Objects.requireNonNull(screen);
 	}
 }

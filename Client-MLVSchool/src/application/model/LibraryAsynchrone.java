@@ -59,11 +59,8 @@ public class LibraryAsynchrone {
 		}
 
 		// Loading best books categories.
-		System.out.println("Best books");
 		List<BookAsynchrone> bestBooks = convertToBooksAsynchrone(library.getBestRatedBooks(5));
-		System.out.println("Most recent");
 		List<BookAsynchrone> mostRecentBooks = convertToBooksAsynchrone(library.getMoreRecentBooks(5));
-		System.out.println("Most consulted");
 		List<BookAsynchrone> mostConsultedBooks = convertToBooksAsynchrone(library.getMostConsultedBooks(5));
 
 		// What about creating these status dynamically ?
@@ -72,6 +69,15 @@ public class LibraryAsynchrone {
 		status.add("Student");
 		return new LibraryAsynchrone(library, bestBooks, mostConsultedBooks, mostRecentBooks, categories, descriptions,
 				status);
+	}
+
+	public void reloadBooks() throws RemoteException {
+		bestBooks.clear();
+		bestBooks.addAll(convertToBooksAsynchrone(library.getBestRatedBooks(5)));
+		mostRecentBooks.clear();
+		mostRecentBooks.addAll(convertToBooksAsynchrone(library.getMoreRecentBooks(5)));
+		mostConsultedBooks.clear();
+		mostConsultedBooks.addAll(convertToBooksAsynchrone(library.getMostConsultedBooks(5)));
 	}
 
 	Library getLibrary() {
@@ -115,4 +121,5 @@ public class LibraryAsynchrone {
 	public List<String> getStatus() {
 		return status;
 	}
+
 }

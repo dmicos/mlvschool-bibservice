@@ -1,5 +1,6 @@
 package application.controllers.home_screen;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,9 @@ public class HomeScreen implements Initializable, Screen {
 	private static final int SEARCH_MODULE_Y = 22;
 
 	private static final int SEARCH_MODULE_X = 372;
-
+	
+	private static final String TITLES[] = new String[] { "The 5 best rated books", "The 5 most recent books",
+			"The 5 most consulted books" };
 	@FXML
 	private Pane paneRoot;
 
@@ -91,6 +94,25 @@ public class HomeScreen implements Initializable, Screen {
 		return proxyModel;
 	}
 
+	void reloadSpinnerBooks() {
+		LibraryAsynchrone library = proxyModel.getLibrary();
+		List<List<BookAsynchrone>> lists = new ArrayList<>();
+		lists.add(library.getBestBooks());
+		lists.add(library.getMostRecentBooks());
+		lists.add(library.getMostConsultedBooks());
+		int i = 0;
+		for (BookSpinerModule s : spiners) {
+			try {
+				s.initContent(lists.get(i), TITLES[i]);
+			} catch (IOException e) {
+				System.err.println("Spinner " + TITLES[i] + " not reloaded.");
+			}
+			i++;
+		}
+		BookSpinerModule.initChaineSpinners(TITLES, lists, paneRoot, spiners);
+		System.out.println("Spinners reloaded.");
+	}
+
 	private void loadModules(LibraryAsynchrone library, UserAsynchrone user) {
 		// Z order bottom-up.
 		loadCategoriesTileModule(library);
@@ -124,13 +146,11 @@ public class HomeScreen implements Initializable, Screen {
 
 	private void loadSpinerModule(LibraryAsynchrone library) {
 		spiners = new ArrayList<>();
-		String titles[] = new String[] { "The 5 best rated books", "The 5 most recent books",
-				"The 5 most consulted books" };
 		List<List<BookAsynchrone>> lists = new ArrayList<>();
 		lists.add(library.getBestBooks());
 		lists.add(library.getMostRecentBooks());
 		lists.add(library.getMostConsultedBooks());
-		BookSpinerModule.initChaineSpinners(titles, lists, paneRoot, spiners);
+		BookSpinerModule.initChaineSpinners(TITLES, lists, paneRoot, spiners);
 	}
 
 	private void startSpinnerAnimations() {
