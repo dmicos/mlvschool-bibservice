@@ -52,12 +52,14 @@ public class ServerApplication {
 
 		/* Reset the database */
 		if (env.isReset()) {
-			DBHelper.embeddedDB().clear();
+			boolean success = DBHelper.embeddedDB().clear();
+			System.out.println("Clear the database " + success);
 		}
 
 		/* Initialize the database */
 		if (env.isInit()) {
 			DBHelper.embeddedDB().clear();
+			System.out.println("Clear the database.");
 			LibraryImpl libImpl = (LibraryImpl) lib;
 			try {
 				libImpl.populateDatabase(USER_SET_FILE_PATH, BOOK_SET_FILE_PATH);

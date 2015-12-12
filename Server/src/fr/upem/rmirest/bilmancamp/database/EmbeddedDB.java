@@ -321,7 +321,10 @@ public class EmbeddedDB implements Database {
 	public boolean clear() {
 
 		try {
-			return bTable.delete() && uTable.delete();
+			boolean bDelete = bTable.delete();
+			boolean uDelete = uTable.delete();
+			boolean cDelete = cTable.delete();
+			return bDelete && uDelete && cDelete;
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}

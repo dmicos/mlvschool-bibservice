@@ -345,42 +345,39 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		return availableBook;
 	}
 
-	
 	public List<BookPOJO> getBooksNotReturnedYet(UserPOJO user) throws SQLException {
 
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=? AND state=0) ORDER BY title ASC");
-		ps.setInt(1,user.getId());
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=? AND state=0) ORDER BY title ASC");
+		ps.setInt(1, user.getId());
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
+
 	public List<BookPOJO> getBorrowedBooks(UserPOJO user) throws SQLException {
 
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=?) ORDER BY title ASC");
-		ps.setInt(1,user.getId());
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM borrow WHERE idUser=?) ORDER BY title ASC");
+		ps.setInt(1, user.getId());
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
+
 	public List<BookPOJO> getPendingBooks(UserPOJO user) throws SQLException {
 
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM queue WHERE idUser=? ) ORDER BY title ASC");
-		ps.setInt(1,user.getId());
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE b.id IN (SELECT idBook FROM queue WHERE idUser=? ) ORDER BY title ASC");
+		ps.setInt(1, user.getId());
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
 
-	
 	/**
 	 * Add {@Link User} to the queue
 	 * 
