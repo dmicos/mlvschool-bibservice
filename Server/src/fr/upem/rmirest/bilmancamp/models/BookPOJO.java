@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
-
 public class BookPOJO implements Serializable {
 
 	/**
@@ -26,15 +24,15 @@ public class BookPOJO implements Serializable {
 	private final List<String> categories;
 	private int consultationNumber = 0;
 	private final List<String> tags;
-	private final Image mainImage;
-	private final List<Image> secondaryImages;
+	private final String mainImage;
+	private final List<String> secondaryImages;
 	private final double price;
 	private float totalRate;
 	private int rateNumber;
 	private final List<CommentImpl> comments;
 
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, Image mainImage, List<Image> secondaryImages) {
+			List<String> tags, String mainImage, List<String> secondaryImages) {
 
 		// Database fields
 		this.id = id;
@@ -58,7 +56,7 @@ public class BookPOJO implements Serializable {
 	}
 
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, Image mainImage) {
+			List<String> tags, String mainImage) {
 		this(id, title, authors, summary, categories, price, tags, mainImage, new ArrayList<>());
 	}
 
@@ -114,12 +112,12 @@ public class BookPOJO implements Serializable {
 		return tags.toArray(new String[0]);
 	}
 
-	public Image getMainImage() {
+	public String getMainImage() {
 		return mainImage;
 	}
 
-	public Image[] getSecondaryImages() {
-		return secondaryImages.toArray(new Image[0]);
+	public String[] getSecondaryImages() {
+		return secondaryImages.toArray(new String[0]);
 	}
 
 	public double getPrice() {
@@ -134,7 +132,7 @@ public class BookPOJO implements Serializable {
 		comments.add(comment);
 	}
 
-	public void addSecondaryImages(List<Image> images) {
+	public void addSecondaryImages(List<String> images) {
 		secondaryImages.addAll(Objects.requireNonNull(images));
 	}
 

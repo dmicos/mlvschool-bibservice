@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
+@Deprecated
 public class ImageHelper {
 
 	/***

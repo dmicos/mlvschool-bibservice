@@ -34,8 +34,8 @@ public interface Library extends Remote {
 	 *             if one of the arguments is <code>null</code> or invalid.
 	 * @throws RemoteException
 	 */
-	public void addBook(String title, List<String> authors, String summary, Image mainImage,
-			List<Image> secondaryImages, List<String> categories, double price, List<String> tags)
+	public void addBook(String title, List<String> authors, String summary, String mainImage,
+			List<String> secondaryImages, List<String> categories, double price, List<String> tags)
 					throws IllegalArgumentException, RemoteException;
 
 	/**

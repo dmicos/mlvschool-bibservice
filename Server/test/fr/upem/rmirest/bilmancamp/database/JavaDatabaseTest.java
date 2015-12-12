@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
@@ -35,16 +34,8 @@ public class JavaDatabaseTest {
 		return new JavaDatabase();
 	}
 
-	private static Image image() {
-		return new Image() {
-			private static final long serialVersionUID = 4060559163469041882L;
-
-			@Override
-			public String getData() {
-				// TODO Auto-generated method stub
-				return "false path";
-			}
-		};
+	private static String image() {
+		return "";
 	}
 
 	@Test
@@ -132,7 +123,7 @@ public class JavaDatabaseTest {
 	@Test
 	public void testGetCategories() throws RemoteException {
 		Database db = implementation();
-		assert(null != db.getCategories());
+		assert (null != db.getCategories());
 		// fail("DataBase interface doesn't yet allow this kind of test."); //
 		// TODO
 
@@ -236,7 +227,7 @@ public class JavaDatabaseTest {
 
 	@Test
 	public void testGetBookMostSimilar() throws RemoteException {
-		assert(5 == 3);
+		assert (5 == 3);
 		Database db = implementation();
 		// Create and add some books
 		BookPOJO refBook = new BookPOJO(0, "Les nouvelles aventures de Champidur", Arrays.asList("JYT"),
