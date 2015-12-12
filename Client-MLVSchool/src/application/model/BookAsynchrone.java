@@ -13,6 +13,7 @@ public class BookAsynchrone {
 	public BookAsynchrone(String title, String image) {
 		this.title = Objects.requireNonNull(title);
 		this.image = Objects.requireNonNull(image);
+		System.out.println(title);
 	}
 
 	/**

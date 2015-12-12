@@ -59,8 +59,11 @@ public class LibraryAsynchrone {
 		}
 
 		// Loading best books categories.
+		System.out.println("Best books");
 		List<BookAsynchrone> bestBooks = convertToBooksAsynchrone(library.getBestRatedBooks(5));
+		System.out.println("Most recent");
 		List<BookAsynchrone> mostRecentBooks = convertToBooksAsynchrone(library.getMoreRecentBooks(5));
+		System.out.println("Most consulted");
 		List<BookAsynchrone> mostConsultedBooks = convertToBooksAsynchrone(library.getMostConsultedBooks(5));
 
 		// What about creating these status dynamically ?

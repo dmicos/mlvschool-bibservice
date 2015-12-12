@@ -127,8 +127,8 @@ public class HomeScreen implements Initializable, Screen {
 		String titles[] = new String[] { "The 5 best rated books", "The 5 most recent books",
 				"The 5 most consulted books" };
 		List<List<BookAsynchrone>> lists = new ArrayList<>();
-		lists.add(library.getMostRecentBooks());
 		lists.add(library.getBestBooks());
+		lists.add(library.getMostRecentBooks());
 		lists.add(library.getMostConsultedBooks());
 		BookSpinerModule.initChaineSpinners(titles, lists, paneRoot, spiners);
 	}

@@ -114,11 +114,25 @@ public class BookSpinerModule implements Initializable, Module {
 	void initContent(List<BookAsynchrone> books, String title) throws IOException {
 		Objects.requireNonNull(books);
 		this.title.setText(Objects.requireNonNull(title));
-		if (books.size() > 5) {
-			throw new IllegalArgumentException("Book list have to be less or equal to 5." + books.size());
+		int bookNumber = books.size();
+		if (bookNumber > 5) {
+			throw new IllegalArgumentException("Book list have to be less or equal to 5." + bookNumber);
 		}
-		for (BookAsynchrone b : books) {
-			book1.setImage(ImageProcessors.decodeBase64(b.getImage()));
+		// I know this is not optimal but hey.
+		if (bookNumber >= 1) {
+			book1.setImage(ImageProcessors.decodeBase64(books.get(0).getImage()));
+		}
+		if (bookNumber >= 2) {
+			book2.setImage(ImageProcessors.decodeBase64(books.get(1).getImage()));
+		}
+		if (bookNumber >= 3) {
+			book3.setImage(ImageProcessors.decodeBase64(books.get(2).getImage()));
+		}
+		if (bookNumber >= 4) {
+			book4.setImage(ImageProcessors.decodeBase64(books.get(3).getImage()));
+		}
+		if (bookNumber >= 5) {
+			book5.setImage(ImageProcessors.decodeBase64(books.get(4).getImage()));
 		}
 		layoutRoot();
 	}
