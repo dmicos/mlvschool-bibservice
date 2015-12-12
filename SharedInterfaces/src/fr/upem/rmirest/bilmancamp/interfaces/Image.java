@@ -3,13 +3,15 @@ package fr.upem.rmirest.bilmancamp.interfaces;
 import java.io.Serializable;
 
 /**
- * Wraps JavaFX image. (Workaround for the moment, will be replaced by a real
- * JavaFX::Image).
+ * Wraps an Image encoded as a base64 {@link String}.
  * 
  * @author Baxtalou
  *
  */
 public interface Image extends Serializable {
 
-	public String getPath();
+	/**
+	 * @return the base64 string which represents the Image.
+	 */
+	public String getData();
 }
