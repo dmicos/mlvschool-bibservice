@@ -24,6 +24,7 @@ import application.utils.Constants;
 import application.utils.CoordinateTransformations;
 import application.utils.ImageProcessors;
 import application.utils.NotificationsManager;
+import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -183,8 +184,8 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 			Point2D pp = CoordinateTransformations.toSceneCoordinates(tf, tmp);
 			Animations.playWrongRectangle(pp.getX(), pp.getY(), tf.getWidth(), tf.getHeight(), paneRoot);
 		};
-		String input = commentaryField.getText();
-		if (input.isEmpty() || input.matches("\\s+")) {
+		String content = commentaryField.getText();
+		if (content.isEmpty() || content.matches("\\s+")) {
 			wrongNotification.accept(commentaryField);
 			return;
 		}
@@ -200,7 +201,7 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		// STRING->IMAGE LOADING) PUT THE STATE IN HIDLE, EMPTY THE TEXT AREA,
 		// PUSH A NOTIFICATION.
 		// TODO delete this call, it's fake. AND PASSE THE RATING TO !!
-		onCommentaryOnBookPosted(book);
+		RemoteTaskLauncher.addComment(proxyModel, book, content, rate, this);
 	}
 
 	@Override
@@ -329,15 +330,26 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		t.start();
 	}
 
+
+
 	private void loadComments(BookAsynchrone book) {
-		String commentAuthor = book.getCommentAuthor();
-		List<String> commentsContent = book.getCommentText();
-		for (String comment : commentsContent) {
+		List<BookComment> comments = book.getComments();
+		for (BookComment comment : comments) {
 			BookCommentModule commentModule = ModuleLoader.getInstance().load(BookCommentModule.class);
-			commentModule.setComment(commentAuthor, comment);
+			commentModule.setComment(comment.getAuthors(), comment.getContent());
 			commentPane.getChildren().add(commentModule.getView());
 		}
 	}
+	
+//	private void loadComments(BookAsynchrone book) {
+//		String commentAuthor = book.getCommentAuthor();
+//		List<String> commentsContent = book.getCommentText();
+//		for (String comment : commentsContent) {
+//			BookCommentModule commentModule = ModuleLoader.getInstance().load(BookCommentModule.class);
+//			commentModule.setComment(commentAuthor, comment);
+//			commentPane.getChildren().add(commentModule.getView());
+//		}
+//	}
 
 	@Override
 	public ProxyModel getProxyModel() {

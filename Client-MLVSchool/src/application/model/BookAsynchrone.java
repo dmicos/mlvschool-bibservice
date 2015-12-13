@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import application.utils.UncheckedRemoteException;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
+import fr.upem.rmirest.bilmancamp.interfaces.Library;
 
 public class BookAsynchrone {
 
@@ -21,13 +23,16 @@ public class BookAsynchrone {
 	private final String commentAuthor;
 	private final Book book;
 	private final int id;
+	private final List<BookComment> comments;
 
-	public BookAsynchrone(Book book, int id, String title, List<String> authors, String date, int rate, String image) {
+	public BookAsynchrone(Book book, int id, String title, List<String> authors, String date, int rate,
+			List<BookComment> comments, String image) {
 		this.book = book;
 		this.id = id;
 		this.authors = authors;
 		this.date = date;
 		this.rate = rate;
+		this.comments = comments;
 		this.title = Objects.requireNonNull(title);
 		this.image = Objects.requireNonNull(image);
 
@@ -45,25 +50,31 @@ public class BookAsynchrone {
 	 * 
 	 * @throws RemoteException
 	 */
-	public static BookAsynchrone createBookAsynchrone(Book book) throws RemoteException {
+	public static BookAsynchrone createBookAsynchrone(Library library, Book book) throws RemoteException {
 		String title = book.getTitle();
 		String mainImage = book.getMainImage();
 		List<String> authors = book.getAuthors();
 		String date = book.getDate().toString();
 		int rate = (int) book.getRate();
 		int id = book.getId();
-		
-		return new BookAsynchrone(book, id, title, authors, date, rate, mainImage);
+		List<BookComment> comment = library.getComment(book);
+		return new BookAsynchrone(book, id, title, authors, date, rate, comment, mainImage);
 	}
 
-	BookAsynchrone update() throws RemoteException {
+	BookAsynchrone update(Library library) throws RemoteException {
 		title = book.getTitle();
 		image = book.getMainImage();
 		authors = book.getAuthors();
 		date = book.getDate().toString();
 		rate = (int) book.getRate();
 		// TODO update COMMENTS HERE !!
+		comments.clear();
+		comments.addAll(library.getComment(book));
 		return this;
+	}
+
+	public List<BookComment> getComments() {
+		return comments;
 	}
 
 	public Book getRemoteBook() {
@@ -102,11 +113,12 @@ public class BookAsynchrone {
 		return image;
 	}
 
-	public static List<BookAsynchrone> convertToBooksAsynchrone(List<Book> books) throws RemoteException {
+	public static List<BookAsynchrone> convertToBooksAsynchrone(Library library, List<Book> books)
+			throws RemoteException {
 		try {
 			return books.stream().map(b -> {
 				try {
-					return BookAsynchrone.createBookAsynchrone(b);
+					return BookAsynchrone.createBookAsynchrone(library, b);
 				} catch (RemoteException e) {
 					throw new UncheckedRemoteException(e);
 				}

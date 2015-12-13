@@ -58,9 +58,9 @@ public class LibraryAsynchrone {
 		}
 
 		// Loading best books categories.
-		List<BookAsynchrone> bestBooks = convertToBooksAsynchrone(library.getBestRatedBooks(5));
-		List<BookAsynchrone> mostRecentBooks = convertToBooksAsynchrone(library.getMoreRecentBooks(5));
-		List<BookAsynchrone> mostConsultedBooks = convertToBooksAsynchrone(library.getMostConsultedBooks(5));
+		List<BookAsynchrone> bestBooks = convertToBooksAsynchrone(library, library.getBestRatedBooks(5));
+		List<BookAsynchrone> mostRecentBooks = convertToBooksAsynchrone(library, library.getMoreRecentBooks(5));
+		List<BookAsynchrone> mostConsultedBooks = convertToBooksAsynchrone(library, library.getMostConsultedBooks(5));
 
 		// What about creating these status dynamically ?
 		List<String> status = new ArrayList<>();
@@ -72,11 +72,11 @@ public class LibraryAsynchrone {
 
 	public void reloadBooks() throws RemoteException {
 		bestBooks.clear();
-		bestBooks.addAll(convertToBooksAsynchrone(library.getBestRatedBooks(5)));
+		bestBooks.addAll(convertToBooksAsynchrone(library, library.getBestRatedBooks(5)));
 		mostRecentBooks.clear();
-		mostRecentBooks.addAll(convertToBooksAsynchrone(library.getMoreRecentBooks(5)));
+		mostRecentBooks.addAll(convertToBooksAsynchrone(library, library.getMoreRecentBooks(5)));
 		mostConsultedBooks.clear();
-		mostConsultedBooks.addAll(convertToBooksAsynchrone(library.getMostConsultedBooks(5)));
+		mostConsultedBooks.addAll(convertToBooksAsynchrone(library, library.getMostConsultedBooks(5)));
 	}
 
 	/**
