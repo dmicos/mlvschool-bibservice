@@ -4,4 +4,6 @@ import java.io.Serializable;
 
 public interface BookComment extends Serializable {
 
+	public String getAuthors();
+	public String getContent();
 }
