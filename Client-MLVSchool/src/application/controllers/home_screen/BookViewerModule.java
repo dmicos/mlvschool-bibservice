@@ -123,7 +123,7 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	@FXML
 	void paneFormClicked() {
-		// hide TODO arrange this "bug".
+		// hide arrange this "bug".
 	}
 
 	@FXML
@@ -137,6 +137,7 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 			RemoteTaskLauncher.giveBack(proxyModel, proxyModel.getConnectedUser(), book, this);
 			break;
 		case TO_CANCEL:
+			RemoteTaskLauncher.cancel(proxyModel, proxyModel.getConnectedUser(), book, this);
 			break;
 		}
 	}
@@ -165,6 +166,13 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		// TODO Reload comments too.
 	}
 
+	@Override
+	public void onBookCancel(Boolean cancel, BookAsynchrone book, UserAsynchrone user) {
+		RemoteTaskObserver.super.onBookGivenBack(cancel, book, user);
+		configureActionButton(proxyModel, book);
+		// TODO Reload comments too.
+	}
+
 	private void commentaryRequested() {
 		if (state == State.COMMENTARY_POSTING) {
 			return;
@@ -185,7 +193,6 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 			return;
 		}
 		int rate = Integer.parseInt(rateField.getText());
-		System.out.println("RATING : " + rate);
 		state = State.COMMENTARY_POSTING;
 		// RemoteTaskLauncher.searchBooks(keywords, proxyModel, this);
 		// TODO POST A COMMENTRY WITH BEING THE OBSERVER. WHEN THE COMMENT HAS
@@ -279,7 +286,6 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		loadImageInWorker(book);
 	}
 
-	// TODO put a state for this.
 	private void configureActionButton(ProxyModel proxyModel, BookAsynchrone book) {
 		bookState = BookState.TO_BORROW;
 		actionButton.setText("Borrow");

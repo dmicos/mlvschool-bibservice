@@ -52,6 +52,7 @@ public class BookAsynchrone {
 		String date = book.getDate().toString();
 		int rate = (int) book.getRate();
 		int id = book.getId();
+		
 		return new BookAsynchrone(book, id, title, authors, date, rate, mainImage);
 	}
 

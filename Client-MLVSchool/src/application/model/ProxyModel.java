@@ -109,8 +109,15 @@ public class ProxyModel {
 		book.update();
 		return result;
 	}
-	
+
 	public boolean giveBack(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
+		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
+		user.update(library);
+		book.update();
+		return result;
+	}
+
+	public boolean cancel(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
 		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
 		user.update(library);
 		book.update();

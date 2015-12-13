@@ -64,4 +64,17 @@ public interface RemoteTaskObserver {
 		NotificationsManager.notify("Information", "The book has not been released : " + book.getTitle(),
 				NotificationType.INFO);
 	}
+
+	/**
+	 * Notifies the user has canceled one of its books if cancel is true,
+	 * failed if false.
+	 */
+	public default void onBookCancel(Boolean cancel, BookAsynchrone book, UserAsynchrone user) {
+		if (cancel) {
+			NotificationsManager.notify("Information", "Your are not in the queue anymore : " + book.getTitle(), NotificationType.INFO);
+			return;
+		}
+		NotificationsManager.notify("Information", "Your are still in the queue : " + book.getTitle(),
+				NotificationType.INFO);
+	}
 }

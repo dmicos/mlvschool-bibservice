@@ -299,6 +299,28 @@ public class RemoteTaskLauncher {
 		launchTask(task);
 	}
 
+	public static void cancel(ProxyModel proxyModel, UserAsynchrone user, BookAsynchrone book,
+			RemoteTaskObserver... observers) {
+		Objects.requireNonNull(proxyModel);
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(book);
+		Task<Boolean> task = new Task<Boolean>() {
+			@Override
+			protected Boolean call() throws Exception {
+				return proxyModel.cancel(user, book);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> {
+			for (RemoteTaskObserver obs : observers) {
+				obs.onBookCancel(task.getValue(), book, user);
+			}
+		});
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
+		launchTask(task);
+	}
+
 	private static void reloadApplication(String message, Throwable throwable) {
 		NotificationsManager.notify("Library :", message, NotificationType.DATABASE);
 		ClientMLVSchool.getINSTANCE().reloadApplicationFirstScreen();

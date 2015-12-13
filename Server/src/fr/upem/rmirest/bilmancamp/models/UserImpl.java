@@ -85,7 +85,7 @@ public class UserImpl extends UnicastRemoteObject implements User {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + getOuterType().hashCode();
+			//result = prime * result + getOuterType().hashCode();
 			result = prime * result + model.getCardNumber();
 			result = prime * result + ((model.getFirstName() == null) ? 0 : model.getFirstName().hashCode());
 			result = prime * result + ((model.getLastName() == null) ? 0 : model.getLastName().hashCode());
