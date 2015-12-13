@@ -20,7 +20,6 @@ public class UserImpl extends UnicastRemoteObject implements User {
 	 */
 	private static final long serialVersionUID = -2857973181293273060L;
 
-	
 	/**
 	 * The {@link UserImpl} is in reality a proxy for {@link User}. It will
 	 * delegate every operations to the class {@link RealUser}.
@@ -78,14 +77,14 @@ public class UserImpl extends UnicastRemoteObject implements User {
 
 		@Override
 		public String toString() {
-			return String.format("User %d : %s num.%s - %s %s", getId(), getStatus(), getCardNumber(), getFirstName(), getLastName());
+			return String.format("User %d : %s num.%s - %s %s", getId(), getStatus(), getCardNumber(), getFirstName(),
+					getLastName());
 		}
 
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			//result = prime * result + getOuterType().hashCode();
 			result = prime * result + model.getCardNumber();
 			result = prime * result + ((model.getFirstName() == null) ? 0 : model.getFirstName().hashCode());
 			result = prime * result + ((model.getLastName() == null) ? 0 : model.getLastName().hashCode());
@@ -93,9 +92,6 @@ public class UserImpl extends UnicastRemoteObject implements User {
 			return result;
 		}
 
-		private UserImpl getOuterType() {
-			return UserImpl.this;
-		}
 	}
 
 	/**
