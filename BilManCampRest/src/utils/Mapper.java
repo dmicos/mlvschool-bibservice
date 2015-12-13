@@ -3,7 +3,6 @@ package utils;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
@@ -22,7 +21,7 @@ public class Mapper {
 	public static BookPOJO createBookPOJO(Book book) throws RemoteException {
 
 		return new BookPOJO(book.getId(), book.getTitle(), book.getAuthors(), book.getSummary(), book.getCategories(),
-				book.getPrice(), book.getTags(), ImageHelper.createRealImage((book.getMainImage())));
+				book.getPrice(), book.getTags(), book.getMainImage());
 	}
 
 	/**

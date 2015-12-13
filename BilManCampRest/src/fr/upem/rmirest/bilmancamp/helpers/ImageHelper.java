@@ -45,6 +45,6 @@ public class ImageHelper {
 	}
 
 	public static RealImage createRealImage(Image image){
-		return new RealImage(image.getPath());//debug
+		return new RealImage(image.getData());//debug
 	}
 }

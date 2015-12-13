@@ -317,4 +317,40 @@ public class EmbeddedDB implements Database {
 		prevYears.add(Calendar.YEAR, -nb);
 		return new Timestamp(current.getTime());
 	}
+
+	@Override
+	public boolean addCategory(String category) {
+
+		try {
+			return cTable.insert(category);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
+		
+		try {
+			return bTable.getPendingBooks(userPOJO);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+		
+		return Collections.emptyList();
+	}
+	
+	@Override
+	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
+	
+		try {
+			return bTable.getBooksNotReturnedYet(userPOJO);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return Collections.emptyList();
+	}
 }

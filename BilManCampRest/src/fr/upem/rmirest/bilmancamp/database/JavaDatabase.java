@@ -340,4 +340,22 @@ public class JavaDatabase implements Database {
 		return null;
 	}
 
+	@Override
+	public boolean addCategory(String category) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

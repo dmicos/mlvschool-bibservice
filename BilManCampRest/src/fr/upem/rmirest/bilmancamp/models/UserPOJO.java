@@ -9,7 +9,6 @@ import fr.upem.rmirest.bilmancamp.interfaces.Book;
 
 public class UserPOJO implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
 	private final String status;
 	private final String firstName;
@@ -62,14 +61,19 @@ public class UserPOJO implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		
-		if(!(obj instanceof UserPOJO))
+
+		if (!(obj instanceof UserPOJO))
 			return false;
-		
-		UserPOJO pojo=(UserPOJO)obj;
+
+		UserPOJO pojo = (UserPOJO) obj;
 		return id == pojo.id;
+	}
+
+	@Override
+	public String toString() {
+		return id + " " + firstName + " " + lastName + " " + cardNumber;
 	}
 }

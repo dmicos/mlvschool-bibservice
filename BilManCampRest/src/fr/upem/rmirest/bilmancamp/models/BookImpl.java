@@ -8,18 +8,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import com.sun.org.apache.xml.internal.serializer.ToStream;
+
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 
 public class BookImpl extends UnicastRemoteObject implements Book {
 
 	private static final long serialVersionUID = 7753109795230221876L;
 	private final BookPOJO model;
+	private final LocalDate date;
 
 	public BookImpl(BookPOJO model) throws RemoteException {
 		super();
 		this.model = Objects.requireNonNull(model);
+		date = model.getDate();
+	}
+
+	public BookPOJO getModel() {
+		return model;
 	}
 
 	// Getters
@@ -30,7 +37,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public LocalDate getDate() throws RemoteException {
-		return LocalDate.now();
+		return model.getDate();
 	}
 
 	@Override
@@ -64,12 +71,12 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 	}
 
 	@Override
-	public Image getMainImage() throws RemoteException {
+	public String getMainImage() throws RemoteException {
 		return model.getMainImage();
 	}
 
 	@Override
-	public List<Image> getSecondaryImages() throws RemoteException {
+	public List<String> getSecondaryImages() throws RemoteException {
 		return Collections.unmodifiableList(Arrays.asList(model.getSecondaryImages()));
 	}
 
@@ -126,9 +133,6 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 		return model.getId() == other.model.getId();
 	}
-
-	public BookPOJO getModel() {
-		return model;
-	}
+	
 
 }

@@ -223,5 +223,34 @@ public interface Database {
 	 * @return a list of {@link BookPOJO}
 	 */
 	public List<BookPOJO> getBooksFromPastAndBorrowed(int nbYear, int limit);
+	
+	
+	/**
+	 * Get a list of all the books actually borrowed by the given {@link User}.
+	 * 
+	 * @param userPOJO
+	 * @return
+	 */
+	public List<BookPOJO> getBooks(UserPOJO userPOJO);
+
+	
+
+	/**
+	 * Add the given category to the current database.
+	 * 
+	 * @param category
+	 *            the category to add.
+	 * @return <code>true</code> if successfully added, <code>false</code>
+	 *         otherwise.
+	 */
+	public boolean addCategory(String category);
+	
+	/**
+	 * Get a list of the {@link Book}s the given user is waiting for.
+	 * 
+	 * @param userPOJO
+	 * @return a list of the {@link Book}s the given user is waiting for.
+	 */
+	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO);
 
 }
