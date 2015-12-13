@@ -258,4 +258,10 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 			database.removeFromQueue(bPojo, uPojo);
 		}
 	}
+
+	@Override
+	public boolean addComment(Book book, String author, int rate) throws RemoteException {
+		
+		return database.addComment(Mapper.createBookPOJO(book), author, rate);
+	}
 }

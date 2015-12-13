@@ -6,7 +6,13 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import application.ClientMLVSchool;
 import application.controllers.Module;
+import application.controllers.ModuleLoader;
+import application.controllers.RemoteTaskLauncher;
+import application.controllers.RemoteTaskObserver;
+import application.model.ProxyModel;
+import application.model.UserAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
 import javafx.animation.Interpolator;
@@ -18,7 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class BurgerMenuModule implements Initializable, Module {
+public class BurgerMenuModule implements Initializable, Module, RemoteTaskObserver {
 	public static final double BURGER_WIDTH = 220;
 
 	@FXML
@@ -35,9 +41,9 @@ public class BurgerMenuModule implements Initializable, Module {
 	@FXML
 	private Button homeButton;
 	@FXML
-	private Button profilButton;
+	private Button pendingButton;
 	@FXML
-	private Button libraryButton;
+	private Button booksButton;
 	@FXML
 	private Button addBookButton;
 	@FXML
@@ -51,15 +57,40 @@ public class BurgerMenuModule implements Initializable, Module {
 	/* Module to add a new Book */
 	private AddBookModule addBookModule;
 
+	private ProxyModel proxyModel;
+
+	private enum State {
+		LAUNCHING_HOME, LAUNCHING_LIBRARY, LAUNCHING_PENDING, DISCONNECTING, HIDLE;
+	}
+
+	private State state = State.HIDLE;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		paneRoot.setTranslateX(-BURGER_WIDTH);
 		loadFontsWorkaround();
 	}
 
+	@Override
+	public void onLibraryRefreshed() {
+		// Launching the home screen when the library is refreshed. This is the
+		// only thing wanted by this menu here
+		if (state != State.LAUNCHING_HOME) {
+			return;
+		}
+		state = State.HIDLE;
+		HomeScreen homeScreen = ModuleLoader.getInstance().load(HomeScreen.class);
+		ClientMLVSchool.getINSTANCE().setInstantNewScreen(homeScreen);
+		homeScreen.startHasMainScreen();
+	}
+
 	@FXML
 	public void homeClicked() {
-		System.out.println("Home button clicked.");
+		if (state == State.LAUNCHING_HOME) {
+			return;
+		}
+		RemoteTaskLauncher.refreshLibrary(proxyModel, this);
+		state = State.LAUNCHING_HOME;
 	}
 
 	@FXML
@@ -71,12 +102,15 @@ public class BurgerMenuModule implements Initializable, Module {
 	public void addBookClicked() {
 		addBookModule.show();
 		hide();
-		System.out.println("Add button clicked.");
 	}
 
 	@FXML
 	public void logOutClicked() {
-		System.out.println("Log out button clicked.");
+		if (state == State.DISCONNECTING) {
+			return;
+		}
+		RemoteTaskLauncher.disconnect(proxyModel);
+		state = State.DISCONNECTING;
 	}
 
 	@FXML
@@ -125,8 +159,8 @@ public class BurgerMenuModule implements Initializable, Module {
 		Font font2 = fontManager.getFont(Constants.SF_TEXT_REGULAR, 28);
 		Font font3 = fontManager.getFont(Constants.SF_DISPLAY_THIN, 28);
 		homeButton.setFont(font1);
-		profilButton.setFont(font1);
-		libraryButton.setFont(font1);
+		pendingButton.setFont(font1);
+		booksButton.setFont(font1);
 		addBookButton.setFont(font1);
 		logOutText.setFont(font2);
 		firstName.setFont(font3);
@@ -138,7 +172,19 @@ public class BurgerMenuModule implements Initializable, Module {
 		this.lastName.setText(lastName);
 	}
 
-	void setAddBookModule(AddBookModule addBookModule) {
+	public void setAddBookModule(AddBookModule addBookModule) {
 		this.addBookModule = Objects.requireNonNull(addBookModule);
+	}
+
+	public void setUserInfo(ProxyModel proxyModel) {
+		this.proxyModel = proxyModel;
+		UserAsynchrone user = proxyModel.getConnectedUser();
+		this.firstName.setText(user.getFirstName());
+		this.lastName.setText(user.getLastName());
+	}
+
+	@Override
+	public ProxyModel getProxyModel() {
+		return proxyModel;
 	}
 }

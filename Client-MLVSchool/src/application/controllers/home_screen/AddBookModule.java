@@ -13,6 +13,7 @@ import application.ClientMLVSchool;
 import application.controllers.BindingsLimits;
 import application.controllers.Module;
 import application.controllers.RemoteTaskLauncher;
+import application.controllers.Screen;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.CoordinateTransformations;
@@ -82,7 +83,7 @@ public class AddBookModule implements Initializable, Module {
 	@FXML
 	private TextArea fieldTags;
 
-	private HomeScreen enclosingScreen;
+	private Screen enclosingScreen;
 
 	// Used for transform calculations.
 	private final Point2D tmp = new Point2D(0, 0);
@@ -111,7 +112,7 @@ public class AddBookModule implements Initializable, Module {
 	public void onBookAdded(String title) {
 		NotificationsManager.notify("Succes", "Book " + title + " successfully added.", NotificationType.DATABASE);
 		clearForm();
-		enclosingScreen.reloadSpinnerBooks();
+		enclosingScreen.onBookAdded();
 	}
 
 	private void clearForm() {
@@ -147,7 +148,6 @@ public class AddBookModule implements Initializable, Module {
 		String author4 = fieldAuthor4.getText();
 		String category = categories.getValue();
 
-		System.out.println("Tags : " + tags);
 		if (title == null || summary == null || price == null) {
 			return;
 		}
@@ -239,6 +239,7 @@ public class AddBookModule implements Initializable, Module {
 	public void initialize(URL location, ResourceBundle resources) {
 		viewerTmp = new ImageView();
 		loadWorkAroundFont();
+		// Not visible at first.
 		paneRoot.setMouseTransparent(true);
 		paneRoot.setTranslateY(Constants.SCENE_HEIGHT);
 		isShown = false;
@@ -248,6 +249,9 @@ public class AddBookModule implements Initializable, Module {
 
 	@Override
 	public void hide() {
+		if (!isShown) {
+			return;
+		}
 		paneRoot.setMouseTransparent(true);
 		paneRoot.setTranslateY(Constants.SCENE_HEIGHT);
 		isShown = false;
@@ -264,7 +268,7 @@ public class AddBookModule implements Initializable, Module {
 		Animations.transitionY(paneRoot.getTranslateY(), 0, 400, Interpolator.EASE_OUT, paneRoot).play();
 	}
 
-	void setCategories(List<String> categories) {
+	public void setCategories(List<String> categories) {
 		Objects.requireNonNull(categories);
 		ObservableList<String> items = FXCollections.observableArrayList(categories);
 		this.categories.setItems(items);
@@ -332,7 +336,7 @@ public class AddBookModule implements Initializable, Module {
 		return paneRoot;
 	}
 
-	void setScreen(HomeScreen screen) {
+	public void setHomeScreen(HomeScreen screen) {
 		enclosingScreen = Objects.requireNonNull(screen);
 	}
 }

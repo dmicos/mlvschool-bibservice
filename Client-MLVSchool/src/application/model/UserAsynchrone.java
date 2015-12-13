@@ -1,6 +1,7 @@
 package application.model;
 
 import java.rmi.RemoteException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,11 +25,16 @@ public class UserAsynchrone {
 	private final String status;
 	private final int id;
 	private final int nbBooks;
+	private final List<BookAsynchrone> books;
+	private final List<BookAsynchrone> pendingBooks;
 
-	private UserAsynchrone(User remoteUser, String firstName, String lastName, String status, int id, int nbBooks) {
+	private UserAsynchrone(User remoteUser, String firstName, String lastName, String status,
+			List<BookAsynchrone> books, List<BookAsynchrone> pendingBooks, int id, int nbBooks) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.status = status;
+		this.books = books;
+		this.pendingBooks = pendingBooks;
 		this.id = id;
 		this.nbBooks = nbBooks;
 		this.remoteUser = Objects.requireNonNull(remoteUser);
@@ -48,12 +54,32 @@ public class UserAsynchrone {
 		String lastName = remoteUser.getLastName();
 		String status = remoteUser.getStatus();
 		int id = remoteUser.getId();
-		int nbBooks = library.getBooks(remoteUser).size();
-		return new UserAsynchrone(remoteUser, firstName, lastName, status, id, nbBooks);
+		List<BookAsynchrone> books = BookAsynchrone.convertToBooksAsynchrone(library.getBooks(remoteUser));
+		int nbBooks = books.size();
+		List<BookAsynchrone> pendingBooks = BookAsynchrone
+				.convertToBooksAsynchrone(library.getPendingBooks(remoteUser));
+		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, pendingBooks, id, nbBooks);
 	}
 
-	public User getUser() {
+	// Default and not public !
+	User getRemoteUser() {
 		return remoteUser;
+	}
+
+	public void update(LibraryAsynchrone library) throws RemoteException {
+		books.clear();
+		pendingBooks.clear();
+		Library libraryRemote = library.getLibrary();
+		books.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote.getBooks(remoteUser)));
+		pendingBooks.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote.getPendingBooks(remoteUser)));
+	}
+
+	public List<BookAsynchrone> getBooks() {
+		return Collections.unmodifiableList(books);
+	}
+
+	public List<BookAsynchrone> getPendingBooks() {
+		return Collections.unmodifiableList(pendingBooks);
 	}
 
 	public String getFirstName() {

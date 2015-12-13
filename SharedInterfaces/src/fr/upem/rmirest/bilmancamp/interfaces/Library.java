@@ -244,5 +244,14 @@ public interface Library extends Remote {
 	 * @throws RemoteException
 	 */
 	public void disconnect(User user) throws RemoteException;
+	
+	/**
+	 * Add a comment
+	 * @param book
+	 * @param author
+	 * @param rate
+	 * @throws RemoteException
+	 */
+	public boolean addComment(Book book, String author, int rate) throws RemoteException;
 
 }

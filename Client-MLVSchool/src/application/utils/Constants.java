@@ -13,6 +13,12 @@ public class Constants {
 	public static final int LOGGING_LENGTH = Constants.NAME_LENGTH + 1 + Constants.CARDID_LENGTH;
 
 	/**
+	 * View constants.
+	 */
+	public static final int SEARCH_MODULE_Y = 22;
+	public static final int SEARCH_MODULE_X = 372;
+
+	/**
 	 * Modules.
 	 */
 	public static final String CONNECTION_SCREEN_MODULE = "/scenes/connectionScreen/connectionScreen.fxml";
@@ -24,8 +30,11 @@ public class Constants {
 	public static final String HOME_CATEGORY_MODULE = "/scenes/homeScreen/categoryDescriptionModule.fxml";
 	public static final String HOME_SEARCH_MODULE = "/scenes/homeScreen/searchModule.fxml";
 	public static final String HOME_SPINER_MODULE = "/scenes/homeScreen/bookSpinerModule.fxml";
+	public static final String HOME_BOOK_VIEWER = "/scenes/homeScreen/bookViewerModule.fxml";
+	public static final String HOME_BOOK_COMMENT_MODULE = "/scenes/homeScreen/bookCommentModule.fxml";
 	public static final String RESEARCH_SCREEN = "/scenes/researchScreen/researchScreen.fxml";
 	public static final String RESEARCH_BOOK_ENTRY_MODULE = "/scenes/researchScreen/bookEntryModule.fxml";
+	public static final String RESEARCH_CATEGORY_BUTTON = "/scenes/researchScreen/categoryButtonModule.fxml";
 
 	/**
 	 * Icons. PS: From application/ClientMLVSchool.java

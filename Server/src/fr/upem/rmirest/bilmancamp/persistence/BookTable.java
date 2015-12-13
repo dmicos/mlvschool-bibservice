@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -598,6 +599,40 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		return (st.executeUpdate("DELETE FROM borrow") | st.executeUpdate("DELETE FROM rate")
 				| st.executeUpdate("DELETE FROM queue") | st.executeUpdate("DELETE FROM book")) > 0;
 
+	}
+	
+
+	public List<BookPOJO> selectBookAddedAtLeast(Timestamp previousYears, int limit) throws SQLException {
+		
+		List<BookPOJO> content = new ArrayList<>();
+		PreparedStatement ps = getConnection()
+				.prepareStatement("SELECT * FROM book b WHERE datetime > ? AND b.id IN(SELECT idBook FROM borrow) ORDER BY title LIMIT ?");
+		ps.setTimestamp(1, previousYears);
+		ps.setInt(2,limit);
+		extractFromResultSet(content, ps.executeQuery());
+		consult(content);
+		return content;
+	}
+	
+	/**
+	 *  Add a commend
+	 * @param book
+	 * @param author
+	 * @param rate
+	 * @return
+	 * @throws SQLException 
+	 */
+
+	public boolean insertComment(BookPOJO book, String author, int rate) throws SQLException {
+
+		Objects.requireNonNull(book);
+		Objects.requireNonNull(author);
+
+		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime) VALUES(?,?,?,CURRENT_TIMESTAMP");
+		ps.setInt(1, book.getId());
+		ps.setString(2, author);
+		ps.setInt(3, rate);
+		return ps.executeUpdate() > 0;
 	}
 
 }

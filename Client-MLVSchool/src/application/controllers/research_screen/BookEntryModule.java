@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import application.ClientMLVSchool;
 import application.controllers.Module;
+import application.controllers.RemoteTaskLauncher;
 import application.model.BookAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
@@ -61,8 +62,10 @@ public class BookEntryModule implements Initializable, Module {
 
 	@FXML
 	private Button consultButton;
-	
+
 	private ImageView stars[];
+
+	private BookAsynchrone book;
 
 	@Override
 	public Pane getView() {
@@ -71,7 +74,7 @@ public class BookEntryModule implements Initializable, Module {
 
 	@FXML
 	public void consultCliked() {
-		System.out.println("Clicked  : " + titleLabel.getText());
+		RemoteTaskLauncher.updateBookToVisualize(book, ClientMLVSchool.getINSTANCE());
 	}
 
 	@Override
@@ -90,9 +93,10 @@ public class BookEntryModule implements Initializable, Module {
 	 * Configures the entry on the basis of the given book.
 	 */
 	public void setBook(BookAsynchrone book) {
+		this.book = book;
 		titleLabel.setText(book.getTitle());
 		dateLabel.setText(book.getDate());
-		authorsLabel.setText("De " + book.getAuthors().stream().collect(Collectors.joining(" ")));
+		authorsLabel.setText("De " + book.getAuthors().stream().collect(Collectors.joining(", ")));
 		try {
 			imageView.setImage(ImageProcessors.decodeBase64(book.getImage()));
 		} catch (IOException e) {
@@ -102,5 +106,9 @@ public class BookEntryModule implements Initializable, Module {
 		for (int i = 0; i < rate && i < 5; i++) {
 			stars[i].setImage(STAR_FILL_IMAGE);
 		}
+	}
+
+	public void setImage(Image image) {
+		imageView.setImage(image);
 	}
 }
