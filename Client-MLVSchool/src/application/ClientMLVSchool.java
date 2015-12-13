@@ -87,6 +87,7 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 		LoadCode.loadCSS(scene, "/css/florange.css"); // Custom CSS style sheet.
 		LoadCode.loadCSS(scene, "/css/combobox.css"); // Custom CSS style sheet.
 		primaryStage.setScene(scene);
+	    primaryStage.setResizable(false);
 		primaryStage.show();
 
 		// Setting the first screen to start.
