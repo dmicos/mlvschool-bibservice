@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import application.utils.NotificationsManager;
+import application.utils.NotificationsManager.NotificationType;
 import application.utils.UncheckedRemoteException;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
