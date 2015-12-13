@@ -56,7 +56,7 @@ public class ProxyModel {
 		User remoteUser = library.connect(login, password);
 		userConnected = UserAsynchrone.createUserAsynchrone(library, remoteUser, library.getBookHistory(remoteUser));
 		state = State.CONNECTED;
-		return userConnected.getUser();
+		return userConnected.getRemoteUser();
 	}
 
 	public boolean addUser(String firstName, String lastName, int cardID, String password, String status)
@@ -75,7 +75,7 @@ public class ProxyModel {
 	 */
 	public void disconnectUser() throws RemoteException {
 		if (state == State.CONNECTED) {
-			userConnected.getUser().disconnect();
+			userConnected.getRemoteUser().disconnect();
 		}
 	}
 
@@ -101,5 +101,19 @@ public class ProxyModel {
 
 	public BookAsynchrone updateBook(BookAsynchrone book) throws RemoteException {
 		return book.update();
+	}
+
+	public boolean borrowBook(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
+		boolean result = library.getLibrary().borrow(book.getRemoteBook(), user.getRemoteUser());
+		user.update(library);
+		book.update();
+		return result;
+	}
+	
+	public boolean giveBack(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
+		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
+		user.update(library);
+		book.update();
+		return result;
 	}
 }

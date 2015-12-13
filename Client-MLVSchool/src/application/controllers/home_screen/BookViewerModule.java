@@ -14,9 +14,11 @@ import application.ClientMLVSchool;
 import application.controllers.BindingsLimits;
 import application.controllers.Module;
 import application.controllers.ModuleLoader;
+import application.controllers.RemoteTaskLauncher;
 import application.controllers.RemoteTaskObserver;
 import application.model.BookAsynchrone;
 import application.model.ProxyModel;
+import application.model.UserAsynchrone;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.CoordinateTransformations;
@@ -108,6 +110,12 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	private ProxyModel proxyModel;
 
+	private enum BookState {
+		TO_BORROW, TO_GIVE_BACK, TO_CANCEL;
+	}
+
+	private BookState bookState;
+
 	@FXML
 	void paneRootClicked() {
 		hide();
@@ -120,7 +128,17 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	@FXML
 	void actionButtonClicked() {
-		System.out.println("Button action clicked.");
+		System.out.println("Button action clicked. " + bookState);
+		switch (bookState) {
+		case TO_BORROW:
+			RemoteTaskLauncher.borrowBook(proxyModel, proxyModel.getConnectedUser(), book, this);
+			break;
+		case TO_GIVE_BACK:
+			RemoteTaskLauncher.giveBack(proxyModel, proxyModel.getConnectedUser(), book, this);
+			break;
+		case TO_CANCEL:
+			break;
+		}
 	}
 
 	@FXML
@@ -131,6 +149,20 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 	@FXML
 	void cancelClicked() {
 		hide();
+	}
+
+	@Override
+	public void onBookBorrowed(Boolean borrowed, BookAsynchrone book, UserAsynchrone user) {
+		RemoteTaskObserver.super.onBookBorrowed(borrowed, book, user);
+		configureActionButton(proxyModel, book);
+		// TODO Reload comments too.
+	}
+
+	@Override
+	public void onBookGivenBack(Boolean giveBack, BookAsynchrone book, UserAsynchrone user) {
+		RemoteTaskObserver.super.onBookGivenBack(giveBack, book, user);
+		configureActionButton(proxyModel, book);
+		// TODO Reload comments too.
 	}
 
 	private void commentaryRequested() {
@@ -249,13 +281,28 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	// TODO put a state for this.
 	private void configureActionButton(ProxyModel proxyModel, BookAsynchrone book) {
-		List<BookAsynchrone> userBooks = proxyModel.getConnectedUser().getBooks();
-		for (BookAsynchrone uBook : userBooks) {
+		bookState = BookState.TO_BORROW;
+		actionButton.setText("Borrow");
+		UserAsynchrone connectedUser = proxyModel.getConnectedUser();
+		for (BookAsynchrone uBook : connectedUser.getBooks()) {
 			if (uBook.getId() == book.getId()) {
 				// The book is already took.
-
+				bookState = BookState.TO_GIVE_BACK;
+				actionButton.setText("Give back");
+				return;
 			}
 		}
+		// Checking if the book is in the pending list.
+		for (BookAsynchrone uBook : connectedUser.getPendingBooks()) {
+			if (uBook.getId() == book.getId()) {
+				// The book is already in queue, we can cancel.
+				bookState = BookState.TO_CANCEL;
+				actionButton.setText("Cancel");
+				return;
+			}
+		}
+		// Here we are sure the user can request a BORROW.
+		// Keeping the button the same as default.
 	}
 
 	private void loadImageInWorker(BookAsynchrone book) {

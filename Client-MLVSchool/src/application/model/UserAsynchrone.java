@@ -1,6 +1,7 @@
 package application.model;
 
 import java.rmi.RemoteException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,13 +26,15 @@ public class UserAsynchrone {
 	private final int id;
 	private final int nbBooks;
 	private final List<BookAsynchrone> books;
+	private final List<BookAsynchrone> pendingBooks;
 
 	private UserAsynchrone(User remoteUser, String firstName, String lastName, String status,
-			List<BookAsynchrone> books, int id, int nbBooks) {
+			List<BookAsynchrone> books, List<BookAsynchrone> pendingBooks, int id, int nbBooks) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.status = status;
 		this.books = books;
+		this.pendingBooks = pendingBooks;
 		this.id = id;
 		this.nbBooks = nbBooks;
 		this.remoteUser = Objects.requireNonNull(remoteUser);
@@ -53,16 +56,30 @@ public class UserAsynchrone {
 		int id = remoteUser.getId();
 		List<BookAsynchrone> books = BookAsynchrone.convertToBooksAsynchrone(library.getBooks(remoteUser));
 		int nbBooks = books.size();
-		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, id, nbBooks);
+		List<BookAsynchrone> pendingBooks = BookAsynchrone
+				.convertToBooksAsynchrone(library.getPendingBooks(remoteUser));
+		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, pendingBooks, id, nbBooks);
 	}
 
 	// Default and not public !
-	User getUser() {
+	User getRemoteUser() {
 		return remoteUser;
 	}
 
+	public void update(LibraryAsynchrone library) throws RemoteException {
+		books.clear();
+		pendingBooks.clear();
+		Library libraryRemote = library.getLibrary();
+		books.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote.getBooks(remoteUser)));
+		pendingBooks.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote.getPendingBooks(remoteUser)));
+	}
+
 	public List<BookAsynchrone> getBooks() {
-		return books;
+		return Collections.unmodifiableList(books);
+	}
+
+	public List<BookAsynchrone> getPendingBooks() {
+		return Collections.unmodifiableList(pendingBooks);
 	}
 
 	public String getFirstName() {

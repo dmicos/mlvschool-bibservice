@@ -13,6 +13,7 @@ import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
+import application.model.UserAsynchrone;
 import application.utils.NotificationsManager;
 import application.utils.NotificationsManager.NotificationType;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
@@ -70,14 +71,14 @@ public class RemoteTaskLauncher {
 			Throwable exception = task.getException();
 			if (exception == null) {
 				// ClientMLVSchool.reloadApplicationFirstScreen();
-				reloadApplication("Connection lost.");
+				reloadApplication("Connection lost.", task.getException());
 				return;
 			}
 			if (exception.getClass() == IllegalArgumentException.class) {
 				loginModule.onLoginError();
 				return;
 			}
-			reloadApplication("Connection lost.");
+			reloadApplication("Connection lost.", task.getException());
 		});
 
 		launchTask(task);
@@ -89,8 +90,8 @@ public class RemoteTaskLauncher {
 		Task<ConnectingTaskInfo> task = createConnectingUserTaskWithSucceedHandled(screen, login, password, proxyModel);
 
 		// Handling the failure.
-		task.setOnFailed(
-				e -> reloadApplication("Error of transmision with the Library : " + task.getException().getMessage()));
+		task.setOnFailed(e -> reloadApplication(
+				"Error of transmision with the Library : " + task.getException().getMessage(), task.getException()));
 
 		launchTask(task);
 	}
@@ -123,7 +124,7 @@ public class RemoteTaskLauncher {
 
 		// Handling the failure.
 		task.setOnFailed(e -> {
-			reloadApplication("Adding user to the Library failed.");
+			reloadApplication("Adding user to the Library failed.", task.getException());
 		});
 
 		launchTask(task);
@@ -154,14 +155,14 @@ public class RemoteTaskLauncher {
 		task.setOnFailed(e -> {
 			Throwable exception = task.getException();
 			if (exception == null) {
-				reloadApplication("Connection lost.");
+				reloadApplication("Connection lost.", task.getException());
 				return;
 			}
 			if (exception.getClass() == IllegalArgumentException.class) {
 				addBookModule.onBookAddedError();
 				return;
 			}
-			reloadApplication("Connection lost.");
+			reloadApplication("Connection lost.", task.getException());
 		});
 
 		launchTask(task);
@@ -185,7 +186,7 @@ public class RemoteTaskLauncher {
 		});
 
 		// Handling the failure.
-		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
 		launchTask(task);
 	}
 
@@ -202,7 +203,7 @@ public class RemoteTaskLauncher {
 		task.setOnSucceeded(e -> observer.onLibraryRefreshed());
 
 		// Handling the failure.
-		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
 		launchTask(task);
 	}
 
@@ -218,7 +219,7 @@ public class RemoteTaskLauncher {
 
 		// Handling the success.
 		task.setOnSucceeded(e -> searchModule.onBookFound(task.getValue(), keywords));
-		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
 		launchTask(task);
 	}
 
@@ -234,7 +235,7 @@ public class RemoteTaskLauncher {
 
 		// Handling the success.
 		task.setOnSucceeded(e -> disconnect());
-		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
 		launchTask(task);
 	}
 
@@ -250,13 +251,59 @@ public class RemoteTaskLauncher {
 
 		// Handling the success.
 		task.setOnSucceeded(e -> observer.onBookVisualized(task.getValue()));
-		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
 		launchTask(task);
 	}
 
-	private static void reloadApplication(String message) {
+	public static void borrowBook(ProxyModel proxyModel, UserAsynchrone user, BookAsynchrone book,
+			RemoteTaskObserver... observers) {
+		Objects.requireNonNull(proxyModel);
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(book);
+		Task<Boolean> task = new Task<Boolean>() {
+			@Override
+			protected Boolean call() throws Exception {
+				return proxyModel.borrowBook(user, book);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> {
+			for (RemoteTaskObserver obs : observers) {
+				obs.onBookBorrowed(task.getValue(), book, user);
+			}
+		});
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
+		launchTask(task);
+	}
+
+	public static void giveBack(ProxyModel proxyModel, UserAsynchrone user, BookAsynchrone book,
+			RemoteTaskObserver... observers) {
+		Objects.requireNonNull(proxyModel);
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(book);
+		Task<Boolean> task = new Task<Boolean>() {
+			@Override
+			protected Boolean call() throws Exception {
+				return proxyModel.giveBack(user, book);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> {
+			for (RemoteTaskObserver obs : observers) {
+				obs.onBookGivenBack(task.getValue(), book, user);
+			}
+		});
+		task.setOnFailed(e -> reloadApplication("Connection lost.", task.getException()));
+		launchTask(task);
+	}
+
+	private static void reloadApplication(String message, Throwable throwable) {
 		NotificationsManager.notify("Library :", message, NotificationType.DATABASE);
 		ClientMLVSchool.getINSTANCE().reloadApplicationFirstScreen();
+		System.err.println(throwable.getMessage());
+		throwable.printStackTrace();
 	}
 
 	private static void disconnect() {

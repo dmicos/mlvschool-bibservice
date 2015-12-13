@@ -2,7 +2,7 @@ package application.controllers;
 
 import application.model.ProxyModel;
 
-public interface Screen extends Module {
+public interface Screen extends Module, RemoteTaskObserver {
 
 	public void initializeWithDynamicContent(ProxyModel proxyModel);
 

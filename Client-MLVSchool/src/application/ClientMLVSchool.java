@@ -254,4 +254,8 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 	public ProxyModel getProxyModel() {
 		return currentScreen.getProxyModel();
 	}
+
+	public Screen getCurrentScreen() {
+		return currentScreen;
+	}
 }
