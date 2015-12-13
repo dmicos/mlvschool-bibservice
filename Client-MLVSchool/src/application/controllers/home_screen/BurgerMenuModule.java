@@ -11,6 +11,7 @@ import application.controllers.Module;
 import application.controllers.ModuleLoader;
 import application.controllers.RemoteTaskLauncher;
 import application.controllers.RemoteTaskObserver;
+import application.controllers.library_screen.LibraryScreen;
 import application.model.ProxyModel;
 import application.model.UserAsynchrone;
 import application.utils.Constants;
@@ -60,7 +61,7 @@ public class BurgerMenuModule implements Initializable, Module, RemoteTaskObserv
 	private ProxyModel proxyModel;
 
 	private enum State {
-		LAUNCHING_HOME, LAUNCHING_LIBRARY, LAUNCHING_PENDING, DISCONNECTING, HIDLE;
+		LAUNCHING_HOME, LAUNCHING_LIBRARY, DISCONNECTING, HIDLE;
 	}
 
 	private State state = State.HIDLE;
@@ -75,18 +76,27 @@ public class BurgerMenuModule implements Initializable, Module, RemoteTaskObserv
 	public void onLibraryRefreshed() {
 		// Launching the home screen when the library is refreshed. This is the
 		// only thing wanted by this menu here
-		if (state != State.LAUNCHING_HOME) {
-			return;
+		switch (state) {
+		case DISCONNECTING:
+			break;
+		case HIDLE:
+			break;
+		case LAUNCHING_HOME:
+			HomeScreen homeScreen = ModuleLoader.getInstance().load(HomeScreen.class);
+			ClientMLVSchool.getINSTANCE().setInstantNewScreen(homeScreen);
+			homeScreen.startHasMainScreen();
+			break;
+		case LAUNCHING_LIBRARY:
+			LibraryScreen libraryScreen = ModuleLoader.getInstance().load(LibraryScreen.class);
+			ClientMLVSchool.getINSTANCE().setInstantNewScreen(libraryScreen);
+			break;
 		}
 		state = State.HIDLE;
-		HomeScreen homeScreen = ModuleLoader.getInstance().load(HomeScreen.class);
-		ClientMLVSchool.getINSTANCE().setInstantNewScreen(homeScreen);
-		homeScreen.startHasMainScreen();
 	}
 
 	@FXML
 	public void homeClicked() {
-		if (state == State.LAUNCHING_HOME) {
+		if (state != State.HIDLE) {
 			return;
 		}
 		RemoteTaskLauncher.refreshLibrary(proxyModel, this);
@@ -95,7 +105,20 @@ public class BurgerMenuModule implements Initializable, Module, RemoteTaskObserv
 
 	@FXML
 	public void libraryClicked() {
-		System.out.println("Library button clicked.");
+		if (state != State.HIDLE) {
+			return;
+		}
+		RemoteTaskLauncher.refreshLibrary(proxyModel, this);
+		state = State.LAUNCHING_LIBRARY;
+	}
+
+	@FXML
+	public void profilClicked() {
+		if (state != State.HIDLE) {
+			return;
+		}
+		RemoteTaskLauncher.refreshLibrary(proxyModel, this);
+		state = State.LAUNCHING_LIBRARY;
 	}
 
 	@FXML
@@ -106,16 +129,11 @@ public class BurgerMenuModule implements Initializable, Module, RemoteTaskObserv
 
 	@FXML
 	public void logOutClicked() {
-		if (state == State.DISCONNECTING) {
+		if (state != State.HIDLE) {
 			return;
 		}
 		RemoteTaskLauncher.disconnect(proxyModel);
 		state = State.DISCONNECTING;
-	}
-
-	@FXML
-	public void profilClicked() {
-		System.out.println("Profil button clicked.");
 	}
 
 	@FXML

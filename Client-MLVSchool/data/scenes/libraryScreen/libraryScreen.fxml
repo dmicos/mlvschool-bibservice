@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="sceneSize" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.library_screen.LibraryScreen">
+	<children>
+		<ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../../images/libraryMLV.jpg" />
+			</image>
+			<viewport>
+				<Rectangle2D height="1066.6" width="1600.0" />
+			</viewport>
+		</ImageView>
+		<Text fx:id="screenTitle" fill="WHITE" layoutX="944.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Library">
+			<font>
+				<Font name="SF UI Text Semibold" size="52.0" />
+			</font>
+		</Text>
+      <Text fx:id="myBooksText" fill="WHITE" layoutX="70.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My books">
+         <font>
+            <Font name="SF UI Text Semibold" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="myPendingsText" fill="WHITE" layoutX="71.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Pendings">
+         <font>
+            <Font name="SF UI Text Semibold" size="36.0" />
+         </font>
+      </Text>
+	</children>
+</Pane>

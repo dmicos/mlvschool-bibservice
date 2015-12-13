@@ -106,6 +106,18 @@ public class BookSpinerModule implements Initializable, Module {
 	/**
 	 * Initializes a chain of {@link BookSpinerModule}.
 	 */
+	public static BookSpinerModule initStaticSpinner(List<BookAsynchrone> books) {
+		BookSpinerModule spiner = ModuleLoader.getInstance().load(BookSpinerModule.class);
+		try {
+			spiner.initContent(books, "");
+		} catch (IOException e) {
+		}
+		return spiner;
+	}
+
+	/**
+	 * Initializes a chain of {@link BookSpinerModule}.
+	 */
 	static void initChaineSpinners(String[] titles, List<List<BookAsynchrone>> lists, Pane paneRoot,
 			List<BookSpinerModule> spiners) {
 		int i = 0;

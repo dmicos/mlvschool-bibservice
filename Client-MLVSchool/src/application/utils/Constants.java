@@ -35,6 +35,7 @@ public class Constants {
 	public static final String RESEARCH_SCREEN = "/scenes/researchScreen/researchScreen.fxml";
 	public static final String RESEARCH_BOOK_ENTRY_MODULE = "/scenes/researchScreen/bookEntryModule.fxml";
 	public static final String RESEARCH_CATEGORY_BUTTON = "/scenes/researchScreen/categoryButtonModule.fxml";
+	public static final String LIBRARY_SCREEN = "/scenes/libraryScreen/libraryScreen.fxml";
 
 	/**
 	 * Icons. PS: From application/ClientMLVSchool.java
