@@ -47,6 +47,18 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 		String codebase = "file:///Users/Baxtalou/Documents/Master2/REST2/ProjetRMIREST/bilious-octoprune/Server/src/";
 		System.setProperty("java.security.policy", Constants.SECURITY_POLICY_PATH);
 		System.setProperty("java.rmi.server.codebase", codebase);
+
+		String host = "localhost";
+		String port = "8888";
+		int nbArgs = args.length;
+		if (nbArgs >= 1) {
+			host = args[0];
+		}
+		if (nbArgs >= 2) {
+			port = args[1];
+		}
+		System.setProperty("host", host);
+		System.setProperty("port", port);
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
@@ -65,17 +77,21 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 	private Scene scene;
 	private Stage primaryStage;
 	private Screen currentScreen;
-
+	private String port;
+	private String host;
 	/* Modules on the top of other screens (exception the connection screen). */
 	private BurgerMenuModule burgerMenuModule;
 	private AddBookModule addBookModule;
 	private SearchModule searchModule;
 	private BookViewerModule bookViewerModule;
-
 	private MailBox<Book> mailBox;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		host = System.getProperty("host");
+		port = System.getProperty("port");
+		
+		System.out.println(host + ':' + port + '/');
 		this.primaryStage = primaryStage;
 		// Loading the JavaFX connection screen.
 		ConnectionScreen connectionScreen = loadConnectionScreen();
@@ -87,7 +103,7 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 		LoadCode.loadCSS(scene, "/css/florange.css"); // Custom CSS style sheet.
 		LoadCode.loadCSS(scene, "/css/combobox.css"); // Custom CSS style sheet.
 		primaryStage.setScene(scene);
-	    primaryStage.setResizable(false);
+		primaryStage.setResizable(false);
 		primaryStage.show();
 
 		// Setting the first screen to start.
@@ -276,5 +292,9 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 
 	public MailBox<Book> getMailBox() {
 		return mailBox;
+	}
+
+	public String getRMIAddress() {
+		return host + ':' + port + '/'; // localhost 8888
 	}
 }

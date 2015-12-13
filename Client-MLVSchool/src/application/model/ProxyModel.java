@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import application.ClientMLVSchool;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
@@ -44,8 +45,8 @@ public class ProxyModel {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
-		// TODO put it in a configuration file.
-		Library library = (Library) Naming.lookup("rmi://localhost:8888/libraryService");
+		Library library = (Library) Naming
+				.lookup("rmi://" + ClientMLVSchool.getINSTANCE().getRMIAddress() + "libraryService");
 		this.library = LibraryAsynchrone.createLibraryAsynchrone(library);
 	}
 

@@ -21,15 +21,17 @@ public class BookAsynchrone {
 	private Book book;
 	private final int id;
 	private final List<BookComment> comments;
+	private final String summary;
 
 	public BookAsynchrone(Book book, int id, String title, List<String> authors, String date, int rate,
-			List<BookComment> comments, String image) {
+			List<BookComment> comments, String summary, String image) {
 		this.book = book;
 		this.id = id;
 		this.authors = authors;
 		this.date = date;
 		this.rate = rate;
 		this.comments = comments;
+		this.summary = summary;
 		this.title = Objects.requireNonNull(title);
 		this.image = Objects.requireNonNull(image);
 
@@ -49,7 +51,8 @@ public class BookAsynchrone {
 		int rate = (int) library.getRate(book);
 		int id = book.getId();
 		List<BookComment> comment = library.getComment(book);
-		return new BookAsynchrone(book, id, title, authors, date, rate, comment, mainImage);
+		String summary = book.getSummary();
+		return new BookAsynchrone(book, id, title, authors, date, rate, comment, summary, mainImage);
 	}
 
 	BookAsynchrone update(Library library) throws RemoteException {
@@ -65,6 +68,10 @@ public class BookAsynchrone {
 
 	public List<BookComment> getComments() {
 		return comments;
+	}
+
+	public String getSummary() {
+		return summary;
 	}
 
 	public Book getRemoteBook() {

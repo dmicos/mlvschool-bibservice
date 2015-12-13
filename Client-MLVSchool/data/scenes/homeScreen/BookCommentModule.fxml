@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="paneRoot" maxHeight="153.0" maxWidth="600.0" minHeight="153.0" minWidth="600.0" prefHeight="153.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.BookCommentModule">
+<VBox fx:id="paneRoot" maxWidth="600.0" minWidth="600.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.BookCommentModule">
 	<children>
 		<Label fx:id="titleLabel" text="Jefferson Mangue" textFill="WHITE" wrapText="true">
 			<font>
 				<Font name="SF UI Text Semibold" size="18.0" />
 			</font>
 		</Label>
-		<Label fx:id="contentLabel" prefHeight="130.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+		<Label fx:id="contentLabel" alignment="TOP_LEFT" prefWidth="600.0" text="Par son ouverture " textFill="WHITE" wrapText="true">
 			<font>
 				<Font name="SF UI Text Regular" size="18.0" />
 			</font>

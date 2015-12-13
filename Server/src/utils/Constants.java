@@ -7,7 +7,7 @@ public class Constants {
 	public static final String DATABASE_IMAGES_PATH = BASE_DIR + "\\images\\";
 	public static final String SECURITY_POLICY_PATH = "data/confFiles/sec.policy";
 	public static final String LocalHost = "localhost";
-	public static final int DEFAULT_PORT = 8888;
+	public static final int DEFAULT_PORT = 8880;
 	public static final String DB_HOME = "DB_HOME";
 
 }

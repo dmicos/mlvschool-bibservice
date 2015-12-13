@@ -24,6 +24,7 @@ import application.model.UserAsynchrone;
 import application.utils.Animations;
 import application.utils.Constants;
 import application.utils.CoordinateTransformations;
+import application.utils.FontManager;
 import application.utils.ImageProcessors;
 import application.utils.NotificationsManager;
 import application.utils.NotificationsManager.NotificationType;
@@ -52,6 +53,9 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 	private Label authorsLabel;
 
 	@FXML
+	private Label summaryText;
+
+	@FXML
 	private Pane paneRoot;
 
 	@FXML
@@ -77,6 +81,8 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	@FXML
 	private Button cancelButton;
+	@FXML
+	private Button commentButton;
 
 	@FXML
 	private ImageView start3;
@@ -129,6 +135,11 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 	@FXML
 	void paneFormClicked() {
 		// hide arrange this "bug".
+	}
+
+	@FXML
+	void onCommentClicked() {
+		commentaryRequested();
 	}
 
 	@FXML
@@ -249,7 +260,6 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO font.
 		stars = new ImageView[] { start1, start2, start3, start4, start5 };
 		// Not visible at first.
 		paneRoot.setMouseTransparent(true);
@@ -268,6 +278,19 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		});
 		// Rate field is limiting in [0-5];
 		BindingsLimits.setNumericeRateConstraint(rateField);
+
+		loadFont();
+	}
+
+	private void loadFont() {
+		titleLabel.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 24));
+		dateLabel.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_LIGHT, 18));
+		authorsLabel.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 18));
+		actionButton.setFont(FontManager.getInstance().getFont(Constants.SF_DISPLAY_REGULAR, 32));
+		summaryText.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_REGULAR, 18));
+		commentaryField.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_REGULAR, 24));
+		rateField.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_REGULAR, 24));
+		cancelButton.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_LIGHT, 18));
 	}
 
 	public void setData(ProxyModel proxyModel, BookAsynchrone book) {
@@ -276,6 +299,7 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		titleLabel.setText(book.getTitle());
 		dateLabel.setText(book.getDate());
 		authorsLabel.setText("De " + book.getAuthors().stream().collect(Collectors.joining(", ")));
+		summaryText.setText(book.getSummary());
 		int rate = book.getRate();
 
 		loadComments(book);
