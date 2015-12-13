@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.CommentImpl;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
 public class BookTable extends AbstractTableModel<BookPOJO> {
@@ -622,16 +623,34 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	 * @throws SQLException 
 	 */
 
-	public boolean insertComment(BookPOJO book, String author, int rate) throws SQLException {
+	public boolean insertComment(BookPOJO book, String author, int rate,String content) throws SQLException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(author);
 
-		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime) VALUES(?,?,?,CURRENT_TIMESTAMP");
+		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?");
 		ps.setInt(1, book.getId());
 		ps.setString(2, author);
 		ps.setInt(3, rate);
+		ps.setString(4, content);
 		return ps.executeUpdate() > 0;
+	}
+
+	public List<CommentImpl> getComments(BookPOJO pojo) throws SQLException {
+		
+		List<CommentImpl> content = new ArrayList<>();
+		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM comment WHERE idBook=? order by datetime desc ");
+		ps.setInt(1, pojo.getId());
+		ResultSet rs = ps.executeQuery();
+		rs.beforeFirst();
+		
+		while(rs.next()){
+			
+			content.add(new CommentImpl(rs.getString("author"),rs.getString(("summary"))));
+			
+		}
+		rs.close();
+		return content;
 	}
 
 }

@@ -11,12 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
@@ -260,8 +262,13 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
-	public boolean addComment(Book book, String author, int rate) throws RemoteException {
+	public boolean addComment(Book book, String author, int rate,String content) throws RemoteException {
 		
-		return database.addComment(Mapper.createBookPOJO(book), author, rate);
+		return database.addComment(Mapper.createBookPOJO(book), author, rate,content);
+	}
+
+	@Override
+	public List<BookComment> getComment(Book book) throws RemoteException {
+		return database.getComments(Mapper.createBookPOJO(book)).stream().map(com -> new CommentImpl(com.getAuthors(),com.getContent())).collect(Collectors.toList());
 	}
 }

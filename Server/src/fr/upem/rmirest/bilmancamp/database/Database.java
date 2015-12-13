@@ -6,6 +6,7 @@ import java.util.List;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.CommentImpl;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
 public interface Database {
@@ -258,6 +259,13 @@ public interface Database {
 	 * @param rate
 	 * @throws RemoteException
 	 */
-	public boolean addComment(BookPOJO book, String author, int rate);
+	public boolean addComment(BookPOJO book, String author, int rate,String content);
+
+	/**
+	 * Get list of comment
+	 * @param createBookPOJO
+	 * @return
+	 */
+	public List<CommentImpl> getComments(BookPOJO createBookPOJO);
 
 }
