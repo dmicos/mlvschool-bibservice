@@ -161,9 +161,18 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setInt(1, limit);
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
-		System.out.println(content);
 		return content;
 	}
+	
+	public double  getRate(int idBook) throws SQLException {
+
+		PreparedStatement ps = getConnection().prepareStatement("SELECT AVG(VALUE) as rank from rate r WHERE idBook=?");
+		ps.setInt(1, idBook);
+		ResultSet rs = ps.executeQuery();
+		return rs.getDouble("rank");
+	}
+	
+	
 
 	@Override
 	public Optional<BookPOJO> find(Object... pk) throws SQLException {
@@ -588,10 +597,12 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		List<String> secondaries = images.size() > 1 ? images.subList(1, images.size()) : Collections.emptyList();
 
 		// Create the book
-		return new BookPOJO(rs.getInt("id"), rs.getString("title"), Arrays.asList(rs.getString("authors").split(",")),
+		BookPOJO tmp =  new BookPOJO(rs.getInt("id"), rs.getString("title"), Arrays.asList(rs.getString("authors").split(",")),
 				rs.getString("description"), Arrays.asList(rs.getString("catName").split(",")), rs.getDouble("price"),
 				Arrays.asList(rs.getString("tags").split(",")), images.get(0), secondaries);
 
+		tmp.setRateNumber((int)getRate(tmp.getId()));
+		return tmp;
 	}
 
 	@Override
@@ -629,7 +640,7 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(author);
 
-		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?");
+		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?)");
 		ps.setInt(1, book.getId());
 		ps.setString(2, author);
 		ps.setInt(3, rate);

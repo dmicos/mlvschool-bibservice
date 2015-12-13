@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
@@ -88,7 +89,8 @@ public class ProxyModel {
 	}
 
 	public List<BookAsynchrone> searchByCategory(String category) throws RemoteException {
-		return BookAsynchrone.convertToBooksAsynchrone(library.getLibrary().getCategoryBooks(category));
+		return BookAsynchrone.convertToBooksAsynchrone(library.getLibrary(),
+				library.getLibrary().getCategoryBooks(category));
 	}
 
 	public void reloadLibrary() throws RemoteException {
@@ -96,31 +98,44 @@ public class ProxyModel {
 	}
 
 	public List<BookAsynchrone> search(String[] keywords) throws RemoteException {
-		return BookAsynchrone.convertToBooksAsynchrone(library.getLibrary().searchBooks(keywords));
+		return BookAsynchrone.convertToBooksAsynchrone(library.getLibrary(),
+				library.getLibrary().searchBooks(keywords));
 	}
 
 	public BookAsynchrone updateBook(BookAsynchrone book) throws RemoteException {
-		return book.update();
+		return book.update(library.getLibrary());
 	}
 
 	public boolean borrowBook(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
 		boolean result = library.getLibrary().borrow(book.getRemoteBook(), user.getRemoteUser());
 		user.update(library);
-		book.update();
+		book.update(library.getLibrary());
 		return result;
 	}
 
 	public boolean giveBack(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
 		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
 		user.update(library);
-		book.update();
+		book.update(library.getLibrary());
 		return result;
 	}
 
 	public boolean cancel(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
 		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
 		user.update(library);
-		book.update();
+		book.update(library.getLibrary());
 		return result;
+	}
+
+	public Boolean addComment(BookAsynchrone book, String content, int rate) throws RemoteException {
+		Book remoteBook = book.getRemoteBook();
+		User remoteUser = userConnected.getRemoteUser();
+		String name = userConnected.getFirstName() + " " + userConnected.getLastName();
+		boolean addComment = library.getLibrary().addComment(remoteBook, name, rate, content);
+		boolean rateBook = library.getLibrary().rateBook(remoteBook, remoteUser, rate);
+		// Workaround. Should have been only 1 call.
+		userConnected.update(library);
+		book.update(library.getLibrary());
+		return addComment && rateBook;
 	}
 }

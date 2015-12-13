@@ -54,10 +54,10 @@ public class UserAsynchrone {
 		String lastName = remoteUser.getLastName();
 		String status = remoteUser.getStatus();
 		int id = remoteUser.getId();
-		List<BookAsynchrone> books = BookAsynchrone.convertToBooksAsynchrone(library.getBooks(remoteUser));
+		List<BookAsynchrone> books = BookAsynchrone.convertToBooksAsynchrone(library, library.getBooks(remoteUser));
 		int nbBooks = books.size();
-		List<BookAsynchrone> pendingBooks = BookAsynchrone
-				.convertToBooksAsynchrone(library.getPendingBooks(remoteUser));
+		List<BookAsynchrone> pendingBooks = BookAsynchrone.convertToBooksAsynchrone(library,
+				library.getPendingBooks(remoteUser));
 		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, pendingBooks, id, nbBooks);
 	}
 
@@ -70,8 +70,9 @@ public class UserAsynchrone {
 		books.clear();
 		pendingBooks.clear();
 		Library libraryRemote = library.getLibrary();
-		books.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote.getBooks(remoteUser)));
-		pendingBooks.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote.getPendingBooks(remoteUser)));
+		books.addAll(BookAsynchrone.convertToBooksAsynchrone(library.getLibrary(), libraryRemote.getBooks(remoteUser)));
+		pendingBooks.addAll(BookAsynchrone.convertToBooksAsynchrone(library.getLibrary(),
+				libraryRemote.getPendingBooks(remoteUser)));
 	}
 
 	public List<BookAsynchrone> getBooks() {

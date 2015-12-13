@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import com.sun.org.apache.xml.internal.serializer.ToStream;
-
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 
@@ -85,10 +83,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public float getRate() throws RemoteException {
-		if (model.getRateNumber() == 0) {
-			return 0;
-		}
-		return model.getTotalRate() / model.getRateNumber();
+		return getRateNumber();
 	}
 
 	@Override
