@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.CommentImpl;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 import fr.upem.rmirest.bilmancamp.persistence.BookTable;
 import fr.upem.rmirest.bilmancamp.persistence.CategoryTable;
@@ -361,13 +362,23 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addComment(BookPOJO book, String author, int rate) {
+	public boolean addComment(BookPOJO book, String author, int rate,String content) {
 		
 		try {
-			return bTable.insertComment(book,author,rate);
+			return bTable.insertComment(book,author,rate,content);
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
 		return false;
+	}
+
+	@Override
+	public List<CommentImpl> getComments(BookPOJO pojo) {
+		try {
+			return bTable.getComments(pojo);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+		return Collections.emptyList();
 	}
 }

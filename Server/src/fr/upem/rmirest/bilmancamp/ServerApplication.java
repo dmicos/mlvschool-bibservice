@@ -5,15 +5,14 @@ import java.io.UncheckedIOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.List;
 import java.util.Objects;
-import utils.*;
+
 import com.beust.jcommander.JCommander;
 
 import fr.upem.rmirest.bilmancamp.helpers.DBHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
-import fr.upem.rmirest.bilmancamp.models.BookPOJO;
 import fr.upem.rmirest.bilmancamp.models.LibraryImpl;
+import utils.Constants;
 
 public class ServerApplication {
 
@@ -65,10 +64,7 @@ public class ServerApplication {
 			System.out.println("Clear the database.");
 			LibraryImpl libImpl = (LibraryImpl) lib;
 			
-
-			List<BookPOJO> tmp =DBHelper.embeddedDB().getBooksFromPastAndBorrowed(2, 1000);
-			tmp.forEach(b -> System.out.println(b));
-			
+						
 			try {
 				libImpl.populateDatabase(USER_SET_FILE_PATH, BOOK_SET_FILE_PATH, RATE_SET_FILE_PATH);
 			} catch (IOException e) {

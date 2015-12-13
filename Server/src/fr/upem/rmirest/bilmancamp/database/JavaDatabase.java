@@ -1,6 +1,5 @@
 package fr.upem.rmirest.bilmancamp.database;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import fr.upem.rmirest.bilmancamp.models.BookPOJO;
+import fr.upem.rmirest.bilmancamp.models.CommentImpl;
 import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 
 /**
@@ -359,10 +359,17 @@ public class JavaDatabase implements Database {
 		return null;
 	}
 
+
 	@Override
-	public boolean addComment(BookPOJO book, String author, int rate) {
+	public boolean addComment(BookPOJO book, String author, int rate, String content) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<CommentImpl> getComments(BookPOJO createBookPOJO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
