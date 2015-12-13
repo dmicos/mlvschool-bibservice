@@ -1,6 +1,7 @@
 package fr.upem.rmirest.bilmancamp.interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * Represents a Callback address in which user will be contacted
@@ -17,5 +18,5 @@ public interface MailBox<T> extends Remote {
 	 * @param value
 	 *            The data to send
 	 */
-	public void receive(T value);
+	public void receive(T value) throws RemoteException;
 }

@@ -46,7 +46,7 @@ public class BookAsynchrone {
 		String mainImage = book.getMainImage();
 		List<String> authors = book.getAuthors();
 		String date = book.getDate().toString();
-		int rate = (int) book.getRate();
+		int rate = (int) library.getRate(book);
 		int id = book.getId();
 		List<BookComment> comment = library.getComment(book);
 		return new BookAsynchrone(book, id, title, authors, date, rate, comment, mainImage);
@@ -57,7 +57,7 @@ public class BookAsynchrone {
 		image = book.getMainImage();
 		authors = book.getAuthors();
 		date = book.getDate().toString();
-		rate = (int) book.getRate();
+		rate = (int) library.getRate(book);
 		comments.clear();
 		comments.addAll(library.getComment(book));
 		return this;

@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 /**
@@ -52,9 +53,10 @@ public class ProxyModel {
 		return library;
 	}
 
-	public User connectUser(String login, String password) throws IllegalArgumentException, RemoteException {
+	public User connectUser(String login, String password, MailBox<Book> mailBox)
+			throws IllegalArgumentException, RemoteException {
 		Library library = this.library.getLibrary();
-		User remoteUser = library.connect(login, password);
+		User remoteUser = library.connect(login, password, mailBox);
 		userConnected = UserAsynchrone.createUserAsynchrone(library, remoteUser, library.getBookHistory(remoteUser));
 		state = State.CONNECTED;
 		return userConnected.getRemoteUser();

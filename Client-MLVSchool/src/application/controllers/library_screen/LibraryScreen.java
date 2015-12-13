@@ -45,12 +45,19 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 	}
 
 	@Override
-	public void onBookGivenBack(Boolean giveBack, BookAsynchrone book, UserAsynchrone user) {
-		// No call on super. It has a design problem with the number of obs will
-		// call the same super x time in the chain :S. I have to delegate to
-		// only one.
+	public void onBookBorrowed(Boolean borrowed, BookAsynchrone book, UserAsynchrone user) {
 		try {
-			System.out.println("Here : "+user.getBooks().size());
+			System.out.println("Updating borrowed books.");
+			spiner1.initContent(user.getBooks(), "");
+			spiner2.initContent(user.getPendingBooks(), "");
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
+	public void onBookGivenBack(Boolean giveBack, BookAsynchrone book, UserAsynchrone user) {
+		try {
+			System.out.println("Updating given back books.");
 			spiner1.initContent(user.getBooks(), "");
 		} catch (IOException e) {
 		}
@@ -62,6 +69,7 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 		// call the same super x time in the chain :S. I have to delegate to
 		// only one.
 		try {
+			System.out.println("Updating pending books.");
 			spiner2.initContent(user.getPendingBooks(), "");
 		} catch (IOException e) {
 		}

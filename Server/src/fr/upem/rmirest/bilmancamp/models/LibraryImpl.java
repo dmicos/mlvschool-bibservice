@@ -198,10 +198,9 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 		// database authentication ?
 		UserPOJO uPojo = database.connectUser(id, password);
-
+		
 		// authentication OK
 		if (uPojo != null) {
-
 			User user = new UserImpl(uPojo);
 			addresses.put(user, callback);
 
@@ -215,8 +214,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 			return user;
 		}
-
-		return null;
+		throw new IllegalArgumentException("Invalid authentification for user " + id);
 	}
 
 	@Override

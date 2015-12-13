@@ -3,6 +3,7 @@ package application;
 import static application.utils.Constants.SEARCH_MODULE_X;
 import static application.utils.Constants.SEARCH_MODULE_Y;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import application.controllers.ModuleLoader;
@@ -18,6 +19,8 @@ import application.model.BookAsynchrone;
 import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
+import fr.upem.rmirest.bilmancamp.interfaces.Book;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
@@ -69,6 +72,8 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 	private SearchModule searchModule;
 	private BookViewerModule bookViewerModule;
 
+	private MailBox<Book> mailBox;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
@@ -86,6 +91,12 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 
 		// Setting the first screen to start.
 		INSTANCE = this;
+
+		try {
+			mailBox = new MailBoxImpl();
+		} catch (RemoteException e) {
+			throw new IllegalStateException("No mail box available to be contacted.");
+		}
 	}
 
 	/**
@@ -203,6 +214,8 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 	@Override
 	public void stop() throws Exception {
 		currentScreen.getProxyModel().disconnectUser();
+		mailBox = null;
+		System.exit(0);
 	}
 
 	/**
@@ -258,5 +271,9 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 
 	public Screen getCurrentScreen() {
 		return currentScreen;
+	}
+
+	public MailBox<Book> getMailBox() {
+		return mailBox;
 	}
 }

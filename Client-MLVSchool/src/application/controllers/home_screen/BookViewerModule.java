@@ -218,7 +218,6 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		NotificationsManager.notify("Thank you", "Your commentary is now in the Library", INFO);
 		commentPane.getChildren().clear();
 		loadComments(book);
-		System.out.println("Viewer : onCommentary added. " + book.getRate());
 		loadRate(book.getRate());
 	}
 
@@ -290,7 +289,6 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 	}
 
 	private void loadRate(int rate) {
-		System.out.println("Init rate in BookViewer : " + rate);
 		for (int i = 0; i < 5; i++) {
 			stars[i].setImage(STAR_IMAGE);
 		}
