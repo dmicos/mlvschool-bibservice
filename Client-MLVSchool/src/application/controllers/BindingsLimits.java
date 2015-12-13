@@ -56,6 +56,24 @@ public class BindingsLimits {
 			}
 		});
 	}
+
+	public static void setNumericeRateConstraint(TextField tf) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("[0-5]{0,1}")) {
+					try {
+						tf.setText(newValue);
+						return;
+					} catch (Exception e) {
+						return;
+					}
+				}
+				tf.setText(oldValue);
+			}
+		});
+	}
+
 	/**
 	 * Transforms a {@link TextField} in a numeric only prompt.
 	 * 

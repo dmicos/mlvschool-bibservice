@@ -31,6 +31,7 @@ public class Constants {
 	public static final String HOME_SEARCH_MODULE = "/scenes/homeScreen/searchModule.fxml";
 	public static final String HOME_SPINER_MODULE = "/scenes/homeScreen/bookSpinerModule.fxml";
 	public static final String HOME_BOOK_VIEWER = "/scenes/homeScreen/bookViewerModule.fxml";
+	public static final String HOME_BOOK_COMMENT_MODULE = "/scenes/homeScreen/bookCommentModule.fxml";
 	public static final String RESEARCH_SCREEN = "/scenes/researchScreen/researchScreen.fxml";
 	public static final String RESEARCH_BOOK_ENTRY_MODULE = "/scenes/researchScreen/bookEntryModule.fxml";
 	public static final String RESEARCH_CATEGORY_BUTTON = "/scenes/researchScreen/categoryButtonModule.fxml";

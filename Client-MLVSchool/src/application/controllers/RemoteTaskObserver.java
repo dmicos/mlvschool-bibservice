@@ -27,5 +27,12 @@ public interface RemoteTaskObserver {
 	public default void onBookVisualized(BookAsynchrone book) {
 	}
 
+	/**
+	 * Notifies that a commentary has been done on the given book.
+	 */
+	public default void onCommentaryOnBookPosted(BookAsynchrone book) {
+
+	}
+
 	public ProxyModel getProxyModel();
 }

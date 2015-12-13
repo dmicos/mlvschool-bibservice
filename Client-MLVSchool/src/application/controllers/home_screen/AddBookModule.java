@@ -101,7 +101,6 @@ public class AddBookModule implements Initializable, Module {
 
 	@FXML
 	public void paneFormClicked() {
-		// TODO handle this bug ! :S
 		// hide(); Used to prevent the root to be clicked & hidded.
 	}
 

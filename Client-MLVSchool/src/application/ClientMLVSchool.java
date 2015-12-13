@@ -187,7 +187,7 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 	public void onBookVisualized(BookAsynchrone book) {
 		burgerMenuModule.hide();
 		addBookModule.hide();
-		bookViewerModule.setBook(book);
+		bookViewerModule.setData(currentScreen.getProxyModel(), book);
 		bookViewerModule.show();
 	}
 

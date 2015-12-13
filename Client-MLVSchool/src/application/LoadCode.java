@@ -14,6 +14,7 @@ import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.AddBookModule;
+import application.controllers.home_screen.BookCommentModule;
 import application.controllers.home_screen.BookSpinerModule;
 import application.controllers.home_screen.BookViewerModule;
 import application.controllers.home_screen.BurgerMenuModule;
@@ -46,6 +47,7 @@ public class LoadCode {
 		loader.registerFXMLLoader(BookEntryModule.class, Constants.RESEARCH_BOOK_ENTRY_MODULE);
 		loader.registerFXMLLoader(CategoryButtonModule.class, Constants.RESEARCH_CATEGORY_BUTTON);
 		loader.registerFXMLLoader(BookViewerModule.class, Constants.HOME_BOOK_VIEWER);
+		loader.registerFXMLLoader(BookCommentModule.class, Constants.HOME_BOOK_COMMENT_MODULE);
 	}
 
 	/**

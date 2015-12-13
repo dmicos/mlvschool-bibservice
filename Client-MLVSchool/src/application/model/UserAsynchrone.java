@@ -24,11 +24,14 @@ public class UserAsynchrone {
 	private final String status;
 	private final int id;
 	private final int nbBooks;
+	private final List<BookAsynchrone> books;
 
-	private UserAsynchrone(User remoteUser, String firstName, String lastName, String status, int id, int nbBooks) {
+	private UserAsynchrone(User remoteUser, String firstName, String lastName, String status,
+			List<BookAsynchrone> books, int id, int nbBooks) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.status = status;
+		this.books = books;
 		this.id = id;
 		this.nbBooks = nbBooks;
 		this.remoteUser = Objects.requireNonNull(remoteUser);
@@ -48,12 +51,18 @@ public class UserAsynchrone {
 		String lastName = remoteUser.getLastName();
 		String status = remoteUser.getStatus();
 		int id = remoteUser.getId();
-		int nbBooks = library.getBooks(remoteUser).size();
-		return new UserAsynchrone(remoteUser, firstName, lastName, status, id, nbBooks);
+		List<BookAsynchrone> books = BookAsynchrone.convertToBooksAsynchrone(library.getBooks(remoteUser));
+		int nbBooks = books.size();
+		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, id, nbBooks);
 	}
 
-	public User getUser() {
+	// Default and not public !
+	User getUser() {
 		return remoteUser;
+	}
+
+	public List<BookAsynchrone> getBooks() {
+		return books;
 	}
 
 	public String getFirstName() {

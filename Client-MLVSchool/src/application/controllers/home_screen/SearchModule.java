@@ -64,6 +64,9 @@ public class SearchModule implements Initializable, Module, RemoteTaskObserver {
 
 	@Override
 	public void onBookFound(List<BookAsynchrone> books, String[] keywords) {
+		if (state == State.HIDLE) {
+			return;
+		}
 		state = State.HIDLE;
 		ResearchScreen researchScreen = ModuleLoader.getInstance().load(ResearchScreen.class);
 		ClientMLVSchool.getINSTANCE().setInstantNewScreen(researchScreen);

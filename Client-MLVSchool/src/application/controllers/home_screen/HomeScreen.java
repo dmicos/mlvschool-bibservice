@@ -150,6 +150,5 @@ public class HomeScreen implements Initializable, Screen {
 		// Switching to the search screen.
 		RemoteTaskLauncher.searchBooksByCategory(this, category);
 		paneRoot.setMouseTransparent(true);
-		// TODO print a loader circle.
 	}
 }

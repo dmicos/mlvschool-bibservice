@@ -1,31 +1,43 @@
 package application.controllers.home_screen;
 
 import static application.utils.Constants.START_ICON;
+import static application.utils.NotificationsManager.NotificationType.INFO;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import application.ClientMLVSchool;
+import application.controllers.BindingsLimits;
 import application.controllers.Module;
+import application.controllers.ModuleLoader;
+import application.controllers.RemoteTaskObserver;
 import application.model.BookAsynchrone;
+import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
+import application.utils.CoordinateTransformations;
 import application.utils.ImageProcessors;
+import application.utils.NotificationsManager;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class BookViewerModule implements Initializable, Module {
+public class BookViewerModule implements Initializable, Module, RemoteTaskObserver {
 
 	private static final Image STAR_FILL_IMAGE = new Image(ClientMLVSchool.class.getResource(START_ICON).toString());
 
@@ -51,7 +63,7 @@ public class BookViewerModule implements Initializable, Module {
 	private ImageView imageView;
 
 	@FXML
-	private Button consultButton;
+	private Button actionButton;
 
 	@FXML
 	private Label dateLabel;
@@ -71,9 +83,30 @@ public class BookViewerModule implements Initializable, Module {
 	@FXML
 	private ImageView start4;
 
+	@FXML
+	private VBox commentPane;
+
+	@FXML
+	private TextField commentaryField;
+
+	@FXML
+	private TextField rateField;
+
 	private boolean isShown;
 
 	private ImageView[] stars;
+
+	private enum State {
+		COMMENTARY_POSTING, HIDLE;
+	}
+
+	private State state = State.HIDLE;
+
+	private BookAsynchrone book;
+
+	private final Point2D tmp = new Point2D(0, 0);
+
+	private ProxyModel proxyModel;
 
 	@FXML
 	void paneRootClicked() {
@@ -82,12 +115,65 @@ public class BookViewerModule implements Initializable, Module {
 
 	@FXML
 	void paneFormClicked() {
-		System.out.println("Form : consulted clic");
+		// hide TODO arrange this "bug".
+	}
+
+	@FXML
+	void actionButtonClicked() {
+		System.out.println("Button action clicked.");
 	}
 
 	@FXML
 	void consultCliked() {
 		System.out.println("Viewer : consulted clic");
+	}
+
+	@FXML
+	void cancelClicked() {
+		hide();
+	}
+
+	private void commentaryRequested() {
+		if (state == State.COMMENTARY_POSTING) {
+			return;
+		}
+		// Notifying visually with red prompts.
+		Consumer<TextField> wrongNotification = tf -> {
+			// The method playWrongRectangle needs scene coordinates.
+			Point2D pp = CoordinateTransformations.toSceneCoordinates(tf, tmp);
+			Animations.playWrongRectangle(pp.getX(), pp.getY(), tf.getWidth(), tf.getHeight(), paneRoot);
+		};
+		String input = commentaryField.getText();
+		if (input.isEmpty() || input.matches("\\s+")) {
+			wrongNotification.accept(commentaryField);
+			return;
+		}
+		if (rateField.getText().isEmpty()) {
+			wrongNotification.accept(rateField);
+			return;
+		}
+		int rate = Integer.parseInt(rateField.getText());
+		System.out.println("RATING : " + rate);
+		state = State.COMMENTARY_POSTING;
+		// RemoteTaskLauncher.searchBooks(keywords, proxyModel, this);
+		// TODO POST A COMMENTRY WITH BEING THE OBSERVER. WHEN THE COMMENT HAS
+		// BEEN DONE, RELOAD THE VIEWER, (ONLY THE COMMENTARY SECTION, NOT THE
+		// STRING->IMAGE LOADING) PUT THE STATE IN HIDLE, EMPTY THE TEXT AREA,
+		// PUSH A NOTIFICATION.
+		// TODO delete this call, it's fake. AND PASSE THE RATING TO !!
+		onCommentaryOnBookPosted(book);
+	}
+
+	@Override
+	public void onCommentaryOnBookPosted(BookAsynchrone book) {
+		if (state == State.HIDLE) {
+			return;
+		}
+		state = State.HIDLE;
+		commentaryField.setText("");
+		NotificationsManager.notify("Thank you", "Your commentary is now in the Library", INFO);
+		commentPane.getChildren().clear();
+		loadComments(book);
 	}
 
 	@Override
@@ -124,17 +210,55 @@ public class BookViewerModule implements Initializable, Module {
 		paneRoot.setMouseTransparent(true);
 		paneRoot.setTranslateY(Constants.SCENE_HEIGHT);
 		isShown = false;
+		// Setting the listening on "ENTER" for commentary & rate fields.
+		commentaryField.setOnKeyPressed(e -> {
+			if (e.getCode().equals(KeyCode.ENTER)) {
+				commentaryRequested();
+			}
+		});
+		rateField.setOnKeyPressed(e -> {
+			if (e.getCode().equals(KeyCode.ENTER)) {
+				commentaryRequested();
+			}
+		});
+		// Rate field is limiting in [0-5];
+		BindingsLimits.setNumericeRateConstraint(rateField);
 	}
 
-	public void setBook(BookAsynchrone book) {
-		Objects.requireNonNull(book);
+	public void setData(ProxyModel proxyModel, BookAsynchrone book) {
+		this.proxyModel = Objects.requireNonNull(proxyModel);
+		this.book = Objects.requireNonNull(book);
 		titleLabel.setText(book.getTitle());
 		dateLabel.setText(book.getDate());
 		authorsLabel.setText("De " + book.getAuthors().stream().collect(Collectors.joining(", ")));
 		int rate = book.getRate();
+
+		// TODO no workaround have to be left. Commentary.
+		loadComments(book);
+
 		for (int i = 0; i < rate && i < 5; i++) {
 			stars[i].setImage(STAR_FILL_IMAGE);
 		}
+
+		// The text & colors on the button.
+		configureActionButton(proxyModel, book);
+
+		// Loading the image in a separate worker.
+		loadImageInWorker(book);
+	}
+
+	// TODO put a state for this.
+	private void configureActionButton(ProxyModel proxyModel, BookAsynchrone book) {
+		List<BookAsynchrone> userBooks = proxyModel.getConnectedUser().getBooks();
+		for (BookAsynchrone uBook : userBooks) {
+			if (uBook.getId() == book.getId()) {
+				// The book is already took.
+
+			}
+		}
+	}
+
+	private void loadImageInWorker(BookAsynchrone book) {
 		Thread t = new Thread(() -> {
 			Image image;
 			try {
@@ -150,5 +274,20 @@ public class BookViewerModule implements Initializable, Module {
 
 		t.setDaemon(true);
 		t.start();
+	}
+
+	private void loadComments(BookAsynchrone book) {
+		String commentAuthor = book.getCommentAuthor();
+		List<String> commentsContent = book.getCommentText();
+		for (String comment : commentsContent) {
+			BookCommentModule commentModule = ModuleLoader.getInstance().load(BookCommentModule.class);
+			commentModule.setComment(commentAuthor, comment);
+			commentPane.getChildren().add(commentModule.getView());
+		}
+	}
+
+	@Override
+	public ProxyModel getProxyModel() {
+		return proxyModel;
 	}
 }
