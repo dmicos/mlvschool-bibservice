@@ -98,6 +98,7 @@ public class ProxyModel {
 
 	public void reloadLibrary() throws RemoteException {
 		library.reload();
+		userConnected.update(library);
 	}
 
 	public List<BookAsynchrone> search(String[] keywords) throws RemoteException {

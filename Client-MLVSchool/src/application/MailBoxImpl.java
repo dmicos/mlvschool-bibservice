@@ -3,6 +3,7 @@ package application;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import application.controllers.RemoteTaskLauncher;
 import application.utils.NotificationsManager;
 import application.utils.NotificationsManager.NotificationType;
 import application.utils.UncheckedRemoteException;
@@ -27,6 +28,8 @@ public class MailBoxImpl extends UnicastRemoteObject implements MailBox<Book> {
 			Platform.runLater(() -> {
 				try {
 					NotificationsManager.notify("New book available !", value.getTitle(), NotificationType.INFO);
+					ClientMLVSchool instance = ClientMLVSchool.getINSTANCE();
+					RemoteTaskLauncher.refreshLibrary(instance.getProxyModel(), instance.getCurrentScreen());
 				} catch (RemoteException e) {
 					throw new UncheckedRemoteException(e);
 				}

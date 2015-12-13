@@ -45,6 +45,15 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 	}
 
 	@Override
+	public void onLibraryRefreshed() {
+		try {
+			spiner1.initContent(proxyModel.getConnectedUser().getBooks(), "");
+			spiner2.initContent(proxyModel.getConnectedUser().getPendingBooks(), "");
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
 	public void onBookBorrowed(Boolean borrowed, BookAsynchrone book, UserAsynchrone user) {
 		try {
 			System.out.println("Updating borrowed books.");
@@ -59,6 +68,7 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 		try {
 			System.out.println("Updating given back books.");
 			spiner1.initContent(user.getBooks(), "");
+			spiner2.initContent(user.getPendingBooks(), "");
 		} catch (IOException e) {
 		}
 	}
@@ -70,6 +80,7 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 		// only one.
 		try {
 			System.out.println("Updating pending books.");
+			spiner1.initContent(user.getBooks(), "");
 			spiner2.initContent(user.getPendingBooks(), "");
 		} catch (IOException e) {
 		}
@@ -91,6 +102,8 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 		List<BookAsynchrone> books = user.getBooks();
 		List<BookAsynchrone> pendingBooks = user.getPendingBooks();
 
+		System.out.println("Book size : " + books.size());
+		System.out.println("Pending size : " + pendingBooks.size());
 		spiner1 = BookSpinerModule.initStaticSpinner(books);
 		spiner2 = BookSpinerModule.initStaticSpinner(pendingBooks);
 		spiner2.getView().setLayoutY(500);

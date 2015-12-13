@@ -57,12 +57,12 @@ public interface RemoteTaskObserver {
 	 * failed if false.
 	 */
 	public default void onBookGivenBack(Boolean giveBack, BookAsynchrone book, UserAsynchrone user) {
-		if (giveBack) {
-			NotificationsManager.notify("Information", "Book given back : " + book.getTitle(), NotificationType.INFO);
-			return;
-		}
-		NotificationsManager.notify("Information", "The book has not been released : " + book.getTitle(),
-				NotificationType.INFO);
+//		if (giveBack) {
+//			NotificationsManager.notify("Information", "Book given back : " + book.getTitle(), NotificationType.INFO);
+//			return;
+//		}
+//		NotificationsManager.notify("Information", "The book has not been released : " + book.getTitle(),
+//				NotificationType.INFO);
 	}
 
 	/**
@@ -70,11 +70,11 @@ public interface RemoteTaskObserver {
 	 * failed if false.
 	 */
 	public default void onBookCancel(Boolean cancel, BookAsynchrone book, UserAsynchrone user) {
-		if (cancel) {
-			NotificationsManager.notify("Information", "Your are not in the queue anymore : " + book.getTitle(), NotificationType.INFO);
-			return;
-		}
-		NotificationsManager.notify("Information", "Your are still in the queue : " + book.getTitle(),
-				NotificationType.INFO);
+//		if (cancel) {
+//			NotificationsManager.notify("Information", "Your are not in the queue anymore : " + book.getTitle(), NotificationType.INFO);
+//			return;
+//		}
+//		NotificationsManager.notify("Information", "Your are still in the queue : " + book.getTitle(),
+//				NotificationType.INFO);
 	}
 }
