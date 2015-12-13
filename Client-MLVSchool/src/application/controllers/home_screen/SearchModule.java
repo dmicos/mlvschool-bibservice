@@ -29,6 +29,15 @@ public class SearchModule implements Initializable, Module {
 		return paneRoot;
 	}
 
+	@FXML
+	public void searchClicked() {
+		String input = textField.getText();
+		if (input.isEmpty()) {
+			return;
+		}
+//		RemoteTaskLauncher.searchBooksByCategory(screen, category);
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		textField.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_LIGHT, 18));

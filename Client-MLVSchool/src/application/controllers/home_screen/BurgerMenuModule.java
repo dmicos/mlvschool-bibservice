@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import application.controllers.Module;
+import application.model.ProxyModel;
+import application.model.UserAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
 import javafx.animation.Interpolator;
@@ -59,7 +61,8 @@ public class BurgerMenuModule implements Initializable, Module {
 
 	@FXML
 	public void homeClicked() {
-		System.out.println("Home button clicked.");
+		// HomeScreen home = ModuleLoader.getInstance().load(HomeScreen.class);
+		// home.initDynamicContent(proxyModel);
 	}
 
 	@FXML
@@ -138,7 +141,13 @@ public class BurgerMenuModule implements Initializable, Module {
 		this.lastName.setText(lastName);
 	}
 
-	void setAddBookModule(AddBookModule addBookModule) {
+	public void setAddBookModule(AddBookModule addBookModule) {
 		this.addBookModule = Objects.requireNonNull(addBookModule);
+	}
+
+	public void setUserInfo(ProxyModel proxyModel) {
+		UserAsynchrone user = proxyModel.getConnectedUser();
+		this.firstName.setText(user.getFirstName());
+		this.lastName.setText(user.getLastName());
 	}
 }

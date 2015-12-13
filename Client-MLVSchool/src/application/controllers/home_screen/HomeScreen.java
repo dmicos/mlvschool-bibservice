@@ -14,7 +14,6 @@ import application.controllers.Screen;
 import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
 import application.model.ProxyModel;
-import application.model.UserAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
 import application.utils.NotificationsManager;
@@ -27,10 +26,6 @@ import javafx.scene.text.Text;
 
 public class HomeScreen implements Initializable, Screen {
 
-	private static final int SEARCH_MODULE_Y = 22;
-
-	private static final int SEARCH_MODULE_X = 372;
-
 	private static final String TITLES[] = new String[] { "The 5 best rated books", "The 5 most recent books",
 			"The 5 most consulted books" };
 	@FXML
@@ -42,11 +37,6 @@ public class HomeScreen implements Initializable, Screen {
 	@FXML
 	private GridPane categoryGrid;
 
-	/* BurgerMenu module on the left of the screen */
-	private BurgerMenuModule burgerMenuModule;
-	private AddBookModule addBookModule;
-	private SearchModule searchModule;
-
 	/* Model fields controlled */
 	private ProxyModel proxyModel;
 
@@ -57,21 +47,24 @@ public class HomeScreen implements Initializable, Screen {
 		loadWorkAroundFont();
 	}
 
-	@Override
+	/**
+	 * Notifies the current {@link Screen} it is now the main application
+	 * screen.
+	 */
 	public void startHasMainScreen() {
 		// Notify the number of book available.
 		welcomePhraseNotification(proxyModel.getConnectedUser().getNbBooks());
 		startSpinnerAnimations();
 	}
 
-	public void initDynamicContent(ProxyModel proxyModel) {
+	@Override
+	public void initializeWithDynamicContent(ProxyModel proxyModel) {
 		this.proxyModel = Objects.requireNonNull(proxyModel);
-		UserAsynchrone user = Objects.requireNonNull(proxyModel.getConnectedUser());
 
 		// Filling the categories in the grid.
 		LibraryAsynchrone library = proxyModel.getLibrary();
 		loadSpinerModule(library);
-		loadModules(library, user);
+		loadCategoriesTileModule(library);
 	}
 
 	private void welcomePhraseNotification(int nbBook) {
@@ -94,7 +87,12 @@ public class HomeScreen implements Initializable, Screen {
 		return proxyModel;
 	}
 
-	void reloadSpinnerBooks() {
+	@Override
+	public void onBookAdded() {
+		reloadSpinnerBooks();
+	}
+
+	public void reloadSpinnerBooks() {
 		LibraryAsynchrone library = proxyModel.getLibrary();
 		List<List<BookAsynchrone>> lists = new ArrayList<>();
 		lists.add(library.getBestBooks());
@@ -111,37 +109,6 @@ public class HomeScreen implements Initializable, Screen {
 		}
 		BookSpinerModule.initChaineSpinners(TITLES, lists, paneRoot, spiners);
 		System.out.println("Spinners reloaded.");
-	}
-
-	private void loadModules(LibraryAsynchrone library, UserAsynchrone user) {
-		// Z order bottom-up.
-		loadCategoriesTileModule(library);
-		loadSearchModule();
-		loadAddBookModule(library.getCategories());
-		loadBurgerMenuModule(user);
-	}
-
-	private void loadSearchModule() {
-		searchModule = ModuleLoader.getInstance().load(SearchModule.class);
-		paneRoot.getChildren().add(searchModule.getView());
-		searchModule.getView().setLayoutX(SEARCH_MODULE_X);
-		searchModule.getView().setLayoutY(SEARCH_MODULE_Y);
-	}
-
-	private void loadAddBookModule(List<String> categories) {
-		addBookModule = ModuleLoader.getInstance().load(AddBookModule.class);
-		paneRoot.getChildren().add(addBookModule.getView());
-		addBookModule.setCategories(categories);
-		addBookModule.setScreen(this);
-	}
-
-	private void loadBurgerMenuModule(UserAsynchrone user) {
-		burgerMenuModule = ModuleLoader.getInstance().load(BurgerMenuModule.class);
-		// Configuring the burgerMenuModule
-		burgerMenuModule.setAddBookModule(addBookModule);
-		// Setting the user informations in the burgerMenu.
-		burgerMenuModule.setUserInfo(user.getFirstName(), user.getLastName());
-		paneRoot.getChildren().add(burgerMenuModule.getView());
 	}
 
 	private void loadSpinerModule(LibraryAsynchrone library) {
@@ -177,24 +144,6 @@ public class HomeScreen implements Initializable, Screen {
 		// Switching to the search screen.
 		RemoteTaskLauncher.searchBooksByCategory(this, category);
 		paneRoot.setDisable(true);
-		burgerMenuModule.hide();
 		// TODO print a loader circle.
-	}
-
-	/**
-	 * Switching to the new research screen.
-	 */
-	public void researchBooksReady(String keywords, List<BookAsynchrone> books) {
-
-	}
-
-	@Override
-	public SearchModule getSearchModule() {
-		return searchModule;
-	}
-
-	@Override
-	public BurgerMenuModule getBurgerMenuModule() {
-		return burgerMenuModule;
 	}
 }

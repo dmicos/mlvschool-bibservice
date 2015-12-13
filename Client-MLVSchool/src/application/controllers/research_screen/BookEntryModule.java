@@ -61,7 +61,7 @@ public class BookEntryModule implements Initializable, Module {
 
 	@FXML
 	private Button consultButton;
-	
+
 	private ImageView stars[];
 
 	@Override
@@ -102,5 +102,9 @@ public class BookEntryModule implements Initializable, Module {
 		for (int i = 0; i < rate && i < 5; i++) {
 			stars[i].setImage(STAR_FILL_IMAGE);
 		}
+	}
+
+	public void setImage(Image image) {
+		imageView.setImage(image);
 	}
 }

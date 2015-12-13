@@ -31,39 +31,7 @@
             <Insets bottom="20.0" />
          </padding>
       </ScrollPane>
-      <VBox fx:id="categoriesPane" layoutY="178.0" prefHeight="622.0" prefWidth="296.0" spacing="24.0" styleClass="blackBackground">
-         <children>
-            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Home">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Mathematics">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Computer Science">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Sport">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Physics">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="orangeTextButton" text="Economy">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Button>
-         </children>
+      <VBox fx:id="categoryButtonPane" layoutY="178.0" prefHeight="622.0" prefWidth="296.0" spacing="24.0" styleClass="blackBackground">
          <padding>
             <Insets left="44.0" top="36.0" />
          </padding>

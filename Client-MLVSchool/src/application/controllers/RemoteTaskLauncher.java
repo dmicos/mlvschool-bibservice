@@ -7,8 +7,6 @@ import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.connection_screen.LogInModule;
 import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.AddBookModule;
-import application.controllers.home_screen.BurgerMenuModule;
-import application.controllers.home_screen.SearchModule;
 import application.controllers.research_screen.ResearchScreen;
 import application.model.BookAsynchrone;
 import application.model.LibraryAsynchrone;
@@ -171,7 +169,7 @@ public class RemoteTaskLauncher {
 
 	public static void searchBooksByCategory(Screen screen, String category) {
 		ProxyModel proxyModel = screen.getProxyModel();
-
+		// TODO screen.loading(); = disable + icon de chargement.
 		Task<List<BookAsynchrone>> task = new Task<List<BookAsynchrone>>() {
 			@Override
 			protected List<BookAsynchrone> call() throws Exception {
@@ -182,17 +180,11 @@ public class RemoteTaskLauncher {
 		// Handling the success.
 		task.setOnSucceeded(e -> {
 			// homeScreen.researchBooksReady(category, task.getValue());
-			System.out.println("HomeScreen : Searching books : After");
 			// Removing modules
-			BurgerMenuModule burgerMenuModule = screen.getBurgerMenuModule();
-			SearchModule searchModule = screen.getSearchModule();
-			screen.getView().getChildren().remove(burgerMenuModule);
-			screen.getView().getChildren().remove(searchModule);
 			// Creating the research screen.
 			ResearchScreen researchScreen = ModuleLoader.getInstance().load(ResearchScreen.class);
-			researchScreen.initContent(proxyModel, category, task.getValue(), burgerMenuModule, searchModule);
-			ClientMLVSchool.setInstantNewScreen(screen, researchScreen);
-			System.out.println("HomeScreen : Searching books : After after");
+			ClientMLVSchool.getINSTANCE().setInstantNewScreen(screen, researchScreen);
+			researchScreen.loadBooks(category, task.getValue());
 		});
 
 		// Handling the failure.
@@ -202,7 +194,7 @@ public class RemoteTaskLauncher {
 
 	private static void reloadApplication(String message) {
 		NotificationsManager.notify("Library :", message, NotificationType.DATABASE);
-		ClientMLVSchool.reloadApplicationFirstScreen();
+		ClientMLVSchool.getINSTANCE().reloadApplicationFirstScreen();
 	}
 
 	private static void launchTask(Task<?> task) {

@@ -5,7 +5,6 @@ import static application.utils.Constants.SF_DISPLAY_LIGHT;
 import static application.utils.Constants.SF_DISPLAY_REGULAR;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import application.ClientMLVSchool;
@@ -13,9 +12,7 @@ import application.controllers.Module;
 import application.controllers.ModuleLoader;
 import application.controllers.RemoteTaskLauncher;
 import application.controllers.Screen;
-import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.HomeScreen;
-import application.controllers.home_screen.SearchModule;
 import application.model.LibraryAsynchrone;
 import application.model.ModelRules;
 import application.model.ProxyModel;
@@ -103,13 +100,6 @@ public class ConnectionScreen implements Initializable, Screen {
 		RemoteTaskLauncher.connectServer(this);
 	}
 
-	/**
-	 * Sets the current PROXY model used to populate the screen.
-	 */
-	public void setModel(ProxyModel proxyModel) {
-		this.proxyModel = Objects.requireNonNull(proxyModel);
-	}
-
 	@Override
 	public ProxyModel getProxyModel() {
 		return proxyModel;
@@ -163,9 +153,8 @@ public class ConnectionScreen implements Initializable, Screen {
 	}
 
 	private void launchHomeScreen() {
-		HomeScreen homeModule = ModuleLoader.getInstance().load(HomeScreen.class);
-		homeModule.initDynamicContent(proxyModel);
-		ClientMLVSchool.setNewScreen(300, this, homeModule);
+		HomeScreen homeScreen = ModuleLoader.getInstance().load(HomeScreen.class);
+		ClientMLVSchool.getINSTANCE().translateToHomeScreen(300, homeScreen);
 	}
 
 	@FXML
@@ -211,10 +200,6 @@ public class ConnectionScreen implements Initializable, Screen {
 	@Override
 	public Pane getView() {
 		return paneRoot;
-	}
-
-	@Override
-	public void startHasMainScreen() {
 	}
 
 	public void comeBackToState1() {
@@ -265,11 +250,14 @@ public class ConnectionScreen implements Initializable, Screen {
 	private <T extends Module> T loadModule(Class<T> moduleClass) {
 		// Loading the module.
 		T module = ModuleLoader.getInstance().load(moduleClass);
-		// Hiding this module.
 		module.hide();
-		// Adding the module to the current screen.
 		paneRoot.getChildren().add(module.getView());
 		return module;
+	}
+
+	@Override
+	public void initializeWithDynamicContent(ProxyModel proxyModel) {
+		this.proxyModel = proxyModel;
 	}
 
 	private void loadFontsWorkaround() {
@@ -284,17 +272,5 @@ public class ConnectionScreen implements Initializable, Screen {
 		buttonSignUp.setFont(buttonFont);
 		stateMessagesText.setFont(fontManager.getFont(Constants.SF_DISPLAY_ULTRALIGHT, 24));
 		footer.setFont(fontManager.getFont(Constants.SF_DISPLAY_ULTRALIGHT, 18));
-	}
-
-	@Override
-	public SearchModule getSearchModule() {
-		System.err.println("Requesting ConnectionScreen search module not existing !");
-		return null;
-	}
-
-	@Override
-	public BurgerMenuModule getBurgerMenuModule() {
-		System.err.println("Requesting ConnectionScreen burger menu module not existing !");
-		return null;
 	}
 }

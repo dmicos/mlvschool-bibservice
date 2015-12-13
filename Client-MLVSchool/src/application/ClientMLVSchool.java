@@ -1,36 +1,24 @@
 package application;
 
-import static application.utils.Constants.SF_DISPLAY_LIGHT;
-import static application.utils.Constants.SF_DISPLAY_REGULAR;
-import static application.utils.Constants.SF_DISPLAY_THIN;
-import static application.utils.Constants.SF_DISPLAY_ULTRALIGHT;
-import static application.utils.Constants.SF_TEXT_LIGHT;
-import static application.utils.Constants.SF_TEXT_MEDIUM;
-import static application.utils.Constants.SF_TEXT_REGULAR;
-import static application.utils.Constants.SF_TEXT_SEMIBOLD;
+import java.util.List;
 
 import application.controllers.ModuleLoader;
 import application.controllers.Screen;
 import application.controllers.connection_screen.ConnectionScreen;
-import application.controllers.connection_screen.LogInModule;
-import application.controllers.connection_screen.SignUpModule;
 import application.controllers.home_screen.AddBookModule;
-import application.controllers.home_screen.BookSpinerModule;
 import application.controllers.home_screen.BurgerMenuModule;
-import application.controllers.home_screen.CategoryDescriptionModule;
 import application.controllers.home_screen.HomeScreen;
 import application.controllers.home_screen.SearchModule;
-import application.controllers.research_screen.BookEntryModule;
-import application.controllers.research_screen.ResearchScreen;
 import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
-import application.utils.FontManager;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.CacheHint;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -53,19 +41,29 @@ public class ClientMLVSchool extends Application {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
-		loadFonts();
-		loadModules();
+		LoadCode.loadFonts();
+		LoadCode.loadModules();
 		launch(args);
 	}
+
+	private static final int SEARCH_MODULE_Y = 22;
+	private static final int SEARCH_MODULE_X = 372;
 
 	/**
 	 * The Application is a "stand alone" singleton. According to the JAVAFX
 	 * cycle activity.
 	 */
 	private static ClientMLVSchool INSTANCE;
-	private ProxyModel proxyModel;
+
+	// Application graphic contents.
 	private Scene scene;
 	private Stage primaryStage;
+	private Screen currentScreen;
+
+	/* Modules on the top of other screens (exception the connection screen). */
+	private BurgerMenuModule burgerMenuModule;
+	private AddBookModule addBookModule;
+	private SearchModule searchModule;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -73,11 +71,12 @@ public class ClientMLVSchool extends Application {
 		// Loading the JavaFX connection screen.
 		ConnectionScreen connectionScreen = loadConnectionScreen();
 		scene = new Scene(connectionScreen.getView(), 1200, 800);
-		proxyModel = new ProxyModel();
-		connectionScreen.setModel(proxyModel);
+		ProxyModel proxyModel = new ProxyModel();
+		connectionScreen.initializeWithDynamicContent(proxyModel);
 		connectionScreen.startCient();
-		loadCSS(scene, "/css/florange.css"); // Custom CSS style sheet.
-		loadCSS(scene, "/css/combobox.css"); // Custom CSS style sheet.
+		currentScreen = connectionScreen;
+		LoadCode.loadCSS(scene, "/css/florange.css"); // Custom CSS style sheet.
+		LoadCode.loadCSS(scene, "/css/combobox.css"); // Custom CSS style sheet.
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -96,80 +95,93 @@ public class ClientMLVSchool extends Application {
 	/**
 	 * Loads the application's first screen. And resets the model.
 	 */
-	public static void reloadApplicationFirstScreen() {
+	public void reloadApplicationFirstScreen() {
 		ConnectionScreen connectionScreen = loadConnectionScreen();
 		Scene scene = INSTANCE.getScene();
+		currentScreen = connectionScreen;
 		scene.setRoot(connectionScreen.getView());
-		INSTANCE.proxyModel = new ProxyModel();
-		connectionScreen.setModel(INSTANCE.proxyModel);
+		connectionScreen.initializeWithDynamicContent(new ProxyModel());
 		connectionScreen.startCient();
 	}
 
-	/**
-	 * Loads every JavaFX Modules.
-	 */
-	private static void loadModules() {
-		ModuleLoader loader = ModuleLoader.getInstance();
-		loader.registerFXMLLoader(ConnectionScreen.class, Constants.CONNECTION_SCREEN_MODULE);
-		loader.registerFXMLLoader(SignUpModule.class, Constants.CONNECTION_SIGNUP_MODULE);
-		loader.registerFXMLLoader(LogInModule.class, Constants.CONNECTION_LOGIN_MODULE);
-		loader.registerFXMLLoader(HomeScreen.class, Constants.HOME_SCREEN_MODULE);
-		loader.registerFXMLLoader(BurgerMenuModule.class, Constants.HOME_BURGER_MENU_MODULE);
-		loader.registerFXMLLoader(AddBookModule.class, Constants.HOME_ADD_BOOK_MODULE);
-		loader.registerFXMLLoader(CategoryDescriptionModule.class, Constants.HOME_CATEGORY_MODULE);
-		loader.registerFXMLLoader(SearchModule.class, Constants.HOME_SEARCH_MODULE);
-		loader.registerFXMLLoader(BookSpinerModule.class, Constants.HOME_SPINER_MODULE);
-		loader.registerFXMLLoader(ResearchScreen.class, Constants.RESEARCH_SCREEN);
-		loader.registerFXMLLoader(BookEntryModule.class, Constants.RESEARCH_BOOK_ENTRY_MODULE);
+	private void cacheRoot(VBox root) {
+		root.setCache(true);
+		root.setCacheShape(true);
+		root.setCacheHint(CacheHint.SPEED);
+	}
+
+	private void loadSearchModule() {
+		searchModule = ModuleLoader.getInstance().load(SearchModule.class);
+		searchModule.getView().setLayoutX(SEARCH_MODULE_X);
+		searchModule.getView().setLayoutY(SEARCH_MODULE_Y);
+	}
+
+	private void loadAddBookModule(HomeScreen homeScreen, List<String> categories) {
+		addBookModule = ModuleLoader.getInstance().load(AddBookModule.class);
+		addBookModule.setCategories(categories);
+		addBookModule.setHomeScreen(homeScreen);
+	}
+
+	private void loadBurgerMenuModule(ProxyModel proxyModel) {
+		burgerMenuModule = ModuleLoader.getInstance().load(BurgerMenuModule.class);
+		// Configuring the burgerMenuModule
+		burgerMenuModule.setAddBookModule(addBookModule);
+		// Setting the user informations in the burgerMenu.
+		burgerMenuModule.setUserInfo(proxyModel);
 	}
 
 	/**
-	 * Workaround for JavaFX SDK 8 : jdk8.0_u65 has a bug in exported font
-	 * management.
+	 * Change the entire scene from the current layout, to the new
+	 * <code>newLayout</code>.
 	 */
-	private static void loadFonts() {
-		FontManager fontManager = FontManager.getInstance();
-		fontManager.register(SF_DISPLAY_REGULAR, 32);
-		fontManager.register(SF_DISPLAY_REGULAR, 110);
-		fontManager.register(SF_DISPLAY_LIGHT, 18);
-		fontManager.register(SF_DISPLAY_LIGHT, 24);
-		fontManager.register(SF_DISPLAY_LIGHT, 30);
-		fontManager.register(SF_DISPLAY_ULTRALIGHT, 18);
-		fontManager.register(SF_DISPLAY_ULTRALIGHT, 24);
-		fontManager.register(SF_DISPLAY_THIN, 28);
-		fontManager.register(SF_TEXT_SEMIBOLD, 18);
-		fontManager.register(SF_TEXT_SEMIBOLD, 24);
-		fontManager.register(SF_TEXT_SEMIBOLD, 32);
-		fontManager.register(SF_TEXT_SEMIBOLD, 36);
-		fontManager.register(SF_TEXT_SEMIBOLD, 52);
-		fontManager.register(SF_TEXT_REGULAR, 18);
-		fontManager.register(SF_TEXT_REGULAR, 20);
-		fontManager.register(SF_TEXT_REGULAR, 24);
-		fontManager.register(SF_TEXT_REGULAR, 28);
-		fontManager.register(SF_TEXT_MEDIUM, 20);
-		fontManager.register(SF_TEXT_LIGHT, 18);
-		fontManager.register(SF_TEXT_LIGHT, 24);
-	}
+	public <T extends Screen> T setInstantNewScreen(Screen currentScreen, T newScreen) {
+		// Initializing the newScreen with dynamic contents.
+		newScreen.initializeWithDynamicContent(currentScreen.getProxyModel());
+		Pane newView = newScreen.getView();
+		scene.setRoot(newView);
+		newView.setCache(true);
+		newView.setCacheShape(true);
+		newView.setCacheHint(CacheHint.SPEED);
 
-	private void loadCSS(Scene scene, String cssPath) {
-		scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-	}
+		// Hiding modules
+		burgerMenuModule.hide();
+		addBookModule.hide();
 
-	private Scene getScene() {
-		return scene;
-	}
+		// Adding modules to their new layout.
+		ObservableList<Node> oldScreenChildren = currentScreen.getView().getChildren();
+		ObservableList<Node> newScreenChildren = newView.getChildren();
+		Pane burgerView = burgerMenuModule.getView();
+		Pane addBookView = addBookModule.getView();
+		Pane searchView = searchModule.getView();
+		oldScreenChildren.remove(burgerView);
+		oldScreenChildren.remove(searchView);
+		oldScreenChildren.remove(addBookView);
+		newScreenChildren.add(burgerView);
+		newScreenChildren.add(searchView);
+		newScreenChildren.add(addBookView);
 
-	private static ConnectionScreen loadConnectionScreen() {
-		return ModuleLoader.getInstance().load(ConnectionScreen.class);
+		return newScreen;
 	}
 
 	/**
 	 * Transitions, after a delay <code>delay</code>, the entire scene from the
-	 * current layout, to the new <code>newLayout</code>.
+	 * current screen, to the new <code>newScreen</code>.
 	 */
-	public static void setNewScreen(double delay, Screen currentScreen, Screen newScreen) {
-		// The root is a VBox of the current and the new layout.
+	public void translateToHomeScreen(double delay, HomeScreen newScreen) {
+		ProxyModel proxyModel = currentScreen.getProxyModel();
+		// Initializing the new screen model.
+		newScreen.initializeWithDynamicContent(proxyModel);
+		// Attaching externals modules to the new screen.
+		loadSearchModule();
+		loadAddBookModule(newScreen, proxyModel.getLibrary().getCategories());
+		loadBurgerMenuModule(proxyModel);
+
+		// Adding these 3 modules to the current home screen.
 		Pane newView = newScreen.getView();
+		newView.getChildren().addAll(INSTANCE.searchModule.getView(), INSTANCE.addBookModule.getView(),
+				INSTANCE.burgerMenuModule.getView());
+
+		// The root is a VBox of the current and the new layout.
 		Pane currentView = currentScreen.getView();
 		VBox root = new VBox();
 		Scene scene = INSTANCE.getScene();
@@ -177,9 +189,7 @@ public class ClientMLVSchool extends Application {
 		root.setTranslateY(-scene.getHeight());
 
 		// Caching the animation for better performances.
-		root.setCache(true);
-		root.setCacheShape(true);
-		root.setCacheHint(CacheHint.SPEED);
+		cacheRoot(root);
 		scene.setRoot(root);
 
 		// The translation animation.
@@ -193,26 +203,21 @@ public class ClientMLVSchool extends Application {
 			root.getChildren().remove(newView);
 			scene.setRoot(newView);
 			newScreen.startHasMainScreen();
+			currentScreen = newScreen;
 		});
 		sequence.play();
 	}
 
-	/**
-	 * Change the entire scene from the current layout, to the new
-	 * <code>newLayout</code>.
-	 */
-	public static void setInstantNewScreen(Screen currentScreen, Screen newScreen) {
-		Pane newView = newScreen.getView();
-		Scene scene = INSTANCE.getScene();
-		scene.setRoot(newView);
-		newView.setCache(true);
-		newView.setCacheShape(true);
-		newView.setCacheHint(CacheHint.SPEED);
-		newScreen.startHasMainScreen();
+	private Scene getScene() {
+		return scene;
+	}
+
+	private static ConnectionScreen loadConnectionScreen() {
+		return ModuleLoader.getInstance().load(ConnectionScreen.class);
 	}
 
 	@Override
 	public void stop() throws Exception {
-		INSTANCE.proxyModel.disconnectUser();
+		currentScreen.getProxyModel().disconnectUser();
 	}
 }

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.controllers.Module;
+import application.controllers.RemoteTaskLauncher;
 import application.utils.Constants;
 import application.utils.FontManager;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ public class CategoryButtonModule implements Initializable, Module {
 
 	@FXML
 	void onButtonClicked() {
-		// TODO requete recherche rmi.
+		RemoteTaskLauncher.searchBooksByCategory(screen, category);
 	}
 
 	@Override
@@ -40,5 +41,6 @@ public class CategoryButtonModule implements Initializable, Module {
 	void initializeContent(ResearchScreen screen, String category) {
 		this.screen = screen;
 		this.category = category;
+		button.setText(category);
 	}
 }

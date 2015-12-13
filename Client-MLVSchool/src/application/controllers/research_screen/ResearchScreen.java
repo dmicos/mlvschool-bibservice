@@ -6,10 +6,9 @@ import java.util.ResourceBundle;
 
 import application.controllers.ModuleLoader;
 import application.controllers.Screen;
-import application.controllers.home_screen.BurgerMenuModule;
-import application.controllers.home_screen.SearchModule;
 import application.model.BookAsynchrone;
 import application.model.ProxyModel;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,7 +19,7 @@ import javafx.scene.text.Text;
 public class ResearchScreen implements Initializable, Screen {
 
 	@FXML
-	private VBox categoriesPane;
+	private VBox categoryButtonPane;
 
 	@FXML
 	private Pane paneRoot;
@@ -36,10 +35,6 @@ public class ResearchScreen implements Initializable, Screen {
 
 	private ProxyModel proxyModel;
 
-	private BurgerMenuModule burgerMenuModule;
-
-	private SearchModule searchModule;
-
 	@Override
 	public Pane getView() {
 		return paneRoot;
@@ -51,50 +46,41 @@ public class ResearchScreen implements Initializable, Screen {
 	}
 
 	@Override
-	public void startHasMainScreen() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public ProxyModel getProxyModel() {
 		return proxyModel;
 	}
 
-	public void initContent(ProxyModel proxyModel, String keywords, List<BookAsynchrone> books,
-			BurgerMenuModule burgerMenuModule, SearchModule searchModule) {
+	@Override
+	public void initializeWithDynamicContent(ProxyModel proxyModel) {
 		this.proxyModel = proxyModel;
-		this.burgerMenuModule = burgerMenuModule;
-		this.searchModule = searchModule;
-		paneRoot.getChildren().add(burgerMenuModule.getView());
-		paneRoot.getChildren().add(searchModule.getView());
+	}
+
+	public void loadBooks(String keywords, List<BookAsynchrone> books) {
 		// Loading keyword text.
 		keywordsText.setText(keywords);
 		// Creation of BookEntryModules for books.
 		loadBookEntries(books);
 		// Loading categories button.
-
-	}
-
-	private void loadBookEntries(List<BookAsynchrone> books) {
-		int i = 0;
-		for (BookAsynchrone b : books) {
-			// TODO delete this limit.
-			if (i++ > 10) {
-				break;
-			}
-			BookEntryModule module = ModuleLoader.getInstance().load(BookEntryModule.class);
-			module.setBook(b);
-			booksEntryPane.getChildren().add(module.getView());
+		List<String> categories = proxyModel.getLibrary().getCategories();
+		for (String category : categories) {
+			CategoryButtonModule buttonModule = ModuleLoader.getInstance().load(CategoryButtonModule.class);
+			buttonModule.initializeContent(this, category);
+			categoryButtonPane.getChildren().add(buttonModule.getView());
 		}
 	}
 
-	@Override
-	public SearchModule getSearchModule() {
-		return searchModule;
-	}
-
-	@Override
-	public BurgerMenuModule getBurgerMenuModule() {
-		return burgerMenuModule;
+	private void loadBookEntries(List<BookAsynchrone> books) {
+		// Loading images in worker thread !!
+		Thread t = new Thread(() -> {
+			for (BookAsynchrone b : books) {
+				BookEntryModule module = ModuleLoader.getInstance().load(BookEntryModule.class);
+				module.setBook(b);
+				Platform.runLater(() -> {
+					booksEntryPane.getChildren().add(module.getView());
+				});
+			}
+		});
+		t.setDaemon(true);
+		t.start();
 	}
 }

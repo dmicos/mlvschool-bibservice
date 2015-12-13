@@ -6,13 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 
-
-<Pane fx:id="paneRoot" style="-fx-padding: 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button fx:id="button" mnemonicParsing="false" onAction="#onButtonClicked" styleClass="orangeTextButton" stylesheets="@../../css/florange.css" text="Home">
-         <font>
-            <Font name="SF UI Text Semibold" size="24.0" />
-         </font>
-      </Button>
-   </children>
+<Pane fx:id="paneRoot" style="-fx-padding: 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.research_screen.CategoryButtonModule">
+	<children>
+		<Button fx:id="button" mnemonicParsing="false" onAction="#onButtonClicked" styleClass="orangeTextButton" stylesheets="@../../css/florange.css" text="Home">
+			<font>
+				<Font name="SF UI Text Semibold" size="24.0" />
+			</font>
+		</Button>
+	</children>
 </Pane>

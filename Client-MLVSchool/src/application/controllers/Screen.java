@@ -1,16 +1,10 @@
 package application.controllers;
 
-import application.controllers.home_screen.BurgerMenuModule;
-import application.controllers.home_screen.SearchModule;
 import application.model.ProxyModel;
 
 public interface Screen extends Module {
 
-	/**
-	 * Notifies the current {@link Screen} it is now the main application
-	 * screen.
-	 */
-	public void startHasMainScreen();
+	public void initializeWithDynamicContent(ProxyModel proxyModel);
 
 	/**
 	 * @return The current instance of {@link ProxyModel} used by the
@@ -18,7 +12,9 @@ public interface Screen extends Module {
 	 */
 	public ProxyModel getProxyModel();
 
-	public SearchModule getSearchModule();
-
-	public BurgerMenuModule getBurgerMenuModule();
+	/**
+	 * Observer methods.
+	 */
+	default public void onBookAdded() {
+	}
 }
