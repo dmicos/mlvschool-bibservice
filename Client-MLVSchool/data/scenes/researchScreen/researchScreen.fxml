@@ -8,9 +8,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="sceneSize" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.research_screen.ResearchScreen">
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="600.0" styleClass="sceneSize" stylesheets="@../../css/florange.css"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.controllers.research_screen.ResearchScreen">
 	<children>
-		<ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+		<ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true"
+			preserveRatio="true">
 			<image>
 				<Image url="@../../images/libraryMLV.jpg" />
 			</image>
@@ -18,37 +23,45 @@
 				<Rectangle2D height="1066.6" width="1600.0" />
 			</viewport>
 		</ImageView>
-		<Text fx:id="researchTitle" fill="WHITE" layoutX="927.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Research">
+		<Text fx:id="researchTitle" fill="WHITE" layoutX="927.0" layoutY="75.0"
+			strokeType="OUTSIDE" strokeWidth="0.0" text="Research">
 			<font>
 				<Font name="SF UI Text Semibold" size="52.0" />
 			</font>
 		</Text>
-      <ScrollPane layoutX="376.0" layoutY="180.0" prefHeight="622.0" prefWidth="823.0" stylesheets="@../../css/scrollview.css">
-         <content>
-            <VBox fx:id="booksEntryPane" prefHeight="200.0" prefWidth="100.0" spacing="58.0" />
-         </content>
-         <padding>
-            <Insets bottom="20.0" />
-         </padding>
-      </ScrollPane>
-      <VBox fx:id="categoryButtonPane" layoutY="178.0" prefHeight="622.0" prefWidth="296.0" spacing="24.0" styleClass="blackBackground">
-         <padding>
-            <Insets left="44.0" top="36.0" />
-         </padding>
-      </VBox>
-      <TextFlow layoutX="120.0" layoutY="116.0" maxHeight="43.0" maxWidth="615.0" minWidth="411.0" prefHeight="43.0" prefWidth="615.0">
-         <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Research : ">
-               <font>
-                  <Font name="SF UI Text Semibold" size="36.0" />
-               </font>
-            </Text>
-            <Label fx:id="keywordsText" maxWidth="415.0" prefHeight="29.0" prefWidth="415.0" styleClass="orangeTextButton" text="Sport, Courir, Vite azeze e  za za  z azaz az za zza ">
-               <font>
-                  <Font name="SF UI Text Semibold" size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </TextFlow>
+		<ScrollPane layoutX="376.0" layoutY="180.0" prefHeight="622.0"
+			prefWidth="823.0" stylesheets="@../../css/scrollview.css">
+			<content>
+				<VBox fx:id="booksEntryPane" prefHeight="200.0" prefWidth="100.0"
+					spacing="58.0" />
+			</content>
+			<padding>
+				<Insets bottom="20.0" />
+			</padding>
+		</ScrollPane>
+		<VBox fx:id="categoryButtonPane" layoutY="178.0" prefHeight="622.0"
+			prefWidth="296.0" spacing="24.0" styleClass="blackBackground">
+			<padding>
+				<Insets left="44.0" top="36.0" />
+			</padding>
+		</VBox>
+		<TextFlow layoutX="120.0" layoutY="116.0" maxHeight="43.0"
+			maxWidth="615.0" minWidth="411.0" prefHeight="43.0" prefWidth="615.0">
+			<children>
+				<Text fx:id="researchSubTitle" fill="WHITE" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Research : ">
+					<font>
+						<Font name="SF UI Text Semibold" size="36.0" />
+					</font>
+				</Text>
+				<Label fx:id="keywordsText" maxWidth="415.0" prefHeight="29.0"
+					prefWidth="415.0" styleClass="orangeTextButton"
+					text="Sport, Courir, Vite azeze e  za za  z azaz az za zza ">
+					<font>
+						<Font name="SF UI Text Semibold" size="24.0" />
+					</font>
+				</Label>
+			</children>
+		</TextFlow>
 	</children>
 </Pane>

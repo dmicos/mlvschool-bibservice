@@ -141,12 +141,17 @@ public class BookSpinerModule implements Initializable, Module {
 	/**
 	 * Initializes spiner's books.
 	 */
-	void initContent(List<BookAsynchrone> books, String title) throws IOException {
+	public void initContent(List<BookAsynchrone> books, String title) throws IOException {
+		book1.setImage(null);
+		book2.setImage(null);
+		book3.setImage(null);
+		book4.setImage(null);
+		book5.setImage(null);
 		this.books = Objects.requireNonNull(books);
 		this.title.setText(Objects.requireNonNull(title));
 		int bookNumber = books.size();
 		if (bookNumber > 5) {
-			throw new IllegalArgumentException("Book list have to be less or equal to 5." + bookNumber);
+			System.err.println("Book list have to be less or equal to 5." + bookNumber);
 		}
 		// I know this is not optimal but hey.
 		if (bookNumber >= 1) {

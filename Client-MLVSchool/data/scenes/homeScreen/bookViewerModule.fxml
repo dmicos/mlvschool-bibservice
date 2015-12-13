@@ -106,7 +106,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Label prefHeight="109.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+            <Label fx:id="summaryText" prefHeight="109.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
                <font>
                   <Font name="SF UI Text Regular" size="18.0" />
                </font>
@@ -124,7 +124,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="0.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="white70Text" width="498.0" />
             <HBox alignment="CENTER" prefWidth="200.0" spacing="180.0" styleClass="blackBackground">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="6.0" prefWidth="143.0" style="-fx-text-fill: #ffffff80; -fx-padding: 0;" text="Comments">
+                  <Button fx:id="commentButton" mnemonicParsing="false" onAction="#onCommentClicked" prefHeight="29.0" prefWidth="264.0" style="-fx-text-fill: #ffffff80; -fx-padding: 0;" text="Comment">
                      <font>
                         <Font name="SF UI Text Light" size="24.0" />
                      </font>

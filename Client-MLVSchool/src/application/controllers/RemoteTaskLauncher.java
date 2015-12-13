@@ -92,7 +92,6 @@ public class RemoteTaskLauncher {
 		// Handling the failure.
 		task.setOnFailed(e -> reloadApplication(
 				"Error of transmision with the Library : " + task.getException().getMessage(), task.getException()));
-
 		launchTask(task);
 	}
 
@@ -343,7 +342,6 @@ public class RemoteTaskLauncher {
 		NotificationsManager.notify("Library :", message, NotificationType.DATABASE);
 		ClientMLVSchool.getINSTANCE().reloadApplicationFirstScreen();
 		System.err.println(throwable.getMessage());
-		throwable.printStackTrace();
 	}
 
 	private static void disconnect() {
@@ -362,7 +360,7 @@ public class RemoteTaskLauncher {
 		Task<ConnectingTaskInfo> task = new Task<ConnectingTaskInfo>() {
 			@Override
 			protected ConnectingTaskInfo call() throws Exception {
-				User user = proxyModel.connectUser(login, password);
+				User user = proxyModel.connectUser(login, password, ClientMLVSchool.getINSTANCE().getMailBox());
 				return new ConnectingTaskInfo(user, user.getFirstName(), user.getLastName());
 			}
 		};

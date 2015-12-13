@@ -1,5 +1,6 @@
 package application.controllers.library_screen;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,9 +35,44 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 
 	private ProxyModel proxyModel;
 
+	private BookSpinerModule spiner1;
+
+	private BookSpinerModule spiner2;
+
 	@Override
 	public Pane getView() {
 		return paneRoot;
+	}
+
+	@Override
+	public void onBookBorrowed(Boolean borrowed, BookAsynchrone book, UserAsynchrone user) {
+		try {
+			System.out.println("Updating borrowed books.");
+			spiner1.initContent(user.getBooks(), "");
+			spiner2.initContent(user.getPendingBooks(), "");
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
+	public void onBookGivenBack(Boolean giveBack, BookAsynchrone book, UserAsynchrone user) {
+		try {
+			System.out.println("Updating given back books.");
+			spiner1.initContent(user.getBooks(), "");
+		} catch (IOException e) {
+		}
+	}
+
+	@Override
+	public void onBookCancel(Boolean cancel, BookAsynchrone book, UserAsynchrone user) {
+		// No call on super. It has a design problem with the number of obs will
+		// call the same super x time in the chain :S. I have to delegate to
+		// only one.
+		try {
+			System.out.println("Updating pending books.");
+			spiner2.initContent(user.getPendingBooks(), "");
+		} catch (IOException e) {
+		}
 	}
 
 	@Override
@@ -51,13 +87,13 @@ public class LibraryScreen implements Screen, RemoteTaskObserver, Initializable 
 	@Override
 	public void initializeWithDynamicContent(ProxyModel proxyModel) {
 		this.proxyModel = proxyModel;
-		// TODO add 2 spinner.
 		UserAsynchrone user = proxyModel.getConnectedUser();
 		List<BookAsynchrone> books = user.getBooks();
 		List<BookAsynchrone> pendingBooks = user.getPendingBooks();
 
-		BookSpinerModule spiner1 = BookSpinerModule.initStaticSpinner(books);
-		BookSpinerModule spiner2 = BookSpinerModule.initStaticSpinner(pendingBooks);
+		spiner1 = BookSpinerModule.initStaticSpinner(books);
+		spiner2 = BookSpinerModule.initStaticSpinner(pendingBooks);
+		spiner2.getView().setLayoutY(500);
 		paneRoot.getChildren().addAll(spiner1.getView(), spiner2.getView());
 	}
 

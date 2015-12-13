@@ -79,7 +79,6 @@ public class BookEntryModule implements Initializable, Module {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO fonts !
 		// Rename this in "stars".
 		stars = new ImageView[] { start1, start2, start3, start4, start5 };
 		FontManager fontManager = FontManager.getInstance();

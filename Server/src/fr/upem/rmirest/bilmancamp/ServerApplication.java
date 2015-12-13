@@ -44,7 +44,8 @@ public class ServerApplication {
 
 		Library lib = sharedObject();
 		Registry registry;
-
+		System.setProperty("java.rmi.server.hostname", "192.168.0.25");
+		
 		/* Create or use an existing registry */
 		if (env.getHost().toLowerCase().equals(Constants.LocalHost)) {
 			registry = LocateRegistry.createRegistry(env.getPort());

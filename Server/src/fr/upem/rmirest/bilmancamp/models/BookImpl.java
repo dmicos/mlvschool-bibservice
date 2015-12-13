@@ -82,16 +82,6 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 	}
 
 	@Override
-	public float getRate() throws RemoteException {
-		return getRateNumber();
-	}
-
-	@Override
-	public int getRateNumber() throws RemoteException {
-		return model.getRateNumber();
-	}
-
-	@Override
 	public List<BookComment> getComments() throws RemoteException {
 		return Collections.unmodifiableList(Arrays.asList(model.getComments()));
 	}
@@ -126,6 +116,5 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 		return model.getId() == other.model.getId();
 	}
-	
 
 }

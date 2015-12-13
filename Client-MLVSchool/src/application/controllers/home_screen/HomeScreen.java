@@ -59,7 +59,6 @@ public class HomeScreen implements Initializable, Screen {
 
 	@Override
 	public void initializeWithDynamicContent(ProxyModel proxyModel) {
-		System.out.println("lOADING HOME all");
 		this.proxyModel = Objects.requireNonNull(proxyModel);
 
 		// Filling the categories in the grid.

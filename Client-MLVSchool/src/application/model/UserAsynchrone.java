@@ -24,12 +24,13 @@ public class UserAsynchrone {
 	private final String lastName;
 	private final String status;
 	private final int id;
-	private final int nbBooks;
+	private int nbBooks;
+	private int nbPendingBooks;
 	private final List<BookAsynchrone> books;
 	private final List<BookAsynchrone> pendingBooks;
 
 	private UserAsynchrone(User remoteUser, String firstName, String lastName, String status,
-			List<BookAsynchrone> books, List<BookAsynchrone> pendingBooks, int id, int nbBooks) {
+			List<BookAsynchrone> books, List<BookAsynchrone> pendingBooks, int id, int nbBooks, int nbPendingBooks) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.status = status;
@@ -37,6 +38,7 @@ public class UserAsynchrone {
 		this.pendingBooks = pendingBooks;
 		this.id = id;
 		this.nbBooks = nbBooks;
+		this.nbPendingBooks = nbPendingBooks;
 		this.remoteUser = Objects.requireNonNull(remoteUser);
 	}
 
@@ -55,10 +57,12 @@ public class UserAsynchrone {
 		String status = remoteUser.getStatus();
 		int id = remoteUser.getId();
 		List<BookAsynchrone> books = BookAsynchrone.convertToBooksAsynchrone(library, library.getBooks(remoteUser));
-		int nbBooks = books.size();
 		List<BookAsynchrone> pendingBooks = BookAsynchrone.convertToBooksAsynchrone(library,
 				library.getPendingBooks(remoteUser));
-		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, pendingBooks, id, nbBooks);
+		int nbBooks = books.size();
+		int nbPendingBooks = pendingBooks.size();
+		return new UserAsynchrone(remoteUser, firstName, lastName, status, books, pendingBooks, id, nbBooks,
+				nbPendingBooks);
 	}
 
 	// Default and not public !
@@ -70,13 +74,19 @@ public class UserAsynchrone {
 		books.clear();
 		pendingBooks.clear();
 		Library libraryRemote = library.getLibrary();
-		books.addAll(BookAsynchrone.convertToBooksAsynchrone(library.getLibrary(), libraryRemote.getBooks(remoteUser)));
+		books.addAll(BookAsynchrone.convertToBooksAsynchrone(libraryRemote, libraryRemote.getBooks(remoteUser)));
 		pendingBooks.addAll(BookAsynchrone.convertToBooksAsynchrone(library.getLibrary(),
 				libraryRemote.getPendingBooks(remoteUser)));
+		nbPendingBooks = pendingBooks.size();
+		nbBooks = pendingBooks.size();
 	}
 
 	public List<BookAsynchrone> getBooks() {
 		return Collections.unmodifiableList(books);
+	}
+
+	public int getNbPendingBooks() {
+		return nbPendingBooks;
 	}
 
 	public List<BookAsynchrone> getPendingBooks() {

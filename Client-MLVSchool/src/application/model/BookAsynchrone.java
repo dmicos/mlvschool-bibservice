@@ -1,7 +1,6 @@
 package application.model;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,30 +18,24 @@ public class BookAsynchrone {
 	private List<String> authors;
 	private int rate;
 	private String date;
-	private final List<String> commentsText;
-	private final String commentAuthor;
-	private final Book book;
+	private Book book;
 	private final int id;
 	private final List<BookComment> comments;
+	private final String summary;
 
 	public BookAsynchrone(Book book, int id, String title, List<String> authors, String date, int rate,
-			List<BookComment> comments, String image) {
+			List<BookComment> comments, String summary, String image) {
 		this.book = book;
 		this.id = id;
 		this.authors = authors;
 		this.date = date;
 		this.rate = rate;
 		this.comments = comments;
+		this.summary = summary;
 		this.title = Objects.requireNonNull(title);
 		this.image = Objects.requireNonNull(image);
 
 		// Workaround for the moment.
-		commentsText = new ArrayList<>();
-		commentAuthor = "Jefferson Mangue";
-		for (int i = 0; i < 5; ++i) {
-			commentsText.add(
-					"Test test Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile.");
-		}
 	}
 
 	/**
@@ -55,10 +48,11 @@ public class BookAsynchrone {
 		String mainImage = book.getMainImage();
 		List<String> authors = book.getAuthors();
 		String date = book.getDate().toString();
-		int rate = (int) book.getRate();
+		int rate = (int) library.getRate(book);
 		int id = book.getId();
 		List<BookComment> comment = library.getComment(book);
-		return new BookAsynchrone(book, id, title, authors, date, rate, comment, mainImage);
+		String summary = book.getSummary();
+		return new BookAsynchrone(book, id, title, authors, date, rate, comment, summary, mainImage);
 	}
 
 	BookAsynchrone update(Library library) throws RemoteException {
@@ -66,8 +60,7 @@ public class BookAsynchrone {
 		image = book.getMainImage();
 		authors = book.getAuthors();
 		date = book.getDate().toString();
-		rate = (int) book.getRate();
-		// TODO update COMMENTS HERE !!
+		rate = (int) library.getRate(book);
 		comments.clear();
 		comments.addAll(library.getComment(book));
 		return this;
@@ -75,6 +68,10 @@ public class BookAsynchrone {
 
 	public List<BookComment> getComments() {
 		return comments;
+	}
+
+	public String getSummary() {
+		return summary;
 	}
 
 	public Book getRemoteBook() {
@@ -91,14 +88,6 @@ public class BookAsynchrone {
 
 	public List<String> getAuthors() {
 		return Collections.unmodifiableList(authors);
-	}
-
-	public String getCommentAuthor() {
-		return commentAuthor;
-	}
-
-	public List<String> getCommentText() {
-		return commentsText;
 	}
 
 	public String getDate() {

@@ -6,8 +6,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import application.ClientMLVSchool;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
+import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
 /**
@@ -43,8 +45,8 @@ public class ProxyModel {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
-		// TODO put it in a configuration file.
-		Library library = (Library) Naming.lookup("rmi://localhost:8888/libraryService");
+		Library library = (Library) Naming
+				.lookup("rmi://" + ClientMLVSchool.getINSTANCE().getRMIAddress() + "libraryService");
 		this.library = LibraryAsynchrone.createLibraryAsynchrone(library);
 	}
 
@@ -52,9 +54,10 @@ public class ProxyModel {
 		return library;
 	}
 
-	public User connectUser(String login, String password) throws IllegalArgumentException, RemoteException {
+	public User connectUser(String login, String password, MailBox<Book> mailBox)
+			throws IllegalArgumentException, RemoteException {
 		Library library = this.library.getLibrary();
-		User remoteUser = library.connect(login, password);
+		User remoteUser = library.connect(login, password, mailBox);
 		userConnected = UserAsynchrone.createUserAsynchrone(library, remoteUser, library.getBookHistory(remoteUser));
 		state = State.CONNECTED;
 		return userConnected.getRemoteUser();
@@ -121,7 +124,7 @@ public class ProxyModel {
 	}
 
 	public boolean cancel(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
-		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
+		boolean result = library.getLibrary().cancelRegistration(book.getRemoteBook(), user.getRemoteUser());
 		user.update(library);
 		book.update(library.getLibrary());
 		return result;
@@ -131,9 +134,9 @@ public class ProxyModel {
 		Book remoteBook = book.getRemoteBook();
 		User remoteUser = userConnected.getRemoteUser();
 		String name = userConnected.getFirstName() + " " + userConnected.getLastName();
+		// Workaround. Should have been only 1 call.
 		boolean addComment = library.getLibrary().addComment(remoteBook, name, rate, content);
 		boolean rateBook = library.getLibrary().rateBook(remoteBook, remoteUser, rate);
-		// Workaround. Should have been only 1 call.
 		userConnected.update(library);
 		book.update(library.getLibrary());
 		return addComment && rateBook;

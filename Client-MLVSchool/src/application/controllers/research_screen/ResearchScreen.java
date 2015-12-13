@@ -9,6 +9,8 @@ import application.controllers.ModuleLoader;
 import application.controllers.Screen;
 import application.model.BookAsynchrone;
 import application.model.ProxyModel;
+import application.utils.Constants;
+import application.utils.FontManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,6 +33,9 @@ public class ResearchScreen implements Initializable, Screen {
 
 	@FXML
 	private Label keywordsText;
+	
+	@FXML
+	private Text researchSubTitle;
 
 	@FXML
 	private VBox booksEntryPane;
@@ -44,7 +49,9 @@ public class ResearchScreen implements Initializable, Screen {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO load fonts.
+		researchTitle.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 52));
+		keywordsText.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 24));
+		researchSubTitle.setFont(FontManager.getInstance().getFont(Constants.SF_TEXT_SEMIBOLD, 36));
 	}
 
 	@Override

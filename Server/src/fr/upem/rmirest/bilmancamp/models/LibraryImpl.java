@@ -182,16 +182,25 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
+	public float getRate(Book book) throws RemoteException {
+		return database.getBookRate(Mapper.createBookPOJO(book));
+	}
+
+	@Override
+	public int getRateNumber(Book book) throws RemoteException {
+		return database.getBookRateNumber(Mapper.createBookPOJO(book));
+	}
+
+	@Override
 	public User connect(String id, String password, MailBox<Book> callback) throws RemoteException {
 
 		Objects.requireNonNull(callback);
 
 		// database authentication ?
 		UserPOJO uPojo = database.connectUser(id, password);
-
+		
 		// authentication OK
 		if (uPojo != null) {
-
 			User user = new UserImpl(uPojo);
 			addresses.put(user, callback);
 
@@ -205,8 +214,7 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 
 			return user;
 		}
-
-		return null;
+		throw new IllegalArgumentException("Invalid authentification for user " + id);
 	}
 
 	@Override
