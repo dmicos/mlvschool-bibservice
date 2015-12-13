@@ -629,7 +629,7 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(author);
 
-		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?");
+		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?)");
 		ps.setInt(1, book.getId());
 		ps.setString(2, author);
 		ps.setInt(3, rate);

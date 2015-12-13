@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface Library extends Remote {
 
-	// TODO Image is a serializable interface.
 	/**
 	 * Add a new {@link Book} to the current {@link Library}.
 	 * 
@@ -161,7 +160,7 @@ public interface Library extends Remote {
 	 * Get the <code>number</code> books the most similar to the given one.
 	 * 
 	 * @param book
-	 *            the comparaison book.
+	 *            the comparison book.
 	 * @param number
 	 *            the wanted number of books.
 	 * @return a list of the <code>number</code> books the most similar to
@@ -184,6 +183,18 @@ public interface Library extends Remote {
 	public boolean borrow(Book book, User user) throws RemoteException;
 
 	/**
+	 * Cancel the registration of the given {@link Book} for the given
+	 * {@link User}.
+	 * 
+	 * @param book
+	 * @param user
+	 * @return <code>true</code> if the registration was cancelled or if there
+	 *         was no registration, <code>false</code> if there was a failure.
+	 * @throws RemoteException
+	 */
+	public boolean cancelRegistration(Book book, User user) throws RemoteException;
+
+	/**
 	 * Allow the given {@link User} to give back the given {@link Book} if he
 	 * borrowed it previously.
 	 * 
@@ -202,7 +213,7 @@ public interface Library extends Remote {
 	 *            the book to rate
 	 * @param value
 	 *            The rate value
-	 * @return <code>true</code> if operatio succeeds otherwise
+	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 * @throws RemoteException
 	 */
@@ -238,27 +249,30 @@ public interface Library extends Remote {
 	public List<Book> getPendingBooks(User user) throws RemoteException;
 
 	/**
-	 * disconnect given user
+	 * Add a comment and a rate from the given author, about the given
+	 * {@link Book}.
 	 * 
-	 * @param user
-	 * @throws RemoteException
-	 */
-	public void disconnect(User user) throws RemoteException;
-	
-	/**
-	 * Add a comment
 	 * @param book
 	 * @param author
 	 * @param rate
 	 * @throws RemoteException
 	 */
-	public boolean addComment(Book book, String author, int rate,String comment) throws RemoteException;
-	
+	public boolean addComment(Book book, String author, int rate, String comment) throws RemoteException;
+
 	/**
-	 * Get list of comments
+	 * Get a list of the comments added about the given {@link Book}.
+	 * 
 	 * @param book
-	 * @return
+	 * @return a list of the comments added about the given book.
 	 * @throws RemoteException
 	 */
 	public List<BookComment> getComment(Book book) throws RemoteException;
+
+	/**
+	 * Disconnect the given {@link User}.
+	 * 
+	 * @param user
+	 * @throws RemoteException
+	 */
+	public void disconnect(User user) throws RemoteException;
 }

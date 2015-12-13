@@ -172,6 +172,11 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
+	public boolean cancelRegistration(Book book, User user) throws RemoteException {
+		return database.removeFromQueue(Mapper.createBookPOJO(book), Mapper.createUserPOJO(user));
+	}
+
+	@Override
 	public boolean rateBook(Book book, User user, int value) throws RemoteException {
 		return database.rateBook(Mapper.createBookPOJO(book), Mapper.createUserPOJO(user), value);
 	}
@@ -236,6 +241,18 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
+	public boolean addComment(Book book, String author, int rate, String content) throws RemoteException {
+
+		return database.addComment(Mapper.createBookPOJO(book), author, rate, content);
+	}
+
+	@Override
+	public List<BookComment> getComment(Book book) throws RemoteException {
+		return database.getComments(Mapper.createBookPOJO(book)).stream()
+				.map(com -> new CommentImpl(com.getAuthors(), com.getContent())).collect(Collectors.toList());
+	}
+
+	@Override
 	public void disconnect(User user) throws RemoteException {
 		addresses.remove(user);
 		user.disconnect();
@@ -259,16 +276,5 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 			database.borrow(bPojo, uPojo);
 			database.removeFromQueue(bPojo, uPojo);
 		}
-	}
-
-	@Override
-	public boolean addComment(Book book, String author, int rate,String content) throws RemoteException {
-		
-		return database.addComment(Mapper.createBookPOJO(book), author, rate,content);
-	}
-
-	@Override
-	public List<BookComment> getComment(Book book) throws RemoteException {
-		return database.getComments(Mapper.createBookPOJO(book)).stream().map(com -> new CommentImpl(com.getAuthors(),com.getContent())).collect(Collectors.toList());
 	}
 }
