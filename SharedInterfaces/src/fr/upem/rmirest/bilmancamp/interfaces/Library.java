@@ -252,6 +252,13 @@ public interface Library extends Remote {
 	 * @param rate
 	 * @throws RemoteException
 	 */
-	public boolean addComment(Book book, String author, int rate) throws RemoteException;
-
+	public boolean addComment(Book book, String author, int rate,String comment) throws RemoteException;
+	
+	/**
+	 * Get list of comments
+	 * @param book
+	 * @return
+	 * @throws RemoteException
+	 */
+	public List<BookComment> getComment(Book book) throws RemoteException;
 }
