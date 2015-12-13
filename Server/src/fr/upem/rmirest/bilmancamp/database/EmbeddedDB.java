@@ -2,7 +2,10 @@ package fr.upem.rmirest.bilmancamp.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -329,6 +332,43 @@ public class EmbeddedDB implements Database {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
 
+		return false;
+	}
+	
+	@Override
+	public List<BookPOJO> getBooksFromPastAndBorrowed(int nbYear, int limit) {
+
+		try {
+			return bTable.selectBookAddedAtLeast(getPreviousYears(nbYear), limit);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+		return Collections.emptyList();
+	}
+
+	/**
+	 * Get Timestamp of date back in the past
+	 * 
+	 * @param nb
+	 *            the number of year
+	 * @return a {@link Timestamp}
+	 */
+	private static Timestamp getPreviousYears(int nb) {
+		Calendar prevYears = Calendar.getInstance();
+		Date current = new Date();
+		prevYears.setTime(current);
+		prevYears.add(Calendar.YEAR, -nb);
+		return new Timestamp(current.getTime());
+	}
+
+	@Override
+	public boolean addComment(BookPOJO book, String author, int rate) {
+		
+		try {
+			return bTable.insertComment(book,author,rate);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
 		return false;
 	}
 }

@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.database;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -350,6 +351,18 @@ public class JavaDatabase implements Database {
 	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<BookPOJO> getBooksFromPastAndBorrowed(int nbYear, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addComment(BookPOJO book, String author, int rate) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
