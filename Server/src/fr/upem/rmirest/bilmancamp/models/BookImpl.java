@@ -83,10 +83,7 @@ public class BookImpl extends UnicastRemoteObject implements Book {
 
 	@Override
 	public float getRate() throws RemoteException {
-		if (model.getRateNumber() == 0) {
-			return 0;
-		}
-		return model.getTotalRate() / model.getRateNumber();
+		return getRateNumber();
 	}
 
 	@Override
