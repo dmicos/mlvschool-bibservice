@@ -184,6 +184,18 @@ public interface Library extends Remote {
 	public boolean borrow(Book book, User user) throws RemoteException;
 
 	/**
+	 * Cancel the registration of the given {@link Book} for the given
+	 * {@link User}.
+	 * 
+	 * @param book
+	 * @param user
+	 * @return <code>true</code> if the registration was cancelled or if there
+	 *         was no registration, <code>false</code> if there was a failure.
+	 * @throws RemoteException
+	 */
+	public boolean cancelRegistration(Book book, User user) throws RemoteException;
+
+	/**
 	 * Allow the given {@link User} to give back the given {@link Book} if he
 	 * borrowed it previously.
 	 * 
