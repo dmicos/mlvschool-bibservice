@@ -75,14 +75,16 @@ public interface Book extends Remote {
 	public List<String> getTags() throws RemoteException;
 
 	/**
-	 * @return the main {@link Image} of the current book.
+	 * @return the main image of the current book as a base64 {@link String}.
 	 */
-	public Image getMainImage() throws RemoteException;
+	public String getMainImage() throws RemoteException;
 
 	/**
-	 * @return a list of secondary {@link Image}s of the current book.
+	 * @return a list of secondary images of the current book, encoded as base64
+	 *         strings. 
 	 */
-	public List<Image> getSecondaryImages() throws RemoteException;
+	@Deprecated
+	public List<String> getSecondaryImages() throws RemoteException;
 
 	/**
 	 * @return a list of all the comments that have been posted about the book.

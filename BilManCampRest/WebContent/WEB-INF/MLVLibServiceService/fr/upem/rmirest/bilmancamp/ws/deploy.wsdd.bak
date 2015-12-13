@@ -1,0 +1,105 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MLVLibServiceService WSDL service -->
+
+  <service name="MLVLibService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ws.bilmancamp.rmirest.upem.fr"/>
+      <parameter name="wsdlServiceElement" value="MLVLibServiceService"/>
+      <parameter name="schemaQualified" value="http://models.bilmancamp.rmirest.upem.fr,http://ws.bilmancamp.rmirest.upem.fr"/>
+      <parameter name="wsdlServicePort" value="MLVLibService"/>
+      <parameter name="className" value="fr.upem.rmirest.bilmancamp.ws.MLVLibServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="MLVLibService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getCategories" qname="operNS:getCategories" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getCategoriesReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="getImage" qname="operNS:getImage" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getImageReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:idBook" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getRange" qname="operNS:getRange" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getRangeReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:BookPOJO" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" soapAction="" >
+        <parameter qname="pns:offset" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:limit" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getBooksForSell" qname="operNS:getBooksForSell" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getBooksForSellReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:BookPOJO" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" soapAction="" >
+        <parameter qname="pns:limit" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getTotalBooks" qname="operNS:getTotalBooks" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getTotalBooksReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="searchBooks" qname="operNS:searchBooks" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:searchBooksReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:BookPOJO" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" soapAction="" >
+        <parameter qname="pns:tags" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="sellBook" qname="operNS:sellBook" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:sellBookReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:cardID" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:secret" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:devise" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:price" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:double" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getMostConsultedBook" qname="operNS:getMostConsultedBook" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getMostConsultedBookReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:BookPOJO" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" soapAction="" >
+        <parameter qname="pns:number" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getMostConsultedBookFormatted" qname="operNS:getMostConsultedBookFormatted" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getMostConsultedBookFormattedReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:number" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getMostSimilarBook" qname="operNS:getMostSimilarBook" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getMostSimilarBookReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:BookPOJO" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" soapAction="" >
+        <parameter qname="pns:model" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:BookPOJO" xmlns:tns="http://models.bilmancamp.rmirest.upem.fr"/>
+        <parameter qname="pns:number" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="searchFormattedBooks" qname="operNS:searchFormattedBooks" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:searchFormattedBooksReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:tags" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getBookFromCategory" qname="operNS:getBookFromCategory" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getBookFromCategoryReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:BookPOJO" xmlns:rtns="http://models.bilmancamp.rmirest.upem.fr" soapAction="" >
+        <parameter qname="pns:category" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFormattedBookFromCategory" qname="operNS:getFormattedBookFromCategory" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getFormattedBookFromCategoryReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:category" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFormattedBooks" qname="operNS:getFormattedBooks" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getFormattedBooksReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:limit" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFormattedRange" qname="operNS:getFormattedRange" xmlns:operNS="http://ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:getFormattedRangeReturn" xmlns:retNS="http://ws.bilmancamp.rmirest.upem.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:offset" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:limit" xmlns:pns="http://ws.bilmancamp.rmirest.upem.fr" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="sellBook searchBooks getBookFromCategory getBooksForSell getMostConsultedBook getTotalBooks getMostConsultedBookFormatted searchFormattedBooks getFormattedBooks getCategories getRange getFormattedBookFromCategory getFormattedRange getImage getMostSimilarBook"/>
+
+      <arrayMapping
+        xmlns:ns="http://ws.bilmancamp.rmirest.upem.fr"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://models.bilmancamp.rmirest.upem.fr"
+        qname="ns:CommentImpl"
+        type="java:fr.upem.rmirest.bilmancamp.models.CommentImpl"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://ws.bilmancamp.rmirest.upem.fr"
+        qname="ns:ArrayOf_tns1_CommentImpl"
+        type="java:fr.upem.rmirest.bilmancamp.models.CommentImpl[]"
+        innerType="cmp-ns:CommentImpl" xmlns:cmp-ns="http://models.bilmancamp.rmirest.upem.fr"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://models.bilmancamp.rmirest.upem.fr"
+        qname="ns:BookPOJO"
+        type="java:fr.upem.rmirest.bilmancamp.models.BookPOJO"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

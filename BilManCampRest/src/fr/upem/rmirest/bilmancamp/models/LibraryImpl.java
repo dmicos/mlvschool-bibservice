@@ -1,22 +1,27 @@
 package fr.upem.rmirest.bilmancamp.models;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import fr.upem.rmirest.bilmancamp.database.Database;
-import fr.upem.rmirest.bilmancamp.helpers.ImageHelper;
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
-import fr.upem.rmirest.bilmancamp.interfaces.Image;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.MailBox;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
+import fr.upem.rmirest.bilmancamp.modelloaders.LibraryImplDataLoader;
+import fr.upem.rmirest.bilmancamp.modelloaders.RateWrapper;
 import utils.Mapper;
 
 public class LibraryImpl extends UnicastRemoteObject implements Library {
@@ -31,21 +36,61 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	// Library values
 	private final Database database;
 	private final Map<User, MailBox<Book>> addresses;
+	private final Map<String, String> categories;
+	private final List<String> status;
 
-	public LibraryImpl(Database database) throws RemoteException {
+	private LibraryImpl(Database database) throws RemoteException {
 		super(0);
 		this.database = database;
 		addresses = new ConcurrentHashMap<>();
+		categories = new HashMap<>();
+		status = new ArrayList<>();
+	}
+
+	public static Library createLibraryImpl(Database database, String configPath)
+			throws JsonMappingException, IOException {
+		LibraryImpl lib = new LibraryImpl(database);
+		// Initialize the loader and load data into the fields.
+		LibraryImplDataLoader loader = LibraryImplDataLoader.createLoader(configPath);
+		lib.categories.putAll(loader.getCategories());
+		lib.status.addAll(loader.getStatus());
+		// Return the fully initialized library.
+		return lib;
+	}
+
+	/**
+	 * Populates the database of the current {@link LibraryImpl} with some
+	 * values from its own category. Will also parse the given json files which
+	 * must contains data for users and books.
+	 * 
+	 * @param userFilePath
+	 * @param bookFilePath
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws JsonProcessingException
+	 */
+	public void populateDatabase(String userFilePath, String bookFilePath, String rateFilePath)
+			throws JsonProcessingException, FileNotFoundException, IOException {
+		// Add categories to the database
+		categories.forEach((key, value) -> database.addCategory(key));
+		// Load some users
+		List<UserPOJO> users = LibraryImplDataLoader.loadUsers(userFilePath);
+		users.forEach(user -> database.addUser(user));
+		// Load some books
+		List<BookPOJO> books = LibraryImplDataLoader.loadBooks(bookFilePath);
+		books.forEach(book -> database.addBook(book));
+		// Get some rates on the books
+		List<RateWrapper> rates = LibraryImplDataLoader.loadRates(rateFilePath);
+		rates.forEach(rate -> database.rateBook(rate.getBook(), rate.getUser(), rate.getValue()));
+
 	}
 
 	@Override
-	public void addBook(String title, List<String> authors, String summary, Image mainImage,
-			List<Image> secondaryImages, List<String> categories, double price, List<String> tags)
+	public void addBook(String title, List<String> authors, String summary, String mainImage,
+			List<String> secondaryImages, List<String> categories, double price, List<String> tags)
 					throws IllegalArgumentException, RemoteException {
 
-		database.addBook(new BookPOJO(0, title, authors, summary, categories, price, tags,
-				ImageHelper.createRealImage(mainImage),
-				secondaryImages.stream().map(img -> ImageHelper.createRealImage(img)).collect(Collectors.toList())));
+		database.addBook(new BookPOJO(0, title, authors, summary, categories, price, tags, mainImage, secondaryImages));
 	}
 
 	@Override
@@ -76,9 +121,13 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
-	public int getCategorySize() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getCategoryDescription(String category) {
+		return categories.get(category);
+	}
+
+	@Override
+	public List<String> getStatus() throws RemoteException {
+		return Collections.unmodifiableList(status);
 	}
 
 	@Override
@@ -109,6 +158,11 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	/* Actions on the content */
+
+	@Override
+	public List<Book> getPendingBooks(User user) throws RemoteException {
+		return Pojos.booksPojoToBooksRemote(database.getPendingBooks(Mapper.createUserPOJO(user)));
+	}
 
 	@Override
 	public boolean borrow(Book book, User user) throws RemoteException {
@@ -170,10 +224,13 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
+	public List<Book> getBooks(User user) throws RemoteException {
+		return Pojos.booksPojoToBooksRemote(database.getBooks(Mapper.createUserPOJO(user)));
+	}
+
+	@Override
 	public List<Book> getBookHistory(User user) throws RemoteException {
-		// TODO Add this feature to the database implementation.
-		return Collections.emptyList();
-		// TODO This is so buggy, you really should change it ASAP.
+		return Pojos.booksPojoToBooksRemote(database.getBorrowedBooks(Mapper.createUserPOJO(user)));
 	}
 
 	@Override

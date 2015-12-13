@@ -16,6 +16,7 @@ public class BookPOJO implements Serializable {
 	private static final long serialVersionUID = 2090961306833130244L;
 	// Database fields
 	private final int id;
+	private final LocalDate date;
 	// Model fields
 	private final String title;
 	private final List<String> authors;
@@ -23,35 +24,37 @@ public class BookPOJO implements Serializable {
 	private final List<String> categories;
 	private int consultationNumber = 0;
 	private final List<String> tags;
-	private final RealImage mainImage;
-	private final List<RealImage> secondaryImages;
+	private final String mainImage;
+	private final List<String> secondaryImages;
 	private final double price;
 	private float totalRate;
 	private int rateNumber;
 	private final List<CommentImpl> comments;
 
-	// WS Required one
 	public BookPOJO() {
+		
 
-		id = 0;
-		title = null;
-		summary = null;
-		tags = Collections.emptyList();
-		secondaryImages = Collections.emptyList();
-		comments = Collections.emptyList();
-		categories = Collections.emptyList();
-		price = 0;
-		mainImage = null;
-		LocalDate.now();
-		authors = Collections.emptyList();
+		// Database fields
+		this.id = 0;
+		date = LocalDate.now();
+		// Model fields initialization
+		this.title = null;
+		this.authors = Collections.emptyList();
+		this.summary = null;
+		this.categories =  Collections.emptyList();
+		this.tags = Collections.emptyList();
+		this.mainImage = null;
+		this.secondaryImages =  Collections.emptyList();
+		comments = new ArrayList<>();
+		price =0;
 	}
-
+	
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, RealImage mainImage, List<RealImage> secondaryImages) {
+			List<String> tags, String mainImage, List<String> secondaryImages) {
 
 		// Database fields
 		this.id = id;
-		LocalDate.now();
+		date = LocalDate.now();
 		// Model fields initialization
 		this.title = Objects.requireNonNull(title);
 		this.authors = Objects.requireNonNull(authors);
@@ -71,7 +74,7 @@ public class BookPOJO implements Serializable {
 	}
 
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
-			List<String> tags, RealImage mainImage) {
+			List<String> tags, String mainImage) {
 		this(id, title, authors, summary, categories, price, tags, mainImage, new ArrayList<>());
 	}
 
@@ -102,6 +105,10 @@ public class BookPOJO implements Serializable {
 	public int getId() {
 		return id;
 	}
+/* not serializable*/
+	protected LocalDate getDate() {
+		return date;
+	}
 
 	public String getTitle() {
 		return title;
@@ -123,12 +130,12 @@ public class BookPOJO implements Serializable {
 		return tags.toArray(new String[0]);
 	}
 
-	public RealImage getMainImage() {
+	public String getMainImage() {
 		return mainImage;
 	}
 
-	public RealImage[] getSecondaryImages() {
-		return secondaryImages.toArray(new RealImage[0]);
+	public String[] getSecondaryImages() {
+		return secondaryImages.toArray(new String[0]);
 	}
 
 	public double getPrice() {
@@ -143,7 +150,7 @@ public class BookPOJO implements Serializable {
 		comments.add(comment);
 	}
 
-	public void addSecondaryImages(List<RealImage> images) {
+	public void addSecondaryImages(List<String> images) {
 		secondaryImages.addAll(Objects.requireNonNull(images));
 	}
 
