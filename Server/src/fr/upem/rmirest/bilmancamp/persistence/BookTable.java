@@ -116,6 +116,26 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	}
 
 	/**
+	 * Return the most rated book
+	 * 
+	 * @param limit
+	 *            the page size
+	 * @return a list of the <code>limit</code> most rated
+	 * @throws SQLException
+	 * @throws RemoteException
+	 */
+	public List<BookPOJO> selectMostRated(int limit) throws SQLException {
+	
+		List<BookPOJO> content = new ArrayList<>();
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book INNER JOIN  (select idBook ,AVG(VALUE) as rank from rate r  group by idBook) ON idBook = id order by rank desc LIMIT ?");
+		ps.setInt(1, limit);
+		extractFromResultSet(content, ps.executeQuery());
+		consult(content);
+		return content;
+	}
+
+	/**
 	 * Rate a {@link Book} by given {@link User}
 	 * 
 	 * @param user
@@ -145,26 +165,13 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	}
 
 	/**
-	 * Return the most rated book
+	 * Get the average rate of the given book.
 	 * 
-	 * @param limit
-	 *            the page size
-	 * @return a list of the <code>limit</code> most rated
+	 * @param idBook
+	 * @return
 	 * @throws SQLException
-	 * @throws RemoteException
 	 */
-	public List<BookPOJO> selectMostRated(int limit) throws SQLException {
-
-		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection().prepareStatement(
-				"SELECT * FROM book INNER JOIN  (select idBook ,AVG(VALUE) as rank from rate r  group by idBook) ON idBook = id order by rank desc LIMIT ?");
-		ps.setInt(1, limit);
-		extractFromResultSet(content, ps.executeQuery());
-		consult(content);
-		return content;
-	}
-	
-	public double  getRate(int idBook) throws SQLException {
+	public double getRate(int idBook) throws SQLException {
 
 		PreparedStatement ps = getConnection().prepareStatement("SELECT AVG(VALUE) as rank from rate r WHERE idBook=?");
 		ps.setInt(1, idBook);
@@ -174,8 +181,25 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		}
 		return 0;
 	}
-	
-	
+
+	/**
+	 * Get the number of evaluations of the given book.
+	 * 
+	 * @param pojo
+	 * @return
+	 * @throws SQLException
+	 */
+	public int getRateNumber(BookPOJO pojo) throws SQLException {
+		PreparedStatement ps;
+
+		ps = getConnection().prepareStatement("SELECT COUNT(rate) as number FROM comment WHERE idBook=?");
+		ps.setInt(1, pojo.getId());
+		ResultSet rs = ps.executeQuery();
+		rs.beforeFirst();
+		int value = rs.getInt("number");
+		rs.close();
+		return value;
+	}
 
 	@Override
 	public Optional<BookPOJO> find(Object... pk) throws SQLException {
@@ -600,11 +624,11 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		List<String> secondaries = images.size() > 1 ? images.subList(1, images.size()) : Collections.emptyList();
 
 		// Create the book
-		BookPOJO tmp =  new BookPOJO(rs.getInt("id"), rs.getString("title"), Arrays.asList(rs.getString("authors").split(",")),
-				rs.getString("description"), Arrays.asList(rs.getString("catName").split(",")), rs.getDouble("price"),
+		BookPOJO tmp = new BookPOJO(rs.getInt("id"), rs.getString("title"),
+				Arrays.asList(rs.getString("authors").split(",")), rs.getString("description"),
+				Arrays.asList(rs.getString("catName").split(",")), rs.getDouble("price"),
 				Arrays.asList(rs.getString("tags").split(",")), images.get(0), secondaries);
 
-		tmp.setRateNumber((int)getRate(tmp.getId()));
 		return tmp;
 	}
 
@@ -615,35 +639,35 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 				| st.executeUpdate("DELETE FROM queue") | st.executeUpdate("DELETE FROM book")) > 0;
 
 	}
-	
 
 	public List<BookPOJO> selectBookAddedAtLeast(Timestamp previousYears, int limit) throws SQLException {
-		
+
 		List<BookPOJO> content = new ArrayList<>();
-		PreparedStatement ps = getConnection()
-				.prepareStatement("SELECT * FROM book b WHERE datetime > ? AND b.id IN(SELECT idBook FROM borrow) ORDER BY title LIMIT ?");
+		PreparedStatement ps = getConnection().prepareStatement(
+				"SELECT * FROM book b WHERE datetime > ? AND b.id IN(SELECT idBook FROM borrow) ORDER BY title LIMIT ?");
 		ps.setTimestamp(1, previousYears);
-		ps.setInt(2,limit);
+		ps.setInt(2, limit);
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
 		return content;
 	}
-	
+
 	/**
-	 *  Add a commend
+	 * Add a commend
+	 * 
 	 * @param book
 	 * @param author
 	 * @param rate
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-
-	public boolean insertComment(BookPOJO book, String author, int rate,String content) throws SQLException {
+	public boolean insertComment(BookPOJO book, String author, int rate, String content) throws SQLException {
 
 		Objects.requireNonNull(book);
 		Objects.requireNonNull(author);
 
-		PreparedStatement ps = getConnection().prepareStatement("INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?)");
+		PreparedStatement ps = getConnection().prepareStatement(
+				"INSERT INTO comment(idBook,author,rate,datetime,summary) VALUES(?,?,?,CURRENT_TIMESTAMP,?)");
 		ps.setInt(1, book.getId());
 		ps.setString(2, author);
 		ps.setInt(3, rate);
@@ -652,17 +676,18 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 	}
 
 	public List<CommentImpl> getComments(BookPOJO pojo) throws SQLException {
-		
+
 		List<CommentImpl> content = new ArrayList<>();
-		PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM comment WHERE idBook=? order by datetime desc ");
+		PreparedStatement ps = getConnection()
+				.prepareStatement("SELECT * FROM comment WHERE idBook=? order by datetime desc ");
 		ps.setInt(1, pojo.getId());
 		ResultSet rs = ps.executeQuery();
 		rs.beforeFirst();
-		
-		while(rs.next()){
-			
-			content.add(new CommentImpl(rs.getString("author"),rs.getString(("summary"))));
-			
+
+		while (rs.next()) {
+
+			content.add(new CommentImpl(rs.getString("author"), rs.getString(("summary"))));
+
 		}
 		rs.close();
 		return content;

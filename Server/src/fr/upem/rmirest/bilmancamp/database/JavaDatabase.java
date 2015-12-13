@@ -18,7 +18,10 @@ import fr.upem.rmirest.bilmancamp.models.UserPOJO;
 /**
  * This implementation of {@link Database} uses Java objects to keep data
  * instead of a real database.
+ * 
+ * Now deprecated and replaced by {@link EmbeddedDB}.
  */
+@Deprecated
 public class JavaDatabase implements Database {
 
 	/**
@@ -359,7 +362,6 @@ public class JavaDatabase implements Database {
 		return null;
 	}
 
-
 	@Override
 	public boolean addComment(BookPOJO book, String author, int rate, String content) {
 		// TODO Auto-generated method stub
@@ -370,6 +372,18 @@ public class JavaDatabase implements Database {
 	public List<CommentImpl> getComments(BookPOJO createBookPOJO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public float getBookRate(BookPOJO book) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBookRateNumber(BookPOJO book) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -204,6 +204,22 @@ public interface Database {
 	public boolean rateBook(BookPOJO book, UserPOJO user, int value);
 
 	/**
+	 * Get the rate of the given book.
+	 * 
+	 * @param book
+	 * @return the current rate of the given book.
+	 */
+	public float getBookRate(BookPOJO book);
+
+	/**
+	 * Get the number of evaluations of the given book
+	 * 
+	 * @param book
+	 * @return the number of evaluations of the given book.
+	 */
+	public int getBookRateNumber(BookPOJO book);
+
+	/**
 	 * Allow the given {@link UserPOJO} to give back a book if he borrowed it.
 	 * 
 	 * @param user
@@ -239,7 +255,7 @@ public interface Database {
 	 * Clear the whole database
 	 */
 	public boolean clear();
-	
+
 	/**
 	 * Retrieves all {@link BookPOJO} that have been added <code>nbYear</code>
 	 * back in past
@@ -251,18 +267,20 @@ public interface Database {
 	 * @return a list of {@link BookPOJO}
 	 */
 	public List<BookPOJO> getBooksFromPastAndBorrowed(int nbYear, int limit);
-	
+
 	/**
 	 * Add a comment
+	 * 
 	 * @param book
 	 * @param author
 	 * @param rate
 	 * @throws RemoteException
 	 */
-	public boolean addComment(BookPOJO book, String author, int rate,String content);
+	public boolean addComment(BookPOJO book, String author, int rate, String content);
 
 	/**
 	 * Get list of comment
+	 * 
 	 * @param createBookPOJO
 	 * @return
 	 */

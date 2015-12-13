@@ -27,8 +27,6 @@ public class BookPOJO implements Serializable {
 	private final String mainImage;
 	private final List<String> secondaryImages;
 	private final double price;
-	private float totalRate;
-	private int rateNumber;
 	private final List<CommentImpl> comments;
 
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
@@ -52,7 +50,6 @@ public class BookPOJO implements Serializable {
 			throw new IllegalArgumentException("The price of a book cannot be " + price);
 		}
 		this.price = price;
-		this.totalRate = 0;
 	}
 
 	public BookPOJO(int id, String title, List<String> authors, String summary, List<String> categories, double price,
@@ -66,22 +63,6 @@ public class BookPOJO implements Serializable {
 
 	public void setConsultationNumber(int consultationNumber) {
 		this.consultationNumber = consultationNumber;
-	}
-
-	public float getTotalRate() {
-		return totalRate;
-	}
-
-	public void setTotalRate(float totalRate) {
-		this.totalRate = totalRate;
-	}
-
-	public int getRateNumber() {
-		return rateNumber;
-	}
-
-	public void setRateNumber(int rateNumber) {
-		this.rateNumber = rateNumber;
 	}
 
 	public int getId() {

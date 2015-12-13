@@ -178,15 +178,15 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getBorrowedBooks(UserPOJO user) {
-	
+
 		try {
 			return bTable.getBorrowedBooks(user);
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
 
-		return Collections.emptyList();	
-		}
+		return Collections.emptyList();
+	}
 
 	@Override
 	public boolean borrow(BookPOJO book, UserPOJO user) {
@@ -216,7 +216,7 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getBooks(UserPOJO userPOJO) {
-	
+
 		try {
 			return bTable.getBooksNotReturnedYet(userPOJO);
 		} catch (SQLException e) {
@@ -228,13 +228,13 @@ public class EmbeddedDB implements Database {
 
 	@Override
 	public List<BookPOJO> getPendingBooks(UserPOJO userPOJO) {
-		
+
 		try {
 			return bTable.getPendingBooks(userPOJO);
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
-		
+
 		return Collections.emptyList();
 	}
 
@@ -281,6 +281,28 @@ public class EmbeddedDB implements Database {
 		}
 
 		return false;
+	}
+
+	@Override
+	public float getBookRate(BookPOJO book) {
+		try {
+			return (float) bTable.getRate(book.getId());
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return 0f;
+	}
+
+	@Override
+	public int getBookRateNumber(BookPOJO book) {
+		try {
+			return bTable.getRateNumber(book);
+		} catch (SQLException e) {
+			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		return 0;
 	}
 
 	@Override
@@ -334,7 +356,7 @@ public class EmbeddedDB implements Database {
 
 		return false;
 	}
-	
+
 	@Override
 	public List<BookPOJO> getBooksFromPastAndBorrowed(int nbYear, int limit) {
 
@@ -362,10 +384,10 @@ public class EmbeddedDB implements Database {
 	}
 
 	@Override
-	public boolean addComment(BookPOJO book, String author, int rate,String content) {
-		
+	public boolean addComment(BookPOJO book, String author, int rate, String content) {
+
 		try {
-			return bTable.insertComment(book,author,rate,content);
+			return bTable.insertComment(book, author, rate, content);
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
