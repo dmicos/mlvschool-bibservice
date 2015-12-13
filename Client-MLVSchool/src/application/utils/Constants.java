@@ -43,6 +43,7 @@ public class Constants {
 	public static final String DATABASE_ICON = "../icons/database_icon.png";
 	public static final String INFO_ICON = "../icons/info_icon.png";
 	public static final String START_ICON = "../icons/start_filled_icon.png";
+	public static final String START_EMPTY_ICON = "../icons/start_icon.png";
 
 	/**
 	 * Font constants.

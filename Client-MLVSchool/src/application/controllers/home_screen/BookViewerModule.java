@@ -1,5 +1,6 @@
 package application.controllers.home_screen;
 
+import static application.utils.Constants.START_EMPTY_ICON;
 import static application.utils.Constants.START_ICON;
 import static application.utils.NotificationsManager.NotificationType.INFO;
 
@@ -16,6 +17,7 @@ import application.controllers.Module;
 import application.controllers.ModuleLoader;
 import application.controllers.RemoteTaskLauncher;
 import application.controllers.RemoteTaskObserver;
+import application.controllers.Screen;
 import application.model.BookAsynchrone;
 import application.model.ProxyModel;
 import application.model.UserAsynchrone;
@@ -24,6 +26,7 @@ import application.utils.Constants;
 import application.utils.CoordinateTransformations;
 import application.utils.ImageProcessors;
 import application.utils.NotificationsManager;
+import application.utils.NotificationsManager.NotificationType;
 import fr.upem.rmirest.bilmancamp.interfaces.BookComment;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
@@ -43,6 +46,7 @@ import javafx.scene.layout.VBox;
 public class BookViewerModule implements Initializable, Module, RemoteTaskObserver {
 
 	private static final Image STAR_FILL_IMAGE = new Image(ClientMLVSchool.class.getResource(START_ICON).toString());
+	private static final Image STAR_IMAGE = new Image(ClientMLVSchool.class.getResource(START_EMPTY_ICON).toString());
 
 	@FXML
 	private Label authorsLabel;
@@ -129,23 +133,28 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 
 	@FXML
 	void actionButtonClicked() {
-		System.out.println("Button action clicked. " + bookState);
+		Screen currentScreen = ClientMLVSchool.getINSTANCE().getCurrentScreen();
 		switch (bookState) {
 		case TO_BORROW:
-			RemoteTaskLauncher.borrowBook(proxyModel, proxyModel.getConnectedUser(), book, this);
+			if (proxyModel.getConnectedUser().getNbBooks() >= 5) {
+				NotificationsManager.notify("Sorry", "You can not have more than 5 books borrowed or waiting",
+						NotificationType.INFO);
+				return;
+			}
+			RemoteTaskLauncher.borrowBook(proxyModel, proxyModel.getConnectedUser(), book, this, currentScreen);
 			break;
 		case TO_GIVE_BACK:
-			RemoteTaskLauncher.giveBack(proxyModel, proxyModel.getConnectedUser(), book, this);
+			RemoteTaskLauncher.giveBack(proxyModel, proxyModel.getConnectedUser(), book, this, currentScreen);
 			break;
 		case TO_CANCEL:
-			RemoteTaskLauncher.cancel(proxyModel, proxyModel.getConnectedUser(), book, this);
+			RemoteTaskLauncher.cancel(proxyModel, proxyModel.getConnectedUser(), book, this, currentScreen);
 			break;
 		}
 	}
 
 	@FXML
 	void consultCliked() {
-		System.out.println("Viewer : consulted clic");
+		// System.out.println("Viewer : consulted clic");
 	}
 
 	@FXML
@@ -157,21 +166,21 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 	public void onBookBorrowed(Boolean borrowed, BookAsynchrone book, UserAsynchrone user) {
 		RemoteTaskObserver.super.onBookBorrowed(borrowed, book, user);
 		configureActionButton(proxyModel, book);
-		// TODO Reload comments too.
+		loadComments(book);
 	}
 
 	@Override
 	public void onBookGivenBack(Boolean giveBack, BookAsynchrone book, UserAsynchrone user) {
 		RemoteTaskObserver.super.onBookGivenBack(giveBack, book, user);
 		configureActionButton(proxyModel, book);
-		// TODO Reload comments too.
+		loadComments(book);
 	}
 
 	@Override
 	public void onBookCancel(Boolean cancel, BookAsynchrone book, UserAsynchrone user) {
 		RemoteTaskObserver.super.onBookGivenBack(cancel, book, user);
 		configureActionButton(proxyModel, book);
-		// TODO Reload comments too.
+		loadComments(book);
 	}
 
 	private void commentaryRequested() {
@@ -196,11 +205,6 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		int rate = Integer.parseInt(rateField.getText());
 		state = State.COMMENTARY_POSTING;
 		// RemoteTaskLauncher.searchBooks(keywords, proxyModel, this);
-		// TODO POST A COMMENTRY WITH BEING THE OBSERVER. WHEN THE COMMENT HAS
-		// BEEN DONE, RELOAD THE VIEWER, (ONLY THE COMMENTARY SECTION, NOT THE
-		// STRING->IMAGE LOADING) PUT THE STATE IN HIDLE, EMPTY THE TEXT AREA,
-		// PUSH A NOTIFICATION.
-		// TODO delete this call, it's fake. AND PASSE THE RATING TO !!
 		RemoteTaskLauncher.addComment(proxyModel, book, content, rate, this);
 	}
 
@@ -214,6 +218,8 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		NotificationsManager.notify("Thank you", "Your commentary is now in the Library", INFO);
 		commentPane.getChildren().clear();
 		loadComments(book);
+		System.out.println("Viewer : onCommentary added. " + book.getRate());
+		loadRate(book.getRate());
 	}
 
 	@Override
@@ -273,18 +279,24 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		authorsLabel.setText("De " + book.getAuthors().stream().collect(Collectors.joining(", ")));
 		int rate = book.getRate();
 
-		// TODO no workaround have to be left. Commentary.
 		loadComments(book);
-
-		for (int i = 0; i < rate && i < 5; i++) {
-			stars[i].setImage(STAR_FILL_IMAGE);
-		}
+		loadRate(rate);
 
 		// The text & colors on the button.
 		configureActionButton(proxyModel, book);
 
 		// Loading the image in a separate worker.
 		loadImageInWorker(book);
+	}
+
+	private void loadRate(int rate) {
+		System.out.println("Init rate in BookViewer : " + rate);
+		for (int i = 0; i < 5; i++) {
+			stars[i].setImage(STAR_IMAGE);
+		}
+		for (int i = 0; i < rate && i < 5; i++) {
+			stars[i].setImage(STAR_FILL_IMAGE);
+		}
 	}
 
 	private void configureActionButton(ProxyModel proxyModel, BookAsynchrone book) {
@@ -330,26 +342,15 @@ public class BookViewerModule implements Initializable, Module, RemoteTaskObserv
 		t.start();
 	}
 
-
-
 	private void loadComments(BookAsynchrone book) {
 		List<BookComment> comments = book.getComments();
+		commentPane.getChildren().clear();
 		for (BookComment comment : comments) {
 			BookCommentModule commentModule = ModuleLoader.getInstance().load(BookCommentModule.class);
 			commentModule.setComment(comment.getAuthors(), comment.getContent());
 			commentPane.getChildren().add(commentModule.getView());
 		}
 	}
-	
-//	private void loadComments(BookAsynchrone book) {
-//		String commentAuthor = book.getCommentAuthor();
-//		List<String> commentsContent = book.getCommentText();
-//		for (String comment : commentsContent) {
-//			BookCommentModule commentModule = ModuleLoader.getInstance().load(BookCommentModule.class);
-//			commentModule.setComment(commentAuthor, comment);
-//			commentPane.getChildren().add(commentModule.getView());
-//		}
-//	}
 
 	@Override
 	public ProxyModel getProxyModel() {

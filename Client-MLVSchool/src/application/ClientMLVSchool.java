@@ -180,6 +180,7 @@ public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 		newScreenChildren.add(addBookView);
 		newScreenChildren.add(bookViewerView);
 
+		currentScreen = newScreen;
 		return newScreen;
 	}
 

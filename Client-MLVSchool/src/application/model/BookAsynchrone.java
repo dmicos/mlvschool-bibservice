@@ -1,7 +1,6 @@
 package application.model;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,9 +18,7 @@ public class BookAsynchrone {
 	private List<String> authors;
 	private int rate;
 	private String date;
-	private final List<String> commentsText;
-	private final String commentAuthor;
-	private final Book book;
+	private Book book;
 	private final int id;
 	private final List<BookComment> comments;
 
@@ -37,12 +34,6 @@ public class BookAsynchrone {
 		this.image = Objects.requireNonNull(image);
 
 		// Workaround for the moment.
-		commentsText = new ArrayList<>();
-		commentAuthor = "Jefferson Mangue";
-		for (int i = 0; i < 5; ++i) {
-			commentsText.add(
-					"Test test Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile.");
-		}
 	}
 
 	/**
@@ -67,7 +58,6 @@ public class BookAsynchrone {
 		authors = book.getAuthors();
 		date = book.getDate().toString();
 		rate = (int) book.getRate();
-		// TODO update COMMENTS HERE !!
 		comments.clear();
 		comments.addAll(library.getComment(book));
 		return this;
@@ -91,14 +81,6 @@ public class BookAsynchrone {
 
 	public List<String> getAuthors() {
 		return Collections.unmodifiableList(authors);
-	}
-
-	public String getCommentAuthor() {
-		return commentAuthor;
-	}
-
-	public List<String> getCommentText() {
-		return commentsText;
 	}
 
 	public String getDate() {

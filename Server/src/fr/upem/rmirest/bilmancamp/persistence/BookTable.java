@@ -169,7 +169,10 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		PreparedStatement ps = getConnection().prepareStatement("SELECT AVG(VALUE) as rank from rate r WHERE idBook=?");
 		ps.setInt(1, idBook);
 		ResultSet rs = ps.executeQuery();
-		return rs.getDouble("rank");
+		if (rs.first()) {
+			return rs.getDouble("rank");
+		}
+		return 0;
 	}
 	
 	
