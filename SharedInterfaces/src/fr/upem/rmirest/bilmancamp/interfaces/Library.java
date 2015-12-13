@@ -238,27 +238,30 @@ public interface Library extends Remote {
 	public List<Book> getPendingBooks(User user) throws RemoteException;
 
 	/**
-	 * disconnect given user
+	 * Add a comment and a rate from the given author, about the given
+	 * {@link Book}.
 	 * 
-	 * @param user
-	 * @throws RemoteException
-	 */
-	public void disconnect(User user) throws RemoteException;
-	
-	/**
-	 * Add a comment
 	 * @param book
 	 * @param author
 	 * @param rate
 	 * @throws RemoteException
 	 */
-	public boolean addComment(Book book, String author, int rate,String comment) throws RemoteException;
-	
+	public boolean addComment(Book book, String author, int rate, String comment) throws RemoteException;
+
 	/**
-	 * Get list of comments
+	 * Get a list of the comments added about the given {@link Book}.
+	 * 
 	 * @param book
-	 * @return
+	 * @return a list of the comments added about the given book.
 	 * @throws RemoteException
 	 */
 	public List<BookComment> getComment(Book book) throws RemoteException;
+
+	/**
+	 * Disconnect the given {@link User}.
+	 * 
+	 * @param user
+	 * @throws RemoteException
+	 */
+	public void disconnect(User user) throws RemoteException;
 }
