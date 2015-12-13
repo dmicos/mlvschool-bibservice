@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface Library extends Remote {
 
-	// TODO Image is a serializable interface.
 	/**
 	 * Add a new {@link Book} to the current {@link Library}.
 	 * 
@@ -161,7 +160,7 @@ public interface Library extends Remote {
 	 * Get the <code>number</code> books the most similar to the given one.
 	 * 
 	 * @param book
-	 *            the comparaison book.
+	 *            the comparison book.
 	 * @param number
 	 *            the wanted number of books.
 	 * @return a list of the <code>number</code> books the most similar to
@@ -214,7 +213,7 @@ public interface Library extends Remote {
 	 *            the book to rate
 	 * @param value
 	 *            The rate value
-	 * @return <code>true</code> if operatio succeeds otherwise
+	 * @return <code>true</code> if operation succeeds otherwise
 	 *         <code>false</code>
 	 * @throws RemoteException
 	 */
