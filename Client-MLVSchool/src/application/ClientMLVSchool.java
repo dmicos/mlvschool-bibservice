@@ -1,14 +1,20 @@
 package application;
 
+import static application.utils.Constants.SEARCH_MODULE_X;
+import static application.utils.Constants.SEARCH_MODULE_Y;
+
 import java.util.List;
 
 import application.controllers.ModuleLoader;
+import application.controllers.RemoteTaskObserver;
 import application.controllers.Screen;
 import application.controllers.connection_screen.ConnectionScreen;
 import application.controllers.home_screen.AddBookModule;
+import application.controllers.home_screen.BookViewerModule;
 import application.controllers.home_screen.BurgerMenuModule;
 import application.controllers.home_screen.HomeScreen;
 import application.controllers.home_screen.SearchModule;
+import application.model.BookAsynchrone;
 import application.model.ProxyModel;
 import application.utils.Animations;
 import application.utils.Constants;
@@ -32,7 +38,7 @@ import javafx.util.Duration;
  * @author Jefferson
  *
  */
-public class ClientMLVSchool extends Application {
+public class ClientMLVSchool extends Application implements RemoteTaskObserver {
 
 	public static void main(String[] args) {
 		String codebase = "file:///Users/Baxtalou/Documents/Master2/REST2/ProjetRMIREST/bilious-octoprune/Server/src/";
@@ -46,11 +52,8 @@ public class ClientMLVSchool extends Application {
 		launch(args);
 	}
 
-	private static final int SEARCH_MODULE_Y = 22;
-	private static final int SEARCH_MODULE_X = 372;
-
 	/**
-	 * The Application is a "stand alone" singleton. According to the JAVAFX
+	 * The Application is a "stand alone" singleton. According to the JAVAFX's
 	 * cycle activity.
 	 */
 	private static ClientMLVSchool INSTANCE;
@@ -64,6 +67,7 @@ public class ClientMLVSchool extends Application {
 	private BurgerMenuModule burgerMenuModule;
 	private AddBookModule addBookModule;
 	private SearchModule searchModule;
+	private BookViewerModule bookViewerModule;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -84,10 +88,19 @@ public class ClientMLVSchool extends Application {
 		INSTANCE = this;
 	}
 
+	/**
+	 * The application is a singleton by itself (JAVAFX's ways...)
+	 */
 	public static ClientMLVSchool getINSTANCE() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Used to invoke environment windows when picking an image in the
+	 * addBookModule. It should in default visibility, I know. But the
+	 * refactoring involve some work on various paths in view's FXML files to
+	 * link Controller classes. This is on my todo list thought.
+	 */
 	public Stage getStage() {
 		return primaryStage;
 	}
@@ -104,22 +117,27 @@ public class ClientMLVSchool extends Application {
 		connectionScreen.startCient();
 	}
 
-	private void cacheRoot(VBox root) {
-		root.setCache(true);
-		root.setCacheShape(true);
-		root.setCacheHint(CacheHint.SPEED);
+	private void cacheRoot(Pane pane) {
+		pane.setCache(true);
+		pane.setCacheShape(true);
+		pane.setCacheHint(CacheHint.SPEED);
 	}
 
-	private void loadSearchModule() {
+	private void loadSearchModule(ProxyModel proxyModel) {
 		searchModule = ModuleLoader.getInstance().load(SearchModule.class);
 		searchModule.getView().setLayoutX(SEARCH_MODULE_X);
 		searchModule.getView().setLayoutY(SEARCH_MODULE_Y);
+		searchModule.setProxyModel(proxyModel);
 	}
 
 	private void loadAddBookModule(HomeScreen homeScreen, List<String> categories) {
 		addBookModule = ModuleLoader.getInstance().load(AddBookModule.class);
 		addBookModule.setCategories(categories);
 		addBookModule.setHomeScreen(homeScreen);
+	}
+
+	private void loadBookViewerModule() {
+		bookViewerModule = ModuleLoader.getInstance().load(BookViewerModule.class);
 	}
 
 	private void loadBurgerMenuModule(ProxyModel proxyModel) {
@@ -134,33 +152,56 @@ public class ClientMLVSchool extends Application {
 	 * Change the entire scene from the current layout, to the new
 	 * <code>newLayout</code>.
 	 */
-	public <T extends Screen> T setInstantNewScreen(Screen currentScreen, T newScreen) {
+	public <T extends Screen> T setInstantNewScreen(T newScreen) {
 		// Initializing the newScreen with dynamic contents.
 		newScreen.initializeWithDynamicContent(currentScreen.getProxyModel());
 		Pane newView = newScreen.getView();
 		scene.setRoot(newView);
-		newView.setCache(true);
-		newView.setCacheShape(true);
-		newView.setCacheHint(CacheHint.SPEED);
+		cacheRoot(newView);
 
 		// Hiding modules
 		burgerMenuModule.hide();
 		addBookModule.hide();
+		bookViewerModule.hide();
 
 		// Adding modules to their new layout.
 		ObservableList<Node> oldScreenChildren = currentScreen.getView().getChildren();
 		ObservableList<Node> newScreenChildren = newView.getChildren();
+		Pane bookViewerView = bookViewerModule.getView();
 		Pane burgerView = burgerMenuModule.getView();
 		Pane addBookView = addBookModule.getView();
 		Pane searchView = searchModule.getView();
 		oldScreenChildren.remove(burgerView);
 		oldScreenChildren.remove(searchView);
 		oldScreenChildren.remove(addBookView);
+		oldScreenChildren.remove(bookViewerView);
 		newScreenChildren.add(burgerView);
 		newScreenChildren.add(searchView);
 		newScreenChildren.add(addBookView);
+		newScreenChildren.add(bookViewerView);
 
 		return newScreen;
+	}
+
+	@Override
+	public void onBookVisualized(BookAsynchrone book) {
+		burgerMenuModule.hide();
+		addBookModule.hide();
+		bookViewerModule.setBook(book);
+		bookViewerModule.show();
+	}
+
+	private Scene getScene() {
+		return scene;
+	}
+
+	private static ConnectionScreen loadConnectionScreen() {
+		return ModuleLoader.getInstance().load(ConnectionScreen.class);
+	}
+
+	@Override
+	public void stop() throws Exception {
+		currentScreen.getProxyModel().disconnectUser();
 	}
 
 	/**
@@ -172,14 +213,15 @@ public class ClientMLVSchool extends Application {
 		// Initializing the new screen model.
 		newScreen.initializeWithDynamicContent(proxyModel);
 		// Attaching externals modules to the new screen.
-		loadSearchModule();
+		loadSearchModule(proxyModel);
 		loadAddBookModule(newScreen, proxyModel.getLibrary().getCategories());
 		loadBurgerMenuModule(proxyModel);
+		loadBookViewerModule();
 
 		// Adding these 3 modules to the current home screen.
 		Pane newView = newScreen.getView();
 		newView.getChildren().addAll(INSTANCE.searchModule.getView(), INSTANCE.addBookModule.getView(),
-				INSTANCE.burgerMenuModule.getView());
+				INSTANCE.bookViewerModule.getView(), INSTANCE.burgerMenuModule.getView());
 
 		// The root is a VBox of the current and the new layout.
 		Pane currentView = currentScreen.getView();
@@ -208,16 +250,8 @@ public class ClientMLVSchool extends Application {
 		sequence.play();
 	}
 
-	private Scene getScene() {
-		return scene;
-	}
-
-	private static ConnectionScreen loadConnectionScreen() {
-		return ModuleLoader.getInstance().load(ConnectionScreen.class);
-	}
-
 	@Override
-	public void stop() throws Exception {
-		currentScreen.getProxyModel().disconnectUser();
+	public ProxyModel getProxyModel() {
+		return currentScreen.getProxyModel();
 	}
 }

@@ -101,6 +101,7 @@ public class AddBookModule implements Initializable, Module {
 
 	@FXML
 	public void paneFormClicked() {
+		// TODO handle this bug ! :S
 		// hide(); Used to prevent the root to be clicked & hidded.
 	}
 
@@ -239,6 +240,7 @@ public class AddBookModule implements Initializable, Module {
 	public void initialize(URL location, ResourceBundle resources) {
 		viewerTmp = new ImageView();
 		loadWorkAroundFont();
+		// Not visible at first.
 		paneRoot.setMouseTransparent(true);
 		paneRoot.setTranslateY(Constants.SCENE_HEIGHT);
 		isShown = false;

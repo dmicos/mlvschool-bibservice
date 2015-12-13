@@ -23,7 +23,7 @@
             <Insets left="20.0" />
          </HBox.margin>
       </TextField>
-      <ImageView fitHeight="22.0" fitWidth="22.0" onMouseClicked="#searchClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../icons/search_icon.png" />
          </image>

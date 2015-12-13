@@ -1,6 +1,7 @@
 package application.controllers;
 
 import java.util.List;
+import java.util.Objects;
 
 import application.ClientMLVSchool;
 import application.controllers.connection_screen.ConnectionScreen;
@@ -153,7 +154,6 @@ public class RemoteTaskLauncher {
 		task.setOnFailed(e -> {
 			Throwable exception = task.getException();
 			if (exception == null) {
-				// ClientMLVSchool.reloadApplicationFirstScreen();
 				reloadApplication("Connection lost.");
 				return;
 			}
@@ -169,7 +169,6 @@ public class RemoteTaskLauncher {
 
 	public static void searchBooksByCategory(Screen screen, String category) {
 		ProxyModel proxyModel = screen.getProxyModel();
-		// TODO screen.loading(); = disable + icon de chargement.
 		Task<List<BookAsynchrone>> task = new Task<List<BookAsynchrone>>() {
 			@Override
 			protected List<BookAsynchrone> call() throws Exception {
@@ -179,11 +178,9 @@ public class RemoteTaskLauncher {
 
 		// Handling the success.
 		task.setOnSucceeded(e -> {
-			// homeScreen.researchBooksReady(category, task.getValue());
-			// Removing modules
 			// Creating the research screen.
 			ResearchScreen researchScreen = ModuleLoader.getInstance().load(ResearchScreen.class);
-			ClientMLVSchool.getINSTANCE().setInstantNewScreen(screen, researchScreen);
+			ClientMLVSchool.getINSTANCE().setInstantNewScreen(researchScreen);
 			researchScreen.loadBooks(category, task.getValue());
 		});
 
@@ -192,8 +189,78 @@ public class RemoteTaskLauncher {
 		launchTask(task);
 	}
 
+	public static void refreshLibrary(ProxyModel proxyModel, RemoteTaskObserver observer) {
+		Task<Void> task = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				proxyModel.reloadLibrary();
+				return null;
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> observer.onLibraryRefreshed());
+
+		// Handling the failure.
+		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		launchTask(task);
+	}
+
+	public static void searchBooks(String[] keywords, ProxyModel proxyModel, RemoteTaskObserver searchModule) {
+		Objects.requireNonNull(keywords);
+		Objects.requireNonNull(proxyModel);
+		Task<List<BookAsynchrone>> task = new Task<List<BookAsynchrone>>() {
+			@Override
+			protected List<BookAsynchrone> call() throws Exception {
+				return proxyModel.search(keywords);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> searchModule.onBookFound(task.getValue(), keywords));
+		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		launchTask(task);
+	}
+
+	public static void disconnect(ProxyModel proxyModel) {
+		Objects.requireNonNull(proxyModel);
+		Task<Void> task = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				proxyModel.disconnectUser();
+				return null;
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> disconnect());
+		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		launchTask(task);
+	}
+
+	public static void updateBookToVisualize(BookAsynchrone book, RemoteTaskObserver observer) {
+		Objects.requireNonNull(book);
+		ProxyModel proxyModel = Objects.requireNonNull(observer.getProxyModel());
+		Task<BookAsynchrone> task = new Task<BookAsynchrone>() {
+			@Override
+			protected BookAsynchrone call() throws Exception {
+				return proxyModel.updateBook(book);
+			}
+		};
+
+		// Handling the success.
+		task.setOnSucceeded(e -> observer.onBookVisualized(task.getValue()));
+		task.setOnFailed(e -> reloadApplication("Connection lost."));
+		launchTask(task);
+	}
+
 	private static void reloadApplication(String message) {
 		NotificationsManager.notify("Library :", message, NotificationType.DATABASE);
+		ClientMLVSchool.getINSTANCE().reloadApplicationFirstScreen();
+	}
+
+	private static void disconnect() {
+		NotificationsManager.notify("Library :", "Good bye !", NotificationType.INFO);
 		ClientMLVSchool.getINSTANCE().reloadApplicationFirstScreen();
 	}
 

@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import application.ClientMLVSchool;
 import application.controllers.Module;
 import application.controllers.ModuleLoader;
+import application.controllers.RemoteTaskLauncher;
 import application.model.BookAsynchrone;
 import application.utils.Constants;
 import application.utils.FontManager;
@@ -49,30 +51,46 @@ public class BookSpinerModule implements Initializable, Module {
 	@FXML
 	private Text title;
 	private BookSpinerModule nextSpiner;
+	private List<BookAsynchrone> books;
 
 	@FXML
 	void book1Clicked() {
-		System.out.println("Book 1");
+		if (books.size() < 1) {
+			return;
+		}
+		RemoteTaskLauncher.updateBookToVisualize(books.get(0), ClientMLVSchool.getINSTANCE());
 	}
 
 	@FXML
 	void book2Clicked() {
-		System.out.println("Book 2");
+		if (books.size() < 2) {
+			return;
+		}
+		RemoteTaskLauncher.updateBookToVisualize(books.get(1), ClientMLVSchool.getINSTANCE());
 	}
 
 	@FXML
 	void book3Clicked() {
-		System.out.println("Book 3");
+		if (books.size() < 3) {
+			return;
+		}
+		RemoteTaskLauncher.updateBookToVisualize(books.get(2), ClientMLVSchool.getINSTANCE());
 	}
 
 	@FXML
 	void book4Clicked() {
-		System.out.println("Book 4");
+		if (books.size() < 4) {
+			return;
+		}
+		RemoteTaskLauncher.updateBookToVisualize(books.get(3), ClientMLVSchool.getINSTANCE());
 	}
 
 	@FXML
 	void book5Clicked() {
-		System.out.println("Book 5");
+		if (books.size() < 5) {
+			return;
+		}
+		RemoteTaskLauncher.updateBookToVisualize(books.get(4), ClientMLVSchool.getINSTANCE());
 	}
 
 	@Override
@@ -112,7 +130,7 @@ public class BookSpinerModule implements Initializable, Module {
 	 * Initializes spiner's books.
 	 */
 	void initContent(List<BookAsynchrone> books, String title) throws IOException {
-		Objects.requireNonNull(books);
+		this.books = Objects.requireNonNull(books);
 		this.title.setText(Objects.requireNonNull(title));
 		int bookNumber = books.size();
 		if (bookNumber > 5) {

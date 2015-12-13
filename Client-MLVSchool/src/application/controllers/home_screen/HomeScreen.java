@@ -59,6 +59,7 @@ public class HomeScreen implements Initializable, Screen {
 
 	@Override
 	public void initializeWithDynamicContent(ProxyModel proxyModel) {
+		System.out.println("lOADING HOME all");
 		this.proxyModel = Objects.requireNonNull(proxyModel);
 
 		// Filling the categories in the grid.
@@ -92,7 +93,10 @@ public class HomeScreen implements Initializable, Screen {
 		reloadSpinnerBooks();
 	}
 
-	public void reloadSpinnerBooks() {
+	/**
+	 * Reloads book spinner on the top of the screen.
+	 */
+	private void reloadSpinnerBooks() {
 		LibraryAsynchrone library = proxyModel.getLibrary();
 		List<List<BookAsynchrone>> lists = new ArrayList<>();
 		lists.add(library.getBestBooks());
@@ -120,9 +124,11 @@ public class HomeScreen implements Initializable, Screen {
 		BookSpinerModule.initChaineSpinners(TITLES, lists, paneRoot, spiners);
 	}
 
+	/**
+	 * Starting animation of the first spinner. Chaining with other on the
+	 * completion.
+	 */
 	private void startSpinnerAnimations() {
-		// Starting animation of the first spinner. Chaining with other on the
-		// completion.
 		spiners.get(0).show();
 	}
 
@@ -143,7 +149,7 @@ public class HomeScreen implements Initializable, Screen {
 	public void clickOnCategory(String category) {
 		// Switching to the search screen.
 		RemoteTaskLauncher.searchBooksByCategory(this, category);
-		paneRoot.setDisable(true);
+		paneRoot.setMouseTransparent(true);
 		// TODO print a loader circle.
 	}
 }

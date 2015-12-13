@@ -1,6 +1,7 @@
 package application.controllers.research_screen;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -11,6 +12,7 @@ import application.model.ProxyModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -71,16 +73,33 @@ public class ResearchScreen implements Initializable, Screen {
 
 	private void loadBookEntries(List<BookAsynchrone> books) {
 		// Loading images in worker thread !!
+		List<Node> viewsTmp = new ArrayList<>();
 		Thread t = new Thread(() -> {
+			int i = 0;
 			for (BookAsynchrone b : books) {
 				BookEntryModule module = ModuleLoader.getInstance().load(BookEntryModule.class);
 				module.setBook(b);
-				Platform.runLater(() -> {
-					booksEntryPane.getChildren().add(module.getView());
-				});
+				viewsTmp.add(module.getView());
+				i++;
+				if (i > 30) {
+					i = 0;
+					sendToJAVAFX(viewsTmp);
+					viewsTmp.clear();
+				}
 			}
+			// Last sent to send the remaining.
+			sendToJAVAFX(viewsTmp);
 		});
 		t.setDaemon(true);
 		t.start();
+	}
+
+	private void sendToJAVAFX(List<Node> viewsTmp) {
+		List<Node> producer = new ArrayList<>(viewsTmp);
+		Platform.runLater(() -> {
+			for (Node node : producer) {
+				booksEntryPane.getChildren().add(node);
+			}
+		});
 	}
 }

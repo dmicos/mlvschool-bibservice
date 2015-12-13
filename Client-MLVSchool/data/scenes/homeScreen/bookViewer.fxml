@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="paneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#paneRootClicked" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/florange.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.home_screen.AddBookModule">
+   <children>
+      <VBox fx:id="paneForm" alignment="TOP_CENTER" cache="true" cacheHint="SPEED" layoutX="310.0" layoutY="84.0" maxHeight="716.0" maxWidth="690.0" minHeight="716.0" minWidth="690.0" onMousePressed="#paneFormClicked" prefHeight="716.0" prefWidth="690.0" spacing="12.0" styleClass="blackBackground" stylesheets="@../../css/florange.css">
+         <children>
+            <Button id="cancelButton" fx:id="cancelButton" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" text="x">
+               <font>
+                  <Font name="SF UI Text Light" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="570.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <HBox fx:id="paneRoot1" alignment="CENTER_LEFT" cache="true" cacheHint="SPEED" maxHeight="152.0" maxWidth="542.0" minHeight="152.0" minWidth="572.0" prefHeight="152.0" prefWidth="542.0" spacing="36.0" styleClass="noBackground" stylesheets="@../../css/florange.css">
+               <children>
+                  <ImageView fx:id="imageView" fitHeight="152.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/bookImage1.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+                  <VBox>
+                     <children>
+                        <Label fx:id="titleLabel" maxWidth="500.0" text="Programmation Android" textFill="WHITE">
+                           <font>
+                              <Font name="SF UI Text Semibold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dateLabel" text="13 Février 2015" textFill="WHITE">
+                           <font>
+                              <Font name="SF UI Text Light" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox maxHeight="56.0" minHeight="56.0" prefHeight="56.0" spacing="25.0">
+                           <children>
+                              <VBox minWidth="200.0" prefHeight="56.0" prefWidth="141.0">
+                                 <children>
+                                    <Label fx:id="authorsLabel" prefHeight="23.0" prefWidth="190.0" style="-fx-padding: 0;" text="De Damien Guignard" textFill="WHITE">
+                                       <font>
+                                          <Font name="SF UI Text Semibold" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <HBox prefHeight="100.0">
+                                       <children>
+                                          <ImageView fx:id="start1" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/start_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="start2" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/start_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="start3" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/start_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="start4" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/start_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="start5" fitHeight="20.46" fitWidth="21.4" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/start_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="2.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="consultButton" maxHeight="56.0" maxWidth="190.0" minHeight="56.0" minWidth="190.0" mnemonicParsing="false" onAction="#consultCliked" prefHeight="56.0" prefWidth="190.0" style="-fx-border-radius: 0;" styleClass="takeButton" text="Add" textFill="WHITE">
+                                 <font>
+                                    <Font name="SF UI Display Regular" size="32.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets top="12.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="4.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label prefHeight="130.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="SF UI Text Regular" size="18.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="0.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="white70Text" width="498.0" />
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="180.0" styleClass="blackBackground">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="6.0" prefWidth="143.0" style="-fx-text-fill: #ffffff80; -fx-padding: 0;" text="Comments">
+                     <font>
+                        <Font name="SF UI Text Light" size="24.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="noBackground" />
+                        <String fx:value="greyTextButton" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="16.0" prefWidth="216.0" style="-fx-text-fill: #ffffff80; -fx-padding: 0;" text="Write a comment">
+                     <font>
+                        <Font name="SF UI Text Light" size="24.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="noBackground" />
+                        <String fx:value="greyTextButton" />
+                     </styleClass>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="-12.0" />
+               </VBox.margin>
+            </HBox>
+            <ScrollPane fitToHeight="true" prefHeight="284.0" prefWidth="690.0" stylesheets="@../../css/scrollview.css">
+               <content>
+                  <VBox alignment="TOP_CENTER" prefWidth="688.0" spacing="19.0">
+                     <children>
+                        <VBox maxHeight="153.0" maxWidth="600.0" minHeight="153.0" minWidth="600.0" prefHeight="153.0" prefWidth="600.0">
+                           <children>
+                              <Label text="Jefferson Mangue" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="130.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="153.0" maxWidth="600.0" minHeight="153.0" minWidth="600.0" prefHeight="153.0" prefWidth="600.0">
+                           <children>
+                              <Label text="Jefferson Mangue" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="130.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="153.0" maxWidth="600.0" minHeight="153.0" minWidth="600.0" prefHeight="153.0" prefWidth="600.0">
+                           <children>
+                              <Label text="Jefferson Mangue" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="130.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="153.0" maxWidth="600.0" minHeight="153.0" minWidth="600.0" prefHeight="153.0" prefWidth="600.0">
+                           <children>
+                              <Label text="Jefferson Mangue" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Semibold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="130.0" prefWidth="600.0" text="Par son ouverture et ses possibilités de déploiement, la plate-forme Google Androïd basé sur Linux offre un socle et un environnement de développement puissants pour créer des applications mobiles robustes et ergonomiques. Elle met à la portée des professionnels et des particuliers la réalisation d'applications à la fois riches en fonctionnalités et adaptées aux contraintes de l'utilisation mobile." textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="SF UI Text Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+   <styleClass>
+      <String fx:value="sceneSize" />
+      <String fx:value="noBackground" />
+   </styleClass>
+</Pane>
