@@ -1,5 +1,6 @@
 package fr.upem.rmirest.bilmancamp.database;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import fr.upem.rmirest.bilmancamp.interfaces.Book;
@@ -237,5 +238,26 @@ public interface Database {
 	 * Clear the whole database
 	 */
 	public boolean clear();
+	
+	/**
+	 * Retrieves all {@link BookPOJO} that have been added <code>nbYear</code>
+	 * back in past
+	 * 
+	 * @param nbYear
+	 *            the number of year
+	 * @param limit
+	 *            the max {@link BookPOJO} to return
+	 * @return a list of {@link BookPOJO}
+	 */
+	public List<BookPOJO> getBooksFromPastAndBorrowed(int nbYear, int limit);
+	
+	/**
+	 * Add a comment
+	 * @param book
+	 * @param author
+	 * @param rate
+	 * @throws RemoteException
+	 */
+	public boolean addComment(BookPOJO book, String author, int rate);
 
 }
