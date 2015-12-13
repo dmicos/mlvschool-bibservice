@@ -182,6 +182,16 @@ public class LibraryImpl extends UnicastRemoteObject implements Library {
 	}
 
 	@Override
+	public float getRate(Book book) throws RemoteException {
+		return database.getBookRate(Mapper.createBookPOJO(book));
+	}
+
+	@Override
+	public int getRateNumber(Book book) throws RemoteException {
+		return database.getBookRateNumber(Mapper.createBookPOJO(book));
+	}
+
+	@Override
 	public User connect(String id, String password, MailBox<Book> callback) throws RemoteException {
 
 		Objects.requireNonNull(callback);

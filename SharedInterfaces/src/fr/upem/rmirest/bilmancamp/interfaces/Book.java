@@ -60,16 +60,6 @@ public interface Book extends Remote {
 	public double getPrice() throws RemoteException;
 
 	/**
-	 * @return the average evaluation of the current book.
-	 */
-	public float getRate() throws RemoteException;
-
-	/**
-	 * @return the number of evaluations of the current book.
-	 */
-	public int getRateNumber() throws RemoteException;
-
-	/**
 	 * @return a list of the current book's tags.
 	 */
 	public List<String> getTags() throws RemoteException;
@@ -81,7 +71,7 @@ public interface Book extends Remote {
 
 	/**
 	 * @return a list of secondary images of the current book, encoded as base64
-	 *         strings. 
+	 *         strings.
 	 */
 	@Deprecated
 	public List<String> getSecondaryImages() throws RemoteException;

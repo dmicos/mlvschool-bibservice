@@ -220,6 +220,16 @@ public interface Library extends Remote {
 	public boolean rateBook(Book book, User user, int value) throws RemoteException;
 
 	/**
+	 * @return the average evaluation of the given book.
+	 */
+	public float getRate(Book book) throws RemoteException;
+
+	/**
+	 * @return the number of evaluations of the given book.
+	 */
+	public int getRateNumber(Book book) throws RemoteException;
+
+	/**
 	 * Get a list of all {@link Book}s borrowed by the given {@link User}.
 	 * 
 	 * @param user

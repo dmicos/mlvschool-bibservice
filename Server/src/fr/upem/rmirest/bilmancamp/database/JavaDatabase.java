@@ -374,4 +374,16 @@ public class JavaDatabase implements Database {
 		return null;
 	}
 
+	@Override
+	public float getBookRate(BookPOJO book) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBookRateNumber(BookPOJO book) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
