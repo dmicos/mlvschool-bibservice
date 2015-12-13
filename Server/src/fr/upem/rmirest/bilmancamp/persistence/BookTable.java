@@ -161,6 +161,7 @@ public class BookTable extends AbstractTableModel<BookPOJO> {
 		ps.setInt(1, limit);
 		extractFromResultSet(content, ps.executeQuery());
 		consult(content);
+		System.out.println(content);
 		return content;
 	}
 

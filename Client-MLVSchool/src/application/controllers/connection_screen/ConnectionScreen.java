@@ -5,7 +5,6 @@ import static application.utils.Constants.SF_DISPLAY_LIGHT;
 import static application.utils.Constants.SF_DISPLAY_REGULAR;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import application.ClientMLVSchool;
@@ -101,13 +100,6 @@ public class ConnectionScreen implements Initializable, Screen {
 		RemoteTaskLauncher.connectServer(this);
 	}
 
-	/**
-	 * Sets the current PROXY model used to populate the screen.
-	 */
-	public void setModel(ProxyModel proxyModel) {
-		this.proxyModel = Objects.requireNonNull(proxyModel);
-	}
-
 	@Override
 	public ProxyModel getProxyModel() {
 		return proxyModel;
@@ -154,16 +146,15 @@ public class ConnectionScreen implements Initializable, Screen {
 	 * to the library. Now automatically connecting it.
 	 */
 	public void onUserAdded(String firstName, String lastName, int cardID, String password, String status) {
-		RemoteTaskLauncher.connectUserAfterAddInLibrary(this,
-				ModelRules.computeUserLogging(lastName, cardID), password);
+		RemoteTaskLauncher.connectUserAfterAddInLibrary(this, ModelRules.computeUserLogging(lastName, cardID),
+				password);
 		// Hiding the loginController.
 		signUpController.hideForWelcomeMessage();
 	}
 
 	private void launchHomeScreen() {
-		HomeScreen homeModule = ModuleLoader.getInstance().load(HomeScreen.class);
-		homeModule.initDynamicContent(proxyModel);
-		ClientMLVSchool.setNewScreen(300, this, homeModule);
+		HomeScreen homeScreen = ModuleLoader.getInstance().load(HomeScreen.class);
+		ClientMLVSchool.getINSTANCE().translateToHomeScreen(300, homeScreen);
 	}
 
 	@FXML
@@ -209,10 +200,6 @@ public class ConnectionScreen implements Initializable, Screen {
 	@Override
 	public Pane getView() {
 		return paneRoot;
-	}
-
-	@Override
-	public void startHasMainScreen() {
 	}
 
 	public void comeBackToState1() {
@@ -263,11 +250,14 @@ public class ConnectionScreen implements Initializable, Screen {
 	private <T extends Module> T loadModule(Class<T> moduleClass) {
 		// Loading the module.
 		T module = ModuleLoader.getInstance().load(moduleClass);
-		// Hiding this module.
 		module.hide();
-		// Adding the module to the current screen.
 		paneRoot.getChildren().add(module.getView());
 		return module;
+	}
+
+	@Override
+	public void initializeWithDynamicContent(ProxyModel proxyModel) {
+		this.proxyModel = proxyModel;
 	}
 
 	private void loadFontsWorkaround() {

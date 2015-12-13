@@ -1,5 +1,7 @@
 package application.model;
 
+import static application.model.BookAsynchrone.convertToBooksAsynchrone;
+
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,10 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import application.utils.UncheckedRemoteException;
-import fr.upem.rmirest.bilmancamp.interfaces.Book;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 
 /**
@@ -80,6 +79,14 @@ public class LibraryAsynchrone {
 		mostConsultedBooks.addAll(convertToBooksAsynchrone(library.getMostConsultedBooks(5)));
 	}
 
+	/**
+	 * Reloads all the data.
+	 * @throws RemoteException 
+	 */
+	public void reload() throws RemoteException {
+		reloadBooks();
+	}
+
 	Library getLibrary() {
 		return library;
 	}
@@ -104,22 +111,7 @@ public class LibraryAsynchrone {
 		return Collections.unmodifiableList(mostRecentBooks);
 	}
 
-	private static List<BookAsynchrone> convertToBooksAsynchrone(List<Book> books) throws RemoteException {
-		try {
-			return books.stream().map(b -> {
-				try {
-					return BookAsynchrone.createBookAsynchrone(b);
-				} catch (RemoteException e) {
-					throw new UncheckedRemoteException(e);
-				}
-			}).collect(Collectors.toList());
-		} catch (UncheckedRemoteException e) {
-			throw e.getCause();
-		}
-	}
-
 	public List<String> getStatus() {
 		return status;
 	}
-
 }

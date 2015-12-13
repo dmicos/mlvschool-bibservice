@@ -149,7 +149,6 @@ public class EmbeddedDB implements Database {
 		} catch (SQLException e) {
 			Logger.getLogger(EmbeddedDB.class.getName()).log(Level.SEVERE, e.getMessage(), e);
 		}
-		System.out.println("Failed");
 		return Collections.emptyList();
 	}
 

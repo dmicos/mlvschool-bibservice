@@ -5,9 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import application.utils.UncheckedRemoteException;
 import fr.upem.rmirest.bilmancamp.interfaces.Library;
 import fr.upem.rmirest.bilmancamp.interfaces.User;
 
@@ -58,7 +56,7 @@ public class ProxyModel {
 		User remoteUser = library.connect(login, password);
 		userConnected = UserAsynchrone.createUserAsynchrone(library, remoteUser, library.getBookHistory(remoteUser));
 		state = State.CONNECTED;
-		return userConnected.getUser();
+		return userConnected.getRemoteUser();
 	}
 
 	public boolean addUser(String firstName, String lastName, int cardID, String password, String status)
@@ -77,7 +75,7 @@ public class ProxyModel {
 	 */
 	public void disconnectUser() throws RemoteException {
 		if (state == State.CONNECTED) {
-			userConnected.getUser().disconnect();
+			userConnected.getRemoteUser().disconnect();
 		}
 	}
 
@@ -90,16 +88,39 @@ public class ProxyModel {
 	}
 
 	public List<BookAsynchrone> searchByCategory(String category) throws RemoteException {
-		try {
-			return library.getLibrary().getCategoryBooks(category).stream().map(b -> {
-				try {
-					return BookAsynchrone.createBookAsynchrone(b);
-				} catch (RemoteException e) {
-					throw new UncheckedRemoteException(e);
-				}
-			}).collect(Collectors.toList());
-		} catch (UncheckedRemoteException e) {
-			throw e.getCause();
-		}
+		return BookAsynchrone.convertToBooksAsynchrone(library.getLibrary().getCategoryBooks(category));
+	}
+
+	public void reloadLibrary() throws RemoteException {
+		library.reload();
+	}
+
+	public List<BookAsynchrone> search(String[] keywords) throws RemoteException {
+		return BookAsynchrone.convertToBooksAsynchrone(library.getLibrary().searchBooks(keywords));
+	}
+
+	public BookAsynchrone updateBook(BookAsynchrone book) throws RemoteException {
+		return book.update();
+	}
+
+	public boolean borrowBook(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
+		boolean result = library.getLibrary().borrow(book.getRemoteBook(), user.getRemoteUser());
+		user.update(library);
+		book.update();
+		return result;
+	}
+
+	public boolean giveBack(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
+		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
+		user.update(library);
+		book.update();
+		return result;
+	}
+
+	public boolean cancel(UserAsynchrone user, BookAsynchrone book) throws RemoteException {
+		boolean result = library.getLibrary().giveBack(book.getRemoteBook(), user.getRemoteUser());
+		user.update(library);
+		book.update();
+		return result;
 	}
 }
