@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://ws.bilmancamp.rmirest.upem.fr" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://models.bilmancamp.rmirest.upem.fr" xmlns:impl="http://ws.bilmancamp.rmirest.upem.fr" targetNamespace="http://ws.bilmancamp.rmirest.upem.fr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://ws.bilmancamp.rmirest.upem.fr">
+      <xsd:import namespace="http://models.bilmancamp.rmirest.upem.fr" />
+      <xsd:element name="getCategories">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getCategoriesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getCategoriesReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getImage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="idBook" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getImageResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getImageReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getRange">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="offset" type="xsd:int" />
+            <xsd:element name="limit" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getRangeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getRangeReturn" type="tns1:BookPOJO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_CommentImpl">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns1:CommentImpl" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getBooksForSell">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="limit" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBooksForSellResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getBooksForSellReturn" type="tns1:BookPOJO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getTotalBooks">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getTotalBooksResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getTotalBooksReturn" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchBooks">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="tags" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchBooksResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="searchBooksReturn" type="tns1:BookPOJO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sellBook">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="cardID" type="xsd:long" />
+            <xsd:element name="secret" type="xsd:string" />
+            <xsd:element name="devise" type="xsd:string" />
+            <xsd:element name="price" type="xsd:double" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sellBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="sellBookReturn" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMostConsultedBook">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="number" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMostConsultedBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getMostConsultedBookReturn" type="tns1:BookPOJO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMostConsultedBookFormatted">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="number" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMostConsultedBookFormattedResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getMostConsultedBookFormattedReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMostSimilarBook">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="model" type="tns1:BookPOJO" />
+            <xsd:element name="number" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMostSimilarBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getMostSimilarBookReturn" type="tns1:BookPOJO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchFormattedBooks">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="tags" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchFormattedBooksResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="searchFormattedBooksReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBookFromCategory">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="category" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBookFromCategoryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getBookFromCategoryReturn" type="tns1:BookPOJO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFormattedBookFromCategory">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="category" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFormattedBookFromCategoryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getFormattedBookFromCategoryReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFormattedBooks">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="limit" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFormattedBooksResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getFormattedBooksReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFormattedRange">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="offset" type="xsd:int" />
+            <xsd:element name="limit" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFormattedRangeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="getFormattedRangeReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://models.bilmancamp.rmirest.upem.fr">
+      <xsd:import namespace="http://ws.bilmancamp.rmirest.upem.fr" />
+      <xsd:complexType name="CommentImpl">
+        <xsd:sequence />
+      </xsd:complexType>
+      <xsd:complexType name="BookPOJO">
+        <xsd:sequence>
+          <xsd:element name="authors" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="categories" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="comments" nillable="true" type="impl:ArrayOf_tns1_CommentImpl" />
+          <xsd:element name="consultationNumber" type="xsd:int" />
+          <xsd:element name="id" type="xsd:int" />
+          <xsd:element name="mainImage" nillable="true" type="xsd:string" />
+          <xsd:element name="price" type="xsd:double" />
+          <xsd:element name="rateNumber" type="xsd:int" />
+          <xsd:element name="secondaryImages" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="summary" nillable="true" type="xsd:string" />
+          <xsd:element name="tags" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="title" nillable="true" type="xsd:string" />
+          <xsd:element name="totalRate" type="xsd:float" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getMostConsultedBookRequest">
+    <wsdl:part name="parameters" element="impl:getMostConsultedBook" />
+  </wsdl:message>
+  <wsdl:message name="searchFormattedBooksResponse">
+    <wsdl:part name="parameters" element="impl:searchFormattedBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMostConsultedBookFormattedRequest">
+    <wsdl:part name="parameters" element="impl:getMostConsultedBookFormatted" />
+  </wsdl:message>
+  <wsdl:message name="getBookFromCategoryRequest">
+    <wsdl:part name="parameters" element="impl:getBookFromCategory" />
+  </wsdl:message>
+  <wsdl:message name="getTotalBooksResponse">
+    <wsdl:part name="parameters" element="impl:getTotalBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCategoriesResponse">
+    <wsdl:part name="parameters" element="impl:getCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCategoriesRequest">
+    <wsdl:part name="parameters" element="impl:getCategories" />
+  </wsdl:message>
+  <wsdl:message name="getRangeRequest">
+    <wsdl:part name="parameters" element="impl:getRange" />
+  </wsdl:message>
+  <wsdl:message name="getFormattedRangeRequest">
+    <wsdl:part name="parameters" element="impl:getFormattedRange" />
+  </wsdl:message>
+  <wsdl:message name="getBooksForSellResponse">
+    <wsdl:part name="parameters" element="impl:getBooksForSellResponse" />
+  </wsdl:message>
+  <wsdl:message name="getBookFromCategoryResponse">
+    <wsdl:part name="parameters" element="impl:getBookFromCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="getFormattedBooksResponse">
+    <wsdl:part name="parameters" element="impl:getFormattedBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMostConsultedBookResponse">
+    <wsdl:part name="parameters" element="impl:getMostConsultedBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMostSimilarBookRequest">
+    <wsdl:part name="parameters" element="impl:getMostSimilarBook" />
+  </wsdl:message>
+  <wsdl:message name="getFormattedBookFromCategoryResponse">
+    <wsdl:part name="parameters" element="impl:getFormattedBookFromCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="sellBookResponse">
+    <wsdl:part name="parameters" element="impl:sellBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchBooksResponse">
+    <wsdl:part name="parameters" element="impl:searchBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchFormattedBooksRequest">
+    <wsdl:part name="parameters" element="impl:searchFormattedBooks" />
+  </wsdl:message>
+  <wsdl:message name="searchBooksRequest">
+    <wsdl:part name="parameters" element="impl:searchBooks" />
+  </wsdl:message>
+  <wsdl:message name="getMostSimilarBookResponse">
+    <wsdl:part name="parameters" element="impl:getMostSimilarBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="sellBookRequest">
+    <wsdl:part name="parameters" element="impl:sellBook" />
+  </wsdl:message>
+  <wsdl:message name="getBooksForSellRequest">
+    <wsdl:part name="parameters" element="impl:getBooksForSell" />
+  </wsdl:message>
+  <wsdl:message name="getFormattedBookFromCategoryRequest">
+    <wsdl:part name="parameters" element="impl:getFormattedBookFromCategory" />
+  </wsdl:message>
+  <wsdl:message name="getFormattedBooksRequest">
+    <wsdl:part name="parameters" element="impl:getFormattedBooks" />
+  </wsdl:message>
+  <wsdl:message name="getFormattedRangeResponse">
+    <wsdl:part name="parameters" element="impl:getFormattedRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRangeResponse">
+    <wsdl:part name="parameters" element="impl:getRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getImageRequest">
+    <wsdl:part name="parameters" element="impl:getImage" />
+  </wsdl:message>
+  <wsdl:message name="getImageResponse">
+    <wsdl:part name="parameters" element="impl:getImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMostConsultedBookFormattedResponse">
+    <wsdl:part name="parameters" element="impl:getMostConsultedBookFormattedResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTotalBooksRequest">
+    <wsdl:part name="parameters" element="impl:getTotalBooks" />
+  </wsdl:message>
+  <wsdl:portType name="MLVLibService">
+    <wsdl:operation name="getCategories">
+      <wsdl:input name="getCategoriesRequest" message="impl:getCategoriesRequest" />
+      <wsdl:output name="getCategoriesResponse" message="impl:getCategoriesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getImage">
+      <wsdl:input name="getImageRequest" message="impl:getImageRequest" />
+      <wsdl:output name="getImageResponse" message="impl:getImageResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getRange">
+      <wsdl:input name="getRangeRequest" message="impl:getRangeRequest" />
+      <wsdl:output name="getRangeResponse" message="impl:getRangeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getBooksForSell">
+      <wsdl:input name="getBooksForSellRequest" message="impl:getBooksForSellRequest" />
+      <wsdl:output name="getBooksForSellResponse" message="impl:getBooksForSellResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTotalBooks">
+      <wsdl:input name="getTotalBooksRequest" message="impl:getTotalBooksRequest" />
+      <wsdl:output name="getTotalBooksResponse" message="impl:getTotalBooksResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="searchBooks">
+      <wsdl:input name="searchBooksRequest" message="impl:searchBooksRequest" />
+      <wsdl:output name="searchBooksResponse" message="impl:searchBooksResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sellBook">
+      <wsdl:input name="sellBookRequest" message="impl:sellBookRequest" />
+      <wsdl:output name="sellBookResponse" message="impl:sellBookResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMostConsultedBook">
+      <wsdl:input name="getMostConsultedBookRequest" message="impl:getMostConsultedBookRequest" />
+      <wsdl:output name="getMostConsultedBookResponse" message="impl:getMostConsultedBookResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMostConsultedBookFormatted">
+      <wsdl:input name="getMostConsultedBookFormattedRequest" message="impl:getMostConsultedBookFormattedRequest" />
+      <wsdl:output name="getMostConsultedBookFormattedResponse" message="impl:getMostConsultedBookFormattedResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMostSimilarBook">
+      <wsdl:input name="getMostSimilarBookRequest" message="impl:getMostSimilarBookRequest" />
+      <wsdl:output name="getMostSimilarBookResponse" message="impl:getMostSimilarBookResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="searchFormattedBooks">
+      <wsdl:input name="searchFormattedBooksRequest" message="impl:searchFormattedBooksRequest" />
+      <wsdl:output name="searchFormattedBooksResponse" message="impl:searchFormattedBooksResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getBookFromCategory">
+      <wsdl:input name="getBookFromCategoryRequest" message="impl:getBookFromCategoryRequest" />
+      <wsdl:output name="getBookFromCategoryResponse" message="impl:getBookFromCategoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getFormattedBookFromCategory">
+      <wsdl:input name="getFormattedBookFromCategoryRequest" message="impl:getFormattedBookFromCategoryRequest" />
+      <wsdl:output name="getFormattedBookFromCategoryResponse" message="impl:getFormattedBookFromCategoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getFormattedBooks">
+      <wsdl:input name="getFormattedBooksRequest" message="impl:getFormattedBooksRequest" />
+      <wsdl:output name="getFormattedBooksResponse" message="impl:getFormattedBooksResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getFormattedRange">
+      <wsdl:input name="getFormattedRangeRequest" message="impl:getFormattedRangeRequest" />
+      <wsdl:output name="getFormattedRangeResponse" message="impl:getFormattedRangeResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MLVLibServiceSoapBinding" type="impl:MLVLibService">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getCategories">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getCategoriesRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getCategoriesResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getImage">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getImageRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getImageResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRange">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getRangeRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getRangeResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBooksForSell">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getBooksForSellRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getBooksForSellResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTotalBooks">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getTotalBooksRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getTotalBooksResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchBooks">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="searchBooksRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="searchBooksResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sellBook">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="sellBookRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sellBookResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMostConsultedBook">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getMostConsultedBookRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMostConsultedBookResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMostConsultedBookFormatted">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getMostConsultedBookFormattedRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMostConsultedBookFormattedResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMostSimilarBook">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getMostSimilarBookRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMostSimilarBookResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchFormattedBooks">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="searchFormattedBooksRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="searchFormattedBooksResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookFromCategory">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getBookFromCategoryRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getBookFromCategoryResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFormattedBookFromCategory">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getFormattedBookFromCategoryRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getFormattedBookFromCategoryResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFormattedBooks">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getFormattedBooksRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getFormattedBooksResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFormattedRange">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getFormattedRangeRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getFormattedRangeResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MLVLibServiceService">
+    <wsdl:port name="MLVLibService" binding="impl:MLVLibServiceSoapBinding">
+      <wsdlsoap:address location="http://localhost:8080/BilManCampRest/services/MLVLibService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

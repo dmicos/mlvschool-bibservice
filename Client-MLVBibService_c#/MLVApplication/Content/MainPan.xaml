@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="MLVApplication.Content.MainPan"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MLVApplication.Content"
+             xmlns:pageTransitions="clr-namespace:WpfPageTransitions;assembly=WpfPageTransitions"
+             mc:Ignorable="d" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <pageTransitions:PageTransition Name="pageTransitionControl" Margin="25" TransitionType="SpinAndFade" />
+        <mui:ModernProgressRing  Name="loader" IsActive="True" Width="200" Height="100" Style="{StaticResource CircleProgressRingStyle}" />
+
+    </Grid>
+</UserControl>

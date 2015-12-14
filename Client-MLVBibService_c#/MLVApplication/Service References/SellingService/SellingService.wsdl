@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://selling.bilmancamp.rmirest.upem.fr" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://selling.bilmancamp.rmirest.upem.fr" targetNamespace="http://selling.bilmancamp.rmirest.upem.fr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://selling.bilmancamp.rmirest.upem.fr">
+      <xsd:element name="change">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="currencyFrom" type="xsd:string" />
+            <xsd:element name="currencyTo" type="xsd:string" />
+            <xsd:element name="amount" type="xsd:double" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="changeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="changeReturn" type="xsd:double" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sellBook">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:long" />
+            <xsd:element name="password" type="xsd:string" />
+            <xsd:element name="price" type="xsd:double" />
+            <xsd:element name="currency" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sellBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="sellBookReturn" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="sellBookResponse">
+    <wsdl:part name="parameters" element="impl:sellBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="changeResponse">
+    <wsdl:part name="parameters" element="impl:changeResponse" />
+  </wsdl:message>
+  <wsdl:message name="sellBookRequest">
+    <wsdl:part name="parameters" element="impl:sellBook" />
+  </wsdl:message>
+  <wsdl:message name="changeRequest">
+    <wsdl:part name="parameters" element="impl:change" />
+  </wsdl:message>
+  <wsdl:portType name="SellingService">
+    <wsdl:operation name="change">
+      <wsdl:input name="changeRequest" message="impl:changeRequest" />
+      <wsdl:output name="changeResponse" message="impl:changeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sellBook">
+      <wsdl:input name="sellBookRequest" message="impl:sellBookRequest" />
+      <wsdl:output name="sellBookResponse" message="impl:sellBookResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SellingServiceSoapBinding" type="impl:SellingService">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="change">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="changeRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="changeResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sellBook">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="sellBookRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sellBookResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SellingServiceService">
+    <wsdl:port name="SellingService" binding="impl:SellingServiceSoapBinding">
+      <wsdlsoap:address location="http://localhost:8080/BilManCampRest/services/SellingService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="MLVApplication.Content.Panier"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MLVApplication.Content"
+             mc:Ignorable="d" 
+             DataContext="{Binding Panier, Source={StaticResource Locator}}"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <Grid>
+
+
+        <ItemsControl ItemsSource="{Binding Books}" Margin="10">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" HorizontalAlignment="Stretch">
+                        <ItemsPresenter></ItemsPresenter>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <StackPanel Orientation="Vertical" Margin="10" Width="150" Name="pan" Cursor="Hand">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self },
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Background" Value="LightGray"/>
+                                            <Setter Property="Opacity" Value="0.2"/>
+
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Image Source="../Pictures/1.jpg" Width="150" Height="160"/>
+                            <!--<mui:ModernProgressRing Width="150" Height="160"  IsActive="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Image>
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=Model.IsConnected, Mode=OneWay}" Value=" En Ligne ">
+                                                    <Setter Property="Source" Value="../Pictures/ok.png" />
+                                                    <Setter Property="Width" Value="15"></Setter>
+                                                    <Setter Property="Height" Value="15"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=Model.IsConnected, Mode=OneWay}" Value=" Déconnecté ">
+                                                    <Setter Property="Source" Value="../Pictures/cross.png" />
+                                                    <Setter Property="Width" Value="10"></Setter>
+                                                    <Setter Property="Height" Value="10"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=Model.IsConnected, Mode=OneWay}" Value="Tentative de connexion...">
+                                                    <Setter Property="Source" Value="../Pictures/wait.png" />
+                                                    <Setter Property="Width" Value="10"></Setter>
+                                                    <Setter Property="Height" Value="10"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+
+                                <TextBlock HorizontalAlignment="Center" Margin="5 0">
+                             <Hyperlink Command="{Binding ShowDetail}">
+                                 <TextBlock Text="{Binding Name}"></TextBlock>
+                             </Hyperlink>
+                         </TextBlock>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical"  Margin=" 5 5 0 0" >
+                            <TextBlock Style="{StaticResource Heading2}"> Titre du livre</TextBlock>
+                            <Separator />
+                            <TextBlock> Sous titre 1</TextBlock>
+                            <TextBlock> Sous titre 2</TextBlock>
+                            <TextBlock> Sous titre 3</TextBlock>
+                            <TextBlock> Sous titre 4</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Pictures/start_filled_icon.png" Width="24" Height="22" />
+                                <Image Source="../Pictures/start_filled_icon.png" Width="24" Height="22" />
+                                <Image Source="../Pictures/start_icon.png" Width="24" Height="22" />
+                                <Image Source="../Pictures/start_icon.png" Width="24" Height="22" />
+                                <Image Source="../Pictures/start_icon.png" Width="24" Height="22" />
+                            </StackPanel>
+                            <Button HorizontalAlignment="Stretch" Height="40" Width="120" Content="Acheter" Margin="2"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

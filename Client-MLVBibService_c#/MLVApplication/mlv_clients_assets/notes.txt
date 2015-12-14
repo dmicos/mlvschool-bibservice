@@ -1,0 +1,7 @@
+Salut Yann ! Notes sur le design :
+
+Couleur principale noire : #1f1f1f; (31, 31, 31);
+Couleur "orangée" : #ff931e; (255, 147, 30);
+
+Font blanche : #ffffff
+Font "grisâtre" : #ffffff avec opacité à 0.7

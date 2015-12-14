@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="MLVApplication.pages.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:content="clr-namespace:FirstFloor.ModernUI.App.Content"
+             xmlns:app="clr-namespace:FirstFloor.ModernUI.App"
+             xmlns:pageTransitions="clr-namespace:WpfPageTransitions;assembly=WpfPageTransitions"
+
+             xmlns:local="clr-namespace:MLVApplication"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             DataContext="{Binding Rubrique, Source={StaticResource Locator}}"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    
+    <Grid Style="{StaticResource ContentRoot}">
+
+        <!-- optional header -->
+        <Grid Margin="{StaticResource HeaderMargin}" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Rectangle />
+            <StackPanel Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
+                    <StackPanel.Resources>
+                        <Style TargetType="mui:ModernButton">
+                            <Setter Property="Margin" Value="0,0,8,0" />
+                            <Setter Property="BorderThickness" Value="2" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <pageTransitions:PageTransition TransitionType="SpinAndFade" Name="transition" Height="30" Margin="2"/>
+
+                    <ComboBox x:Name="Page" Width="200" Height="30" Margin="2" ItemsSource="{Binding Pages}"  SelectedItem="{Binding SelectedPage}"/>
+                    
+                    <TextBox Width="250"  Height="30" Margin="2" Name="search">
+                    
+                    </TextBox>
+                    <Button Content="Search"   Name="b1" Margin="2" Click="b1_Click"     />
+                </StackPanel>
+            </StackPanel>
+           
+        </Grid>
+
+        <Grid Margin="{StaticResource HeaderMargin}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle />
+            <TextBlock Style="{StaticResource Heading2}"> Rubrique</TextBlock>
+        </Grid>
+
+        <mui:ModernTab  Layout="List" Links="{Binding Links}" SelectedSource="/Content/BookListTransition.xaml"  Name="menu" SelectedSourceChanged="menu_SelectedSourceChanged">
+            
+            
+            <!--<mui:ModernTab.Links>
+                <mui:Link DisplayName="Categorie 1" Source=""/>
+                <mui:Link DisplayName="Categorie 1" Source="/Content/BookListTransition.xaml#2"/>
+                <mui:Link DisplayName="Categorie 1" Source="/Content/BookListTransition.xaml#3"/>
+                <mui:Link DisplayName="Categorie 1" Source="/Content/BookListTransition.xaml#4" />
+
+
+             </mui:ModernTab.Links>-->
+    
+        </mui:ModernTab>
+        
+    </Grid>
+</UserControl>
