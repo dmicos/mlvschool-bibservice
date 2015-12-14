@@ -1,0 +1,37 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SellingServiceService WSDL service -->
+
+  <service name="SellingService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://selling.ws.bilmancamp.rmirest.upem.fr"/>
+      <parameter name="wsdlServiceElement" value="SellingServiceService"/>
+      <parameter name="schemaQualified" value="http://selling.ws.bilmancamp.rmirest.upem.fr"/>
+      <parameter name="wsdlServicePort" value="SellingService"/>
+      <parameter name="className" value="fr.upem.rmirest.bilmancamp.ws.selling.SellingServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="SellingService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="change" qname="operNS:change" xmlns:operNS="http://selling.ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:changeReturn" xmlns:retNS="http://selling.ws.bilmancamp.rmirest.upem.fr" returnType="rtns:double" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:currencyFrom" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:currencyTo" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:amount" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:double" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="sellBook" qname="operNS:sellBook" xmlns:operNS="http://selling.ws.bilmancamp.rmirest.upem.fr" returnQName="retNS:sellBookReturn" xmlns:retNS="http://selling.ws.bilmancamp.rmirest.upem.fr" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:price" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:double" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:currency" xmlns:pns="http://selling.ws.bilmancamp.rmirest.upem.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="sellBook change"/>
+
+  </service>
+</deployment>
